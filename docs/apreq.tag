@@ -1129,6 +1129,7 @@
     <filename>CHANGES</filename>
     <docanchor>v2_0_0</docanchor>
     <docanchor>v2_01_dev</docanchor>
+    <docanchor>v2_02_dev</docanchor>
   </compound>
   <compound kind="page">
     <name>STATUS</name>

@@ -1,15 +1,15 @@
 --- #YAML:1.0 (see http://module-build.sourceforge.net/META-spec.html)
 name: libapreq2
-version: 2.01-dev
+version: 2.02-dev
 license: open_source
 installdirs: site
 distribution_type: module
 dynamic_config: 1
 provides:
   Apache::Request:
-    version: 2.01-dev
+    version: 2.02-dev
   Apache::Cookie:
-    version: 2.01-dev
+    version: 2.02-dev
 generated_by: build/version_check.pl
 requires:
   mod_perl: 1.99_09

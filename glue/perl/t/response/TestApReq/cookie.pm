@@ -11,7 +11,6 @@ use Apache::Connection;
 use Apache::Cookie ();
 use Apache::Request ();
 
-
 sub handler {
     my $r = shift;
     my $req = Apache::Request->new($r);
@@ -21,7 +20,7 @@ sub handler {
     my $test = $req->param('test');
     my $key  = $req->param('key');
 
-    if ($cookies{$key}) {
+    if ($key and $cookies{$key}) {
         if ($test eq "bake") {
             $cookies{$key}->bake;
         }
@@ -29,6 +28,20 @@ sub handler {
             $cookies{$key}->bake2;
         }
         $r->print($cookies{$key}->value);
+    }
+    else {
+        my @expires;
+        @expires = ("expires", $req->param('expires')) if $req->param('expires');
+
+        my $cookie = Apache::Cookie->new($r, name => "foo",
+                                            value => "bar", @expires);
+        if ($test eq "bake") {
+            $cookie->bake;
+        }
+        elsif ($test eq "bake2") {
+            $cookie->bake2;
+        }
+        $r->print($cookie->value);
     }
 
 

@@ -3474,9 +3474,6 @@ $doxydocs=
                 detailed => {
                   doc => [
                     {
-                      type => 'parbreak'
-                    },
-                    {
                       type => 'text',
                       content => 'Quote the strings, backslashing existing quote marks.'
                     }
@@ -3591,9 +3588,6 @@ $doxydocs=
             brief => {},
             detailed => {
               doc => [
-                {
-                  type => 'parbreak'
-                },
                 {
                   type => 'text',
                   content => 'Construcs an '
@@ -4335,9 +4329,6 @@ $doxydocs=
             detailed => {
               doc => [
                 {
-                  type => 'parbreak'
-                },
-                {
                   type => 'text',
                   content => 'Url-encodes a string. '
                 }
@@ -4423,6 +4414,9 @@ $doxydocs=
             brief => {},
             detailed => {
               doc => [
+                {
+                  type => 'parbreak'
+                },
                 {
                   type => 'text',
                   content => 'Url-decodes a string. '
@@ -5164,9 +5158,6 @@ $doxydocs=
       brief => {
         doc => [
           {
-            type => 'parbreak'
-          },
-          {
             type => 'text',
             content => 'Common functions, structures and macros.'
           }
@@ -5174,6 +5165,9 @@ $doxydocs=
       },
       detailed => {
         doc => [
+          {
+            type => 'parbreak'
+          },
           {
             type => 'text',
             content => 'The objects in '
@@ -5426,9 +5420,6 @@ $doxydocs=
             brief => {},
             detailed => {
               doc => [
-                {
-                  type => 'parbreak'
-                },
                 {
                   type => 'text',
                   content => 'Get/set the "expires" string. For NETSCAPE cookies, this returns the date (properly formatted) when the cookie is to expire. For RFC cookies, this function returns NULL.'
@@ -6580,9 +6571,6 @@ $doxydocs=
             brief => {},
             detailed => {
               doc => [
-                {
-                  type => 'parbreak'
-                },
                 {
                   type => 'text',
                   content => 'Returns a new cookie, made from the argument list. The cookie is allocated from the ctx pool.'
@@ -8536,9 +8524,6 @@ $doxydocs=
             detailed => {
               doc => [
                 {
-                  type => 'parbreak'
-                },
-                {
                   type => 'text',
                   content => 'Returns the first parameter value for the requested key, NULL if none found. The key is case-insensitive. '
                 }
@@ -8613,9 +8598,6 @@ $doxydocs=
             brief => {},
             detailed => {
               doc => [
-                {
-                  type => 'parbreak'
-                },
                 {
                   type => 'text',
                   content => 'Returns all parameters for the requested key, NULL if none found. The key is case-insensitive. '
@@ -8692,9 +8674,6 @@ $doxydocs=
             brief => {},
             detailed => {
               doc => [
-                {
-                  type => 'parbreak'
-                },
                 {
                   type => 'text',
                   content => 'Url-decodes a name=value pair into a param. '
@@ -8802,6 +8781,9 @@ $doxydocs=
             detailed => {
               doc => [
                 {
+                  type => 'parbreak'
+                },
+                {
                   type => 'text',
                   content => 'Url-encodes the param into a name-value pair.'
                 }
@@ -8830,9 +8812,6 @@ $doxydocs=
             brief => {},
             detailed => {
               doc => [
-                {
-                  type => 'parbreak'
-                },
                 {
                   type => 'text',
                   content => 'Parse a url-encoded string into a param table. '
@@ -9698,9 +9677,6 @@ $doxydocs=
             detailed => {
               doc => [
                 {
-                  type => 'parbreak'
-                },
-                {
                   type => 'text',
                   content => 'Url-decodes a name=value pair into a param. '
                 }
@@ -9835,9 +9811,6 @@ $doxydocs=
             brief => {},
             detailed => {
               doc => [
-                {
-                  type => 'parbreak'
-                },
                 {
                   type => 'text',
                   content => 'Parse a url-encoded string into a param table. '
@@ -11252,7 +11225,7 @@ $doxydocs=
                 }
               ]
             },
-            initializer => '1'
+            initializer => '2'
           },
           {
             kind => 'define',
@@ -12252,7 +12225,7 @@ $doxydocs=
 		<li><a href="#name">name</a></li>
 		<li><a href="#filename">filename</a></li>
 		<li><a href="#bb_[replaces_fh]">bb [replaces fh]</a></li>
-		<li><a href="#size">size</a></li>
+		<li><a href="#size_[todo]">size [TODO]</a></li>
 		<li><a href="#info">info</a></li>
 		<li><a href="#type_[todo]">type [TODO]</a></li>
 		<li><a href="#tempname_[xxx_does_this_mesh_with_brigade_api]">tempname [XXX- Does this mesh with brigade API?]</a></li>
@@ -12468,7 +12441,7 @@ Apache::Request object to delegate to.)  For example:</p>
 <p>The APR::Brigade containing the contents of the uploaded file.</p>
 <p>
 </p>
-<h2><a name="size">size</a></h2>
+<h2><a name="size_[todo]">size [TODO]</a></h2>
 <p>The size of the file in bytes:</p>
 <pre>
     my $size = $upload-&gt;size;</pre>
@@ -13475,9 +13448,6 @@ Apache::Cookie with a package that provides the associated <code>thaw</code> sub
             detailed => {
               doc => [
                 {
-                  type => 'parbreak'
-                },
-                {
                   type => 'text',
                   content => 'Join an array of values. '
                 }
@@ -13699,6 +13669,9 @@ Apache::Cookie with a package that provides the associated <code>thaw</code> sub
             brief => {},
             detailed => {
               doc => [
+                {
+                  type => 'parbreak'
+                },
                 {
                   type => 'text',
                   content => 'Returns offset of match string\'s location, or -1 if no match is found. '
@@ -14417,9 +14390,6 @@ Apache::Cookie with a package that provides the associated <code>thaw</code> sub
             brief => {},
             detailed => {
               doc => [
-                {
-                  type => 'parbreak'
-                },
                 {
                   type => 'text',
                   content => 'Converts time strings (YMDhms) to seconds '
@@ -16551,6 +16521,9 @@ Apache::Cookie with a package that provides the associated <code>thaw</code> sub
             detailed => {
               doc => [
                 {
+                  type => 'parbreak'
+                },
+                {
                   type => 'text',
                   content => 'Returns a ", " -separated string containing all parameters for the requested key, NULL if none found. The key is case-insensitive. '
                 }
@@ -17036,6 +17009,9 @@ Apache::Cookie with a package that provides the associated <code>thaw</code> sub
             brief => {},
             detailed => {
               doc => [
+                {
+                  type => 'parbreak'
+                },
                 {
                   type => 'text',
                   content => 'Url-encodes the param into a name-value pair.'
@@ -18241,6 +18217,30 @@ Apache::Cookie with a package that provides the associated <code>thaw</code> sub
                   [
                     {
                       type => 'text',
+                      content => 'November 12, 2003 - Perl API [joes]'
+                    }
+                  ]
+                ]
+              },
+              {
+                type => 'parbreak'
+              },
+              {
+                type => 'text',
+                content => 'Fix bogus pool/cookie initializers in Apache::Cookie::set_attr(), which caused Apache::Cookie::new to segfault. Bug first reported to modperl list by Wolfgang Kubens.'
+              }
+            ]
+          },
+          {
+            type => 'sect1',
+            content => [
+              {
+                type => 'list',
+                style => 'itemized',
+                content => [
+                  [
+                    {
+                      type => 'text',
                       content => 'November 7, 2003 - build system [joes]'
                     }
                   ]
@@ -18804,7 +18804,7 @@ Apache::Cookie with a package that provides the associated <code>thaw</code> sub
         doc => [
           {
             type => 'text',
-            content => '2.01-dev tagged and rolled for release on November 10, 2003'
+            content => '2.02-dev released on November 16, 2003'
           },
           {
             type => 'parbreak'

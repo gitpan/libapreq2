@@ -27,6 +27,7 @@ extern "C" {
 /**
  * @file apreq_version.h
  * @brief Versioning API for libapreq
+ * @ingroup libapreq2
  *
  * There are several different mechanisms for accessing the version. There
  * is a string form, and a set of numbers; in addition, there are constants
@@ -60,7 +61,7 @@ extern "C" {
 #define APREQ_MINOR_VERSION       0
 
 /** patch level */
-#define APREQ_PATCH_VERSION       7
+#define APREQ_PATCH_VERSION      20
 
 /** 
  *  This symbol is defined for internal, "development" copies of libapreq.
@@ -94,6 +95,7 @@ APREQ_DECLARE(const char *) apreq_version_string(void);
 #else
 #define APREQ_IS_DEV_STRING ""
 #endif
+
 
 #ifdef __cplusplus
 }

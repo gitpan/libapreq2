@@ -40,14 +40,13 @@ APREQ_DECLARE(apreq_value_t *)apreq_make_value(apr_pool_t  *p,
     v->name = v->data + vlen + 1;
     memcpy((char *)v->name, name, nlen);
     ((char *)v->name)[nlen] = 0;
-    v->status = APR_SUCCESS;
 
     return v;
 }
 
 
-apreq_value_t * apreq_copy_value(apr_pool_t *p, 
-                                 const apreq_value_t *val)
+APREQ_DECLARE(apreq_value_t *)apreq_copy_value(apr_pool_t *p, 
+                                               const apreq_value_t *val)
 {
     apreq_value_t *v;
     if (val == NULL)
@@ -67,7 +66,8 @@ apreq_value_t * apreq_merge_values(apr_pool_t *p,
                                    const apr_array_header_t *arr)
 {
     apreq_value_t *a = *(apreq_value_t **)(arr->elts);
-    apreq_value_t *v = apreq_char_to_value( apreq_join(p, ", ", arr, AS_IS) );
+    apreq_value_t *v = apreq_char_to_value( 
+        apreq_join(p, ", ", arr, APREQ_JOIN_AS_IS) );
     if (arr->nelts > 0)
         v->name = a->name;
     return v;
@@ -97,7 +97,7 @@ APREQ_DECLARE(char *) apreq_expires(apr_pool_t *p, const char *time_str,
 {
     apr_time_t when;
     apr_time_exp_t tms;
-    char sep = (type == HTTP) ? ' ' : '-';
+    char sep = (type == APREQ_EXPIRES_HTTP) ? ' ' : '-';
 
     if (time_str == NULL) {
 	return NULL;
@@ -196,7 +196,7 @@ APREQ_DECLARE(char *) apreq_memmem(char* hay, apr_size_t hlen,
 
 	/* done if matches up to capacity of buffer */
 	if ( memcmp(hay, ndl, MIN(nlen, len)) == 0 ) {
-            if (type == FULL && len < nlen)
+            if (type == APREQ_MATCH_FULL && len < nlen)
                 hay = NULL;     /* insufficient room for match */
 	    break;
         }
@@ -220,7 +220,7 @@ APREQ_DECLARE(apr_ssize_t ) apreq_index(const char* hay, apr_size_t hlen,
 
 	/* done if matches up to capacity of buffer */
 	if ( memcmp(hay, ndl, MIN(nlen, len)) == 0 ) {
-            if (type == FULL && len < nlen)
+            if (type == APREQ_MATCH_FULL && len < nlen)
                 hay = NULL;     /* insufficient room for match */
 	    break;
         }
@@ -278,25 +278,13 @@ static APR_INLINE unsigned int x2ui(const char *what) {
     return (digit);
 }
 
-APREQ_DECLARE(apr_ssize_t) apreq_decode(char *d, const char *s, 
-                                       const apr_size_t slen)
+APR_INLINE
+static apr_status_t url_decode(char *d, apr_size_t *dlen, 
+                               const char *s, apr_size_t *slen)
 {
-    register int badesc = 0;
+    const char *src = s;
     char *start = d;
-    const char *end = s + slen;
-
-    if (s == NULL || d == NULL)
-        return -1;
-
-    if (s == (const char *)d) {     /* optimize for src = dest case */
-        for ( ; s < end; ++s) {
-            if (*s == '%' || *s == '+')
-                break;
-            else if (*s == 0)
-                return s - (const char *)d;
-        }
-        d = (char *)s;
-    }
+    const char *end = s + *slen;
 
     for (; s < end; ++d, ++s) {
         switch (*s) {
@@ -306,12 +294,12 @@ APREQ_DECLARE(apr_ssize_t) apreq_decode(char *d, const char *s,
             break;
 
         case '%':
-	    if (apr_isxdigit(s[1]) && apr_isxdigit(s[2]))
+	    if (s + 2 < end && apr_isxdigit(s[1]) && apr_isxdigit(s[2]))
             {
 		*d = x2c(s + 1);
 		s += 2;
 	    }
-            else if ((s[1] == 'u' || s[1] == 'U') &&
+            else if (s + 5 < end && (s[1] == 'u' || s[1] == 'U') &&
                      apr_isxdigit(s[2]) && apr_isxdigit(s[3]) && 
                      apr_isxdigit(s[4]) && apr_isxdigit(s[5]))
             {
@@ -352,14 +340,23 @@ APREQ_DECLARE(apr_ssize_t) apreq_decode(char *d, const char *s,
                 s += 5;
             }
 	    else {
-		badesc = 1;
-		*d = '%';
+                *dlen = d - start;
+                *slen = s - src;
+                if (s + 5 < end || (s + 2 < end && s[1] != 'u' && s[1] != 'U')) {
+                    *d = 0;
+                    return APR_EGENERAL;
+                }
+                memcpy(d, s, end - s);
+                d[end - s] = 0;
+                return APR_INCOMPLETE;
 	    }
             break;
 
         case 0:
             *d = 0;
-            return -1;
+            *dlen = d - start;
+            *slen = s - src;
+            return APR_BADCH;
 
         default:
             *d = *s;
@@ -367,11 +364,80 @@ APREQ_DECLARE(apr_ssize_t) apreq_decode(char *d, const char *s,
     }
 
     *d = 0;
+    *dlen = d - start;
+    *slen = s - src;
+    return APR_SUCCESS;
+}
 
-    if (badesc)
-	return -2;
-    else
-	return d - start;
+APREQ_DECLARE(apr_ssize_t) apreq_decode(char *d, const char *s, 
+                                        apr_size_t slen)
+{
+    apr_size_t dlen;
+    const char *end = s + slen;
+
+    if (s == NULL || d == NULL)
+        return -1;
+
+    if (s == (const char *)d) {     /* optimize for src = dest case */
+        for ( ; s < end; ++s) {
+            if (*s == '%' || *s == '+')
+                break;
+            else if (*s == 0)
+                return s - (const char *)d;
+        }
+        d = (char *)s;
+    }
+
+    switch (url_decode(d, &dlen, s, &slen)) {
+    case APR_SUCCESS:
+        return dlen;
+    case APR_INCOMPLETE:
+        return -2;
+    default:
+        return -1;
+    }
+}
+
+
+APREQ_DECLARE(apr_status_t) apreq_decodev(char *d, apr_size_t *dlen,
+                                          struct iovec *v, int nelts)
+{
+    apr_status_t status = APR_SUCCESS;
+    int n = 0;
+
+    *dlen = 0;
+    for (n = 0; n < nelts; ++n) {
+        apr_size_t slen, len;
+
+    start_decodev:
+
+        slen = v[n].iov_len;
+        switch (status = url_decode(d,&len,v[n].iov_base, &slen)) {
+
+        case APR_SUCCESS:
+            d += len;
+            *dlen += len;
+            continue;
+
+        case APR_INCOMPLETE:
+            d += len;
+            *dlen += len;
+
+            if (++n == nelts)
+                return APR_INCOMPLETE;
+
+            len = v[n-1].iov_len - slen;
+            memcpy(d + len, v[n].iov_base, v[n].iov_len);
+            v[n].iov_len += len;
+            v[n].iov_base = d;
+            goto start_decodev;
+
+        default:
+            *dlen = len;
+            return status;
+        }
+    }
+    return APR_SUCCESS;
 }
 
 
@@ -478,10 +544,10 @@ APREQ_DECLARE(const char *) apreq_join(apr_pool_t *p,
     /* Allocated the required space */
 
     switch (mode) {
-    case ENCODE:
+    case APREQ_JOIN_ENCODE:
         len += 2 * len;
         break;
-    case QUOTE:
+    case APREQ_JOIN_QUOTE:
         len = 2 * (len + n);
         break;
     default:
@@ -492,7 +558,6 @@ APREQ_DECLARE(const char *) apreq_join(apr_pool_t *p,
     rv = apr_palloc(p, len + sizeof *rv);
     rv->name = 0;
     rv->size = 0;
-    rv->status = APR_SUCCESS;
     rv->data[0] = 0;
 
     if (n == 0)
@@ -504,7 +569,7 @@ APREQ_DECLARE(const char *) apreq_join(apr_pool_t *p,
 
     switch (mode) {
 
-    case ENCODE:
+    case APREQ_JOIN_ENCODE:
         d += apreq_encode(d, a[0]->data, a[0]->size);
 
         for (j = 1; j < n; ++j) {
@@ -514,13 +579,11 @@ APREQ_DECLARE(const char *) apreq_join(apr_pool_t *p,
         }
         break;
 
-    case DECODE:
+    case APREQ_JOIN_DECODE:
         len = apreq_decode(d, a[0]->data, a[0]->size);
 
-        if (len < 0) {
-            rv->status = APR_BADCH;
-            break;
-        }
+        if (len < 0)
+            return NULL;
         else
             d += len;
 
@@ -530,17 +593,15 @@ APREQ_DECLARE(const char *) apreq_join(apr_pool_t *p,
 
             len = apreq_decode(d, a[j]->data, a[j]->size);
 
-            if (len < 0) {
-                rv->status = APR_BADCH;
-                break;
-            }
+            if (len < 0)
+                return NULL;
             else
                 d += len;
         }
         break;
 
 
-    case QUOTE:
+    case APREQ_JOIN_QUOTE:
 
         d += apreq_quote_once(d, a[0]->data, a[0]->size);
 
@@ -552,7 +613,7 @@ APREQ_DECLARE(const char *) apreq_join(apr_pool_t *p,
         break;
 
 
-    case AS_IS:
+    case APREQ_JOIN_AS_IS:
         memcpy(d,a[0]->data,a[0]->size);
         d += a[0]->size;
 
@@ -582,7 +643,6 @@ APREQ_DECLARE(char *) apreq_escape(apr_pool_t *p,
 
     rv = apr_palloc(p, 3 * slen + sizeof *rv);
     rv->name = NULL;
-    rv->status = APR_SUCCESS;
     rv->size = apreq_encode(rv->data, src, slen);
     return rv->data;
 }
@@ -637,7 +697,7 @@ static apr_status_t apreq_fwritev(apr_file_t *f, struct iovec *v,
     return s;
 }
 
-/* this function now consumes the brigade, deleting buckets as it goes */
+
 APREQ_DECLARE(apr_status_t) apreq_brigade_fwrite(apr_file_t *f, 
                                                  apr_off_t *wlen,
                                                  apr_bucket_brigade *bb)
@@ -649,7 +709,7 @@ APREQ_DECLARE(apr_status_t) apreq_brigade_fwrite(apr_file_t *f,
     *wlen = 0;
 
     for (e = APR_BRIGADE_FIRST(bb); e != APR_BRIGADE_SENTINEL(bb);
-         e = APR_BRIGADE_FIRST(bb)) 
+         e = APR_BUCKET_NEXT(e)) 
     {
         apr_size_t len;
         if (n == APREQ_NELTS) {
@@ -664,7 +724,6 @@ APREQ_DECLARE(apr_status_t) apreq_brigade_fwrite(apr_file_t *f,
             return s;
 
         v[n++].iov_len = len;
-        apr_bucket_delete(e);
     }
 
     while (n > 0) {
@@ -677,32 +736,70 @@ APREQ_DECLARE(apr_status_t) apreq_brigade_fwrite(apr_file_t *f,
     return APR_SUCCESS;
 }
 
+
+struct cleanup_data {
+    const char *fname;
+    apr_pool_t *pool;
+};
+
+static apr_status_t apreq_file_cleanup(void *d)
+{
+    struct cleanup_data *data = d;
+    return apr_file_remove(data->fname, data->pool);
+}
+
+/*
+ * The reason we need the above cleanup is because on Windows, APR_DELONCLOSE
+ * forces applications to open the file with FILE_SHARED_DELETE
+ * set, which is, unfortunately, a property that is preserved 
+ * across NTFS "hard" links.  This breaks apps that link() the temp 
+ * file to a permanent location, and subsequently expect to open it 
+ * before the original tempfile is closed+deleted. In fact, even
+ * Apache::Upload does this, so it is a common enough event that the
+ * apreq_file_cleanup workaround is necessary.
+ */
+
 APREQ_DECLARE(apr_status_t) apreq_file_mktemp(apr_file_t **fp, 
                                               apr_pool_t *pool,
                                               const char *path)
 {
-    apr_status_t rc = APR_SUCCESS;
+    apr_status_t rc;
     char *tmpl;
-    if (path) {
-        rc = apr_filepath_merge(&tmpl, path, "apreqXXXXXX",
-                                APR_FILEPATH_NOTRELATIVE, pool);
+    struct cleanup_data *data;
+
+    if (path == NULL) {
+        rc = apr_temp_dir_get(&path, pool);
         if (rc != APR_SUCCESS)
             return rc;
     }
-    else {
-        char *tn = tempnam(NULL, "apreq");
-        if (tn == NULL)
-            return APR_EGENERAL;
-        tmpl = apr_pstrcat(pool, tn, "XXXXXX", NULL);
-        free(tn);
-    }
+    rc = apr_filepath_merge(&tmpl, path, "apreqXXXXXX",
+                            APR_FILEPATH_NOTRELATIVE, pool);
+
+    if (rc != APR_SUCCESS)
+        return rc;
     
-    return apr_file_mktemp(fp, tmpl,
+    data = apr_palloc(pool, sizeof *data);
+    /* cleanups are LIFO, so this one will run just after 
+       the cleanup set by mktemp */
+    apr_pool_cleanup_register(pool, data, 
+                              apreq_file_cleanup, apreq_file_cleanup);
+
+    rc = apr_file_mktemp(fp, tmpl, /* NO APR_DELONCLOSE! see comment above */
                            APR_CREATE | APR_READ | APR_WRITE
-                           | APR_EXCL | APR_DELONCLOSE | APR_BINARY, pool);
+                           | APR_EXCL | APR_BINARY, pool);
+
+    if (rc == APR_SUCCESS) {
+        apr_file_name_get(&data->fname, *fp);
+        data->pool = pool;
+    }
+    else {
+        apr_pool_cleanup_kill(pool, data, apreq_file_cleanup);
+    }
+
+    return rc;
 }
 
-/* circumvents linker issue (perl's CCFLAGS != apr's CCFLAGS) on linux */
+
 APREQ_DECLARE(apr_file_t *)apreq_brigade_spoolfile(apr_bucket_brigade *bb)
 {
     apr_bucket *last = APR_BRIGADE_LAST(bb);
@@ -715,83 +812,82 @@ APREQ_DECLARE(apr_file_t *)apreq_brigade_spoolfile(apr_bucket_brigade *bb)
         return NULL;
 }
 
-APREQ_DECLARE(apr_bucket_brigade *)
-    apreq_brigade_copy(const apr_bucket_brigade *bb)
-{
-    apr_bucket_brigade *copy;
-    apr_bucket *e;
-
-    copy = apr_brigade_create(bb->p, bb->bucket_alloc);
-    for (e = APR_BRIGADE_FIRST(bb); e != APR_BRIGADE_SENTINEL(bb);
-         e = APR_BUCKET_NEXT(e))
-    {
-        apr_bucket *c;
-        apr_bucket_copy(e, &c);
-        APR_BRIGADE_INSERT_TAIL(copy, c);
-    }
-    return copy;
-}
 
 APREQ_DECLARE(apr_status_t)
     apreq_header_attribute(const char *hdr,
                            const char *name, const apr_size_t nlen,
                            const char **val, apr_size_t *vlen)
 {
-    const char *loc = strchr(hdr, '='), *v;
+    const char *key, *v;
 
-    if (loc == NULL)
-        return APR_NOTFOUND;
+    while ((key = strchr(hdr, '=')) != NULL) {
 
-    v = loc + 1;
-    --loc;
+        v = key + 1;
+        --key;
 
-    while (apr_isspace(*loc) && loc - hdr > nlen)
-        --loc;
+        while (apr_isspace(*key) && key > hdr + nlen)
+            --key;
 
-    loc -= nlen - 1;
+        key -= nlen - 1;
 
-    while (apr_isspace(*v))
+        while (apr_isspace(*v))
             ++v;
 
-    if (*v == '"') {
-        ++v;
-        /* value is inside quotes */
-        for (*val = v; *v; ++v) {
-            switch (*v) {
-            case '"':
-                goto finish;
-            case '\\':
-                if (v[1] != 0)
-                    ++v;
-            default:
-                break;
+        if (*v == '"') {
+            ++v;
+            /* value is inside quotes */
+            for (*val = v; *v; ++v) {
+                switch (*v) {
+                case '"':
+                    goto finish;
+                case '\\':
+                    if (v[1] != 0)
+                        ++v;
+                default:
+                    break;
+                }
+            }
+            /* bad attr: no terminating quote found */
+            return APR_EGENERAL;
+        }
+        else {
+            /* value is not wrapped in quotes */
+            for (*val = v; *v; ++v) {
+                switch (*v) {
+                case ' ':
+                case ';':
+                case ',':
+                case '\t':
+                case '\r':
+                case '\n':
+                    goto finish;
+                default:
+                    break;
+                }
             }
         }
-    }
-    else {
-        /* value is not wrapped in quotes */
-        for (*val = v; *v; ++v) {
-            switch (*v) {
-            case ' ':
-            case ';':
-            case ',':
-            case '\t':
-            case '\r':
-            case '\n':
-                goto finish;
-            default:
-                break;
-            }
-        }
-    }
 
  finish:
-    if (strncasecmp(loc,name,nlen) != 0
-        || (loc > hdr && apr_isalpha(loc[-1])))
-        return apreq_header_attribute(v, name, nlen, val, vlen);
+        if (strncasecmp(key, name, nlen) == 0) {
+            *vlen = v - *val;
+            if (key > hdr) {
+                /* ensure preceding character isn't a token, per rfc2616, s2.2 */
+                switch (key[-1]) {
+                case '(': case ')': case '<': case '>': case '@':
+                case ',': case ';': case ':': case '\\': case '"':
+                case '/': case '[': case ']': case '?': case '=':
+                case '{': case '}': case ' ': case '\t':
+                    return APR_SUCCESS;
+                default:
+                    if (apr_iscntrl(key[-1]))
+                        return APR_SUCCESS;
+                }
+            }
+            else
+                return APR_SUCCESS;
+        }
+        hdr = v;
+    }
 
-    *vlen = v - *val;
-    return APR_SUCCESS;
-
-
+    return APR_NOTFOUND;
 }

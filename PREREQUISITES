@@ -10,8 +10,10 @@ Build system (core C API) prerequisites
 Perl glue (Apache::Request) prerequisites
 
                   Apache::Test:  1.04  (Win32 requires version 1.06)
+           ExtUtils::MakeMaker:  6.15
            ExtUtils::XSBuilder:  0.23
-                      mod_perl:  1.99_09
+                    Test::More:  0.47
+                      mod_perl:  1.9915
                           perl:  5.6.1
 
 ==================================================

@@ -1,0 +1,10 @@
+.TH "deprecated" 3 "30 Aug 2004" "Version 2.04-dev" "libapreq2" \" -*- nroff -*-
+.ad l
+.nh
+.SH NAME
+deprecated \- Deprecated List
+ 
+.IP "\fBGlobal \fBapreq_expires\fP(apr_pool_t *p, const char *time_str, const apreq_expires_t type) \fP" 1c
+Use apr_rfc822_date instead. \fBAPREQ_EXPIRES_NSCOOKIE\fP strings are formatted with a '-' (instead of a ' ') character at offsets 7 and 11. 
+.PP
+

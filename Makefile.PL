@@ -39,6 +39,9 @@ else {
         $opts .= "--enable-perl-glue ";
         test_prereq "mod_perl";
         test_prereq "Apache::Test";
+        test_prereq "ExtUtils::MakeMaker";
+        test_prereq "ExtUtils::XSBuilder";
+        test_prereq "Test::More";
     }
 
     delete @opts{@flags};

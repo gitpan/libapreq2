@@ -1,5 +1,8 @@
 AC_DEFUN([AC_APREQ], [
 
+        AC_ARG_ENABLE(profile,
+                AC_HELP_STRING([--enable-profile],[compile libapreq2 with "-pg -fprofile-arcs -ftest-coverage" for gcov/gprof]),
+                [PROFILE=$enableval],[PROFILE="no"])
         AC_ARG_ENABLE(perl_glue,
                 AC_HELP_STRING([--enable-perl-glue],[build perl modules Apache::Request and Apache::Cookie]),
                 [PERL_GLUE=$enableval],[PERL_GLUE="no"])
@@ -33,8 +36,16 @@ AC_DEFUN([AC_APREQ], [
         else
                 APACHE2_INCLUDES=-I`$APACHE2_APXS -q INCLUDEDIR`
                 APACHE2_HTTPD=`$APACHE2_APXS -q SBINDIR`/httpd
-                APR_CONFIG=`$APACHE2_APXS -q APR_BINDIR`/apr-config
-                APU_CONFIG=`$APACHE2_APXS -q APU_BINDIR`/apu-config
+                APR_MAJOR_VERSION=`$APACHE2_APXS -q APR_VERSION | cut -d. -f 1`
+                if test ${APR_MAJOR_VERSION:=0} -eq 0; then
+                    APR_CONFIG=apr-config
+                    APU_CONFIG=apu-config 
+                else
+                    APR_CONFIG=apr-$APR_MAJOR_VERSION-config
+                    APU_CONFIG=apu-$APR_MAJOR_VERSION-config
+                fi
+                APR_CONFIG=`$APACHE2_APXS -q APR_BINDIR`/$APR_CONFIG
+                APU_CONFIG=`$APACHE2_APXS -q APU_BINDIR`/$APU_CONFIG
 
                 if test -z "`$prereq_check apache2 $APACHE2_HTTPD`"; then
                     AC_MSG_ERROR([Bad apache2 version])
@@ -68,13 +79,16 @@ AC_DEFUN([AC_APREQ], [
             if test -z "`$prereq_check Apache::Test`"; then
                 AC_MSG_ERROR([Bad Apache::Test version])
             fi
+            if test -z "`$prereq_check ExtUtils::MakeMaker`"; then
+                AC_MSG_ERROR([Bad ExtUtils::MakeMaker version])
+            fi
         fi
 
         AC_CONFIG_COMMANDS_POST([test "x$PERL_GLUE" != "xno" && 
            (cd glue/perl && $PERL ../../build/xsbuilder.pl run)],
                 [PERL=$PERL;PERL_GLUE=$PERL_GLUE;APACHE2_APXS=$APACHE2_APXS])
 
-
+        AM_CONDITIONAL(ENABLE_PROFILE, test "x$PROFILE" != "xno")
         AM_CONDITIONAL(BUILD_PERL_GLUE, test "x$PERL_GLUE" != "xno")
         AM_CONDITIONAL(HAVE_APACHE_TEST, test -n "`$prereq_check Apache::Test`")
         AM_CONDITIONAL(BUILD_HTTPD, test -n "$APACHE2_SRC")
@@ -88,11 +102,13 @@ AC_DEFUN([AC_APREQ], [
         APU_INCLUDES=`$APU_CONFIG --includes`
         APR_LA=`$APR_CONFIG --link-libtool`
         APU_LA=`$APU_CONFIG --link-libtool`
-        APR_LTLIBS=`$APR_CONFIG --link-libtool --ldflags --libs`
-        APU_LTLIBS=`$APU_CONFIG --link-libtool --ldflags --libs`
+        APR_LTLIBS=`$APR_CONFIG --link-libtool --libs`
+        APU_LTLIBS=`$APU_CONFIG --link-libtool --libs`
         dnl perl glue/tests do not use libtool: need ld linker flags
-        APR_LDLIBS=`$APR_CONFIG --link-ld --ldflags --libs`
-        APU_LDLIBS=`$APU_CONFIG --link-ld --ldflags --libs`
+        APR_LDLIBS=`$APR_CONFIG --link-ld --libs`
+        APU_LDLIBS=`$APU_CONFIG --link-ld --libs`
+        APR_LDFLAGS=`$APR_CONFIG --ldflags`
+        APU_LDFLAGS=`$APU_CONFIG --ldflags`
 
         dnl Absolute source/build directory
         abs_srcdir=`(cd $srcdir && pwd)`
@@ -103,9 +119,29 @@ AC_DEFUN([AC_APREQ], [
           USE_VPATH=1
         fi
 
-        dnl AC_SUBST(top_builddir)
-        dnl AC_SUBST(abs_srcdir)
-        dnl AC_SUBST(abs_builddir)
+        if test "x$USE_MAINTAINER_MODE" != "xno"; then
+            CPPFLAGS="$CPPFLAGS -Wall -Wmissing-prototypes -Wstrict-prototypes -Wmissing-declarations -Werror"
+        fi
+
+        if test "x$CPPFLAGS" = "x"; then
+           echo "  setting CPPFLAGS to \"`$APR_CONFIG --cppflags`\""
+           CPPFLAGS="`$APR_CONFIG --cppflags`"
+        else
+           apr_addto_bugger="`$APR_CONFIG --cppflags`"
+           for i in $apr_addto_bugger; do
+             apr_addto_duplicate="0"
+             for j in $CPPFLAGS; do
+               if test "x$i" = "x$j"; then
+                 apr_addto_duplicate="1"
+                 break
+               fi
+             done
+             if test $apr_addto_duplicate = "0"; then
+               echo "  adding \"$i\" to CPPFLAGS"
+               CPPFLAGS="$CPPFLAGS $i"
+             fi
+           done
+        fi
 
         get_version="$abs_srcdir/build/get-version.sh"
         version_hdr="$abs_srcdir/src/apreq_version.h"
@@ -142,56 +178,12 @@ AC_DEFUN([AC_APREQ], [
         AC_SUBST(APU_LTLIBS)
         AC_SUBST(APR_LDLIBS)
         AC_SUBST(APU_LDLIBS)
+        AC_SUBST(APR_LDFLAGS)
+        AC_SUBST(APU_LDFLAGS)
         AC_SUBST(APR_LA)
         AC_SUBST(APU_LA)
         AC_SUBST(PERL)
 ])
-
-AC_DEFUN([APR_ADDTO],[
-  if test "x$$1" = "x"; then
-    echo "  setting $1 to \"$2\""
-    $1="$2"
-  else
-    apr_addto_bugger="$2"
-    for i in $apr_addto_bugger; do
-      apr_addto_duplicate="0"
-      for j in $$1; do
-        if test "x$i" = "x$j"; then
-          apr_addto_duplicate="1"
-          break
-        fi
-      done
-      if test $apr_addto_duplicate = "0"; then
-        echo "  adding \"$i\" to $1"
-        $1="$$1 $i"
-      fi
-    done
-  fi
-])
-
-dnl Iteratively interpolate the contents of the second argument
-dnl until interpolation offers no new result. Then assign the
-dnl final result to $1.
-dnl
-dnl Example:
-dnl
-dnl foo=1
-dnl bar='${foo}/2'
-dnl baz='${bar}/3'
-dnl APR_EXPAND_VAR(fraz, $baz)
-dnl   $fraz is now "1/2/3"
-dnl 
-AC_DEFUN(APR_EXPAND_VAR,[
-ap_last=
-ap_cur="$2"
-while test "x${ap_cur}" != "x${ap_last}";
-do
-  ap_last="${ap_cur}"
-  ap_cur=`eval "echo ${ap_cur}"`
-done
-$1="${ap_cur}"
-])
-
 
 dnl APR_CONFIG_NICE(filename)
 dnl
@@ -239,10 +231,6 @@ EOF
     echo "NOTEST_LIBS=\"$NOTEST_LIBS\"; export NOTEST_LIBS" >> $1
   fi
 
-  for arg in [$]0 "[$]@"; do
-    APR_EXPAND_VAR(arg, $arg)
-    echo "\"[$]arg\" \\" >> $1
-  done
-  echo '"[$]@"' >> $1
+  echo [$]0 [$]ac_configure_args '"[$]@"' >> $1
   chmod +x $1
 ])dnl

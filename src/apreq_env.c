@@ -16,15 +16,11 @@
 
 #include "apreq.h"
 #include "apreq_env.h"
-#include "apreq_params.h"
-#include "apreq_cookie.h"
 #include "apr_strings.h"
 #include "apr_lib.h"
 #include "apr_env.h"
 #include "apr_file_io.h"
 
-#include <stdlib.h>
-#include <stdio.h>
 
 static const apreq_env_t *apreq_env;
 
@@ -127,25 +123,26 @@ static struct {
 #define APREQ_ENV_STATUS(rc_run, k) do {                                \
          apr_status_t rc = rc_run;                                      \
          if (rc != APR_SUCCESS) {                                       \
-             apreq_log(APREQ_DEBUG 0, p,                                \
+             apreq_log(APREQ_DEBUG APR_EGENERAL, p,                     \
                        "Lookup of %s failed: status=%d", k, rc);        \
          }                                                              \
      } while (0)
 
 
 /**
+ * @defgroup apreq_cgi Common Gateway Interface
+ * @ingroup apreq_env
+ * @brief CGI module included in the libapreq2 library.
+ *
  * CGI is the default environment module included in libapreq2...
  * XXX add more info here XXX
  *
- * @defgroup CGI Common Gateway Interface
- * @ingroup MODULES
- * @brief apreq_env.c: libapreq2's default CGI module
  * @{
  */
 
 
 #define APREQ_MODULE_NAME         "CGI"
-#define APREQ_MODULE_MAGIC_NUMBER 20040324
+#define APREQ_MODULE_MAGIC_NUMBER 20040731
 
 static apr_pool_t *cgi_pool(void *env)
 {
@@ -190,9 +187,10 @@ static apr_status_t cgi_header_out(void *env, const char *name,
     dP;
     apr_file_t *out;
     int bytes;
-    apr_file_open_stdout(&out, p);
+    apr_status_t s = apr_file_open_stdout(&out, p);
+    apreq_log(APREQ_DEBUG s, p, "Setting header: %s => %s", name, value);
     bytes = apr_file_printf(out, "%s: %s" CRLF, name, value);
-    apreq_log(APREQ_DEBUG 0, p, "Setting header: %s => %s", name, value);
+    apr_file_flush(out);
     return bytes > 0 ? APR_SUCCESS : APR_EGENERAL;
 }
 
@@ -221,14 +219,66 @@ static apreq_request_t *cgi_request(void *env,
     return ctx.req;
 }
 
+
+typedef struct {
+    char    *t_name;
+    int      t_val;
+} TRANS;
+
+static const TRANS priorities[] = {
+    {"emerg",   APREQ_LOG_EMERG},
+    {"alert",   APREQ_LOG_ALERT},
+    {"crit",    APREQ_LOG_CRIT},
+    {"error",   APREQ_LOG_ERR},
+    {"warn",    APREQ_LOG_WARNING},
+    {"notice",  APREQ_LOG_NOTICE},
+    {"info",    APREQ_LOG_INFO},
+    {"debug",   APREQ_LOG_DEBUG},
+    {NULL,      -1},
+};
+
+
 static void cgi_log(const char *file, int line, int level, 
                     apr_status_t status, void *env, const char *fmt,
                     va_list vp)
 {
     dP;
     char buf[256];
-    fprintf(stderr, "[%s(%d): %s] %s\n", file, line, 
+    char *log_level_string, *remote_addr;
+    unsigned log_level = APREQ_LOG_WARNING;
+    char date[APR_CTIME_LEN];
+#ifndef WIN32
+        apr_file_t *err;
+#endif
+
+
+    if (apr_env_get(&log_level_string, "LOG_LEVEL", p) == APR_SUCCESS)
+        log_level = (log_level_string[0] - '0');
+
+    level &= APREQ_LOG_LEVELMASK;
+
+    if (level > log_level)
+        return;
+
+    if (apr_env_get(&remote_addr, "REMOTE_ADDR", p) != APR_SUCCESS)
+        remote_addr = "address unavailable";
+
+    apr_ctime(date, apr_time_now());
+
+#ifndef WIN32
+
+    apr_file_open_stderr(&err, p);
+    apr_file_printf(err, "[%s] [%s] [%s] %s(%d): %s: %s\n",
+                    date, priorities[level].t_name, remote_addr, file, line, 
+                    apr_strerror(status,buf,255),apr_pvsprintf(p,fmt,vp));
+    apr_file_flush(err);
+
+#else
+    fprintf(stderr, "[%s] [%s] [%s] %s(%d): %s: %s\n",
+            date, priorities[level].t_name, remote_addr, file, line,
             apr_strerror(status,buf,255),apr_pvsprintf(p,fmt,vp));
+#endif
+
 }
 
 static apr_status_t cgi_read(void *env, 
@@ -250,6 +300,29 @@ static apr_status_t cgi_read(void *env,
         APR_BRIGADE_INSERT_HEAD(ctx.in, stdin_pipe);
         APR_BRIGADE_INSERT_TAIL(ctx.in, eos);
         ctx.status = APR_INCOMPLETE;
+
+        if (ctx.max_body >= 0) {
+            const char *cl = apreq_env_header_in(env, "Content-Length");
+            if (cl != NULL) {
+                char *dummy;
+                apr_int64_t content_length = apr_strtoi64(cl,&dummy,0);
+
+                if (dummy == NULL || *dummy != 0) {
+                    apreq_log(APREQ_ERROR APR_EGENERAL, env,
+                              "Invalid Content-Length header (%s)", cl);
+                    ctx.status = APR_EGENERAL;
+                    req->body_status = APR_EGENERAL;
+                }
+                else if (content_length > (apr_int64_t)ctx.max_body) {
+                    apreq_log(APREQ_ERROR APR_EGENERAL, env,
+                              "Content-Length header (%s) exceeds configured "
+                              "max_body limit (%" APR_OFF_T_FMT ")", 
+                              cl, ctx.max_body);
+                    ctx.status = APR_EGENERAL;
+                    req->body_status = APR_EGENERAL;
+                }
+            }
+        }
     }
 
 
@@ -265,10 +338,18 @@ static apr_status_t cgi_read(void *env,
         ctx.in = apr_brigade_split(bb, e);
         ctx.bytes_read += bytes;
         if (ctx.max_body >= 0) {
-            if (ctx.bytes_read > ctx.max_body)
-                return ctx.status = APR_ENOSPC;
+            if (ctx.bytes_read > ctx.max_body) {
+                apreq_log(APREQ_ERROR APR_EGENERAL, env,
+                          "Bytes read (%" APR_OFF_T_FMT 
+                          ") exceeds configured limit (%" APR_OFF_T_FMT ")",
+                          ctx.bytes_read, ctx.max_body);
+                req->body_status = APR_EGENERAL;
+                return ctx.status = APR_EGENERAL;
+            }
         }
-        return ctx.status = apreq_parse_request(req, bb);
+        ctx.status = apreq_parse_request(req, bb);
+        apr_brigade_cleanup(bb);
+        break;
 
     case APR_INCOMPLETE:
         bb = ctx.in;
@@ -278,14 +359,24 @@ static apr_status_t cgi_read(void *env,
             return ctx.status = s;
         ctx.bytes_read += len;
         if (ctx.max_body >= 0) {
-            if (ctx.bytes_read > ctx.max_body)
-                return ctx.status = APR_ENOSPC;
+            if (ctx.bytes_read > ctx.max_body) {
+                apreq_log(APREQ_ERROR APR_EGENERAL, env,
+                          "Bytes read (%" APR_OFF_T_FMT 
+                          ") exceeds configured limit (%" APR_OFF_T_FMT ")",
+                          ctx.bytes_read, ctx.max_body);
+                req->body_status = APR_EGENERAL;
+                return ctx.status = APR_EGENERAL;
+            }
         }
-        return ctx.status = apreq_parse_request(req, bb);
+        ctx.status = apreq_parse_request(req, bb);
+        apr_brigade_cleanup(bb);
+        break;
 
     default:
-        return ctx.status = s;
+        ctx.status = s;
     }
+
+    return ctx.status;
 }
 
 

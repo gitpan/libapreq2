@@ -1,5 +1,7 @@
 INCLUDES = @APR_INCLUDES@ @APU_INCLUDES@
 LIBS = @APR_LTLIBS@ @APU_LTLIBS@
+LDFLAGS = @APR_LDFLAGS@ @APU_LDFLAGS@
+EXTRA_DIST = groups.dox.in
 BUILT_SOURCES= @APR_LA@ @APU_LA@
 lib_LTLIBRARIES = libapreq2.la
 libapreq2_la_SOURCES = apreq.c apreq_version.c apreq_cookie.c \
@@ -10,16 +12,31 @@ libapreq2_la_LDFLAGS = -version-info @APREQ_LIBTOOL_VERSION@
 
 pkgincludedir = $(includedir)/@APREQ_LIBNAME@
 
+if ENABLE_PROFILE
+
+AM_CFLAGS= -pg -fprofile-arcs -ftest-coverage
+
+clean-local:
+	-rm *.bb *.bbg *.da *.gcov
+
+else
+
+clean-local:
+
+endif
+
+
+
 if BUILD_APR
 
 @APR_LA@:
-	cd `@APR_CONFIG@ --srcdir` && make
+	cd `@APR_CONFIG@ --srcdir` && $(MAKE)
 
 endif
 
 if BUILD_APU
 
 @APU_LA@: @APR_LA@
-	cd `@APU_CONFIG@ --srcdir` && make
+	cd `@APU_CONFIG@ --srcdir` && $(MAKE)
 
 endif

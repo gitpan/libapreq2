@@ -12,6 +12,7 @@ use Archive::Tar;
 use File::Path;
 use LWP::Simple;
 my ($apache, $debug, $help, $no_perl, $perl);
+my $VERSION = '2.03-dev';
 my $result = GetOptions( 'with-apache2=s' => \$apache,
 			 'debug' => \$debug,
 			 'help' => \$help,
@@ -28,6 +29,7 @@ $apreq_home =~ s!/?win32$!!;
 $apreq_home =~ s!/!\\!g;
 
 my $doxygen = which('doxygen');
+my $doxysearch = which('doxysearch');
 my $cfg = $debug ? 'Debug' : 'Release';
 
 check_depends();
@@ -65,7 +67,8 @@ END
 
 print $make $_ while (<DATA>);
 
-my $apxs = which('apxs');
+my $apxs_trial = catfile $apache, 'bin', 'apxs.bat';
+my $apxs = (-e $apxs_trial) ? $apxs_trial : which('apxs');
 unless ($apxs) {
     $apxs = fetch_apxs() ? which('apxs') : '';
 }
@@ -112,7 +115,7 @@ END
 print $make "\n", $test, "\n";
 print $make "\n", $clean, "\n";
 
-if ($doxygen) {
+if ($doxygen and $doxysearch) {
     print $make <<"END";
 
 docs:   \$(DOXYGEN_CONF)
@@ -122,14 +125,15 @@ docs:   \$(DOXYGEN_CONF)
 
 END
 
-    my $bin_abspath = Win32::GetShortPathName(dirname(which('doxysearch')));
-    open(my $conf, "$apreq_home/build/doxygen.conf") 
-        or die "Cannot read $apreq_home/build/doxygen.conf: $!";
+    my $bin_abspath = Win32::GetShortPathName(dirname($doxysearch));
+    open(my $conf, "$apreq_home/build/doxygen.conf.in") 
+        or die "Cannot read $apreq_home/build/doxygen.conf.in: $!";
     open(my $win32_conf, ">$apreq_home/build/doxygen.conf.win32")
         or die "Cannot write to $apreq_home/build/doxygen.conf.win32: $!";
     while (<$conf>) {
-        s/^(PERL_PATH\s+=\s+).*/$1"$^X"/;
-        s/^(BIN_ABSPATH\s+=\s+).*/$1$bin_abspath/;
+        s/\@PERL\@/"$^X"/;
+        s/\@PACKAGE\@/libapreq2/;
+        s/\@VERSION\@/$VERSION/;
         print $win32_conf $_;
     }
     close $conf;
@@ -266,10 +270,11 @@ sub which {
     return unless $program;
     my @extras = ();
     my @drives = drives();
+    (my $program_files = $ENV{ProgramFiles}) =~ s!^\w+:\\!!;
     if (@drives > 0) {
         for my $drive (@drives) {
-            for ('Apache2', 'Program Files/Apache2',
-                 'Program Files/Apache Group/Apache2') {
+            for ('Apache2', "$program_files/Apache2",
+                 "$program_files/Apache Group/Apache2") {
                 my $bin = catdir $drive, $_, 'bin';
                 push @extras, $bin if (-d $bin);
             }
@@ -315,6 +320,7 @@ sub check_depends {
     my $rep = $] < 5.008 ? 
         'http://theoryx5.uwinnipeg.ca/ppmpackages' :
             'http://theoryx5.uwinnipeg.ca/ppms';
+    eval {require Apache2;};
     for my $mod (qw(ExtUtils::XSBuilder Apache::Test)) {
         eval "require $mod";
         if ($@) {
@@ -367,7 +373,7 @@ END
         warn "chdir to $dir failed: $!";
         return;
     };
-    my @args = ($^X, 'Configure.pl');
+    my @args = ($^X, 'Configure.pl', "-with-apache2=$apache");
     print "@args\n\n";
     system(@args) == 0 or do {
          warn "system @args failed: $?";

@@ -2,7 +2,7 @@
 use strict;
 use warnings 'FATAL';
 use Getopt::Long qw/GetOptions/;
-GetOptions(\my %opts, "version=s"),
+GetOptions(\my %opts, "version=s");
 my ($tool, $path) = @ARGV;
 $path = $tool unless defined $path;
 
@@ -18,6 +18,16 @@ sub xsb_version {
 sub a_t_version {
     require Apache::Test;
     $Apache::Test::VERSION;
+}
+
+sub tm_version {
+    require Test::More;
+    $Test::More::VERSION;
+}
+
+sub mm_version {
+    require ExtUtils::MakeMaker;
+    $ExtUtils::MakeMaker::VERSION;
 }
 
 sub mp2_version {
@@ -52,7 +62,10 @@ my %perl_glue = (
          "Apache::Test" => { version => "1.04",    test => \&a_t_version,
                              comment => "Win32 requires version 1.06"    },
   "ExtUtils::XSBuilder" => { version => "0.23",    test => \&xsb_version },
-              mod_perl  => { version => "1.99_09", test => \&mp2_version },
+                 # mp2 does not contain "_" in its reported version number
+              mod_perl  => { version => "1.9915", test => \&mp2_version },
+  "ExtUtils::MakeMaker" => { version => "6.15",    test => \&mm_version  },
+           "Test::More" => { version => "0.47",    test => \&tm_version },
                 );
 
 sub print_prereqs ($$) {
@@ -85,6 +98,8 @@ provides:
   Apache::Request:
     version: $opts{version}
   Apache::Cookie:
+    version: $opts{version}
+  Apache::Upload:
     version: $opts{version}
 generated_by: $0
 EOT
@@ -131,4 +146,3 @@ $0 failed: $tool version $saw unsupported ($version or greater is required).
 EOM
 }
 print "$tool: $saw ok\n";
-exit 0;

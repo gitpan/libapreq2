@@ -42,7 +42,7 @@ static const struct testlist {
     const char *testname;
     CuSuite *(*func)(void);
 } tests[] = {
-//    {"tables", testtable},
+    {"version", testversion},
     {"cookies", testcookie},
     {"params", testparam},
     {"parsers", testparser},
@@ -97,8 +97,9 @@ static void test_log(const char *file, int line, int level,
                      apr_status_t status, void *env, const char *fmt,
                      va_list vp)
 {
-    if (level < APREQ_LOG_DEBUG)
-        fprintf(stderr, "[%s(%d)] %s\n", file, line, apr_pvsprintf(p,fmt,vp));
+    char buf[256];
+    if (level < APREQ_LOG_ERR)
+        fprintf(stderr, "[%s(%d)]%s (%s)\n", file, line, apr_strerror(status,buf,255), apr_pvsprintf(p,fmt,vp));
 }
 
 static apr_status_t test_read(void *env, apr_read_type_e block, 

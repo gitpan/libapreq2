@@ -58,6 +58,14 @@ else {
         die "Can't find apache include directory";
     $apache_includes .= " $1";
 
+    $config =~ m/^s,\@APR_LDFLAGS\@,([^,]+)/m or
+        die "Can't find apr ldflags";
+    $apr_libs = $1;
+    $config =~ m/^s,\@APU_LDFLAGS\@,([^,]+)/m or
+        die "Can't find apu ldflags";
+    $apr_libs .= " $1";
+
+    # need -laprutil befpre -lapr
     $config =~ m/^s,\@APU_LDLIBS\@,([^,]+)/m or
         die "Can't find apu libraries";
     $apr_libs = $1;
@@ -223,8 +231,8 @@ sub mod_pod {
 
 sub write_docs {
     my ($self, $module, $functions) = @_;
-    my $fh = $self->open_class_file($module, '.pod');
     my $podfile = $self->mod_pod($module, 1) or return;
+    my $fh = $self->open_class_file($module, '.pod');
     open my $pod, "<", $podfile or die $!;
     while (<$pod>) {
         print $fh $_;
@@ -301,7 +309,7 @@ ModPerl::MM::WriteMakefile(
     'NAME'      => '$class',
     'VERSION'   => '$version',
     'TYPEMAPS'  => [qw(@$mp2_typemaps $typemap)],
-    'INC'       => "-I.. -I../.. -I../../.. -I$src_dir -I$xs_dir $apache_includes",
+    'INC'       => "-I$base_dir/glue/perl/xs -I$src_dir -I$xs_dir $apache_includes",
     'LIBS'      => "$apreq_libs $apr_libs",
 } ;
 $txt .= "'depend'  => $deps,\n" if ($deps) ;
@@ -354,8 +362,22 @@ sub write_typemap
     close $fh;
 }
 
+
 package My::TypeMap;
 use base 'ExtUtils::XSBuilder::TypeMap';
+
+sub null_type {
+    my($self, $type) = @_;
+    my $t = $self->get->{$type};
+    my $class = $t -> {class} ;
+
+    if ($class =~ /APREQ_COOKIE_VERSION/) {
+        return 'APREQ_COOKIE_VERSION_DEFAULT';
+    }
+    else {
+        return $self->SUPER::null_type($type);
+    }
+}
 
 # XXX this needs serious work
 sub typemap_code
@@ -384,6 +406,53 @@ sub typemap_code
                             perl2c => 'apreq_xs_sv2(jar,sv)',
                             OUTPUT => '$arg = apreq_xs_2sv($var,\"${ntype}\");',
                             c2perl => 'apreq_xs_2sv(ptr,\"$class\")',
+                           },
+ T_APREQ_COOKIE_VERSION => {
+                            INPUT  => '$var = ((apreq_cookie_version_t)SvTRUE($arg))',
+                            OUTPUT => '$arg = boolSV((bool)$var);',
+                           },
+        T_HASHOBJ       => {
+                            INPUT => <<'EOT', # '$var = modperl_hash_tied_object(aTHX_ \"${ntype}\", $arg)'
+    if (sv_derived_from($arg, \"${ntype}\")) {
+        if (SVt_PVHV == SvTYPE(SvRV($arg))) {
+            SV *hv = SvRV($arg);
+            MAGIC *mg;
+            if (SvMAGICAL(hv)) {
+                if ((mg = mg_find(hv, PERL_MAGIC_tied))) {
+                    $var = (void *)MgObjIV(mg);
+                }
+                else {
+                    Perl_warn(aTHX_ \"Not a tied hash: (magic=%c)\", mg);
+                    $var = NULL;
+                }
+            }
+            else {
+                Perl_warn(aTHX_ \"SV is not tied\");
+                $var = NULL;
+            }
+        }
+        else {
+            $var = (void *)SvObjIV($arg);
+        }
+    }
+    else {
+        Perl_croak(aTHX_
+                   \"argument is not a blessed reference \"
+                   \"(expecting an %s derived object)\", \"${ntype}\");
+    }
+EOT
+
+                            OUTPUT => <<'EOT', # '$arg = modperl_hash_tie(aTHX_ \"${ntype}\", $arg, $var);'
+  {
+    SV *hv = (SV*)newHV();
+    SV *rsv = $arg;
+    sv_setref_pv(rsv, \"${ntype}\", $var);
+    sv_magic(hv, rsv, PERL_MAGIC_tied, Nullch, 0);
+    $arg = SvREFCNT_inc(sv_bless(sv_2mortal(newRV_noinc(hv)),
+                                 gv_stashpv(\"${ntype}\", TRUE)));
+  }
+EOT
+
                            },
     }
 }

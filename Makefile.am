@@ -1,17 +1,15 @@
 AUTOMAKE_OPTIONS = foreign
 SUBDIRS = src env glue t
-EXTRA_DIST = README INSTALL CHANGES MANIFEST.SKIP Makefile.PL buildconf build win32 docs
+EXTRA_DIST = LICENSE NOTICE README INSTALL CHANGES FAQ.pod MANIFEST.SKIP Makefile.PL buildconf build win32 docs
 APU_SRCDIR=`@APU_CONFIG@ --srcdir`
 APR_SRCDIR=`@APR_CONFIG@ --srcdir`
-APU_DOX = (cd $(APU_SRCDIR); cat - docs/doxygen.conf | doxygen -)
-APR_DOX = (cd $(APR_SRCDIR); cat - docs/doxygen.conf | doxygen -)
-POD_PREFIX=glue/perl/xsbuilder/Apache
-COOKIE_POD=$(POD_PREFIX)/Cookie/Cookie_pod
-REQUEST_POD=$(POD_PREFIX)/Request/Request_pod
-SED_BODY_TAG= s(^[\S\s]+<body.+|</body>[\S\s]+$$)()gi
+APU_DOX = (cd $(APU_SRCDIR); cat docs/doxygen.conf - | doxygen -)
+APR_DOX = (cd $(APR_SRCDIR); cat docs/doxygen.conf - | doxygen -)
+SED_BODY_TAG= s(^[\S\s]+<body.+|</body>[\S\s]+$$)()gi, s(href="/Apache(?:/\w+)*/([^/]+).html")(href="group__apreq__xs__\L$$1.html")g
 EUM=ExtUtils::Manifest
-
-bin_SCRIPTS = apreq2_config
+POD_DIR=glue/perl/docs
+bin_SCRIPTS = apreq2-config
+CLEANFILES = $(bin_SCRIPTS)
 
 if BUILD_PERL_GLUE
 PERL_TEST = perl_test
@@ -19,7 +17,7 @@ else
 PERL_TEST = 
 endif
 
-release: reconfig docs_clean docs distdir
+release: reconfig docs_clean docs pod2test distdir
 	@PERL@ build/version_check.pl > $(distdir)/PREREQUISITES
 	@PERL@ build/version_check.pl -version=@PACKAGE_VERSION@ > $(distdir)/META.yml
 	echo MANIFEST > $(distdir)/MANIFEST
@@ -36,16 +34,14 @@ release_test:
 	rm -rf $(distdir)
 	@echo "$(distdir).tar.gz is kosher."
 
-apreq2_config:
-
 reconfig:
 	./buildconf
-	./config.status
+	./config.nice
 
 docs_clean:
 	-rm -rf docs
 
-docs:	src env glue build/doxygen.conf apr_tags pod2html
+docs:	pod2html build/doxygen.conf apr_tags docs/html/feather.gif
 	@PERL@ build/version_check.pl doxygen
 	doxygen build/doxygen.conf
 
@@ -54,18 +50,30 @@ docs_install: docs
 	$(mkinstalldirs) $(DESTDIR)$(pkgdatadir)
 	cp -a docs $(DESTDIR)$(pkgdatadir)
 
-pod2html: Request.html Cookie.html
+%.html: $(POD_DIR)/%.pod Makefile.am 
+	pod2html < $< | perl -0777 -pe '$(SED_BODY_TAG)' > $@
 
-Cookie.html: Makefile.am $(COOKIE_POD)
-	pod2html <$(COOKIE_POD) | perl -0777 -pe '$(SED_BODY_TAG)' > Cookie.html
-Request.html: Makefile.am $(REQUEST_POD)
-	pod2html <$(REQUEST_POD)| perl -0777 -pe '$(SED_BODY_TAG)' > Request.html
+pod2html :: Request.html Cookie.html Upload.html Table.html Error.html FAQ.html
+
+FAQ.html: Makefile.am FAQ.pod
+	pod2html < FAQ.pod | perl -0777 -pe '$(SED_BODY_TAG)' > FAQ.html
+
+$(POD_DIR)/%.t: $(POD_DIR)/%.pod
+	(cd glue/perl ; pod2test docs/$*.pod docs/$*.t)
+
+pod2test :: $(POD_DIR)/Request.t $(POD_DIR)/Cookie.t $(POD_DIR)/Upload.t $(POD_DIR)/Error.t $(POD_DIR)/Table.t
 
 apr_tags: docs/apr.tag docs/apu.tag
+
+docs/html/feather.gif:
+	-mkdir docs
+	-mkdir docs/html
+	(cd docs/html; wget http://httpd.apache.org/docs-2.0/images/feather.gif)
 
 docs/apu.tag:
 	-mkdir docs
 	echo GENERATE_TAGFILE=`pwd`/docs/apu.tag | $(APU_DOX)
+
 docs/apr.tag:
 	-mkdir docs
 	echo GENERATE_TAGFILE=`pwd`/docs/apr.tag | $(APR_DOX)

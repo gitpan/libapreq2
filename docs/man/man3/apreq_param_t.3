@@ -1,0 +1,42 @@
+.TH "apreq_param_t" 3 "30 Aug 2004" "Version 2.04-dev" "libapreq2" \" -*- nroff -*-
+.ad l
+.nh
+.SH NAME
+apreq_param_t \- 
+.SH SYNOPSIS
+.br
+.PP
+\fC#include <apreq_params.h>\fP
+.PP
+.SS "Data Fields"
+
+.in +1c
+.ti -1c
+.RI "\fBapr_table_t\fP * \fBinfo\fP"
+.br
+.ti -1c
+.RI "\fBapr_bucket_brigade\fP * \fBbb\fP"
+.br
+.ti -1c
+.RI "\fBapreq_value_t\fP \fBv\fP"
+.br
+.in -1c
+.SH "Detailed Description"
+.PP 
+Common data structure for params and file uploads 
+.PP
+.SH "Field Documentation"
+.PP 
+.SS "\fBapr_bucket_brigade\fP* \fBapreq_param_t::bb\fP"
+.PP
+brigade to spool upload files 
+.SS "\fBapr_table_t\fP* \fBapreq_param_t::info\fP"
+.PP
+header table associated with the param 
+.SS "\fBapreq_value_t\fP \fBapreq_param_t::v\fP"
+.PP
+underlying name/value/status info 
+
+.SH "Author"
+.PP 
+Generated automatically by Doxygen for libapreq2 from the source code.

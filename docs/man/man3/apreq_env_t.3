@@ -1,0 +1,66 @@
+.TH "apreq_env_t" 3 "30 Aug 2004" "Version 2.04-dev" "libapreq2" \" -*- nroff -*-
+.ad l
+.nh
+.SH NAME
+apreq_env_t \- Vtable describing the necessary environment functions.  
+
+.PP
+.SH SYNOPSIS
+.br
+.PP
+\fC#include <apreq_env.h>\fP
+.PP
+.SS "Data Fields"
+
+.in +1c
+.ti -1c
+.RI "const char * \fBname\fP"
+.br
+.ti -1c
+.RI "\fBapr_uint32_t\fP \fBmagic_number\fP"
+.br
+.ti -1c
+.RI "void(* \fBlog\fP )(const char *, int, int, \fBapr_status_t\fP, void *, const char *, va_list)"
+.br
+.ti -1c
+.RI "\fBapr_pool_t\fP *(* \fBpool\fP )(void *)"
+.br
+.ti -1c
+.RI "\fBapreq_jar_t\fP *(* \fBjar\fP )(void *, \fBapreq_jar_t\fP *)"
+.br
+.ti -1c
+.RI "\fBapreq_request_t\fP *(* \fBrequest\fP )(void *, \fBapreq_request_t\fP *)"
+.br
+.ti -1c
+.RI "const char *(* \fBquery_string\fP )(void *)"
+.br
+.ti -1c
+.RI "const char *(* \fBheader_in\fP )(void *, const char *)"
+.br
+.ti -1c
+.RI "\fBapr_status_t\fP(* \fBheader_out\fP )(void *, const char *, char *)"
+.br
+.ti -1c
+.RI "\fBapr_status_t\fP(* \fBread\fP )(void *, \fBapr_read_type_e\fP, \fBapr_off_t\fP)"
+.br
+.ti -1c
+.RI "const char *(* \fBtemp_dir\fP )(void *, const char *)"
+.br
+.ti -1c
+.RI "\fBapr_off_t\fP(* \fBmax_body\fP )(void *, \fBapr_off_t\fP)"
+.br
+.ti -1c
+.RI "\fBapr_ssize_t\fP(* \fBmax_brigade\fP )(void *, \fBapr_ssize_t\fP)"
+.br
+.in -1c
+.SH "Detailed Description"
+.PP 
+Vtable describing the necessary environment functions. 
+
+This must be fully defined for libapreq2 to operate properly in a given environment. Normally it is set once, with an \fBapreq_env_module()\fP call during process initialization, and should remain fixed thereafter. 
+.PP
+
+
+.SH "Author"
+.PP 
+Generated automatically by Doxygen for libapreq2 from the source code.

@@ -1,6 +1,6 @@
-# Makefile.in generated automatically by automake 1.4-p4 from Makefile.am
+# Makefile.in generated automatically by automake 1.4-p6 from Makefile.am
 
-# Copyright (C) 1994, 1995-8, 1999 Free Software Foundation, Inc.
+# Copyright (C) 1994, 1995-8, 1999, 2001 Free Software Foundation, Inc.
 # This Makefile.in is free software; the Free Software Foundation
 # gives unlimited permission to copy and/or distribute it,
 # with or without modifications, as long as this notice is preserved.
@@ -72,23 +72,29 @@ APREQ_MAJOR_VERSION = @APREQ_MAJOR_VERSION@
 APR_CONFIG = @APR_CONFIG@
 APR_INCLUDES = @APR_INCLUDES@
 APR_LA = @APR_LA@
+APR_LDFLAGS = @APR_LDFLAGS@
 APR_LDLIBS = @APR_LDLIBS@
 APR_LTLIBS = @APR_LTLIBS@
 APU_CONFIG = @APU_CONFIG@
 APU_INCLUDES = @APU_INCLUDES@
 APU_LA = @APU_LA@
+APU_LDFLAGS = @APU_LDFLAGS@
 APU_LDLIBS = @APU_LDLIBS@
 APU_LTLIBS = @APU_LTLIBS@
+AR = @AR@
 AS = @AS@
 CC = @CC@
+CXX = @CXX@
+CXXCPP = @CXXCPP@
 DLLTOOL = @DLLTOOL@
 ECHO = @ECHO@
+EGREP = @EGREP@
 EXEEXT = @EXEEXT@
-HAVE_LIB = @HAVE_LIB@
-LIB = @LIB@
+F77 = @F77@
+GCJ = @GCJ@
+GCJFLAGS = @GCJFLAGS@
 LIBTOOL = @LIBTOOL@
 LN_S = @LN_S@
-LTLIB = @LTLIB@
 MAINT = @MAINT@
 MAKEINFO = @MAKEINFO@
 OBJDUMP = @OBJDUMP@
@@ -96,11 +102,14 @@ OBJEXT = @OBJEXT@
 PACKAGE = @PACKAGE@
 PERL = @PERL@
 RANLIB = @RANLIB@
+RC = @RC@
 STRIP = @STRIP@
 VERSION = @VERSION@
 
 INCLUDES = @APR_INCLUDES@ @APU_INCLUDES@
 LIBS = @APR_LTLIBS@ @APU_LTLIBS@
+LDFLAGS = @APR_LDFLAGS@ @APU_LDFLAGS@
+EXTRA_DIST = groups.dox.in
 BUILT_SOURCES = @APR_LA@ @APU_LA@
 lib_LTLIBRARIES = libapreq2.la
 libapreq2_la_SOURCES = apreq.c apreq_version.c apreq_cookie.c                        apreq_params.c apreq_parsers.c apreq_env.c
@@ -110,15 +119,16 @@ pkginclude_HEADERS = apreq.h apreq_version.h apreq_cookie.h                   ap
 libapreq2_la_LDFLAGS = -version-info @APREQ_LIBTOOL_VERSION@
 
 pkgincludedir = $(includedir)/@APREQ_LIBNAME@
+
+@ENABLE_PROFILE_TRUE@AM_CFLAGS = -pg -fprofile-arcs -ftest-coverage
 mkinstalldirs = $(SHELL) $(top_srcdir)/mkinstalldirs
 CONFIG_HEADER = apreq_config.h
-CONFIG_CLEAN_FILES = 
+CONFIG_CLEAN_FILES =  groups.dox
 LTLIBRARIES =  $(lib_LTLIBRARIES)
 
 
 DEFS = @DEFS@ -I. -I$(srcdir) -I.
 CPPFLAGS = @CPPFLAGS@
-LDFLAGS = @LDFLAGS@
 libapreq2_la_LIBADD = 
 libapreq2_la_OBJECTS =  apreq.lo apreq_version.lo apreq_cookie.lo \
 apreq_params.lo apreq_parsers.lo apreq_env.lo
@@ -130,7 +140,7 @@ LINK = $(LIBTOOL) --mode=link $(CCLD) $(AM_CFLAGS) $(CFLAGS) $(LDFLAGS) -o $@
 HEADERS =  $(pkginclude_HEADERS)
 
 DIST_COMMON =  README ./stamp-h.in Makefile.am Makefile.in \
-apreq_config.h.in
+apreq_config.h.in groups.dox.in
 
 
 DISTFILES = $(DIST_COMMON) $(SOURCES) $(HEADERS) $(TEXINFOS) $(EXTRA_DIST)
@@ -178,6 +188,8 @@ distclean-hdr:
 	-rm -f apreq_config.h
 
 maintainer-clean-hdr:
+groups.dox: $(top_builddir)/config.status groups.dox.in
+	cd $(top_builddir) && CONFIG_FILES=$(subdir)/$@ CONFIG_HEADERS= $(SHELL) ./config.status
 
 mostlyclean-libLTLIBRARIES:
 
@@ -284,7 +296,7 @@ TAGS:  $(HEADERS) $(SOURCES) apreq_config.h.in $(TAGS_DEPENDENCIES) $(LISP)
 	  awk '    { files[$$0] = 1; } \
 	       END { for (i in files) print i; }'`; \
 	test -z "$(ETAGS_ARGS)apreq_config.h.in$$unique$(LISP)$$tags" \
-	  || (cd $(srcdir) && etags $(ETAGS_ARGS) $$tags apreq_config.h.in $$unique $(LISP) -o $$here/TAGS)
+	  || (cd $(srcdir) && etags -o $$here/TAGS $(ETAGS_ARGS) $$tags apreq_config.h.in $$unique $(LISP))
 
 mostlyclean-tags:
 
@@ -310,18 +322,6 @@ distdir: $(DISTFILES)
 	    || cp -p $$d/$$file $(distdir)/$$file || :; \
 	  fi; \
 	done
-apreq.lo apreq.o : apreq.c apreq.h apreq_env.h apreq_params.h \
-	apreq_cookie.h
-apreq_cookie.lo apreq_cookie.o : apreq_cookie.c apreq_cookie.h apreq.h \
-	apreq_env.h apreq_params.h
-apreq_env.lo apreq_env.o : apreq_env.c apreq.h apreq_env.h \
-	apreq_params.h apreq_cookie.h
-apreq_params.lo apreq_params.o : apreq_params.c apreq_params.h apreq.h \
-	apreq_env.h apreq_cookie.h
-apreq_parsers.lo apreq_parsers.o : apreq_parsers.c apreq_params.h \
-	apreq.h apreq_env.h apreq_cookie.h
-apreq_version.lo apreq_version.o : apreq_version.c apreq_version.h \
-	apreq.h
 
 info-am:
 info: info-am
@@ -370,7 +370,7 @@ mostlyclean-am:  mostlyclean-hdr mostlyclean-libLTLIBRARIES \
 mostlyclean: mostlyclean-am
 
 clean-am:  clean-hdr clean-libLTLIBRARIES clean-compile clean-libtool \
-		clean-tags clean-generic mostlyclean-am
+		clean-tags clean-generic mostlyclean-am clean-local
 
 clean: clean-am
 
@@ -407,11 +407,16 @@ mostlyclean-generic distclean-generic clean-generic \
 maintainer-clean-generic clean mostlyclean distclean maintainer-clean
 
 
+@ENABLE_PROFILE_TRUE@clean-local:
+@ENABLE_PROFILE_TRUE@	-rm *.bb *.bbg *.da *.gcov
+
+@ENABLE_PROFILE_FALSE@clean-local:
+
 @BUILD_APR_TRUE@@APR_LA@:
-@BUILD_APR_TRUE@	cd `@APR_CONFIG@ --srcdir` && make
+@BUILD_APR_TRUE@	cd `@APR_CONFIG@ --srcdir` && $(MAKE)
 
 @BUILD_APU_TRUE@@APU_LA@: @APR_LA@
-@BUILD_APU_TRUE@	cd `@APU_CONFIG@ --srcdir` && make
+@BUILD_APU_TRUE@	cd `@APU_CONFIG@ --srcdir` && $(MAKE)
 
 # Tell versions [3.59,3.63) of GNU make to not export all variables.
 # Otherwise a system limit (for SysV at least) may be exceeded.

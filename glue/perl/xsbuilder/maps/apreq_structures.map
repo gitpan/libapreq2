@@ -7,11 +7,11 @@
 #   data[1]
 #</apreq_value_t>
 
-!<apreq_param_t MODULE=Apache::Request>
-!   info
-!   bb
+<apreq_param_t MODULE=Apache::Upload>
+   info
+   bb
 !   v
-!</apreq_param_t>
+</apreq_param_t>
 
 <apreq_request_t MODULE=Apache::Request>
 !   args
@@ -19,14 +19,16 @@
 !   parser
 !   cfg
 !  env
+   args_status
+   body_status
 </apreq_request_t>
 
 <apreq_cookie_t MODULE=Apache::Cookie>
-!  version
+  version
   path
   domain
   port
-!  secure
+  secure
   comment
   commentURL
 ! max_age
@@ -36,6 +38,7 @@
 <apreq_jar_t MODULE=Apache::Cookie>
 ! cookies
 !  env
+  status
 </apreq_jar_t>
 
 

@@ -14,8 +14,8 @@
 **  limitations under the License.
 */
 
-#ifndef APREQ_PARAM_H
-#define APREQ_PARAM_H
+#ifndef APREQ_PARAMS_H
+#define APREQ_PARAMS_H
 
 #include "apreq.h"
 
@@ -26,14 +26,9 @@ extern "C" {
 
 /**
  * @file apreq_params.h
- * @brief Request and param stuff.
+ * @brief Request parsing and parameter API
+ * @ingroup libapreq2
  */
-/**
- * @defgroup params Request params
- * @ingroup LIBRARY
- * @{
- */
-
 
 /** Common data structure for params and file uploads */
 typedef struct apreq_param_t {
@@ -51,7 +46,6 @@ typedef struct apreq_parser_t apreq_parser_t;
 #define apreq_param_name(p)      ((p)->v.name)
 #define apreq_param_value(p)     ((p)->v.data)
 #define apreq_param_info(p)      ((p)->info)
-#define apreq_param_status(p)    ((p)->v.status)
 #define apreq_param_brigade(p) ((p)->bb ? apreq_copy_brigade((p)->bb) : NULL)
 
 /** creates a param from name/value information */
@@ -63,10 +57,12 @@ APREQ_DECLARE(apreq_param_t *) apreq_make_param(apr_pool_t *p,
 
 /** Structure which manages the request data. */
 typedef struct apreq_request_t {
-    apr_table_t        *args;         /**< parsed query_string */
+    apr_table_t        *args;         /**< parsed query-string */
     apr_table_t        *body;         /**< parsed post data */
     apreq_parser_t     *parser;       /**< active parser for this request */
     void               *env;          /**< request environment */
+    apr_status_t        args_status;  /**< status of query-string parse */
+    apr_status_t        body_status;  /**< status of post data parse */
 } apreq_request_t;
 
 
@@ -90,11 +86,12 @@ APREQ_DECLARE(apreq_request_t *)apreq_request(void *env, const char *qs);
 
 
 /**
- * Returns the first parameter value for the requested key,
- * NULL if none found. The key is case-insensitive.
+ * Returns the first parameter value with the desired name,
+ * NULL if none found. The name is case-insensitive.
  * @param req The current apreq_request_t object.
- * @param key Nul-terminated search key.  Returns the first table value 
+ * @param name Nul-terminated search key.  Returns the first table value 
  * if NULL.
+ * @return First matching parameter.
  * @remark Also parses the request as necessary.
  */
 APREQ_DECLARE(apreq_param_t *) apreq_param(const apreq_request_t *req, 
@@ -170,7 +167,7 @@ APREQ_DECLARE(char *) apreq_encode_param(apr_pool_t *pool,
 /**
  * Parse a url-encoded string into a param table.
  * @param pool    pool used to allocate the param data.
- * @param table   table to which the params are added.
+ * @param t       table to which the params are added.
  * @param qs      Query string to url-decode.
  * @return        APR_SUCCESS if successful, error otherwise.
  * @remark        This function uses [&;] as the set of tokens
@@ -189,6 +186,8 @@ APREQ_DECLARE(apr_status_t) apreq_parse_query_string(apr_pool_t *pool,
  * @param bb  Brigade to parse. See remarks below.
  * @return    APR_INCOMPLETE if the parse is incomplete,
  *            APR_SUCCESS if the parser is finished (saw eos),
+ *            APR_ENOTIMPL if no parser is available for this request
+ *                         (i.e. unrecognized Content-Type header),
  *            unrecoverable error value otherwise.
  */
 
@@ -216,28 +215,29 @@ APREQ_DECLARE(apr_table_t *) apreq_uploads(apr_pool_t *pool,
 
 APREQ_DECLARE(apreq_param_t *) apreq_upload(const apreq_request_t *req,
                                             const char *key);
+#include "apreq.h"
 
 /** Parser arguments. */
-#define APREQ_PARSER_ARGS (apreq_parser_t *parser,     \
+#define APREQ_PARSER_ARGS  apreq_parser_t *parser,     \
                            void *env,                  \
                            apr_table_t *t,             \
-                           apr_bucket_brigade *bb)
+                           apr_bucket_brigade *bb
 
 /** Hook arguments */
-#define APREQ_HOOK_ARGS   (apreq_hook_t *hook,         \
+#define APREQ_HOOK_ARGS    apreq_hook_t *hook,         \
                            void *env,                  \
-                           const apreq_param_t *param, \
-                           apr_bucket_brigade *bb)
+                           apreq_param_t *param,       \
+                           apr_bucket_brigade *bb
 
 /**
  * Declares a API parser.
  */
 #ifndef WIN32
 #define APREQ_DECLARE_PARSER(f) APREQ_DECLARE(apr_status_t) \
-                                (f) APREQ_PARSER_ARGS
+                                (f) (APREQ_PARSER_ARGS)
 #else
 #define APREQ_DECLARE_PARSER(f) APREQ_DECLARE_NONSTD(apr_status_t) \
-                                (f) APREQ_PARSER_ARGS
+                                (f) (APREQ_PARSER_ARGS)
 #endif
 
 /**
@@ -245,10 +245,10 @@ APREQ_DECLARE(apreq_param_t *) apreq_upload(const apreq_request_t *req,
  */
 #ifndef WIN32
 #define APREQ_DECLARE_HOOK(f)   APREQ_DECLARE(apr_status_t) \
-                                (f) APREQ_HOOK_ARGS
+                                (f) (APREQ_HOOK_ARGS)
 #else
 #define APREQ_DECLARE_HOOK(f)   APREQ_DECLARE_NONSTD(apr_status_t) \
-                                (f) APREQ_HOOK_ARGS
+                                (f) (APREQ_HOOK_ARGS)
 #endif
 
 /**
@@ -256,7 +256,7 @@ APREQ_DECLARE(apreq_param_t *) apreq_upload(const apreq_request_t *req,
  *
  */
 struct apreq_hook_t {
-    apr_status_t  (*hook) APREQ_HOOK_ARGS;
+    apr_status_t  (*hook) (APREQ_HOOK_ARGS);
     apreq_hook_t   *next;
     void           *ctx;
 };
@@ -266,7 +266,7 @@ struct apreq_hook_t {
  *
  */
 struct apreq_parser_t {
-    apr_status_t (*parser) APREQ_PARSER_ARGS;
+    apr_status_t (*parser) (APREQ_PARSER_ARGS);
     const char    *enctype;
     apreq_hook_t  *hook;
     void          *ctx;
@@ -274,7 +274,14 @@ struct apreq_parser_t {
 
 
 /**
- * Parse the incoming brigade into a table.
+ * Parse the incoming brigade into a table.  Parsers normally
+ * consume all the buckets of the brigade during parsing. However
+ * parsers may leave "rejected" data in the brigade, even during a
+ * successful parse, so callers may need to clean up the brigade
+ * themselves (in particular, rejected buckets should not be 
+ * passed back to the parser again).
+ * @remark  bb == NULL is valid: the parser should return its 
+ * public status: APR_INCOMPLETE, APR_SUCCESS, or an error code.
  */
 #define APREQ_RUN_PARSER(psr,env,t,bb) (psr)->parser(psr,env,t,bb)
 
@@ -301,7 +308,9 @@ APREQ_DECLARE(apr_status_t) apreq_brigade_concat(void *env,
 
 
 /**
- * Rfc822 Header parser.
+ * Rfc822 Header parser. It will reject all data
+ * after the first CRLF CRLF sequence (an empty line).
+ * See #APREQ_RUN_PARSER for more info on rejected data.
  */
 APREQ_DECLARE_PARSER(apreq_parse_headers);
 
@@ -311,7 +320,10 @@ APREQ_DECLARE_PARSER(apreq_parse_headers);
 APREQ_DECLARE_PARSER(apreq_parse_urlencoded);
 
 /**
- * Rfc2388 multipart/form-data parser.
+ * Rfc2388 multipart/form-data parser. It will reject
+ * any buckets representing preamble and postamble text
+ * (this is normal behavior, not an error condition).
+ * See #APREQ_RUN_PARSER for more info on rejected data.
  */
 APREQ_DECLARE_PARSER(apreq_parse_multipart);
 
@@ -328,14 +340,14 @@ APREQ_DECLARE_PARSER(apreq_parse_multipart);
 APREQ_DECLARE(apreq_parser_t *)
         apreq_make_parser(apr_pool_t *pool,
                           const char *enctype,
-                          apr_status_t (*parser) APREQ_PARSER_ARGS,
+                          apr_status_t (*parser) (APREQ_PARSER_ARGS),
                           apreq_hook_t *hook,
                           void *ctx);
 
 /**
  * Construct a hook.
  *
- * @param Pool used to allocate the hook.
+ * @param pool used to allocate the hook.
  * @param hook The hook function.
  * @param next List of other hooks for this hook to call on.
  * @param ctx Hook's internal scratch pad.
@@ -343,9 +355,10 @@ APREQ_DECLARE(apreq_parser_t *)
  */
 APREQ_DECLARE(apreq_hook_t *)
         apreq_make_hook(apr_pool_t *pool,
-                        apr_status_t (*hook) APREQ_HOOK_ARGS,
+                        apr_status_t (*hook) (APREQ_HOOK_ARGS),
                         apreq_hook_t *next,
                         void *ctx);
+
 
 /**
  * Add a new hook to the end of the parser's hook list.
@@ -373,13 +386,18 @@ APREQ_DECLARE(void) apreq_add_hook(apreq_parser_t *p,
 APREQ_DECLARE(apreq_parser_t *)apreq_parser(void *env,
                                             apreq_hook_t *hook);
 
-/** @} */
+/**
+ * Returns APR_EGENERAL.  Effectively disables mfd parser
+ * if a file-upload field is present.
+ *
+ */
+APREQ_DECLARE_HOOK(apreq_hook_disable_uploads);
+
 #ifdef __cplusplus
 }
+
 #endif
-
-
-#endif /* APREQ_PARAM_H */
+#endif /* APREQ_PARAMS_H */
 
 
 

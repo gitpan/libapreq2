@@ -1,0 +1,705 @@
+.TH "src/apreq.h" 3 "30 Aug 2004" "Version 2.04-dev" "libapreq2" \" -*- nroff -*-
+.ad l
+.nh
+.SH NAME
+src/apreq.h \- Common functions, structures and macros. 
+.SH SYNOPSIS
+.br
+.PP
+\fC#include 'apr_tables.h'\fP
+.br
+\fC#include 'apr_file_io.h'\fP
+.br
+\fC#include 'apr_buckets.h'\fP
+.br
+\fC#include <stddef.h>\fP
+.br
+
+.SS "Data Structures"
+
+.in +1c
+.ti -1c
+.RI "struct \fBapreq_value_t\fP"
+.br
+.RI "\fIlibapreq's pre-extensible string type \fP"
+.in -1c
+.SS "Defines"
+
+.in +1c
+.ti -1c
+.RI "#define \fBAPREQ_DECLARE\fP(d)   \fBAPR_DECLARE\fP(d)"
+.br
+.ti -1c
+.RI "#define \fBAPREQ_DECLARE_NONSTD\fP(d)   \fBAPR_DECLARE_NONSTD\fP(d)"
+.br
+.ti -1c
+.RI "#define \fBAPREQ_DECLARE_DATA\fP"
+.br
+.ti -1c
+.RI "#define \fBAPREQ_URL_ENCTYPE\fP   'application/x-www-form-urlencoded'"
+.br
+.ti -1c
+.RI "#define \fBAPREQ_MFD_ENCTYPE\fP   'multipart/form-data'"
+.br
+.ti -1c
+.RI "#define \fBAPREQ_XML_ENCTYPE\fP   'application/xml'"
+.br
+.ti -1c
+.RI "#define \fBAPREQ_NELTS\fP   8"
+.br
+.ti -1c
+.RI "#define \fBAPREQ_READ_AHEAD\fP   (64 * 1024)"
+.br
+.ti -1c
+.RI "#define \fBAPREQ_MAX_BRIGADE_LEN\fP   (256 * 1024)"
+.br
+.ti -1c
+.RI "#define \fBapreq_attr_to_type\fP(T, A, P)   ( (T*) ((char*)(P)-offsetof(T,A)) )"
+.br
+.ti -1c
+.RI "#define \fBapreq_char_to_value\fP(ptr)   apreq_attr_to_type(\fBapreq_value_t\fP, data, ptr)"
+.br
+.ti -1c
+.RI "#define \fBapreq_strtoval\fP(ptr)   apreq_char_to_value(ptr)"
+.br
+.ti -1c
+.RI "#define \fBapreq_strlen\fP(ptr)   (apreq_strtoval(ptr)->size)"
+.br
+.ti -1c
+.RI "#define \fBAPREQ_BRIGADE_SETASIDE\fP(bb, p)"
+.br
+.ti -1c
+.RI "#define \fBAPREQ_BRIGADE_COPY\fP(d, s)"
+.br
+.in -1c
+.SS "Typedefs"
+
+.in +1c
+.ti -1c
+.RI "typedef \fBapreq_value_t\fP \fBapreq_value_t\fP"
+.br
+.RI "\fIlibapreq's pre-extensible string type \fP"
+.ti -1c
+.RI "typedef \fBapreq_value_t\fP *( \fBapreq_value_merge_t\fP )(\fBapr_pool_t\fP *p, const \fBapr_array_header_t\fP *a)"
+.br
+.ti -1c
+.RI "typedef \fBapreq_value_t\fP *( \fBapreq_value_copy_t\fP )(\fBapr_pool_t\fP *p, const \fBapreq_value_t\fP *v)"
+.br
+.in -1c
+.SS "Enumerations"
+
+.in +1c
+.ti -1c
+.RI "enum \fBapreq_join_t\fP { \fBAPREQ_JOIN_AS_IS\fP, \fBAPREQ_JOIN_ENCODE\fP, \fBAPREQ_JOIN_DECODE\fP, \fBAPREQ_JOIN_QUOTE\fP }"
+.br
+.ti -1c
+.RI "enum \fBapreq_match_t\fP { \fBAPREQ_MATCH_FULL\fP, \fBAPREQ_MATCH_PARTIAL\fP }"
+.br
+.ti -1c
+.RI "enum \fBapreq_expires_t\fP { \fBAPREQ_EXPIRES_HTTP\fP, \fBAPREQ_EXPIRES_NSCOOKIE\fP }"
+.br
+.in -1c
+.SS "Functions"
+
+.in +1c
+.ti -1c
+.RI "\fBapreq_value_t\fP * \fBapreq_make_value\fP (\fBapr_pool_t\fP *p, const char *name, const \fBapr_size_t\fP nlen, const char *val, const \fBapr_size_t\fP vlen)"
+.br
+.ti -1c
+.RI "\fBapreq_value_t\fP * \fBapreq_copy_value\fP (\fBapr_pool_t\fP *p, const \fBapreq_value_t\fP *val)"
+.br
+.ti -1c
+.RI "\fBapreq_value_t\fP * \fBapreq_merge_values\fP (\fBapr_pool_t\fP *p, const \fBapr_array_header_t\fP *arr)"
+.br
+.ti -1c
+.RI "const char * \fBapreq_enctype\fP (void *env)"
+.br
+.ti -1c
+.RI "const char * \fBapreq_join\fP (\fBapr_pool_t\fP *p, const char *sep, const \fBapr_array_header_t\fP *arr, \fBapreq_join_t\fP mode)"
+.br
+.ti -1c
+.RI "char * \fBapreq_memmem\fP (char *hay, \fBapr_size_t\fP hlen, const char *ndl, \fBapr_size_t\fP nlen, const \fBapreq_match_t\fP type)"
+.br
+.ti -1c
+.RI "\fBapr_ssize_t\fP \fBapreq_index\fP (const char *hay, \fBapr_size_t\fP hlen, const char *ndl, \fBapr_size_t\fP nlen, const \fBapreq_match_t\fP type)"
+.br
+.ti -1c
+.RI "\fBapr_size_t\fP \fBapreq_quote\fP (char *dest, const char *src, const \fBapr_size_t\fP slen)"
+.br
+.ti -1c
+.RI "\fBapr_size_t\fP \fBapreq_quote_once\fP (char *dest, const char *src, const \fBapr_size_t\fP slen)"
+.br
+.ti -1c
+.RI "\fBapr_size_t\fP \fBapreq_encode\fP (char *dest, const char *src, const \fBapr_size_t\fP slen)"
+.br
+.ti -1c
+.RI "\fBapr_ssize_t\fP \fBapreq_decode\fP (char *dest, const char *src, \fBapr_size_t\fP slen)"
+.br
+.ti -1c
+.RI "\fBapr_status_t\fP \fBapreq_decodev\fP (char *d, \fBapr_size_t\fP *dlen, struct iovec *v, int nelts)"
+.br
+.ti -1c
+.RI "char * \fBapreq_escape\fP (\fBapr_pool_t\fP *p, const char *src, const \fBapr_size_t\fP slen)"
+.br
+.ti -1c
+.RI "\fBapr_ssize_t\fP \fBapreq_unescape\fP (char *str)"
+.br
+.ti -1c
+.RI "char * \fBapreq_expires\fP (\fBapr_pool_t\fP *p, const char *time_str, const \fBapreq_expires_t\fP type)"
+.br
+.ti -1c
+.RI "\fBapr_int64_t\fP \fBapreq_atoi64f\fP (const char *s)"
+.br
+.ti -1c
+.RI "\fBapr_int64_t\fP \fBapreq_atoi64t\fP (const char *s)"
+.br
+.ti -1c
+.RI "\fBapr_status_t\fP \fBapreq_brigade_fwrite\fP (\fBapr_file_t\fP *f, \fBapr_off_t\fP *wlen, \fBapr_bucket_brigade\fP *bb)"
+.br
+.ti -1c
+.RI "\fBapr_status_t\fP \fBapreq_file_mktemp\fP (\fBapr_file_t\fP **fp, \fBapr_pool_t\fP *pool, const char *path)"
+.br
+.ti -1c
+.RI "\fBapr_file_t\fP * \fBapreq_brigade_spoolfile\fP (\fBapr_bucket_brigade\fP *bb)"
+.br
+.ti -1c
+.RI "\fBapr_status_t\fP \fBapreq_header_attribute\fP (const char *hdr, const char *name, const \fBapr_size_t\fP nlen, const char **val, \fBapr_size_t\fP *vlen)"
+.br
+.in -1c
+.SH "Detailed Description"
+.PP 
+Common functions, structures and macros. 
+
+The objects in \fBapreq.h\fP are used in various contexts:
+.PP
+.IP "\(bu" 2
+\fBapreq_value_t\fP - the base struct for params & cookies
+.IP "\(bu" 2
+string <-> array converters
+.IP "\(bu" 2
+substring search functions
+.IP "\(bu" 2
+simple encoders & decoders for urlencoded strings
+.IP "\(bu" 2
+simple time, date, & file-size converters
+.PP
+
+.SH "Define Documentation"
+.PP 
+.SS "#define APREQ_BRIGADE_COPY(d, s)"
+.PP
+\fBValue:\fP
+.PP
+.nf
+do {                                \
+    apr_bucket *e;                                                  \
+    for (e = APR_BRIGADE_FIRST(s); e != APR_BRIGADE_SENTINEL(s);    \
+         e = APR_BUCKET_NEXT(e))                                    \
+    {                                                               \
+        apr_bucket *c;                                              \
+        apr_bucket_copy(e, &c);                                     \
+        APR_BRIGADE_INSERT_TAIL(d, c);                              \
+    }                                                               \
+} while (0)
+.fi
+Copy a brigade. 
+.PP
+\fBParameters:\fP
+.RS 4
+\fId\fP (destination) Copied buckets are appended to this brigade. 
+.br
+\fIs\fP (source) Brigade to copy from. 
+.RE
+.PP
+\fBRemarks:\fP
+.RS 4
+s == d produces Undefined Behavior. 
+.RE
+.PP
+
+.SS "#define APREQ_BRIGADE_SETASIDE(bb, p)"
+.PP
+\fBValue:\fP
+.PP
+.nf
+do {                               \
+    apr_bucket *e;                                                      \
+    for (e = APR_BRIGADE_FIRST(bb); e != APR_BRIGADE_SENTINEL(bb);      \
+         e = APR_BUCKET_NEXT(e))                                        \
+    {                                                                   \
+        apr_bucket_setaside(e, p);                                      \
+    }                                                                   \
+} while (0)
+.fi
+Set aside all buckets in the brigade. 
+.PP
+\fBParameters:\fP
+.RS 4
+\fIbb\fP Brigade. 
+.br
+\fIp\fP Setaside buckets into this pool. 
+.RE
+.PP
+
+.SS "#define apreq_char_to_value(ptr)   apreq_attr_to_type(\fBapreq_value_t\fP, data, ptr)"
+.PP
+Converts (char *) to (\fBapreq_value_t\fP *). The char * is assumed to point at the data attribute of an \fBapreq_value_t\fP struct.
+.PP
+\fBParameters:\fP
+.RS 4
+\fIptr\fP points at the data field of an \fBapreq_value_t\fP struct. 
+.RE
+.PP
+
+.SS "#define APREQ_MAX_BRIGADE_LEN   (256 * 1024)"
+.PP
+Maximum amount of heap space a brigade may use before switching to file buckets 
+.SS "#define apreq_strlen(ptr)   (apreq_strtoval(ptr)->size)"
+.PP
+Computes the length of the string, but unlike strlen(), it permits embedded null characters.
+.PP
+\fBParameters:\fP
+.RS 4
+\fIptr\fP points at the data field of an \fBapreq_value_t\fP struct. 
+.RE
+.PP
+
+.SH "Enumeration Type Documentation"
+.PP 
+.SS "enum \fBapreq_expires_t\fP"
+.PP
+Expiration date format 
+.PP
+\fBEnumeration values: \fP
+.in +1c
+.TP
+\fB\fIAPREQ_EXPIRES_HTTP \fP\fP
+Use date formatting consistent with RFC 2616 
+.TP
+\fB\fIAPREQ_EXPIRES_NSCOOKIE \fP\fP
+Use format consistent with Netscape's Cookie Spec 
+.SS "enum \fBapreq_join_t\fP"
+.PP
+Join type 
+.PP
+\fBEnumeration values: \fP
+.in +1c
+.TP
+\fB\fIAPREQ_JOIN_AS_IS \fP\fP
+Join the strings without modification 
+.TP
+\fB\fIAPREQ_JOIN_ENCODE \fP\fP
+Url-encode the strings before joining them 
+.TP
+\fB\fIAPREQ_JOIN_DECODE \fP\fP
+Url-decode the strings before joining them 
+.TP
+\fB\fIAPREQ_JOIN_QUOTE \fP\fP
+Quote the strings, backslashing existing quote marks. 
+.SS "enum \fBapreq_match_t\fP"
+.PP
+Match type 
+.PP
+\fBEnumeration values: \fP
+.in +1c
+.TP
+\fB\fIAPREQ_MATCH_FULL \fP\fP
+Full match only. 
+.TP
+\fB\fIAPREQ_MATCH_PARTIAL \fP\fP
+Partial matches are ok. 
+.SH "Function Documentation"
+.PP 
+.SS "\fBapr_int64_t\fP apreq_atoi64f (const char * s)"
+.PP
+Converts file sizes (KMG) to bytes 
+.PP
+\fBParameters:\fP
+.RS 4
+\fIs\fP file size matching m/^+[KMG]b?$/i 
+.RE
+.PP
+\fBReturns:\fP
+.RS 4
+64-bit integer representation of s. 
+.RE
+.PP
+
+.SS "\fBapr_int64_t\fP apreq_atoi64t (const char * s)"
+.PP
+Converts time strings (YMDhms) to seconds 
+.PP
+\fBParameters:\fP
+.RS 4
+\fIs\fP time string matching m/^\\+?+[YMDhms]$/ 
+.RE
+.PP
+\fBReturns:\fP
+.RS 4
+64-bit integer representation of s as seconds. 
+.RE
+.PP
+
+.SS "\fBapr_status_t\fP apreq_brigade_fwrite (\fBapr_file_t\fP * f, \fBapr_off_t\fP * wlen, \fBapr_bucket_brigade\fP * bb)"
+.PP
+Writes brigade to a file. 
+.PP
+\fBParameters:\fP
+.RS 4
+\fIf\fP File that gets the brigade. 
+.br
+\fIwlen\fP On a successful return, wlen holds the length of the brigade, which is the amount of data written to the file. 
+.br
+\fIbb\fP Bucket brigade. 
+.RE
+.PP
+\fBRemarks:\fP
+.RS 4
+In the future, this function may do something intelligent with file buckets. 
+.RE
+.PP
+
+.SS "\fBapr_file_t\fP* apreq_brigade_spoolfile (\fBapr_bucket_brigade\fP * bb)"
+.PP
+Gets the spoolfile associated to a brigade, if any. 
+.PP
+\fBParameters:\fP
+.RS 4
+\fIbb\fP Brigade, usually associated to a file upload (\fBapreq_param_t\fP). 
+.RE
+.PP
+\fBReturns:\fP
+.RS 4
+If the last bucket in the brigade is a file bucket, this function will return its associated file. Otherwise, this function returns NULL. 
+.RE
+.PP
+
+.SS "\fBapreq_value_t\fP* apreq_copy_value (\fBapr_pool_t\fP * p, const \fBapreq_value_t\fP * val)"
+.PP
+Makes a pool-allocated copy of the value. 
+.PP
+\fBParameters:\fP
+.RS 4
+\fIp\fP Pool. 
+.br
+\fIval\fP Original value to copy. 
+.RE
+.PP
+
+.SS "\fBapr_ssize_t\fP apreq_decode (char * dest, const char * src, \fBapr_size_t\fP slen)"
+.PP
+Url-decodes a string. 
+.PP
+\fBParameters:\fP
+.RS 4
+\fIdest\fP Location of url-encoded result string. Caller must ensure dest is large enough to hold the encoded string and trailing null character. 
+.br
+\fIsrc\fP Original string. 
+.br
+\fIslen\fP Length of original string. 
+.RE
+.PP
+\fBReturns:\fP
+.RS 4
+Length of url-decoded string in dest, or < 0 on decoding (bad data) error. 
+.RE
+.PP
+
+.SS "\fBapr_status_t\fP apreq_decodev (char * d, \fBapr_size_t\fP * dlen, struct iovec * v, int nelts)"
+.PP
+Url-decodes an iovec array. 
+.PP
+\fBParameters:\fP
+.RS 4
+\fIdest\fP Location of url-encoded result string. Caller must ensure dest is large enough to hold the encoded string and trailing null character. 
+.br
+\fIdlen\fP Resultant length of dest. 
+.br
+\fIv\fP Array of iovecs that represent the source string 
+.br
+\fInelts\fP Number of iovecs in the array. 
+.RE
+.PP
+\fBReturns:\fP
+.RS 4
+APR_SUCCESS on success, APR_INCOMPLETE if the iovec ends in the middle of an XX escape sequence, error otherwise. 
+.RE
+.PP
+
+.SS "\fBapr_size_t\fP apreq_encode (char * dest, const char * src, const \fBapr_size_t\fP slen)"
+.PP
+Url-encodes a string. 
+.PP
+\fBParameters:\fP
+.RS 4
+\fIdest\fP Location of url-encoded result string. Caller must ensure it is large enough to hold the encoded string and trailing ''. 
+.br
+\fIsrc\fP Original string. 
+.br
+\fIslen\fP Length of original string. 
+.RE
+.PP
+\fBReturns:\fP
+.RS 4
+length of url-encoded string in dest. 
+.RE
+.PP
+
+.SS "const char* apreq_enctype (void * env)"
+.PP
+Fetches the enctype from the environment. 
+.PP
+\fBParameters:\fP
+.RS 4
+\fIenv\fP Environment. 
+.RE
+.PP
+
+.SS "char* apreq_escape (\fBapr_pool_t\fP * p, const char * src, const \fBapr_size_t\fP slen)"
+.PP
+Returns an url-encoded copy of a string. 
+.PP
+\fBParameters:\fP
+.RS 4
+\fIp\fP Pool used to allocate the return value. 
+.br
+\fIsrc\fP Original string. 
+.br
+\fIslen\fP Length of original string. 
+.RE
+.PP
+\fBRemarks:\fP
+.RS 4
+Use this function insead of apreq_encode if its caller might otherwise overflow dest. 
+.RE
+.PP
+
+.SS "char* apreq_expires (\fBapr_pool_t\fP * p, const char * time_str, const \fBapreq_expires_t\fP type)"
+.PP
+Returns an RFC-822 formatted time string. Similar to ap_gm_timestr_822.
+.PP
+\fBParameters:\fP
+.RS 4
+\fIp\fP Pool to allocate return string. 
+.br
+\fItime_str\fP YMDhms time units (from now) until expiry. Understands 'now'. 
+.br
+\fItype\fP \fBAPREQ_EXPIRES_HTTP\fP for RFC822 dates, \fBAPREQ_EXPIRES_NSCOOKIE\fP for Netscape cookie dates. 
+.RE
+.PP
+\fBReturns:\fP
+.RS 4
+Date string, (time_str is offset from 'now') formatted according to type. 
+.RE
+.PP
+.PP
+\fBDeprecated\fP
+.RS 4
+Use apr_rfc822_date instead. \fBAPREQ_EXPIRES_NSCOOKIE\fP strings are formatted with a '-' (instead of a ' ') character at offsets 7 and 11. 
+.RE
+.PP
+
+.SS "\fBapr_status_t\fP apreq_file_mktemp (\fBapr_file_t\fP ** fp, \fBapr_pool_t\fP * pool, const char * path)"
+.PP
+Makes a temporary file. 
+.PP
+\fBParameters:\fP
+.RS 4
+\fIfp\fP Points to the temporary apr_file_t on success. 
+.br
+\fIpool\fP Pool to associate with the temp file. When the pool is destroyed, the temp file will be closed and deleted. 
+.br
+\fIpath\fP The base directory which will contain the temp file. If param == NULL, the directory will be selected via tempnam(). See the tempnam manpage for details. 
+.RE
+.PP
+\fBReturns:\fP
+.RS 4
+APR_SUCCESS on success; error code otherwise. 
+.RE
+.PP
+
+.SS "\fBapr_status_t\fP apreq_header_attribute (const char * hdr, const char * name, const \fBapr_size_t\fP nlen, const char ** val, \fBapr_size_t\fP * vlen)"
+.PP
+Search a header string for the value of a particular named attribute. 
+.PP
+\fBParameters:\fP
+.RS 4
+\fIhdr\fP Header string to scan. 
+.br
+\fIname\fP Name of attribute to search for. 
+.br
+\fInlen\fP Length of name. 
+.br
+\fIval\fP Location of (first) matching value. 
+.br
+\fIvlen\fP Length of matching value. 
+.RE
+.PP
+\fBReturns:\fP
+.RS 4
+APR_SUCCESS if found, otherwise APR_NOTFOUND. 
+.RE
+.PP
+
+.SS "\fBapr_ssize_t\fP apreq_index (const char * hay, \fBapr_size_t\fP hlen, const char * ndl, \fBapr_size_t\fP nlen, const \fBapreq_match_t\fP type)"
+.PP
+Returns offset of match string's location, or -1 if no match is found. 
+.PP
+\fBParameters:\fP
+.RS 4
+\fIhay\fP Location of bytes to scan. 
+.br
+\fIhlen\fP Number of bytes available for scanning. 
+.br
+\fIndl\fP Search string 
+.br
+\fInlen\fP Length of search string. 
+.br
+\fItype\fP Match type. 
+.RE
+.PP
+\fBReturns:\fP
+.RS 4
+Offset of match string, or -1 if mo match is found. 
+.RE
+.PP
+
+.SS "const char* apreq_join (\fBapr_pool_t\fP * p, const char * sep, const \fBapr_array_header_t\fP * arr, \fBapreq_join_t\fP mode)"
+.PP
+Join an array of values. 
+.PP
+\fBParameters:\fP
+.RS 4
+\fIp\fP Pool to allocate return value. 
+.br
+\fIsep\fP String that is inserted between the joined values. 
+.br
+\fIarr\fP Array of values. 
+.br
+\fImode\fP Join type- see apreq_join_t. 
+.RE
+.PP
+\fBRemarks:\fP
+.RS 4
+Return string can be upgraded to an \fBapreq_value_t\fP with apreq_stroval. 
+.RE
+.PP
+
+.SS "\fBapreq_value_t\fP* apreq_make_value (\fBapr_pool_t\fP * p, const char * name, const \fBapr_size_t\fP nlen, const char * val, const \fBapr_size_t\fP vlen)"
+.PP
+Construcs an \fBapreq_value_t\fP from the name/value info supplied by the arguments.
+.PP
+\fBParameters:\fP
+.RS 4
+\fIp\fP Pool for allocating the name and value. 
+.br
+\fIname\fP Name of value. 
+.br
+\fInlen\fP Length of name. 
+.br
+\fIval\fP Value data. 
+.br
+\fIvlen\fP Length of val. 
+.RE
+.PP
+\fBReturns:\fP
+.RS 4
+\fBapreq_value_t\fP allocated from pool, with v->data holding a copy of val, v->status = 0, and v->name pointing to a nul-terminated copy of name. 
+.RE
+.PP
+
+.SS "char* apreq_memmem (char * hay, \fBapr_size_t\fP hlen, const char * ndl, \fBapr_size_t\fP nlen, const \fBapreq_match_t\fP type)"
+.PP
+Return a pointer to the match string, or NULL if no match is found. 
+.PP
+\fBParameters:\fP
+.RS 4
+\fIhay\fP Location of bytes to scan. 
+.br
+\fIhlen\fP Number of bytes available for scanning. 
+.br
+\fIndl\fP Search string 
+.br
+\fInlen\fP Length of search string. 
+.br
+\fItype\fP Match type. 
+.RE
+.PP
+
+.SS "\fBapreq_value_t\fP* apreq_merge_values (\fBapr_pool_t\fP * p, const \fBapr_array_header_t\fP * arr)"
+.PP
+Merges an array of values into one. 
+.PP
+\fBParameters:\fP
+.RS 4
+\fIp\fP Pool from which the new value is generated. 
+.br
+\fIarr\fP Array of apr_value_t *. 
+.RE
+.PP
+
+.SS "\fBapr_size_t\fP apreq_quote (char * dest, const char * src, const \fBapr_size_t\fP slen)"
+.PP
+Places a quoted copy of src into dest. Embedded quotes are escaped with a backslash ('\\'). 
+.PP
+\fBParameters:\fP
+.RS 4
+\fIdest\fP Location of quoted copy. Must be large enough to hold the copy and trailing null byte. 
+.br
+\fIsrc\fP Original string. 
+.br
+\fIslen\fP Length of original string. 
+.br
+\fIdest\fP Destination string. 
+.RE
+.PP
+\fBReturns:\fP
+.RS 4
+length of quoted copy in dest. 
+.RE
+.PP
+
+.SS "\fBapr_size_t\fP apreq_quote_once (char * dest, const char * src, const \fBapr_size_t\fP slen)"
+.PP
+Same as \fBapreq_quote()\fP except when src begins and ends in quote marks. In that case it assumes src is quoted correctly, and just copies src to dest. 
+.PP
+\fBParameters:\fP
+.RS 4
+\fIdest\fP Location of quoted copy. Must be large enough to hold the copy and trailing null byte. 
+.br
+\fIsrc\fP Original string. 
+.br
+\fIslen\fP Length of original string. 
+.br
+\fIdest\fP Destination string. 
+.RE
+.PP
+\fBReturns:\fP
+.RS 4
+length of quoted copy in dest. 
+.RE
+.PP
+
+.SS "\fBapr_ssize_t\fP apreq_unescape (char * str)"
+.PP
+An \fIin-situ\fP url-decoder. 
+.PP
+\fBParameters:\fP
+.RS 4
+\fIstr\fP The string to decode 
+.RE
+.PP
+\fBReturns:\fP
+.RS 4
+Length of decoded string, or < 0 on error. 
+.RE
+.PP
+\fBRemarks:\fP
+.RS 4
+Equivalent to apreq_decode(str,str,strlen(str)). 
+.RE
+.PP
+
+.SH "Author"
+.PP 
+Generated automatically by Doxygen for libapreq2 from the source code.

@@ -41,7 +41,6 @@ APREQ_DECLARE(apreq_param_t *) apreq_make_param(apr_pool_t *p,
     v->name = v->data + vlen + 1;
     memcpy((char *)v->name, name, nlen);
     ((char *)v->name)[nlen] = 0;
-    v->status = APR_SUCCESS;
 
     return param;
 }
@@ -64,7 +63,7 @@ APREQ_DECLARE(apreq_request_t *) apreq_request(void *env, const char *qs)
         req->env      = env;
         req->args     = apr_table_make(p, APREQ_NELTS);
         req->body     = NULL;
-        req->parser   = apreq_parser(env, NULL);
+        req->parser   = NULL;
 
         /* XXX get/set race condition here wrt apreq_env_request? */
         old_req = apreq_env_request(env, req);
@@ -84,16 +83,20 @@ APREQ_DECLARE(apreq_request_t *) apreq_request(void *env, const char *qs)
         req->env      = env;
         req->args     = apr_table_make(p, APREQ_NELTS);
         req->body     = NULL;
-        req->parser   = apreq_parser(env, NULL);
+        req->parser   = NULL;
 
     }
 
     if (qs != NULL) {
-        apr_status_t s = apreq_parse_query_string(p, req->args, qs);
-        if (s != APR_SUCCESS)
-            apreq_log(APREQ_ERROR s, env, "invalid query string: %s", qs);
+        req->args_status = apreq_parse_query_string(p, req->args, qs);
+        if (req->args_status != APR_SUCCESS)
+            apreq_log(APREQ_ERROR req->args_status, env, 
+                      "invalid query string: %s", qs);
     }
+    else
+        req->args_status = APR_SUCCESS;
 
+    req->body_status = APR_EINIT;
     return req;
 }
 
@@ -104,12 +107,19 @@ APREQ_DECLARE(apreq_param_t *)apreq_param(const apreq_request_t *req,
     const char *val = apr_table_get(req->args, name);
 
     while (val == NULL) {
-        apr_status_t s = apreq_env_read(req->env, APR_BLOCK_READ,APREQ_READ_AHEAD);
-        if (req->body == NULL)
-            return NULL;
-        val = apr_table_get(req->body, name);
-        if (s != APR_INCOMPLETE && val == NULL)
-            return NULL;
+        apr_status_t s = req->body_status;
+        switch (s) {
+        case APR_INCOMPLETE:
+        case APR_EINIT:
+            s = apreq_env_read(req->env, APR_BLOCK_READ, APREQ_READ_AHEAD);
+
+        default:
+            if (req->body == NULL)
+                return NULL;
+            val = apr_table_get(req->body, name);
+            if (s != APR_INCOMPLETE && val == NULL)
+                return NULL;
+        }
     }
 
     return apreq_value_to_param(apreq_strtoval(val));
@@ -121,9 +131,12 @@ APREQ_DECLARE(apr_table_t *) apreq_params(apr_pool_t *pool,
 {
     apr_status_t s;
 
-    do s = apreq_env_read(req->env, APR_BLOCK_READ, APREQ_READ_AHEAD);
-    while (s == APR_INCOMPLETE);
-
+    switch (req->body_status) {
+    case APR_INCOMPLETE:
+    case APR_EINIT:
+        do s = apreq_env_read(req->env, APR_BLOCK_READ, APREQ_READ_AHEAD);
+        while (s == APR_INCOMPLETE);
+    }
     return req->body ? apr_table_overlay(pool, req->args, req->body) :
         apr_table_copy(pool, req->args);
 }
@@ -134,7 +147,7 @@ static int param_push(void *data, const char *key, const char *val)
     apr_array_header_t *arr = data;
     *(apreq_param_t **)apr_array_push(arr) = 
         apreq_value_to_param(apreq_strtoval(val));
-    return 0;
+    return 1;
 }
 
 
@@ -146,13 +159,17 @@ APREQ_DECLARE(apr_array_header_t *) apreq_params_as_array(apr_pool_t *p,
     apr_array_header_t *arr = apr_array_make(p, apr_table_elts(req->args)->nelts,
                                              sizeof(apreq_param_t *));
 
-    apr_table_do(param_push, arr, req->args, key);
+    apr_table_do(param_push, arr, req->args, key, NULL);
 
-    do s = apreq_env_read(req->env, APR_BLOCK_READ, APREQ_READ_AHEAD);
-    while (s == APR_INCOMPLETE);
+    switch (req->body_status) {
+    case APR_INCOMPLETE:
+    case APR_EINIT:
+        do s = apreq_env_read(req->env, APR_BLOCK_READ, APREQ_READ_AHEAD);
+        while (s == APR_INCOMPLETE);
+    }
 
     if (req->body)
-        apr_table_do(param_push, arr, req->body, key);
+        apr_table_do(param_push, arr, req->body, key, NULL);
 
     return arr;
 }
@@ -195,22 +212,18 @@ APREQ_DECLARE(apreq_param_t *) apreq_decode_param(apr_pool_t *pool,
     param->info = NULL;
     param->bb = NULL;
 
-    param->v.status = APR_SUCCESS;
     param->v.name = NULL;
 
     size = apreq_decode(param->v.data, word + nlen + 1, vlen);
 
-    if (size < 0) {
-        param->v.size = 0;
-        param->v.status = APR_BADARG;
-        return param;
-    }
+    if (size < 0)
+        return NULL;
 
     param->v.size = size;
     param->v.name = param->v.data + size + 1;
 
     if (apreq_decode(param->v.data + size + 1, word, nlen) < 0)
-        param->v.status = APR_BADCH;
+        return NULL;
 
     return param;
 }
@@ -222,14 +235,13 @@ APREQ_DECLARE(char *) apreq_encode_param(apr_pool_t *pool,
     apreq_value_t *v;
     apr_size_t nlen;
 
-    if (param->v.name == NULL || param->v.status != APR_SUCCESS)
+    if (param->v.name == NULL)
         return NULL;
 
     nlen = strlen(param->v.name);
 
     v = apr_palloc(pool, 3 * (nlen + param->v.size) + 2 + sizeof *v);
     v->name = param->v.name;
-    v->status = APR_SUCCESS;
     v->size = apreq_encode(v->data, param->v.name, nlen);
     v->data[v->size++] = '=';
     v->size += apreq_encode(v->data + v->size, param->v.data, param->v.size);
@@ -265,8 +277,8 @@ APREQ_DECLARE(apr_status_t) apreq_parse_query_string(apr_pool_t *pool,
                     vlen = qs - start - nlen - 1;
 
                 param = apreq_decode_param(pool, start, nlen, vlen);
-                if (param->v.status != APR_SUCCESS)
-                    return param->v.status;
+                if (param == NULL)
+                    return APR_EGENERAL;
 
                 apr_table_addn(t, param->v.name, param->v.data);
             }
@@ -285,15 +297,23 @@ APREQ_DECLARE(apr_status_t) apreq_parse_query_string(apr_pool_t *pool,
 APREQ_DECLARE(apr_status_t) apreq_parse_request(apreq_request_t *req, 
                                                 apr_bucket_brigade *bb)
 {
-    if (req->parser == NULL)
-        req->parser = apreq_parser(req->env,NULL);
-    if (req->parser == NULL)
-        return APR_EINIT;
+    switch (req->body_status) {
+    case APR_EINIT:
+        if (req->parser == NULL) {
+            req->parser = apreq_parser(req->env,NULL);
+            if (req->parser == NULL)
+                return APR_ENOTIMPL;
+        }
+        if (req->body == NULL)
+            req->body = apr_table_make(apreq_env_pool(req->env),APREQ_NELTS);
 
-    if (req->body == NULL)
-        req->body = apr_table_make(apreq_env_pool(req->env),APREQ_NELTS);
 
-    return APREQ_RUN_PARSER(req->parser, req->env, req->body, bb);
+    case APR_INCOMPLETE:
+        req->body_status = APREQ_RUN_PARSER(req->parser, req->env, 
+                                            req->body, bb);
+    default:
+        return req->body_status;
+    }
 }
 
 
@@ -312,9 +332,13 @@ APREQ_DECLARE(apr_table_t *) apreq_uploads(apr_pool_t *pool,
 {
     apr_table_t *t;
     apr_status_t s;
-    do s = apreq_env_read(req->env, APR_BLOCK_READ, APREQ_READ_AHEAD);
-    while (s == APR_INCOMPLETE);
 
+    switch (req->body_status) {
+    case APR_INCOMPLETE:
+    case APR_EINIT:
+        do s = apreq_env_read(req->env, APR_BLOCK_READ, APREQ_READ_AHEAD);
+        while (s == APR_INCOMPLETE);
+    }
     if (req->body == NULL)
         return NULL;
 
@@ -342,14 +366,19 @@ APREQ_DECLARE(apreq_param_t *) apreq_upload(const apreq_request_t *req,
 {
     apreq_param_t *param = NULL;
     do {
-        apr_status_t s = apreq_env_read(req->env, APR_BLOCK_READ,
-                                        APREQ_READ_AHEAD);
-        if (req->body == NULL)
-            return NULL;
-        apr_table_do(upload_get, &param, req->body, key, NULL);
+        apr_status_t s = req->body_status;
+        switch (s) {
+        case APR_INCOMPLETE:
+        case APR_EINIT:
+            s = apreq_env_read(req->env, APR_BLOCK_READ, APREQ_READ_AHEAD);
 
-        if (s != APR_INCOMPLETE)
-            break;
+        default:
+            if (req->body == NULL)
+                return NULL;
+            apr_table_do(upload_get, &param, req->body, key, NULL);
+            if (s != APR_INCOMPLETE)
+                return param;
+        }
     } while (param == NULL);
 
     return param;

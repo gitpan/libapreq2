@@ -14,9 +14,15 @@ my @big_key_len = (100, 500, 5000, 10000);
 my @big_key_num = (5, 15, 25);
 my @big_keys    = ('a'..'z');
 
-plan tests => @key_len * @key_num + @big_key_len * @big_key_num;
+my $num_tests = @key_len * @key_num + @big_key_len * @big_key_num;
+$num_tests *= 2 if Apache::Test::have_ssl();
+plan tests => $num_tests, have_lwp;
 
 my $location = "/apreq_big_request_test";
+my $scheme = 'http';
+
+START_TESTS:
+Apache::TestRequest::scheme($scheme);
 
 # GET
 for my $key_len (@key_len) {
@@ -33,8 +39,8 @@ for my $key_len (@key_len) {
 
         t_debug "# of keys : $key_num, key_len $key_len";
         my $body = GET_BODY "$location?$query";
-        ok t_cmp($len,
-                 $body,
+        ok t_cmp($body,
+                 $len,
                  "GET long query");
     }
 
@@ -55,9 +61,14 @@ for my $big_key_len (@big_key_len) {
 
         t_debug "# of keys : $big_key_num, big_key_len $big_key_len";
         my $body = POST_BODY($location, content => $query);
-        ok t_cmp($len,
-                 $body,
+        ok t_cmp($body,
+                 $len,
                  "POST big data");
     }
 
+}
+
+if (Apache::Test::have_ssl() and $scheme ne 'https') {    
+    $scheme = 'https';
+    goto START_TESTS;
 }

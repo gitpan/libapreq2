@@ -30,57 +30,146 @@
 
 #define dR  request_rec *r = (request_rec *)env
 
-/** The warehouse. */
-struct env_config {
-    apreq_jar_t        *jar;
-    apreq_request_t    *req;
-    ap_filter_t        *f;
+struct dir_config {
     const char         *temp_dir;
     apr_off_t           max_body;
     apr_ssize_t         max_brigade;
 };
 
-/** Tracks the filter state */
+
+static void *apreq_create_dir_config(apr_pool_t *p, char *d)
+{
+    /* d == OR_ALL */
+    struct dir_config *dc = apr_palloc(p, sizeof *dc);
+    dc->temp_dir    = NULL;
+    dc->max_body    = -1;
+    dc->max_brigade = APREQ_MAX_BRIGADE_LEN;
+    return dc;
+}
+
+static void *apreq_merge_dir_config(apr_pool_t *p, void *a_, void *b_)
+{
+    struct dir_config *a = a_, *b = b_, *c = apr_palloc(p, sizeof *c);
+    c->temp_dir    = (b->temp_dir != NULL)    ? b->temp_dir    : a->temp_dir;
+    c->max_body    = (b->max_body >= 0)       ? b->max_body    : a->max_body;
+    c->max_brigade = (b->max_brigade >= 0)    ? b->max_brigade : a->max_brigade;
+    return c;
+}
+
+
+/* The "warehouse", stored in r->request_config */
+struct env_config {
+    apreq_jar_t        *jar;    /* Active jar for the current request_rec */
+    apreq_request_t    *req;    /* Active request for current request_rec */
+    ap_filter_t        *f;      /* Active apreq filter for this request_rec */
+    const char         *temp_dir; /* Temporary directory for spool files */
+    apr_off_t           max_body; /* Maximum bytes the parser may see */
+    apr_ssize_t         max_brigade; /* Maximum heap space for brigades */
+};
+
+/* Tracks the apreq filter state */
 struct filter_ctx {
-    apr_bucket_brigade *bb;
-    apr_bucket_brigade *spool;
-    apr_status_t        status;
-    unsigned            saw_eos;
-    apr_off_t           bytes_read;
+    request_rec        *r;     /* request that originally created this filter */
+    apr_bucket_brigade *bb;    /* input brigade that's passed to the parser */
+    apr_bucket_brigade *spool; /* copied prefetch data for downstream filters */
+    apr_status_t        status;/* APR_SUCCESS, APR_INCOMPLETE, or parse error */
+    unsigned            saw_eos;      /* Has EOS bucket appeared in filter? */
+    apr_off_t           bytes_read;   /* Total bytes read into this filter. */
 };
 
 static const char filter_name[] = "APREQ";
 module AP_MODULE_DECLARE_DATA apreq_module;
 
 /**
- * mod_apreq.c provides an input filter for using libapreq2
+ * @defgroup mod_apreq Apache 2.X Filter Module
+ * @ingroup apreq_env
+ * @brief mod_apreq - DSO that ties libapreq2 to Apache 2.X.
+ *
+ * mod_apreq provides the "APREQ" input filter for using libapreq2
  * (and allow its parsed data structures to be shared) within
- * the Apache-2 webserver.  Using it, libapreq2 works properly
+ * the Apache 2.X webserver.  Using it, libapreq2 works properly
  * in every phase of the HTTP request, from translation handlers 
  * to output filters, and even for subrequests / internal redirects.
  *
- * After installing mod_apreq, be sure your webserver's
- * httpd.conf activates it on startup with a LoadModule directive:
- * <pre><code>
+ * <hr>
  *
- *     LoadModule modules/mod_apreq.so
+ * <h2>Activating mod_apreq in Apache 2.X</h2>
  *
- * </code></pre>
- * Normally the installation process triggered by '% make install'
- * will make the necessary changes to httpd.conf for you.
- * 
- * XXX describe normal operation, effects of apreq_config_t settings, etc. 
+ * Normally the installation process triggered by
+ * <code>% make install</code>
+ * will make the necessary changes to httpd.conf for you. In any case,
+ * after installing the mod_apreq.so module, be sure your webserver's
+ * httpd.conf activates it on startup with a LoadModule directive, e.g.
+ * @code
  *
- * @defgroup mod_apreq Apache-2 Filter Module
- * @ingroup MODULES
- * @brief mod_apreq.c: Apache-2 filter module
+ *     LoadModule    modules/mod_apreq.so
+ *
+ * @endcode
+ *
+ * The mod_apreq filter is named "APREQ", and may be used in Apache's
+ * input filter directives, e.g.
+ * @code
+ *
+ *     AddInputFilter APREQ         # or
+ *     SetInputFilter APREQ
+ *
+ * @endcode
+ *
+ * However, this is not required because libapreq2 will add the filter (only)
+ * if it's necessary.  You just need to ensure that your module instantiates
+ * an apreq_request_t using apreq_request() <em>before the content handler
+ * ultimately reads from the input filter chain</em>.  It is important to
+ * recognize that no matter how the input filters are initially arranged,
+ * the APREQ filter will attempt to reposition itself to be the last input filter
+ * to read the data.
+ *
+ * If you want to use other input filters to transform the incoming HTTP
+ * request data, is important to register those filters with Apache
+ * as having type AP_FTYPE_CONTENT_SET or AP_FTYPE_RESOURCE.  Due to the 
+ * limitations of Apache's current input filter design, types higher than 
+ * AP_FTYPE_CONTENT_SET may not work properly whenever the apreq filter is active.
+ *
+ * This is especially true when a content handler uses libapreq2 to parse 
+ * some of the post data before doing an internal redirect.  Any input filter
+ * subsequently added to the redirected request will bypass the original apreq 
+ * filter (and therefore lose access to some of the original post data), unless 
+ * its type is less than the type of the apreq filter (currently AP_FTYPE_PROTOCOL-1).
+ *
+ *
+ * <h2>Server Configuration Directives</h2>
+ *
+ * <TABLE class="qref"><CAPTION>Per-directory commands for mod_apreq</CAPTION>
+ * <TR><TH>Directive</TH><TH>Context</TH><TH>Default</TH><TH>Description</TH></TR>
+ * <TR class="odd"><TD>APREQ_MaxBody</TD><TD>directory</TD><TD>-1 (Unlimited)</TD><TD>
+ * Maximum number of bytes mod_apreq will send off to libapreq for parsing.  
+ * mod_apreq will log this event and remove itself from the filter chain.
+ * The APR_EGENERAL error will be reported to libapreq2 users via the return 
+ * value of apreq_env_read().
+ * </TD></TR>
+ * <TR><TD>APREQ_MaxBrigade</TD><TD>directory</TD><TD> #APREQ_MAX_BRIGADE_LEN </TD><TD>
+ * Maximum number of bytes apreq will allow to accumulate
+ * within a brigade.  Excess data will be spooled to a
+ * file bucket appended to the brigade.
+ * </TD></TR>
+ * <TR class="odd"><TD>APREQ_TempDir</TD><TD>directory</TD><TD>NULL</TD><TD>
+ * Sets the location of the temporary directory apreq will use to spool
+ * overflow brigade data (based on the APREQ_MaxBrigade setting).
+ * If left unset, libapreq2 will select a platform-specific location via apr_temp_dir_get().
+ * </TD></TR>
+ * </TABLE>
+ *
+ * <h2>Implementation Details</h2>
+ * <pre>
+ * XXX apreq as a normal input filter
+ * XXX apreq as a "virtual" content handler.
+ * XXX apreq as a transparent "tee".
+ * </pre>
  * @{
  */
 
 
-#define APREQ_MODULE_NAME "APACHE2"
-#define APREQ_MODULE_MAGIC_NUMBER 20040324
-
+#define APREQ_MODULE_NAME               "APACHE2"
+#define APREQ_MODULE_MAGIC_NUMBER       20040809
 
 static void apache2_log(const char *file, int line, int level, 
                         apr_status_t status, void *env, const char *fmt,
@@ -130,10 +219,20 @@ static struct env_config *get_cfg(request_rec *r)
     struct env_config *cfg = 
         ap_get_module_config(r->request_config, &apreq_module);
     if (cfg == NULL) {
+        struct dir_config *d = ap_get_module_config(r->per_dir_config, 
+                                                    &apreq_module);
         cfg = apr_pcalloc(r->pool, sizeof *cfg);
         ap_set_module_config(r->request_config, &apreq_module, cfg);
-        cfg->max_body = -1;
-        cfg->max_brigade = APREQ_MAX_BRIGADE_LEN;
+
+        if (d) {
+            cfg->temp_dir    = d->temp_dir;
+            cfg->max_body    = d->max_body;
+            cfg->max_brigade = d->max_brigade;
+        } 
+        else {
+            cfg->max_body    = -1;
+            cfg->max_brigade = APREQ_MAX_BRIGADE_LEN;
+        }
     }
     return cfg;
 }
@@ -165,19 +264,17 @@ static void apreq_filter_relocate(ap_filter_t *f)
 static ap_filter_t *get_apreq_filter(request_rec *r)
 {
     struct env_config *cfg = get_cfg(r);
-    ap_filter_t *f;
-    if (cfg->f != NULL)
-        return cfg->f;
 
-    for (f  = r->input_filters; 
-         f != r->proto_input_filters;
-         f  = f->next)
-    {
-        if (strcmp(f->frec->name, filter_name) == 0)
-            return cfg->f = f;
-    }
+    if (cfg->f != NULL)
+       return cfg->f;
+
     cfg->f = ap_add_input_filter(filter_name, NULL, r, r->connection);
-    apreq_filter_relocate(cfg->f);
+
+/* ap_add_input_filter does not guarantee cfg->f == r->input_filters,
+ * so we reposition the new filter there as necessary.
+ */
+
+    apreq_filter_relocate(cfg->f); 
     return cfg->f;
 }
 
@@ -203,11 +300,75 @@ APR_INLINE
 static void apreq_filter_make_context(ap_filter_t *f)
 {
     request_rec *r = f->r;
-    apr_bucket_alloc_t *alloc = apr_bucket_alloc_create(r->pool);
-    struct filter_ctx *ctx = apr_palloc(r->pool, sizeof *ctx);
     struct env_config *cfg = get_cfg(r);
+    apreq_request_t *req = cfg->req;
+    struct filter_ctx *ctx;
+    apr_bucket_alloc_t *alloc;
+
+    if (f == r->input_filters 
+        && r->proto_input_filters == f->next
+        && strcasecmp(f->next->frec->name, filter_name) == 0) 
+    {
+        /* Try to steal the context and parse data of the 
+           upstream apreq filter. */
+        ctx = f->next->ctx;
+
+        switch (ctx->status) {
+        case APR_SUCCESS:
+        case APR_INCOMPLETE:
+            break;
+        default:
+            apreq_log(APREQ_DEBUG ctx->status, r, 
+                      "cannot steal context: bad filter status");
+            goto make_new_context;
+        }
+
+        if (ctx->r != r) {
+            /* r is a new request (subrequest or internal redirect) */
+            apreq_request_t *old_req;
+
+            if (req != NULL) {
+                if (req->parser != NULL) {
+                    apreq_log(APREQ_DEBUG ctx->status, r, 
+                              "cannot steal context: new parser detected");
+                    goto make_new_context;
+                }
+            }
+            else {
+                req = apreq_request(r, NULL);
+            }
+
+            /* steal the parser output */
+            apreq_log(APREQ_DEBUG 0, r, "stealing parser output");
+            old_req = apreq_request(ctx->r, NULL);
+            req->parser = old_req->parser;
+            req->body = old_req->body;
+            req->body_status = old_req->body_status;
+            ctx->r = r;
+        }
+
+        /* steal the filter context */
+        apreq_log(APREQ_DEBUG 0, r, "stealing filter context");
+        f->ctx = f->next->ctx;
+        r->proto_input_filters = f;
+        ap_remove_input_filter(f->next);
+        return;
+    }
+
+ make_new_context:
+    if (req != NULL && f == r->input_filters) {
+        if (req->body_status != APR_EINIT) {
+            req->body = NULL;
+            req->parser = NULL;
+            req->body_status = APR_EINIT;
+        }
+    }
+
+    alloc = apr_bucket_alloc_create(r->pool);
+    ctx = apr_palloc(r->pool, sizeof *ctx);
 
     f->ctx       = ctx;
+    ctx->r       = r;
     ctx->bb      = apr_brigade_create(r->pool, alloc);
     ctx->spool   = apr_brigade_create(r->pool, alloc);
     ctx->status  = APR_INCOMPLETE;
@@ -221,22 +382,24 @@ static void apreq_filter_make_context(ap_filter_t *f)
             apr_int64_t content_length = apr_strtoi64(cl,&dummy,0);
 
             if (dummy == NULL || *dummy != 0) {
-                apreq_log(APREQ_ERROR APR_BADARG, r, 
-                      "invalid Content-Length header (%s)", cl);
-                ctx->status = APR_BADARG;
+                apreq_log(APREQ_ERROR APR_EGENERAL, r, 
+                      "Invalid Content-Length header (%s)", cl);
+                ctx->status = APR_EGENERAL;
+                apreq_request(r, NULL)->body_status = APR_EGENERAL;
             }
             else if (content_length > (apr_int64_t)cfg->max_body) {
-                apreq_log(APREQ_ERROR APR_EINIT, r,
+                apreq_log(APREQ_ERROR APR_EGENERAL, r,
                           "Content-Length header (%s) exceeds configured "
                           "max_body limit (%" APR_OFF_T_FMT ")", 
                           cl, cfg->max_body);
-                ctx->status = APR_EINIT;
+                ctx->status = APR_EGENERAL;
+                apreq_request(r, NULL)->body_status = APR_EGENERAL;
             }
         }
     }
 }
 
-/**
+/*
  * Reads data directly into the parser.
  */
 
@@ -245,7 +408,7 @@ static apr_status_t apache2_read(void *env,
                                  apr_off_t bytes)
 {
     dR;
-    ap_filter_t *f = get_apreq_filter(r);
+    ap_filter_t *f = get_apreq_filter(r); /*ensures correct filter for prefetch */
     struct filter_ctx *ctx;
     apr_status_t s;
 
@@ -310,71 +473,69 @@ static apr_ssize_t apache2_max_brigade(void *env, apr_ssize_t bytes)
 }
 
 
+/*
+ * Situations to contend with:
+ *
+ * 1) Often the filter will be added by the content handler itself,
+ *    so the apreq_filter_init hook will not be run.
+ * 2) If an auth handler uses apreq, the apreq_filter will ensure
+ *    it's part of the protocol filters.  apreq_filter_init does NOT need
+ *    to notify the protocol filter that it must not continue parsing,
+ *    the apreq filter can perform this check itself.  apreq_filter_init
+ *    just needs to ensure cfg->f does not point at it.
+ * 3) If req->proto_input_filters and req->input_filters are apreq
+ *    filters, and req->input_filters->next == req->proto_input_filters,
+ *    it is safe for apreq_filter to "steal" the proto filter's context 
+ *    and subsequently drop it from the chain.
+ */
+
+
+/* Examines the input_filter chain and moves the apreq filter(s) around
+ * before the filter chain is stacked by ap_get_brigade.
+ */
+
 static apr_status_t apreq_filter_init(ap_filter_t *f)
 {
     request_rec *r = f->r;
-    struct filter_ctx *ctx;
     struct env_config *cfg = get_cfg(r);
+    ap_filter_t *in;
 
-    /* We must be inside config.c:ap_invoke_handler -> 
-     * ap_invoke_filter_init (r->input_filters), and
-     * we have to deal with the possibility that apreq may have
-     * prefetched data prior to apache running the ap_invoke_filter_init
-     * hook.
-     */
-
-    if (f->ctx) {
-        ctx = f->ctx;
-
-        /* We may have already prefetched some data.
-         * If "f" is no longer at the top of the filter chain,
-         * we need to add a new apreq filter to the top and start over.
-         * XXX: How safe would the following (unimplemented) optimization 
-         * be on redirects????: Leave the filter intact if
-         * it's still at the end of the input filter chain (this would
-         * imply that no other input filters were added after libapreq
-         * started parsing).
-         */
-
-        if (!APR_BRIGADE_EMPTY(ctx->spool)) {
-            apreq_request_t *req = cfg->req;
-
-            /* Adding "f" to the protocol filter chain ensures the 
-             * spooled data is preserved across internal redirects.
-             */
-
-            r->proto_input_filters = f;            
-
-            /* We MUST dump the current parser (and filter) because 
-             * its existing state is now incorrect.
-             * NOTE:
-             *   req->parser != NULL && req->body != NULL, since 
-             *   apreq_parse_request was called at least once already.
-             * 
-             */
-
-            apreq_log(APREQ_DEBUG 0, r, "dropping stale apreq filter (%p)", f);
-
-            if (req) {
-                req->parser = NULL;
-                req->body = NULL;
-            }
-            if (cfg->f == f) {
-                ctx->status = APR_SUCCESS;
-                cfg->f = NULL;
-            }
+    if (f != r->proto_input_filters) {
+        if (f == r->input_filters) {
+            cfg->f = f;
+            return APR_SUCCESS;
         }
-        else {
-            /* No data was parsed/prefetched, so it's safe to move the filter
-             * up to the top of the chain.
-             */
-            apreq_filter_relocate(f);
+        for (in = r->input_filters; in != r->proto_input_filters; 
+             in = in->next)
+        {
+            if (f == in) {
+                if (strcasecmp(r->input_filters->frec->name, filter_name) == 0) {
+                    apreq_log(APREQ_DEBUG 0, r, 
+                              "removing intermediate apreq filter");
+                    if (cfg->f == f)
+                        cfg->f = r->input_filters;
+                    ap_remove_input_filter(f);
+                }
+                else {
+                    apreq_log(APREQ_DEBUG 0, r, 
+                              "relocating intermediate apreq filter");
+                    apreq_filter_relocate(f);
+                    cfg->f = f;
+                }
+                return APR_SUCCESS;
+            }
         }
     }
 
+    /* else this is a protocol filter which may still be active.
+     * if it is, we must deregister it now.
+     */
+    if (cfg->f == f) {
+        apreq_log(APREQ_DEBUG 0, r, "disabling stale protocol filter");
+        cfg->f = NULL;
+    }
     return APR_SUCCESS;
 }
-
 
 static apr_status_t apreq_filter(ap_filter_t *f,
                                  apr_bucket_brigade *bb,
@@ -388,9 +549,6 @@ static apr_status_t apreq_filter(ap_filter_t *f,
     apreq_request_t *req;
     apr_status_t rv;
 
-    if (f->ctx == NULL)
-        apreq_filter_make_context(f);
-
     switch (mode) {
     case AP_MODE_READBYTES:
     case AP_MODE_EXHAUSTIVE:
@@ -400,31 +558,37 @@ static apr_status_t apreq_filter(ap_filter_t *f,
         return APR_ENOTIMPL;
     }
 
-    ctx = f->ctx;
     cfg = get_cfg(r);
     req = cfg->req;
+
+    if (f->ctx == NULL)
+        apreq_filter_make_context(f);
+
+    ctx = f->ctx;
+
+    if (cfg->f != f)
+        ctx->status = APR_SUCCESS;
 
     if (bb != NULL) {
 
         if (!ctx->saw_eos) {
-
+ 
             if (ctx->status == APR_INCOMPLETE) {
-                apr_bucket_brigade *tmp;
                 apr_off_t len;
                 rv = ap_get_brigade(f->next, bb, mode, block, readbytes);
             
                 if (rv != APR_SUCCESS) {
-                    apreq_log(APREQ_ERROR rv, r, "get_brigade failed");
+                    apreq_log(APREQ_ERROR rv, r, "ap_get_brigade failed");
                     return rv;
                 }
 
-                tmp = apreq_brigade_copy(bb);
-                apr_brigade_length(tmp,0,&len);
+                APREQ_BRIGADE_COPY(ctx->bb, bb);
+                apr_brigade_length(bb, 1, &len);
                 ctx->bytes_read += len;
-                APR_BRIGADE_CONCAT(ctx->bb, tmp);
 
                 if (cfg->max_body >= 0 && ctx->bytes_read > cfg->max_body) {
-                    ctx->status = APR_ENOSPC;
+                    ctx->status = APR_EGENERAL;
+                    apreq_request(r, NULL)->body_status = APR_EGENERAL;
                     apreq_log(APREQ_ERROR ctx->status, r, "Bytes read (" APR_OFF_T_FMT
                               ") exceeds configured max_body limit (" APR_OFF_T_FMT ")",
                               ctx->bytes_read, cfg->max_body);
@@ -447,32 +611,32 @@ static apr_status_t apreq_filter(ap_filter_t *f,
                 if (APR_BUCKET_IS_EOS(e))
                     e = APR_BUCKET_NEXT(e);
                 ctx->spool = apr_brigade_split(bb, e);
+                APREQ_BRIGADE_SETASIDE(ctx->spool,r->pool);
             }
         }
 
         if (ctx->status != APR_INCOMPLETE) {
             if (APR_BRIGADE_EMPTY(ctx->spool)) {
-                apreq_log(APREQ_DEBUG ctx->status,r,"removing filter (%d)",
-                          r->input_filters == f);
-                ap_remove_input_filter(f);
+                ap_filter_t *next = f->next;
+
+                if (cfg->f != f) {
+                    apreq_log(APREQ_DEBUG ctx->status, r,
+                              "removing inactive filter (%d)",
+                              r->input_filters == f);
+
+                    ap_remove_input_filter(f);
+                }
+                if (APR_BRIGADE_EMPTY(bb))
+                    return ap_get_brigade(next, bb, mode, block, readbytes);
             }
             return APR_SUCCESS;
         }
-
-        if (req == NULL)
-            req = apreq_request(r, NULL);
-
     }
     else if (!ctx->saw_eos) {
-
-        /* prefetch read! */
-
-        apr_bucket_brigade *tmp = apr_brigade_create(r->pool, 
-                                      apr_bucket_alloc_create(r->pool));
+        /* bb == NULL, so this is a prefetch read! */
         apr_off_t total_read = 0;
 
-        if (req == NULL)
-            req = apreq_request(r, NULL);
+        bb = apr_brigade_create(ctx->bb->p, ctx->bb->bucket_alloc);
 
         while (total_read < readbytes) {
             apr_off_t len;
@@ -483,31 +647,54 @@ static apr_status_t apreq_filter(ap_filter_t *f,
                 break;
             }
 
-            rv = ap_get_brigade(f->next, tmp, mode, block, readbytes);
-            if (rv != APR_SUCCESS)
+            rv = ap_get_brigade(f->next, bb, mode, block, readbytes);
+            if (rv != APR_SUCCESS) {
+                apreq_log(APREQ_ERROR rv, r, "ap_get_brigade failed");
                 return rv;
+            }
+            APREQ_BRIGADE_SETASIDE(bb, r->pool);
+            APREQ_BRIGADE_COPY(ctx->bb, bb);
 
-            bb = apreq_brigade_copy(tmp);
-            apr_brigade_length(bb,0,&len);
+            apr_brigade_length(bb, 1, &len);
             total_read += len;
-            apreq_brigade_concat(r, ctx->spool, tmp);
-            APR_BRIGADE_CONCAT(ctx->bb, bb);
+            apreq_brigade_concat(r, ctx->spool, bb);
         }
 
         ctx->bytes_read += total_read;
 
         if (cfg->max_body >= 0 && ctx->bytes_read > cfg->max_body) {
-            ctx->status = APR_ENOSPC;
+            ctx->status = APR_EGENERAL;
+            apreq_request(r, NULL)->body_status = APR_EGENERAL;
             apreq_log(APREQ_ERROR ctx->status, r, "Bytes read (%" APR_OFF_T_FMT
                       ") exceeds configured max_body limit (%" APR_OFF_T_FMT ")",
                       ctx->bytes_read, cfg->max_body);
+        }
+
+        /* Adding "f" to the protocol filter chain ensures the 
+         * spooled data is preserved across internal redirects.
+         */
+        if (f != r->proto_input_filters) {
+            ap_filter_t *in;
+            for (in = r->input_filters; in != r->proto_input_filters; 
+                 in = in->next)
+            {
+                if (f == in) {
+                    r->proto_input_filters = f;
+                    break;
+                }
+            }
         }
     }
     else
         return APR_SUCCESS;
 
-    if (ctx->status == APR_INCOMPLETE)
+    if (ctx->status == APR_INCOMPLETE) {
+        if (req == NULL)
+            req = apreq_request(r, NULL);
+
         ctx->status = apreq_parse_request(req, ctx->bb);
+        apr_brigade_cleanup(ctx->bb);
+    }
 
     return APR_SUCCESS;
 }
@@ -520,18 +707,80 @@ static void register_hooks (apr_pool_t *p)
     const apreq_env_t *old_env;
     old_env = apreq_env_module(&apache2_module);
     ap_register_input_filter(filter_name, apreq_filter, apreq_filter_init,
-                             AP_FTYPE_CONTENT_SET);
+                             AP_FTYPE_PROTOCOL-1);
 }
+
+
+/* Configuration directives */
+
+
+static const char *apreq_set_temp_dir(cmd_parms *cmd, void *data,
+                                      const char *arg)
+{
+    struct dir_config *conf = data;
+    const char *err = ap_check_cmd_context(cmd, NOT_IN_LIMIT);
+
+    if (err != NULL)
+        return err;
+
+    conf->temp_dir = arg;
+    return NULL;
+}
+
+static const char *apreq_set_max_body(cmd_parms *cmd, void *data,
+                                      const char *arg)
+{
+    struct dir_config *conf = data;
+    const char *err = ap_check_cmd_context(cmd, NOT_IN_LIMIT);
+
+    if (err != NULL)
+        return err;
+
+    conf->max_body = apreq_atoi64f(arg);
+
+    if (conf->max_body < 0)
+        return "APREQ_MaxBody requires a non-negative integer.";
+
+    return NULL;
+}
+
+static const char *apreq_set_max_brigade(cmd_parms *cmd, void *data,
+                                          const char *arg)
+{
+    struct dir_config *conf = data;
+    const char *err = ap_check_cmd_context(cmd, NOT_IN_LIMIT);
+
+    if (err != NULL)
+        return err;
+
+    conf->max_brigade = apreq_atoi64f(arg);
+
+    if (conf->max_brigade < 0)
+        return "APREQ_MaxBrigade requires a non-negative integer.";
+
+    return NULL;
+}
+
+static const command_rec apreq_cmds[] =
+{
+    AP_INIT_TAKE1("APREQ_TempDir", apreq_set_temp_dir, NULL, OR_ALL,
+                  "Default location of temporary directory"),
+    AP_INIT_TAKE1("APREQ_MaxBody", apreq_set_max_body, NULL, OR_ALL,
+                  "Maximum amount of data that will be fed into a parser."),
+    AP_INIT_TAKE1("APREQ_MaxBrigade", apreq_set_max_brigade, NULL, OR_ALL,
+                  "Maximum in-memory bytes a brigade may use."),
+    {NULL}
+};
 
 /** @} */
 
 module AP_MODULE_DECLARE_DATA apreq_module =
 {
 	STANDARD20_MODULE_STUFF,
+	apreq_create_dir_config,
+	apreq_merge_dir_config,
 	NULL,
 	NULL,
-	NULL,
-	NULL,
-	NULL,
-	register_hooks,			/* callback for registering hooks */
+	apreq_cmds,
+	register_hooks,
 };

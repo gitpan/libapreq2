@@ -11,6 +11,7 @@ use Apache::TestSmoke ();
 use Apache::TestRun ();
 use Apache::TestConfigPerl ();
 use File::Find qw(finddepth);
+
 my @scripts = ();
 
 {
@@ -34,5 +35,56 @@ ModPerl::MM::WriteMakefile(
     clean => { FILES => "xs t/logs t/TEST @scripts" },
     realclean => { FILES => "xsbuilder/tables" },
 );
+
+
+sub copy_docs {
+    my @lines;
+    my $dfs = '$(DIRFILESEP)';
+
+    foreach my $file (@_) {
+        my @dirs;
+        $file =~ /(\w+\.pod)$/ or next;
+        if ($1 eq "Error.pod" or $1 eq "Table.pod") {
+            push @dirs, "Apache$dfs$_" for qw/Request Cookie Upload/;
+            push @dirs, join $dfs, qw/Apache Cookie Jar/ if $1 eq "Error.pod";
+        }
+        else {
+            push @dirs, "Apache";
+        }
+        push @lines, map <<EOT, @dirs;
+subdirs :: \$(INST_LIBDIR)$dfs$_$dfs$1
+
+\$(INST_LIBDIR)$dfs$_$dfs$1: $file
+	\$(NOECHO) \$(MKPATH) \$(INST_LIBDIR)$dfs$_
+	\$(CP) $file \$(INST_LIBDIR)$dfs$_$dfs$1
+
+EOT
+    }
+    return join "", @lines;
+}
+
+sub test_docs {
+    my ($pods, $tests) = @_;
+return join "", map <<EOT, 0..$#$pods;
+$$tests[$_]: $$pods[$_]
+	pod2test $$pods[$_] $$tests[$_]
+
+EOT
+}
+
+sub MY::postamble {
+    my @docs = <docs/*.pod>;
+    my @tests = @docs;
+    s/pod$/t/ for @tests;
+
+    return copy_docs(@docs) . test_docs(\@docs,\@tests) . <<EOT;
+doc_test : @tests
+	\$(FULLPERLRUN) "-Mblib" "-MTest::Harness" "-e" "runtests(\@ARGV)" @tests
+
+test :: doc_test
+
+EOT
+
+}
 
 __END__

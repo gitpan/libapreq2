@@ -1,0 +1,60 @@
+.TH "apreq_request_t" 3 "30 Aug 2004" "Version 2.04-dev" "libapreq2" \" -*- nroff -*-
+.ad l
+.nh
+.SH NAME
+apreq_request_t \- 
+.SH SYNOPSIS
+.br
+.PP
+\fC#include <apreq_params.h>\fP
+.PP
+.SS "Data Fields"
+
+.in +1c
+.ti -1c
+.RI "\fBapr_table_t\fP * \fBargs\fP"
+.br
+.ti -1c
+.RI "\fBapr_table_t\fP * \fBbody\fP"
+.br
+.ti -1c
+.RI "\fBapreq_parser_t\fP * \fBparser\fP"
+.br
+.ti -1c
+.RI "void * \fBenv\fP"
+.br
+.ti -1c
+.RI "\fBapr_status_t\fP \fBargs_status\fP"
+.br
+.ti -1c
+.RI "\fBapr_status_t\fP \fBbody_status\fP"
+.br
+.in -1c
+.SH "Detailed Description"
+.PP 
+Structure which manages the request data. 
+.PP
+.SH "Field Documentation"
+.PP 
+.SS "\fBapr_table_t\fP* \fBapreq_request_t::args\fP"
+.PP
+parsed query-string 
+.SS "\fBapr_status_t\fP \fBapreq_request_t::args_status\fP"
+.PP
+status of query-string parse 
+.SS "\fBapr_table_t\fP* \fBapreq_request_t::body\fP"
+.PP
+parsed post data 
+.SS "\fBapr_status_t\fP \fBapreq_request_t::body_status\fP"
+.PP
+status of post data parse 
+.SS "void* \fBapreq_request_t::env\fP"
+.PP
+request environment 
+.SS "\fBapreq_parser_t\fP* \fBapreq_request_t::parser\fP"
+.PP
+active parser for this request 
+
+.SH "Author"
+.PP 
+Generated automatically by Doxygen for libapreq2 from the source code.

@@ -1,0 +1,133 @@
+.TH "apreq_status" 3 "30 Aug 2004" "Version 2.04-dev" "libapreq2" \" -*- nroff -*-
+.ad l
+.nh
+.SH NAME
+apreq_status \- STATUS
+2.04-dev released on August 30, 2004.
+.PP
+Contributors looking for a mission:
+.PP
+.IP "\(bu" 2
+just do an egrep on 'TODO' or 'XXX' and see what's there
+.PP
+.PP
+CURRENT RELEASE NOTES:
+.PP
+.IP "\(bu" 2
+This is a developer release, indicated by the '-dev' suffix on the version string. We believe the core interfaces to be stable, but some portions of the API may still need significant modification. Thus, binary/source compatibility may be broken from one developer release to the next. In particular the version numbering rules specified at
+.PP
+.PP
+http://apr.apache.org/versioning.html
+.PP
+do not apply to developer releases.
+.PP
+RELEASE SHOWSTOPPERS:
+.PP
+CURRENT VOTES:
+.PP
+.IP "\(bu" 2
+Should we switch to EU::MM for determining the full path to perl? The problem is that some folks move their perl binary post-installation, but never adjust Config.pm. EU::MM is smart, by accepting a full path in $^X or by searching the user's $PATH for $^X, before resorting to Config.pm. However, if we change apreq2, we should also lobby test-dev to adopt the same solution for Apache::Test. Otherwise our test suite will likely fail, even though the rest of the perl build system will presumably still work.
+.PP
+.PP
++1: joes 0: -1:
+.PP
+.IP "\(bu" 2
+We are moving from cvs to subversion as soon as it is convenient. Vote was taken in March 2004 (http://marc.theaimsgroup.com/?t=107919363000001&r=1&w=2) and the results were as follows:
+.PP
+.PP
++1: joes, randyk, stas 0: -1:
+.PP
+TODO:
+.PP
+.IP "\(bu" 2
+in glue/perl/t/apreq/cgi.t on Win32, printing to the error log hangs if the strings involved are about 10000 in size. This doesn't occur in the env/cgi tests - why?
+.PP
+.PP
+.IP "\(bu" 2
+Why must fprintf(stderr, ...), rather than apr_file_printf(err, ...), be used on Win32 in cgi_log() of src/apreq_env.c?
+.PP
+.PP
+.IP "\(bu" 2
+The current tests don't cover these functions, so add CuTest tests for them:
+.IP "  \(bu" 4
+\fBapreq_merge_values()\fP
+.PP
+
+.PP
+.PP
+.IP "\(bu" 2
+CuTest needs va_arg to print comments for a failed unit test.
+.PP
+.PP
+.IP "\(bu" 2
+Get env/ (Apache::Test) tests to work for --with-apache2-src option.
+.PP
+.PP
+.IP "\(bu" 2
+Bring Perl documentation up to speed: Table.pod, and Error.pod. These docs either need to be written, or they require Test::Inline tests to verify their API.
+.PP
+.PP
+.IP "\(bu" 2
+Write parser/hook API documentation, and add perl glue for the API.
+.PP
+.PP
+.IP "\(bu" 2
+Add XForms logic to the mfd parser.
+.PP
+.PP
+.IP "\(bu" 2
+symbol exports files:
+.IP "  1." 6
+aix needs .exp files
+.PP
+
+.PP
+.PP
+.IP "\(bu" 2
+Install the html dox during 'make install'. Should we do this for the doxy manpages also?
+.PP
+.PP
+.IP "\(bu" 2
+Rework glue/perl build system to use apreq2-config instead of relying on paths like '../../src'.
+.PP
+.PP
+.IP "\(bu" 2
+Taint checks need to be extended to APR objects, like $upload->bb and $upload->info. We may need be able to do that with additional typemaps.
+.PP
+.PP
+OPEN ISSUES:
+.PP
+.IP "\(bu" 2
+Should we bundle an apr-based 'application/xml' parser? If so, how should we parse the xml data into an apr_table?
+.PP
+.PP
+BUGS:
+.PP
+.IP "\(bu" 2
+Fix build automake/libtool/autoconf build system so it works properly on OSX & AIX.
+.PP
+.PP
+WISH LIST:
+.PP
+.IP "\(bu" 2
+I [joes] wish folks would contribute some glue code for one of these:
+.PP
+.PP
+.IP "\(bu" 2
+php,
+.IP "\(bu" 2
+Rivet,
+.IP "\(bu" 2
+mod_dtcl,
+.IP "\(bu" 2
+mod_python,
+.IP "\(bu" 2
+mod_jk,
+.IP "\(bu" 2
+tomcat,
+.IP "\(bu" 2
+mod_ruby,
+.IP "\(bu" 2
+mod_parrot. 
+.PP
+

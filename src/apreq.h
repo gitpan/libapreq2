@@ -26,55 +26,6 @@
  extern "C" {
 #endif 
 
-/** @defgroup LIBRARY libapreq2     */
-/** @defgroup MODULES Environments  */
-/** @defgroup GLUE Language Bindings*/
-
-/**
- * @mainpage
- * Project Website: http://httpd.apache.org/apreq/
- * @verbinclude README
- */
-
-/** 
- * @page LICENSE 
- * @verbinclude LICENSE
- */
-/** 
- * @page INSTALL 
- * @verbinclude INSTALL
- */
-/**
- * @defgroup XS Perl
- * @ingroup GLUE
- */
-/**
- * @defgroup TCL TCL
- * @ingroup GLUE
- */
-/**
- * @defgroup PYTHON Python
- * @ingroup GLUE
- */
-/**
- * @defgroup PHP PHP
- * @ingroup GLUE
- */
-/**
- * @defgroup RUBY Ruby
- * @ingroup GLUE
- */
-/** 
- * @defgroup XS_Request Apache::Request
- * @ingroup XS
- * @htmlinclude Request.html
- */
-/** 
- * @defgroup XS_Cookie Apache::Cookie
- * @ingroup XS
- * @htmlinclude Cookie.html
- */
-
 /**
  * The objects in apreq.h are used in various contexts:
  *
@@ -85,16 +36,13 @@
  *    - simple time, date, & file-size converters
  * @file apreq.h
  * @brief Common functions, structures and macros.
- */
-/**
- * @defgroup Utils Common functions, structures and macros
- * @ingroup LIBRARY
- * @{
+ * @ingroup libapreq2
  */
 
 #ifndef WIN32
 #define APREQ_DECLARE(d)                APR_DECLARE(d)
 #define APREQ_DECLARE_NONSTD(d)         APR_DECLARE_NONSTD(d)
+#define APREQ_DECLARE_DATA
 #else
 #define APREQ_DECLARE(type)             __declspec(dllexport) type __stdcall
 #define APREQ_DECLARE_NONSTD(type)      __declspec(dllexport) type
@@ -107,14 +55,16 @@
 
 #define APREQ_NELTS                     8
 #define APREQ_READ_AHEAD                (64 * 1024)
-#define APREQ_MAX_BRIGADE_LEN           (256 * 1024)
-
 /**
- * libapreq-2's pre-extensible string type 
- */
+ * Maximum amount of heap space a brigade may use before switching to file
+ * buckets
+*/
+#define APREQ_MAX_BRIGADE_LEN           (256 * 1024) 
+                     
+
+/** @brief libapreq's pre-extensible string type */
 typedef struct apreq_value_t {
     const char    *name;    /**< value's name */
-    apr_status_t   status;  /**< APR status, usually APR_SUCCESS or APR_INCOMPLETE*/
     apr_size_t     size;    /**< Size of data.*/
     char           data[1]; /**< Actual data bytes.*/
 } apreq_value_t;
@@ -171,8 +121,8 @@ APREQ_DECLARE(apreq_value_t *) apreq_make_value(apr_pool_t *p,
  * @param p  Pool.
  * @param val Original value to copy.
  */
-apreq_value_t * apreq_copy_value(apr_pool_t *p, 
-                                 const apreq_value_t *val);
+APREQ_DECLARE(apreq_value_t *) apreq_copy_value(apr_pool_t *p, 
+                                                const apreq_value_t *val);
 
 /**
  * Merges an array of values into one.
@@ -190,19 +140,20 @@ APREQ_DECLARE(const char *)apreq_enctype(void *env);
 
 /** @enum apreq_join_t Join type */
 typedef enum { 
-    AS_IS,      /**< Join the strings without modification */
-    ENCODE,     /**< Url-encode the strings before joining them */
-    DECODE,     /**< Url-decode the strings before joining them */
-    QUOTE       /**< Quote the strings, backslashing existing quote marks. */
+    APREQ_JOIN_AS_IS,      /**< Join the strings without modification */
+    APREQ_JOIN_ENCODE,     /**< Url-encode the strings before joining them */
+    APREQ_JOIN_DECODE,     /**< Url-decode the strings before joining them */
+    APREQ_JOIN_QUOTE       /**< Quote the strings, backslashing existing quote marks. */
 } apreq_join_t;
 
 /**
  * Join an array of values.
- * @param p   Pool to allocate return value.
- * @param sep String that is inserted between the joined values.
- * @param arr Array of values.
- * @remark    Return string can be upgraded to an apreq_value_t 
- *            with apreq_stroval.
+ * @param p    Pool to allocate return value.
+ * @param sep  String that is inserted between the joined values.
+ * @param arr  Array of values.
+ * @param mode Join type- see apreq_join_t.
+ * @remark     Return string can be upgraded to an apreq_value_t 
+ *             with apreq_stroval.
  */
 APREQ_DECLARE(const char *) apreq_join(apr_pool_t *p, 
                                        const char *sep, 
@@ -212,8 +163,8 @@ APREQ_DECLARE(const char *) apreq_join(apr_pool_t *p,
 
 /** @enum apreq_match_t Match type */
 typedef enum {
-    FULL,       /**< Full match only. */
-    PARTIAL     /**< Partial matches are ok. */
+    APREQ_MATCH_FULL,       /**< Full match only. */
+    APREQ_MATCH_PARTIAL     /**< Partial matches are ok. */
 } apreq_match_t;
 
 /**
@@ -288,7 +239,22 @@ APREQ_DECLARE(apr_size_t) apreq_encode(char *dest, const char *src,
  * @return Length of url-decoded string in dest, or < 0 on decoding (bad data) error.
  */
 
-APREQ_DECLARE(apr_ssize_t) apreq_decode(char *dest, const char *src, const apr_size_t slen);
+APREQ_DECLARE(apr_ssize_t) apreq_decode(char *dest, const char *src, apr_size_t slen);
+
+
+/**
+ * Url-decodes an iovec array.
+ * @param dest Location of url-encoded result string. Caller must ensure dest is
+ *             large enough to hold the encoded string and trailing null character.
+ * @param dlen  Resultant length of dest.
+ * @param v Array of iovecs that represent the source string
+ * @param nelts Number of iovecs in the array.
+ * @return APR_SUCCESS on success, APR_INCOMPLETE if the iovec ends in the
+ * middle of an %XX escape sequence, error otherwise.
+ */
+
+APREQ_DECLARE(apr_status_t) apreq_decodev(char *d, apr_size_t *dlen,
+                                          struct iovec *v, int nelts);
 
 /**
  * Returns an url-encoded copy of a string.
@@ -314,21 +280,23 @@ APREQ_DECLARE(apr_ssize_t) apreq_unescape(char *str);
 
 /** @enum apreq_expires_t Expiration date format */
 typedef enum {
-    HTTP,       /**< Use date formatting consistent with RFC 2616 */
-    NSCOOKIE    /**< Use format consistent with Netscape's Cookie Spec */
+    APREQ_EXPIRES_HTTP,       /**< Use date formatting consistent with RFC 2616 */
+    APREQ_EXPIRES_NSCOOKIE    /**< Use format consistent with Netscape's Cookie Spec */
 } apreq_expires_t;
 
 /**
  * Returns an RFC-822 formatted time string. Similar to ap_gm_timestr_822.
  *
- * @param req       The current apreq_request_t object.
+ * @param p       Pool to allocate return string.
  * @param time_str  YMDhms time units (from now) until expiry.
  *                  Understands "now".
- * @param  type     ::HTTP for RFC822 dates, ::NSCOOKIE for cookie dates.
+ * @param  type     ::APREQ_EXPIRES_HTTP for RFC822 dates,
+ *                  ::APREQ_EXPIRES_NSCOOKIE for Netscape cookie dates.
  * @return      Date string, (time_str is offset from "now") formatted
- *              either as an ::NSCOOKIE or ::HTTP date
- * @deprecated  Use apr_rfc822_date instead.  ::NSCOOKIE strings are formatted
- *              with a '-' (instead of a ' ') character at offsets 7 and 11.
+ *              according to type.
+ * @deprecated  Use apr_rfc822_date instead.  ::APREQ_EXPIRES_NSCOOKIE strings
+ *              are formatted with a '-' (instead of a ' ') character at
+ *              offsets 7 and 11.
  */
 
 APREQ_DECLARE(char *) apreq_expires(apr_pool_t *p, const char *time_str, 
@@ -391,13 +359,39 @@ APREQ_DECLARE(apr_status_t) apreq_file_mktemp(apr_file_t **fp,
 APREQ_DECLARE(apr_file_t *) apreq_brigade_spoolfile(apr_bucket_brigade *bb);
 
 /**
- * Duplicate a brigade.
- * @param bb Original brigade.
- * @return New brigade containing a bucket-by-bucket copy of the original.
+ * Set aside all buckets in the brigade.
+ * @param bb Brigade.
+ * @param p  Setaside buckets into this pool.
  */
 
-APREQ_DECLARE(apr_bucket_brigade *)
-         apreq_brigade_copy(const apr_bucket_brigade *bb);
+#define APREQ_BRIGADE_SETASIDE(bb,p) do {                               \
+    apr_bucket *e;                                                      \
+    for (e = APR_BRIGADE_FIRST(bb); e != APR_BRIGADE_SENTINEL(bb);      \
+         e = APR_BUCKET_NEXT(e))                                        \
+    {                                                                   \
+        apr_bucket_setaside(e, p);                                      \
+    }                                                                   \
+} while (0)
+
+
+/**
+ * Copy a brigade.
+ * @param d (destination) Copied buckets are appended to this brigade.
+ * @param s (source) Brigade to copy from.
+ * @remark s == d produces Undefined Behavior.
+ */
+
+#define APREQ_BRIGADE_COPY(d,s) do {                                \
+    apr_bucket *e;                                                  \
+    for (e = APR_BRIGADE_FIRST(s); e != APR_BRIGADE_SENTINEL(s);    \
+         e = APR_BUCKET_NEXT(e))                                    \
+    {                                                               \
+        apr_bucket *c;                                              \
+        apr_bucket_copy(e, &c);                                     \
+        APR_BRIGADE_INSERT_TAIL(d, c);                              \
+    }                                                               \
+} while (0)
+
 
 /**
  * Search a header string for the value of a particular named attribute.
@@ -413,7 +407,6 @@ APREQ_DECLARE(apr_status_t)
                                 const char *name, const apr_size_t nlen,
                                 const char **val, apr_size_t *vlen);
 
-/** @} */
 
 #ifdef __cplusplus
  }

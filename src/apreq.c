@@ -1,56 +1,18 @@
-/* ====================================================================
- * The Apache Software License, Version 1.1
- *
- * Copyright (c) 2003 The Apache Software Foundation.  All rights
- * reserved.
- *
- * Redistribution and use in source and binary forms, with or without
- * modification, are permitted provided that the following conditions
- * are met:
- *
- * 1. Redistributions of source code must retain the above copyright
- *    notice, this list of conditions and the following disclaimer.
- *
- * 2. Redistributions in binary form must reproduce the above copyright
- *    notice, this list of conditions and the following disclaimer in
- *    the documentation and/or other materials provided with the
- *    distribution.
- *
- * 3. The end-user documentation included with the redistribution,
- *    if any, must include the following acknowledgment:
- *       "This product includes software developed by the
- *        Apache Software Foundation (http://www.apache.org/)."
- *    Alternately, this acknowledgment may appear in the software itself,
- *    if and wherever such third-party acknowledgments normally appear.
- *
- * 4. The names "Apache" and "Apache Software Foundation" must
- *    not be used to endorse or promote products derived from this
- *    software without prior written permission. For written
- *    permission, please contact apache@apache.org.
- *
- * 5. Products derived from this software may not be called "Apache",
- *    nor may "Apache" appear in their name, without prior written
- *    permission of the Apache Software Foundation.
- *
- * THIS SOFTWARE IS PROVIDED ``AS IS'' AND ANY EXPRESSED OR IMPLIED
- * WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES
- * OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
- * DISCLAIMED.  IN NO EVENT SHALL THE APACHE SOFTWARE FOUNDATION OR
- * ITS CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL,
- * SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT
- * LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF
- * USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND
- * ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY,
- * OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT
- * OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF
- * SUCH DAMAGE.
- * ====================================================================
- *
- * This software consists of voluntary contributions made by many
- * individuals on behalf of the Apache Software Foundation.  For more
- * information on the Apache Software Foundation, please see
- * <http://www.apache.org/>.
- */
+/*
+**  Copyright 2003-2004  The Apache Software Foundation
+**
+**  Licensed under the Apache License, Version 2.0 (the "License");
+**  you may not use this file except in compliance with the License.
+**  You may obtain a copy of the License at
+**
+**      http://www.apache.org/licenses/LICENSE-2.0
+**
+**  Unless required by applicable law or agreed to in writing, software
+**  distributed under the License is distributed on an "AS IS" BASIS,
+**  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+**  See the License for the specific language governing permissions and
+**  limitations under the License.
+*/
 
 #include "apreq.h"
 #include "apreq_env.h"
@@ -114,12 +76,12 @@ apreq_value_t * apreq_merge_values(apr_pool_t *p,
 APREQ_DECLARE(const char *)apreq_enctype(void *env)
 {
     char *enctype;
-    const char *ct = apreq_env_content_type(env), *semicolon;
+    const char *ct = apreq_env_content_type(env);
 
     if (ct == NULL)
         return NULL;
     else {
-        semicolon = strchr(ct, ';');
+        const char *semicolon = strchr(ct, ';');
         if (semicolon) {
             enctype = apr_pstrdup(apreq_env_pool(env), ct);
             enctype[semicolon - ct] = 0;
@@ -143,7 +105,7 @@ APREQ_DECLARE(char *) apreq_expires(apr_pool_t *p, const char *time_str,
 
     when = apr_time_now();
     if (strcasecmp(time_str,"now")) 
-        when += apreq_atoi64t(time_str);
+        when += apr_time_from_sec(apreq_atoi64t(time_str));
 
     if ( apr_time_exp_gmt(&tms, when) != APR_SUCCESS )
         return NULL;
@@ -442,30 +404,38 @@ APREQ_DECLARE(apr_size_t) apreq_encode(char *dest, const char *src,
     return d - dest;
 }
 
+APREQ_DECLARE(apr_size_t) apreq_quote_once(char *dest, const char *src, 
+                                           const apr_size_t slen) 
+{
+    if (slen > 1 && src[0] == '"' && src[slen-1] == '"') {
+        /* looks like src is already quoted */        
+        memcpy(dest, src, slen);
+        return slen;
+    }
+    else
+        return apreq_quote(dest, src, slen);
+}
+
 APREQ_DECLARE(apr_size_t) apreq_quote(char *dest, const char *src, 
                                       const apr_size_t slen) 
 {
     char *d = dest;
     const char *s = src;
+    const char *const last = src + slen - 1;
 
     if (slen == 0) {
         *d = 0;
         return 0;
     }
 
-    if (src[0] == '"' && src[slen-1] == '"') { /* src is already quoted */
-        memcpy(dest, src, slen);
-        return slen;
-    }
-
     *d++ = '"';
 
-    while (s < src + slen) {
+    while (s <= last) {
 
         switch (*s) {
 
         case '\\': 
-            if (s < src + slen - 1) {
+            if (s < last) {
                 *d++ = *s++;
                 break;
             }
@@ -571,12 +541,13 @@ APREQ_DECLARE(const char *) apreq_join(apr_pool_t *p,
 
 
     case QUOTE:
-        d += apreq_quote(d, a[0]->data, a[0]->size);
+
+        d += apreq_quote_once(d, a[0]->data, a[0]->size);
 
         for (j = 1; j < n; ++j) {
             memcpy(d, sep, slen);
             d += slen;
-            d += apreq_quote(d, a[j]->data, a[j]->size);
+            d += apreq_quote_once(d, a[j]->data, a[j]->size);
         }
         break;
 
@@ -606,7 +577,7 @@ APREQ_DECLARE(char *) apreq_escape(apr_pool_t *p,
                                    const char *src, const apr_size_t slen)
 {
     apreq_value_t *rv;
-    if (src == NULL || slen == 0)
+    if (src == NULL)
         return NULL;
 
     rv = apr_palloc(p, 3 * slen + sizeof *rv);
@@ -616,6 +587,10 @@ APREQ_DECLARE(char *) apreq_escape(apr_pool_t *p,
     return rv->data;
 }
 
+APREQ_DECLARE(apr_ssize_t) apreq_unescape(char *str)
+{
+    return apreq_decode(str,str,strlen(str));
+}
 
 APR_INLINE
 static apr_status_t apreq_fwritev(apr_file_t *f, struct iovec *v, 
@@ -662,7 +637,7 @@ static apr_status_t apreq_fwritev(apr_file_t *f, struct iovec *v,
     return s;
 }
 
-
+/* this function now consumes the brigade, deleting buckets as it goes */
 APREQ_DECLARE(apr_status_t) apreq_brigade_fwrite(apr_file_t *f, 
                                                  apr_off_t *wlen,
                                                  apr_bucket_brigade *bb)
@@ -674,7 +649,7 @@ APREQ_DECLARE(apr_status_t) apreq_brigade_fwrite(apr_file_t *f,
     *wlen = 0;
 
     for (e = APR_BRIGADE_FIRST(bb); e != APR_BRIGADE_SENTINEL(bb);
-         e = APR_BUCKET_NEXT(e)) 
+         e = APR_BRIGADE_FIRST(bb)) 
     {
         apr_size_t len;
         if (n == APREQ_NELTS) {
@@ -689,6 +664,7 @@ APREQ_DECLARE(apr_status_t) apreq_brigade_fwrite(apr_file_t *f,
             return s;
 
         v[n++].iov_len = len;
+        apr_bucket_delete(e);
     }
 
     while (n > 0) {
@@ -740,7 +716,7 @@ APREQ_DECLARE(apr_file_t *)apreq_brigade_spoolfile(apr_bucket_brigade *bb)
 }
 
 APREQ_DECLARE(apr_bucket_brigade *)
-    apreq_copy_brigade(const apr_bucket_brigade *bb)
+    apreq_brigade_copy(const apr_bucket_brigade *bb)
 {
     apr_bucket_brigade *copy;
     apr_bucket *e;

@@ -4,11 +4,14 @@ Request and param stuff.
 
 
 {\tt \#include \char`\"{}apreq.h\char`\"{}}\par
-{\tt \#include \char`\"{}apreq\_\-parsers.h\char`\"{}}\par
 \subsection*{Data Structures}
 \begin{CompactItemize}
 \item 
+struct {\bf apreq\_\-hook\_\-t}
+\item 
 struct {\bf apreq\_\-param\_\-t}
+\item 
+struct {\bf apreq\_\-parser\_\-t}
 \item 
 struct {\bf apreq\_\-request\_\-t}
 \end{CompactItemize}
@@ -17,27 +20,50 @@ struct {\bf apreq\_\-request\_\-t}
 \item 
 \#define {\bf apreq\_\-value\_\-to\_\-param}(ptr)\ apreq\_\-attr\_\-to\_\-type({\bf apreq\_\-param\_\-t}, v, ptr)
 \item 
-\#define {\bf apreq\_\-param\_\-name}(p)\ ((p) $\rightarrow$ v.name)\label{apreq__params_8h_a14}
+\index{apreq_param_name@{apreq\_\-param\_\-name}!apreq_params.h@{apreq\_\-params.h}}\index{apreq_params.h@{apreq\_\-params.h}!apreq_param_name@{apreq\_\-param\_\-name}}
+\#define {\bf apreq\_\-param\_\-name}(p)\ ((p) $\rightarrow$ v.name)\label{apreq__params_8h_a23}
 
 \item 
-\#define {\bf apreq\_\-param\_\-value}(p)\ ((p) $\rightarrow$ v.data)\label{apreq__params_8h_a15}
+\index{apreq_param_value@{apreq\_\-param\_\-value}!apreq_params.h@{apreq\_\-params.h}}\index{apreq_params.h@{apreq\_\-params.h}!apreq_param_value@{apreq\_\-param\_\-value}}
+\#define {\bf apreq\_\-param\_\-value}(p)\ ((p) $\rightarrow$ v.data)\label{apreq__params_8h_a24}
 
 \item 
-\#define {\bf apreq\_\-param\_\-info}(p)\ ((p) $\rightarrow$ info)\label{apreq__params_8h_a16}
+\index{apreq_param_info@{apreq\_\-param\_\-info}!apreq_params.h@{apreq\_\-params.h}}\index{apreq_params.h@{apreq\_\-params.h}!apreq_param_info@{apreq\_\-param\_\-info}}
+\#define {\bf apreq\_\-param\_\-info}(p)\ ((p) $\rightarrow$ info)\label{apreq__params_8h_a25}
 
 \item 
-\#define {\bf apreq\_\-param\_\-status}(p)\ ((p) $\rightarrow$ v.status)\label{apreq__params_8h_a17}
+\index{apreq_param_status@{apreq\_\-param\_\-status}!apreq_params.h@{apreq\_\-params.h}}\index{apreq_params.h@{apreq\_\-params.h}!apreq_param_status@{apreq\_\-param\_\-status}}
+\#define {\bf apreq\_\-param\_\-status}(p)\ ((p) $\rightarrow$ v.status)\label{apreq__params_8h_a26}
 
 \item 
-\#define {\bf apreq\_\-param\_\-brigade}(p)\ ((p) $\rightarrow$ bb ? apreq\_\-copy\_\-brigade((p) $\rightarrow$ bb) : NULL)\label{apreq__params_8h_a18}
+\index{apreq_param_brigade@{apreq\_\-param\_\-brigade}!apreq_params.h@{apreq\_\-params.h}}\index{apreq_params.h@{apreq\_\-params.h}!apreq_param_brigade@{apreq\_\-param\_\-brigade}}
+\#define {\bf apreq\_\-param\_\-brigade}(p)\ ((p) $\rightarrow$ bb ? apreq\_\-copy\_\-brigade((p) $\rightarrow$ bb) : NULL)\label{apreq__params_8h_a27}
 
 \item 
-\#define {\bf apreq\_\-params\_\-as\_\-string}(req, key, pool, mode)\ apreq\_\-join(pool, \char`\"{}, \char`\"{}, apreq\_\-params(req,pool,key), mode)
+\#define {\bf APREQ\_\-PARSER\_\-ARGS}
+\item 
+\#define {\bf APREQ\_\-HOOK\_\-ARGS}
+\item 
+\#define {\bf APREQ\_\-DECLARE\_\-PARSER}(f)
+\item 
+\#define {\bf APREQ\_\-DECLARE\_\-HOOK}(f)
+\item 
+\#define {\bf APREQ\_\-RUN\_\-PARSER}(psr, env, t, bb)\ (psr) $\rightarrow$ parser(psr,env,t,bb)
+\item 
+\#define {\bf APREQ\_\-RUN\_\-HOOK}(h, env, param, bb)\ (h) $\rightarrow$ hook(h,env,param,bb)
 \end{CompactItemize}
 \subsection*{Typedefs}
 \begin{CompactItemize}
 \item 
 typedef apreq\_\-param\_\-t {\bf apreq\_\-param\_\-t}
+\item 
+\index{apreq_hook_t@{apreq\_\-hook\_\-t}!apreq_params.h@{apreq\_\-params.h}}\index{apreq_params.h@{apreq\_\-params.h}!apreq_hook_t@{apreq\_\-hook\_\-t}}
+typedef apreq\_\-hook\_\-t {\bf apreq\_\-hook\_\-t}\label{apreq__params_8h_a1}
+
+\item 
+\index{apreq_parser_t@{apreq\_\-parser\_\-t}!apreq_params.h@{apreq\_\-params.h}}\index{apreq_params.h@{apreq\_\-params.h}!apreq_parser_t@{apreq\_\-parser\_\-t}}
+typedef apreq\_\-parser\_\-t {\bf apreq\_\-parser\_\-t}\label{apreq__params_8h_a2}
+
 \item 
 typedef apreq\_\-request\_\-t {\bf apreq\_\-request\_\-t}
 \end{CompactItemize}
@@ -46,11 +72,15 @@ typedef apreq\_\-request\_\-t {\bf apreq\_\-request\_\-t}
 \item 
 {\bf apreq\_\-param\_\-t} $\ast$ {\bf apreq\_\-make\_\-param} ({\bf apr\_\-pool\_\-t} $\ast$p, const char $\ast$name, const {\bf apr\_\-size\_\-t} nlen, const char $\ast$val, const {\bf apr\_\-size\_\-t} vlen)
 \item 
-{\bf apreq\_\-request\_\-t} $\ast$ {\bf apreq\_\-request} (void $\ast$env, const char $\ast$qs)
+{\bf apreq\_\-request\_\-t} $\ast$ {\bf apreq\_\-request} ({\bf void} $\ast$env, const char $\ast$qs)
 \item 
 {\bf apreq\_\-param\_\-t} $\ast$ {\bf apreq\_\-param} (const {\bf apreq\_\-request\_\-t} $\ast$req, const char $\ast$name)
 \item 
 {\bf apr\_\-table\_\-t} $\ast$ {\bf apreq\_\-params} ({\bf apr\_\-pool\_\-t} $\ast$p, const {\bf apreq\_\-request\_\-t} $\ast$req)
+\item 
+{\bf apr\_\-array\_\-header\_\-t} $\ast$ {\bf apreq\_\-params\_\-as\_\-array} ({\bf apr\_\-pool\_\-t} $\ast$p, {\bf apreq\_\-request\_\-t} $\ast$req, const char $\ast${\bf key})
+\item 
+const char $\ast$ {\bf apreq\_\-params\_\-as\_\-string} ({\bf apr\_\-pool\_\-t} $\ast$p, {\bf apreq\_\-request\_\-t} $\ast$req, const char $\ast${\bf key}, {\bf apreq\_\-join\_\-t} mode)
 \item 
 {\bf apreq\_\-param\_\-t} $\ast$ {\bf apreq\_\-decode\_\-param} ({\bf apr\_\-pool\_\-t} $\ast$pool, const char $\ast$word, const {\bf apr\_\-size\_\-t} nlen, const {\bf apr\_\-size\_\-t} vlen)
 \item 
@@ -62,13 +92,24 @@ char $\ast$ {\bf apreq\_\-encode\_\-param} ({\bf apr\_\-pool\_\-t} $\ast$pool, c
 \item 
 {\bf apr\_\-table\_\-t} $\ast$ {\bf apreq\_\-uploads} ({\bf apr\_\-pool\_\-t} $\ast$pool, const {\bf apreq\_\-request\_\-t} $\ast$req)
 \item 
-{\bf apreq\_\-param\_\-t} $\ast$ {\bf apreq\_\-upload} (const {\bf apreq\_\-request\_\-t} $\ast$req, const char $\ast$key)
+{\bf apreq\_\-param\_\-t} $\ast$ {\bf apreq\_\-upload} (const {\bf apreq\_\-request\_\-t} $\ast$req, const char $\ast${\bf key})
 \item 
-{\bf apr\_\-status\_\-t} {\bf apreq\_\-request\_\-config} ({\bf apreq\_\-request\_\-t} $\ast$req, const char $\ast$attr, {\bf apr\_\-size\_\-t} alen, const char $\ast$val, {\bf apr\_\-size\_\-t} vlen)\label{apreq__params_8h_a19}
-
+{\bf apr\_\-status\_\-t} {\bf apreq\_\-brigade\_\-concat} ({\bf void} $\ast$env, {\bf apr\_\-bucket\_\-brigade} $\ast$out, {\bf apr\_\-bucket\_\-brigade} $\ast$in)
+\item 
+{\bf APREQ\_\-DECLARE\_\-PARSER} (apreq\_\-parse\_\-headers)
+\item 
+{\bf apreq\_\-parser\_\-t} $\ast$ {\bf apreq\_\-make\_\-parser} ({\bf apr\_\-pool\_\-t} $\ast$pool, const char $\ast$enctype, {\bf apr\_\-status\_\-t}($\ast$parser) APREQ\_\-PARSER\_\-ARGS, {\bf apreq\_\-hook\_\-t} $\ast$hook, {\bf void} $\ast$ctx)
+\item 
+{\bf apreq\_\-hook\_\-t} $\ast$ {\bf apreq\_\-make\_\-hook} ({\bf apr\_\-pool\_\-t} $\ast$pool, {\bf apr\_\-status\_\-t}($\ast$hook) APREQ\_\-HOOK\_\-ARGS, {\bf apreq\_\-hook\_\-t} $\ast$next, {\bf void} $\ast$ctx)
+\item 
+{\bf void} {\bf apreq\_\-add\_\-hook} ({\bf apreq\_\-parser\_\-t} $\ast$p, {\bf apreq\_\-hook\_\-t} $\ast$h)
+\item 
+{\bf apreq\_\-parser\_\-t} $\ast$ {\bf apreq\_\-parser} ({\bf void} $\ast$env, {\bf apreq\_\-hook\_\-t} $\ast$hook)
 \end{CompactItemize}
 
 
 \subsection{Detailed Description}
 Request and param stuff.
+
+
 

@@ -1,4 +1,4 @@
-AC_DEFUN(AC_APREQ, [
+AC_DEFUN([AC_APREQ], [
 
         AC_ARG_ENABLE(perl_glue,
                 AC_HELP_STRING([--enable-perl-glue],[build perl modules Apache::Request and Apache::Cookie]),
@@ -88,11 +88,11 @@ AC_DEFUN(AC_APREQ, [
         APU_INCLUDES=`$APU_CONFIG --includes`
         APR_LA=`$APR_CONFIG --link-libtool`
         APU_LA=`$APU_CONFIG --link-libtool`
-        APR_LTLIBS=`$APR_CONFIG --link-libtool --libs`
-        APU_LTLIBS=`$APU_CONFIG --link-libtool --libs`
+        APR_LTLIBS=`$APR_CONFIG --link-libtool --ldflags --libs`
+        APU_LTLIBS=`$APU_CONFIG --link-libtool --ldflags --libs`
         dnl perl glue/tests do not use libtool: need ld linker flags
-        APR_LDLIBS=`$APR_CONFIG --link-ld --libs`
-        APU_LDLIBS=`$APU_CONFIG --link-ld --libs`
+        APR_LDLIBS=`$APR_CONFIG --link-ld --ldflags --libs`
+        APU_LDLIBS=`$APU_CONFIG --link-ld --ldflags --libs`
 
         dnl Absolute source/build directory
         abs_srcdir=`(cd $srcdir && pwd)`
@@ -103,9 +103,9 @@ AC_DEFUN(AC_APREQ, [
           USE_VPATH=1
         fi
 
-        AC_SUBST(top_builddir)
-        AC_SUBST(abs_srcdir)
-        AC_SUBST(abs_builddir)
+        dnl AC_SUBST(top_builddir)
+        dnl AC_SUBST(abs_srcdir)
+        dnl AC_SUBST(abs_builddir)
 
         get_version="$abs_srcdir/build/get-version.sh"
         version_hdr="$abs_srcdir/src/apreq_version.h"
@@ -114,12 +114,12 @@ AC_DEFUN(AC_APREQ, [
         APREQ_MAJOR_VERSION=`$get_version major $version_hdr APREQ`
         APREQ_DOTTED_VERSION=`$get_version all $version_hdr APREQ`
 
-        echo "libapreq Version: $APREQ_DOTTED_VERSION"
-
         APREQ_LIBNAME="apreq$APREQ_MAJOR_VERSION"
         APREQ_INCLUDES=""
         APREQ_LDFLAGS=""
         APREQ_EXPORT_LIBS=""
+
+        echo "lib$APREQ_LIBNAME Version: $APREQ_DOTTED_VERSION"
 
         AC_SUBST(APREQ_LIBNAME)
         AC_SUBST(APREQ_LDFLAGS)
@@ -147,7 +147,7 @@ AC_DEFUN(AC_APREQ, [
         AC_SUBST(PERL)
 ])
 
-AC_DEFUN(APR_ADDTO,[
+AC_DEFUN([APR_ADDTO],[
   if test "x$$1" = "x"; then
     echo "  setting $1 to \"$2\""
     $1="$2"
@@ -168,3 +168,81 @@ AC_DEFUN(APR_ADDTO,[
     done
   fi
 ])
+
+dnl Iteratively interpolate the contents of the second argument
+dnl until interpolation offers no new result. Then assign the
+dnl final result to $1.
+dnl
+dnl Example:
+dnl
+dnl foo=1
+dnl bar='${foo}/2'
+dnl baz='${bar}/3'
+dnl APR_EXPAND_VAR(fraz, $baz)
+dnl   $fraz is now "1/2/3"
+dnl 
+AC_DEFUN(APR_EXPAND_VAR,[
+ap_last=
+ap_cur="$2"
+while test "x${ap_cur}" != "x${ap_last}";
+do
+  ap_last="${ap_cur}"
+  ap_cur=`eval "echo ${ap_cur}"`
+done
+$1="${ap_cur}"
+])
+
+
+dnl APR_CONFIG_NICE(filename)
+dnl
+dnl Saves a snapshot of the configure command-line for later reuse
+dnl
+AC_DEFUN(APR_CONFIG_NICE,[
+  rm -f $1
+  cat >$1<<EOF
+#! /bin/sh
+#
+# Created by configure
+
+EOF
+  if test -n "$CC"; then
+    echo "CC=\"$CC\"; export CC" >> $1
+  fi
+  if test -n "$CFLAGS"; then
+    echo "CFLAGS=\"$CFLAGS\"; export CFLAGS" >> $1
+  fi
+  if test -n "$CPPFLAGS"; then
+    echo "CPPFLAGS=\"$CPPFLAGS\"; export CPPFLAGS" >> $1
+  fi
+  if test -n "$LDFLAGS"; then
+    echo "LDFLAGS=\"$LDFLAGS\"; export LDFLAGS" >> $1
+  fi
+  if test -n "$LTFLAGS"; then
+    echo "LTFLAGS=\"$LTFLAGS\"; export LTFLAGS" >> $1
+  fi
+  if test -n "$LIBS"; then
+    echo "LIBS=\"$LIBS\"; export LIBS" >> $1
+  fi
+  if test -n "$INCLUDES"; then
+    echo "INCLUDES=\"$INCLUDES\"; export INCLUDES" >> $1
+  fi
+  if test -n "$NOTEST_CFLAGS"; then
+    echo "NOTEST_CFLAGS=\"$NOTEST_CFLAGS\"; export NOTEST_CFLAGS" >> $1
+  fi
+  if test -n "$NOTEST_CPPFLAGS"; then
+    echo "NOTEST_CPPFLAGS=\"$NOTEST_CPPFLAGS\"; export NOTEST_CPPFLAGS" >> $1
+  fi
+  if test -n "$NOTEST_LDFLAGS"; then
+    echo "NOTEST_LDFLAGS=\"$NOTEST_LDFLAGS\"; export NOTEST_LDFLAGS" >> $1
+  fi
+  if test -n "$NOTEST_LIBS"; then
+    echo "NOTEST_LIBS=\"$NOTEST_LIBS\"; export NOTEST_LIBS" >> $1
+  fi
+
+  for arg in [$]0 "[$]@"; do
+    APR_EXPAND_VAR(arg, $arg)
+    echo "\"[$]arg\" \\" >> $1
+  done
+  echo '"[$]@"' >> $1
+  chmod +x $1
+])dnl

@@ -8,48 +8,61 @@ struct {\bf apreq\_\-value\_\-t}
 \subsection*{Defines}
 \begin{CompactItemize}
 \item 
-\#define {\bf APREQ\_\-DECLARE}(d)\ {\bf APR\_\-DECLARE}(d)\label{group__Utils_a23}
+\index{APREQ_DECLARE@{APREQ\_\-DECLARE}!Utils@{Utils}}\index{Utils@{Utils}!APREQ_DECLARE@{APREQ\_\-DECLARE}}
+\#define {\bf APREQ\_\-DECLARE}(d)\ {\bf APR\_\-DECLARE}(d)\label{group__Utils_a24}
 
 \item 
-\#define {\bf APREQ\_\-DECLARE\_\-NONSTD}(d)\ {\bf APR\_\-DECLARE\_\-NONSTD}(d)\label{group__Utils_a24}
+\index{APREQ_DECLARE_NONSTD@{APREQ\_\-DECLARE\_\-NONSTD}!Utils@{Utils}}\index{Utils@{Utils}!APREQ_DECLARE_NONSTD@{APREQ\_\-DECLARE\_\-NONSTD}}
+\#define {\bf APREQ\_\-DECLARE\_\-NONSTD}(d)\ {\bf APR\_\-DECLARE\_\-NONSTD}(d)\label{group__Utils_a25}
 
 \item 
-\#define {\bf APREQ\_\-URL\_\-ENCTYPE}\ \char`\"{}application/x-www-form-urlencoded\char`\"{}\label{group__Utils_a25}
+\index{APREQ_URL_ENCTYPE@{APREQ\_\-URL\_\-ENCTYPE}!Utils@{Utils}}\index{Utils@{Utils}!APREQ_URL_ENCTYPE@{APREQ\_\-URL\_\-ENCTYPE}}
+\#define {\bf APREQ\_\-URL\_\-ENCTYPE}\ \char`\"{}application/x-www-form-urlencoded\char`\"{}\label{group__Utils_a26}
 
 \item 
-\#define {\bf APREQ\_\-MFD\_\-ENCTYPE}\ \char`\"{}multipart/form-data\char`\"{}\label{group__Utils_a26}
+\index{APREQ_MFD_ENCTYPE@{APREQ\_\-MFD\_\-ENCTYPE}!Utils@{Utils}}\index{Utils@{Utils}!APREQ_MFD_ENCTYPE@{APREQ\_\-MFD\_\-ENCTYPE}}
+\#define {\bf APREQ\_\-MFD\_\-ENCTYPE}\ \char`\"{}multipart/form-data\char`\"{}\label{group__Utils_a27}
 
 \item 
-\#define {\bf APREQ\_\-XML\_\-ENCTYPE}\ \char`\"{}application/xml\char`\"{}\label{group__Utils_a27}
+\index{APREQ_XML_ENCTYPE@{APREQ\_\-XML\_\-ENCTYPE}!Utils@{Utils}}\index{Utils@{Utils}!APREQ_XML_ENCTYPE@{APREQ\_\-XML\_\-ENCTYPE}}
+\#define {\bf APREQ\_\-XML\_\-ENCTYPE}\ \char`\"{}application/xml\char`\"{}\label{group__Utils_a28}
 
 \item 
-\#define {\bf APREQ\_\-NELTS}\ 8\label{group__Utils_a28}
+\index{APREQ_NELTS@{APREQ\_\-NELTS}!Utils@{Utils}}\index{Utils@{Utils}!APREQ_NELTS@{APREQ\_\-NELTS}}
+\#define {\bf APREQ\_\-NELTS}\ 8\label{group__Utils_a29}
 
 \item 
-\#define {\bf apreq\_\-attr\_\-to\_\-type}(T, A, P)\ ( (T$\ast$) ((char$\ast$)(P)-offsetof(T,A)) )\label{group__Utils_a29}
+\index{APREQ_READ_AHEAD@{APREQ\_\-READ\_\-AHEAD}!Utils@{Utils}}\index{Utils@{Utils}!APREQ_READ_AHEAD@{APREQ\_\-READ\_\-AHEAD}}
+\#define {\bf APREQ\_\-READ\_\-AHEAD}\ (64 $\ast$ 1024)\label{group__Utils_a30}
 
 \item 
-\#define {\bf apreq\_\-char\_\-to\_\-value}(ptr)\ apreq\_\-attr\_\-to\_\-type({\bf apreq\_\-value\_\-t}, data, ptr)\label{group__Utils_a30}
+\index{APREQ_MAX_BRIGADE_LEN@{APREQ\_\-MAX\_\-BRIGADE\_\-LEN}!Utils@{Utils}}\index{Utils@{Utils}!APREQ_MAX_BRIGADE_LEN@{APREQ\_\-MAX\_\-BRIGADE\_\-LEN}}
+\#define {\bf APREQ\_\-MAX\_\-BRIGADE\_\-LEN}\ (256 $\ast$ 1024)\label{group__Utils_a31}
 
 \item 
-\#define {\bf apreq\_\-strtoval}(ptr)\ apreq\_\-char\_\-to\_\-value(ptr)\label{group__Utils_a31}
+\index{apreq_attr_to_type@{apreq\_\-attr\_\-to\_\-type}!Utils@{Utils}}\index{Utils@{Utils}!apreq_attr_to_type@{apreq\_\-attr\_\-to\_\-type}}
+\#define {\bf apreq\_\-attr\_\-to\_\-type}(T, A, P)\ ( (T$\ast$) ((char$\ast$)(P)-offsetof(T,A)) )\label{group__Utils_a32}
 
 \item 
-\#define {\bf apreq\_\-strlen}(ptr)\ (apreq\_\-strtoval(ptr) $\rightarrow$ size)\label{group__Utils_a32}
+\#define {\bf apreq\_\-char\_\-to\_\-value}(ptr)\ apreq\_\-attr\_\-to\_\-type({\bf apreq\_\-value\_\-t}, data, ptr)
+\item 
+\index{apreq_strtoval@{apreq\_\-strtoval}!Utils@{Utils}}\index{Utils@{Utils}!apreq_strtoval@{apreq\_\-strtoval}}
+\#define {\bf apreq\_\-strtoval}(ptr)\ apreq\_\-char\_\-to\_\-value(ptr)\label{group__Utils_a34}
 
 \item 
-\#define {\bf apreq\_\-unescape}(str)\ apreq\_\-decode(str,str,strlen(str))\label{group__Utils_a33}
-
+\#define {\bf apreq\_\-strlen}(ptr)\ (apreq\_\-strtoval(ptr) $\rightarrow$ size)
 \end{CompactItemize}
 \subsection*{Typedefs}
 \begin{CompactItemize}
 \item 
 typedef apreq\_\-value\_\-t {\bf apreq\_\-value\_\-t}
 \item 
-typedef {\bf apreq\_\-value\_\-t} $\ast$( {\bf apreq\_\-value\_\-merge\_\-t} )({\bf apr\_\-pool\_\-t} $\ast$p, const {\bf apr\_\-array\_\-header\_\-t} $\ast$a)\label{group__Utils_a1}
+\index{apreq_value_merge_t@{apreq\_\-value\_\-merge\_\-t}!Utils@{Utils}}\index{Utils@{Utils}!apreq_value_merge_t@{apreq\_\-value\_\-merge\_\-t}}
+typedef {\bf apreq\_\-value\_\-t} $\ast$ {\bf apreq\_\-value\_\-merge\_\-t} ({\bf apr\_\-pool\_\-t} $\ast$p, const {\bf apr\_\-array\_\-header\_\-t} $\ast$a)\label{group__Utils_a1}
 
 \item 
-typedef {\bf apreq\_\-value\_\-t} $\ast$( {\bf apreq\_\-value\_\-copy\_\-t} )({\bf apr\_\-pool\_\-t} $\ast$p, const {\bf apreq\_\-value\_\-t} $\ast$v)\label{group__Utils_a2}
+\index{apreq_value_copy_t@{apreq\_\-value\_\-copy\_\-t}!Utils@{Utils}}\index{Utils@{Utils}!apreq_value_copy_t@{apreq\_\-value\_\-copy\_\-t}}
+typedef {\bf apreq\_\-value\_\-t} $\ast$ {\bf apreq\_\-value\_\-copy\_\-t} ({\bf apr\_\-pool\_\-t} $\ast$p, const {\bf apreq\_\-value\_\-t} $\ast$v)\label{group__Utils_a2}
 
 \end{CompactItemize}
 \subsection*{Enumerations}
@@ -78,7 +91,7 @@ enum {\bf apreq\_\-expires\_\-t} \{ {\bf HTTP},
 \item 
 {\bf apreq\_\-value\_\-t} $\ast$ {\bf apreq\_\-merge\_\-values} ({\bf apr\_\-pool\_\-t} $\ast$p, const {\bf apr\_\-array\_\-header\_\-t} $\ast$arr)
 \item 
-const char $\ast$ {\bf apreq\_\-enctype} (void $\ast$env)
+const char $\ast$ {\bf apreq\_\-enctype} ({\bf void} $\ast$env)
 \item 
 const char $\ast$ {\bf apreq\_\-join} ({\bf apr\_\-pool\_\-t} $\ast$p, const char $\ast$sep, const {\bf apr\_\-array\_\-header\_\-t} $\ast$arr, {\bf apreq\_\-join\_\-t} mode)
 \item 
@@ -87,6 +100,8 @@ char $\ast$ {\bf apreq\_\-memmem} (char $\ast$hay, {\bf apr\_\-size\_\-t} hlen, 
 {\bf apr\_\-ssize\_\-t} {\bf apreq\_\-index} (const char $\ast$hay, {\bf apr\_\-size\_\-t} hlen, const char $\ast$ndl, {\bf apr\_\-size\_\-t} nlen, const {\bf apreq\_\-match\_\-t} type)
 \item 
 {\bf apr\_\-size\_\-t} {\bf apreq\_\-quote} (char $\ast$dest, const char $\ast$src, const {\bf apr\_\-size\_\-t} slen)
+\item 
+{\bf apr\_\-size\_\-t} {\bf apreq\_\-quote\_\-once} (char $\ast$dest, const char $\ast$src, const {\bf apr\_\-size\_\-t} slen)
 \item 
 {\bf apr\_\-size\_\-t} {\bf apreq\_\-encode} (char $\ast$dest, const char $\ast$src, const {\bf apr\_\-size\_\-t} slen)
 \item 
@@ -108,16 +123,39 @@ char $\ast$ {\bf apreq\_\-expires} ({\bf apr\_\-pool\_\-t} $\ast$p, const char $
 \item 
 {\bf apr\_\-file\_\-t} $\ast$ {\bf apreq\_\-brigade\_\-spoolfile} ({\bf apr\_\-bucket\_\-brigade} $\ast$bb)
 \item 
-{\bf apr\_\-bucket\_\-brigade} $\ast$ {\bf apreq\_\-copy\_\-brigade} (const {\bf apr\_\-bucket\_\-brigade} $\ast$bb)\label{group__Utils_a21}
-
+{\bf apr\_\-bucket\_\-brigade} $\ast$ {\bf apreq\_\-brigade\_\-copy} (const {\bf apr\_\-bucket\_\-brigade} $\ast$bb)
 \item 
-{\bf apr\_\-status\_\-t} {\bf apreq\_\-header\_\-attribute} (const char $\ast$hdr, const char $\ast$name, const {\bf apr\_\-size\_\-t} nlen, const char $\ast$$\ast$val, {\bf apr\_\-size\_\-t} $\ast$vlen)\label{group__Utils_a22}
-
+{\bf apr\_\-status\_\-t} {\bf apreq\_\-header\_\-attribute} (const char $\ast$hdr, const char $\ast$name, const {\bf apr\_\-size\_\-t} nlen, const char $\ast$$\ast$val, {\bf apr\_\-size\_\-t} $\ast$vlen)
 \end{CompactItemize}
 
 
+\subsection{Define Documentation}
+\index{Utils@{Utils}!apreq_char_to_value@{apreq\_\-char\_\-to\_\-value}}
+\index{apreq_char_to_value@{apreq\_\-char\_\-to\_\-value}!Utils@{Utils}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}\#define apreq\_\-char\_\-to\_\-value(ptr)\ apreq\_\-attr\_\-to\_\-type({\bf apreq\_\-value\_\-t}, data, ptr)}\label{group__Utils_a33}
+
+
+Converts (char $\ast$) to ({\bf apreq\_\-value\_\-t} {\rm (p.\,\pageref{structapreq__value__t})} $\ast$). The char $\ast$ is assumed to point at the data attribute of an {\bf apreq\_\-value\_\-t} {\rm (p.\,\pageref{structapreq__value__t})} struct.\begin{Desc}
+\item[Parameters: ]\par
+\begin{description}
+\item[{\em 
+ptr}]points at the data field of an {\bf apreq\_\-value\_\-t} {\rm (p.\,\pageref{structapreq__value__t})} struct. \end{description}
+\end{Desc}
+\index{Utils@{Utils}!apreq_strlen@{apreq\_\-strlen}}
+\index{apreq_strlen@{apreq\_\-strlen}!Utils@{Utils}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}\#define apreq\_\-strlen(ptr)\ (apreq\_\-strtoval(ptr) $\rightarrow$ size)}\label{group__Utils_a35}
+
+
+Computes the length of the string, but unlike strlen(), it permits embedded null characters.\begin{Desc}
+\item[Parameters: ]\par
+\begin{description}
+\item[{\em 
+ptr}]points at the data field of an {\bf apreq\_\-value\_\-t} {\rm (p.\,\pageref{structapreq__value__t})} struct. \end{description}
+\end{Desc}
+
+
 \subsection{Typedef Documentation}
-\index{apreq_value_t@{apreq\_\-value\_\-t}!Utils@{Utils}}\index{Utils@{Utils}!apreq_value_t@{apreq\_\-value\_\-t}}\index{Utils@{Utils}!apreq_value_t@{apreq\_\-value\_\-t}}
+\index{Utils@{Utils}!apreq_value_t@{apreq\_\-value\_\-t}}
 \index{apreq_value_t@{apreq\_\-value\_\-t}!Utils@{Utils}}
 \subsubsection{\setlength{\rightskip}{0pt plus 5cm}typedef struct apreq\_\-value\_\-t  apreq\_\-value\_\-t}\label{group__Utils_a0}
 
@@ -125,267 +163,381 @@ char $\ast$ {\bf apreq\_\-expires} ({\bf apr\_\-pool\_\-t} $\ast$p, const char $
 libapreq-2's pre-extensible string type 
 
 \subsection{Enumeration Type Documentation}
-\index{apreq_expires_t@{apreq\_\-expires\_\-t}!Utils@{Utils}}\index{Utils@{Utils}!apreq_expires_t@{apreq\_\-expires\_\-t}}\index{Utils@{Utils}!apreq_expires_t@{apreq\_\-expires\_\-t}}
+\index{Utils@{Utils}!apreq_expires_t@{apreq\_\-expires\_\-t}}
 \index{apreq_expires_t@{apreq\_\-expires\_\-t}!Utils@{Utils}}
-\subsubsection{\setlength{\rightskip}{0pt plus 5cm}enum apreq\_\-expires\_\-t}\label{group__Utils_a36}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}enum apreq\_\-expires\_\-t}\label{group__Utils_a38}
 
 
 Expiration date format \begin{Desc}
-\item[Enumeration values: ]\par
+\item[Enumeration values:]\par
 \begin{description}
 \index{HTTP@{HTTP}!Utils@{Utils}}\index{Utils@{Utils}!HTTP@{HTTP}}\item[{\em 
-{\em HTTP}\label{group__Utils_a36a20}
+{\em HTTP}\label{group__Utils_a38a21}
 }]Use date formatting consistent with RFC 2616 \index{NSCOOKIE@{NSCOOKIE}!Utils@{Utils}}\index{Utils@{Utils}!NSCOOKIE@{NSCOOKIE}}\item[{\em 
-{\em NSCOOKIE}\label{group__Utils_a36a21}
+{\em NSCOOKIE}\label{group__Utils_a38a22}
 }]Use format consistent with Netscape's Cookie Spec \end{description}
 \end{Desc}
 
-\index{apreq_join_t@{apreq\_\-join\_\-t}!Utils@{Utils}}\index{Utils@{Utils}!apreq_join_t@{apreq\_\-join\_\-t}}\index{Utils@{Utils}!apreq_join_t@{apreq\_\-join\_\-t}}
+\index{Utils@{Utils}!apreq_join_t@{apreq\_\-join\_\-t}}
 \index{apreq_join_t@{apreq\_\-join\_\-t}!Utils@{Utils}}
-\subsubsection{\setlength{\rightskip}{0pt plus 5cm}enum apreq\_\-join\_\-t}\label{group__Utils_a34}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}enum apreq\_\-join\_\-t}\label{group__Utils_a36}
 
 
 Join type \begin{Desc}
-\item[Enumeration values: ]\par
+\item[Enumeration values:]\par
 \begin{description}
 \index{AS_IS@{AS\_\-IS}!Utils@{Utils}}\index{Utils@{Utils}!AS_IS@{AS\_\-IS}}\item[{\em 
-{\em AS\_\-IS}\label{group__Utils_a34a14}
+{\em AS\_\-IS}\label{group__Utils_a36a15}
 }]Join the strings without modification \index{ENCODE@{ENCODE}!Utils@{Utils}}\index{Utils@{Utils}!ENCODE@{ENCODE}}\item[{\em 
-{\em ENCODE}\label{group__Utils_a34a15}
+{\em ENCODE}\label{group__Utils_a36a16}
 }]Url-encode the strings before joining them \index{DECODE@{DECODE}!Utils@{Utils}}\index{Utils@{Utils}!DECODE@{DECODE}}\item[{\em 
-{\em DECODE}\label{group__Utils_a34a16}
+{\em DECODE}\label{group__Utils_a36a17}
 }]Url-decode the strings before joining them \index{QUOTE@{QUOTE}!Utils@{Utils}}\index{Utils@{Utils}!QUOTE@{QUOTE}}\item[{\em 
-{\em QUOTE}\label{group__Utils_a34a17}
+{\em QUOTE}\label{group__Utils_a36a18}
 }]Quote the strings, backslashing existing quote marks. \end{description}
 \end{Desc}
 
-\index{apreq_match_t@{apreq\_\-match\_\-t}!Utils@{Utils}}\index{Utils@{Utils}!apreq_match_t@{apreq\_\-match\_\-t}}\index{Utils@{Utils}!apreq_match_t@{apreq\_\-match\_\-t}}
+\index{Utils@{Utils}!apreq_match_t@{apreq\_\-match\_\-t}}
 \index{apreq_match_t@{apreq\_\-match\_\-t}!Utils@{Utils}}
-\subsubsection{\setlength{\rightskip}{0pt plus 5cm}enum apreq\_\-match\_\-t}\label{group__Utils_a35}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}enum apreq\_\-match\_\-t}\label{group__Utils_a37}
 
 
 Match type \begin{Desc}
-\item[Enumeration values: ]\par
+\item[Enumeration values:]\par
 \begin{description}
 \index{FULL@{FULL}!Utils@{Utils}}\index{Utils@{Utils}!FULL@{FULL}}\item[{\em 
-{\em FULL}\label{group__Utils_a35a18}
+{\em FULL}\label{group__Utils_a37a19}
 }]Full match only. \index{PARTIAL@{PARTIAL}!Utils@{Utils}}\index{Utils@{Utils}!PARTIAL@{PARTIAL}}\item[{\em 
-{\em PARTIAL}\label{group__Utils_a35a19}
+{\em PARTIAL}\label{group__Utils_a37a20}
 }]Partial matches are ok. \end{description}
 \end{Desc}
 
 
 
 \subsection{Function Documentation}
-\index{apreq_atoi64f@{apreq\_\-atoi64f}!Utils@{Utils}}\index{Utils@{Utils}!apreq_atoi64f@{apreq\_\-atoi64f}}\index{Utils@{Utils}!apreq_atoi64f@{apreq\_\-atoi64f}}
+\index{Utils@{Utils}!apreq_atoi64f@{apreq\_\-atoi64f}}
 \index{apreq_atoi64f@{apreq\_\-atoi64f}!Utils@{Utils}}
-\subsubsection{\setlength{\rightskip}{0pt plus 5cm}{\bf apr\_\-int64\_\-t} apreq\_\-atoi64f (const char $\ast$ {\em s})}\label{group__Utils_a16}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}{\bf apr\_\-int64\_\-t} apreq\_\-atoi64f (const char $\ast$ {\em s})}\label{group__Utils_a17}
 
 
 Converts file sizes (KMG) to bytes \begin{Desc}
-\item[Parameters:]
+\item[Parameters: ]\par
 \begin{description}
-\item[{\em s}]file size matching m/$^\wedge$+[KMG]b?\$/i \end{description}
+\item[{\em 
+s}]file size matching m/$^\wedge$$\backslash$d+[KMG]b?\$/i \end{description}
 \end{Desc}
 \begin{Desc}
-\item[Returns:]64-bit integer representation of s. \end{Desc}
-\index{apreq_atoi64t@{apreq\_\-atoi64t}!Utils@{Utils}}\index{Utils@{Utils}!apreq_atoi64t@{apreq\_\-atoi64t}}\index{Utils@{Utils}!apreq_atoi64t@{apreq\_\-atoi64t}}
+\item[Returns: ]\par
+64-bit integer representation of s. \end{Desc}
+\index{Utils@{Utils}!apreq_atoi64t@{apreq\_\-atoi64t}}
 \index{apreq_atoi64t@{apreq\_\-atoi64t}!Utils@{Utils}}
-\subsubsection{\setlength{\rightskip}{0pt plus 5cm}{\bf apr\_\-int64\_\-t} apreq\_\-atoi64t (const char $\ast$ {\em s})}\label{group__Utils_a17}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}{\bf apr\_\-int64\_\-t} apreq\_\-atoi64t (const char $\ast$ {\em s})}\label{group__Utils_a18}
 
 
 Converts time strings (YMDhms) to seconds \begin{Desc}
-\item[Parameters:]
+\item[Parameters: ]\par
 \begin{description}
-\item[{\em s}]time string matching m/$^\wedge$$\backslash$+?+[YMDhms]\$/ \end{description}
+\item[{\em 
+s}]time string matching m/$^\wedge$$\backslash$+?$\backslash$d+[YMDhms]\$/ \end{description}
 \end{Desc}
 \begin{Desc}
-\item[Returns:]64-bit integer representation of s as seconds. \end{Desc}
-\index{apreq_brigade_fwrite@{apreq\_\-brigade\_\-fwrite}!Utils@{Utils}}\index{Utils@{Utils}!apreq_brigade_fwrite@{apreq\_\-brigade\_\-fwrite}}\index{Utils@{Utils}!apreq_brigade_fwrite@{apreq\_\-brigade\_\-fwrite}}
+\item[Returns: ]\par
+64-bit integer representation of s as seconds. \end{Desc}
+\index{Utils@{Utils}!apreq_brigade_copy@{apreq\_\-brigade\_\-copy}}
+\index{apreq_brigade_copy@{apreq\_\-brigade\_\-copy}!Utils@{Utils}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}{\bf apr\_\-bucket\_\-brigade}$\ast$ apreq\_\-brigade\_\-copy (const {\bf apr\_\-bucket\_\-brigade} $\ast$ {\em bb})}\label{group__Utils_a22}
+
+
+Duplicate a brigade. \begin{Desc}
+\item[Parameters: ]\par
+\begin{description}
+\item[{\em 
+bb}]Original brigade. \end{description}
+\end{Desc}
+\begin{Desc}
+\item[Returns: ]\par
+New brigade containing a bucket-by-bucket copy of the original. \end{Desc}
+\index{Utils@{Utils}!apreq_brigade_fwrite@{apreq\_\-brigade\_\-fwrite}}
 \index{apreq_brigade_fwrite@{apreq\_\-brigade\_\-fwrite}!Utils@{Utils}}
-\subsubsection{\setlength{\rightskip}{0pt plus 5cm}{\bf apr\_\-status\_\-t} apreq\_\-brigade\_\-fwrite ({\bf apr\_\-file\_\-t} $\ast$ {\em f}, {\bf apr\_\-off\_\-t} $\ast$ {\em wlen}, {\bf apr\_\-bucket\_\-brigade} $\ast$ {\em bb})}\label{group__Utils_a18}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}{\bf apr\_\-status\_\-t} apreq\_\-brigade\_\-fwrite ({\bf apr\_\-file\_\-t} $\ast$ {\em f}, {\bf apr\_\-off\_\-t} $\ast$ {\em wlen}, {\bf apr\_\-bucket\_\-brigade} $\ast$ {\em bb})}\label{group__Utils_a19}
 
 
 Writes brigade to a file. \begin{Desc}
-\item[Parameters:]
+\item[Parameters: ]\par
 \begin{description}
-\item[{\em f}]File that gets the brigade. \item[{\em wlen}]On a successful return, wlen holds the length of the brigade, which is the amount of data written to the file. \item[{\em bb}]Bucket brigade. \end{description}
+\item[{\em 
+f}]File that gets the brigade. \item[{\em 
+wlen}]On a successful return, wlen holds the length of the brigade, which is the amount of data written to  the file. \item[{\em 
+bb}]Bucket brigade. \end{description}
 \end{Desc}
 \begin{Desc}
-\item[Remarks:]In the future, this function may do something intelligent with file buckets. \end{Desc}
-\index{apreq_brigade_spoolfile@{apreq\_\-brigade\_\-spoolfile}!Utils@{Utils}}\index{Utils@{Utils}!apreq_brigade_spoolfile@{apreq\_\-brigade\_\-spoolfile}}\index{Utils@{Utils}!apreq_brigade_spoolfile@{apreq\_\-brigade\_\-spoolfile}}
+\item[Remarks: ]\par
+In the future, this function may do something  intelligent with file buckets. \end{Desc}
+\index{Utils@{Utils}!apreq_brigade_spoolfile@{apreq\_\-brigade\_\-spoolfile}}
 \index{apreq_brigade_spoolfile@{apreq\_\-brigade\_\-spoolfile}!Utils@{Utils}}
-\subsubsection{\setlength{\rightskip}{0pt plus 5cm}{\bf apr\_\-file\_\-t}$\ast$ apreq\_\-brigade\_\-spoolfile ({\bf apr\_\-bucket\_\-brigade} $\ast$ {\em bb})}\label{group__Utils_a20}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}{\bf apr\_\-file\_\-t}$\ast$ apreq\_\-brigade\_\-spoolfile ({\bf apr\_\-bucket\_\-brigade} $\ast$ {\em bb})}\label{group__Utils_a21}
 
 
 Gets the spoolfile associated to a brigade, if any. \begin{Desc}
-\item[Parameters:]
+\item[Parameters: ]\par
 \begin{description}
-\item[{\em bb}]Brigade, usually associated to a file upload ({\bf apreq\_\-param\_\-t}). \end{description}
+\item[{\em 
+bb}]Brigade, usually associated to a file upload ({\bf apreq\_\-param\_\-t} {\rm (p.\,\pageref{structapreq__param__t})}). \end{description}
 \end{Desc}
 \begin{Desc}
-\item[Returns:]If the last bucket in the brigade is a file bucket, this function will return its associated file. Otherwise, this function returns NULL. \end{Desc}
-\index{apreq_copy_value@{apreq\_\-copy\_\-value}!Utils@{Utils}}\index{Utils@{Utils}!apreq_copy_value@{apreq\_\-copy\_\-value}}\index{Utils@{Utils}!apreq_copy_value@{apreq\_\-copy\_\-value}}
+\item[Returns: ]\par
+If the last bucket in the brigade is a file bucket, this function will return its associated file. Otherwise, this function returns NULL. \end{Desc}
+\index{Utils@{Utils}!apreq_copy_value@{apreq\_\-copy\_\-value}}
 \index{apreq_copy_value@{apreq\_\-copy\_\-value}!Utils@{Utils}}
 \subsubsection{\setlength{\rightskip}{0pt plus 5cm}{\bf apreq\_\-value\_\-t}$\ast$ apreq\_\-copy\_\-value ({\bf apr\_\-pool\_\-t} $\ast$ {\em p}, const {\bf apreq\_\-value\_\-t} $\ast$ {\em val})}\label{group__Utils_a4}
 
 
 Makes a pool-allocated copy of the value. \begin{Desc}
-\item[Parameters:]
+\item[Parameters: ]\par
 \begin{description}
-\item[{\em p}]Pool. \item[{\em val}]Original value to copy. \end{description}
+\item[{\em 
+p}]Pool. \item[{\em 
+val}]Original value to copy. \end{description}
 \end{Desc}
-\index{apreq_decode@{apreq\_\-decode}!Utils@{Utils}}\index{Utils@{Utils}!apreq_decode@{apreq\_\-decode}}\index{Utils@{Utils}!apreq_decode@{apreq\_\-decode}}
+\index{Utils@{Utils}!apreq_decode@{apreq\_\-decode}}
 \index{apreq_decode@{apreq\_\-decode}!Utils@{Utils}}
-\subsubsection{\setlength{\rightskip}{0pt plus 5cm}{\bf apr\_\-ssize\_\-t} apreq\_\-decode (char $\ast$ {\em dest}, const char $\ast$ {\em src}, const {\bf apr\_\-size\_\-t} {\em slen})}\label{group__Utils_a12}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}{\bf apr\_\-ssize\_\-t} apreq\_\-decode (char $\ast$ {\em dest}, const char $\ast$ {\em src}, const {\bf apr\_\-size\_\-t} {\em slen})}\label{group__Utils_a13}
 
 
 Url-decodes a string. \begin{Desc}
-\item[Parameters:]
+\item[Parameters: ]\par
 \begin{description}
-\item[{\em dest}]Location of url-decoded result string. Caller must ensure dest is large enough. \item[{\em src}]Original string. \item[{\em slen}]Length of original string. \end{description}
+\item[{\em 
+dest}]Location of url-encoded result string. Caller must ensure dest is large enough to hold the encoded string and trailing null character. \item[{\em 
+src}]Original string. \item[{\em 
+slen}]Length of original string. \end{description}
 \end{Desc}
 \begin{Desc}
-\item[Returns:]Length of url-decoded string in dest, or $<$ 0 on decoding (bad data) error. \end{Desc}
-\index{apreq_encode@{apreq\_\-encode}!Utils@{Utils}}\index{Utils@{Utils}!apreq_encode@{apreq\_\-encode}}\index{Utils@{Utils}!apreq_encode@{apreq\_\-encode}}
+\item[Returns: ]\par
+Length of url-decoded string in dest, or $<$ 0 on decoding (bad data) error. \end{Desc}
+\index{Utils@{Utils}!apreq_encode@{apreq\_\-encode}}
 \index{apreq_encode@{apreq\_\-encode}!Utils@{Utils}}
-\subsubsection{\setlength{\rightskip}{0pt plus 5cm}{\bf apr\_\-size\_\-t} apreq\_\-encode (char $\ast$ {\em dest}, const char $\ast$ {\em src}, const {\bf apr\_\-size\_\-t} {\em slen})}\label{group__Utils_a11}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}{\bf apr\_\-size\_\-t} apreq\_\-encode (char $\ast$ {\em dest}, const char $\ast$ {\em src}, const {\bf apr\_\-size\_\-t} {\em slen})}\label{group__Utils_a12}
 
 
 Url-encodes a string. \begin{Desc}
-\item[Parameters:]
+\item[Parameters: ]\par
 \begin{description}
-\item[{\em dest}]Location of url-encoded result string. Caller must ensure dest is large enough. \item[{\em src}]Original string. \item[{\em slen}]Length of original string. \end{description}
+\item[{\em 
+dest}]Location of url-encoded result string. Caller must ensure it is large enough to hold the encoded string and trailing '$\backslash$0'. \item[{\em 
+src}]Original string. \item[{\em 
+slen}]Length of original string. \end{description}
 \end{Desc}
 \begin{Desc}
-\item[Returns:]length of url-encoded string in dest. \end{Desc}
-\index{apreq_enctype@{apreq\_\-enctype}!Utils@{Utils}}\index{Utils@{Utils}!apreq_enctype@{apreq\_\-enctype}}\index{Utils@{Utils}!apreq_enctype@{apreq\_\-enctype}}
+\item[Returns: ]\par
+length of url-encoded string in dest. \end{Desc}
+\index{Utils@{Utils}!apreq_enctype@{apreq\_\-enctype}}
 \index{apreq_enctype@{apreq\_\-enctype}!Utils@{Utils}}
-\subsubsection{\setlength{\rightskip}{0pt plus 5cm}const char$\ast$ apreq\_\-enctype (void $\ast$ {\em env})}\label{group__Utils_a6}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}const char$\ast$ apreq\_\-enctype ({\bf void} $\ast$ {\em env})}\label{group__Utils_a6}
 
 
 Fetches the enctype from the environment. \begin{Desc}
-\item[Parameters:]
+\item[Parameters: ]\par
 \begin{description}
-\item[{\em env}]Environment. \end{description}
+\item[{\em 
+env}]Environment. \end{description}
 \end{Desc}
-\index{apreq_escape@{apreq\_\-escape}!Utils@{Utils}}\index{Utils@{Utils}!apreq_escape@{apreq\_\-escape}}\index{Utils@{Utils}!apreq_escape@{apreq\_\-escape}}
+\index{Utils@{Utils}!apreq_escape@{apreq\_\-escape}}
 \index{apreq_escape@{apreq\_\-escape}!Utils@{Utils}}
-\subsubsection{\setlength{\rightskip}{0pt plus 5cm}char$\ast$ apreq\_\-escape ({\bf apr\_\-pool\_\-t} $\ast$ {\em p}, const char $\ast$ {\em src}, const {\bf apr\_\-size\_\-t} {\em slen})}\label{group__Utils_a13}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}char$\ast$ apreq\_\-escape ({\bf apr\_\-pool\_\-t} $\ast$ {\em p}, const char $\ast$ {\em src}, const {\bf apr\_\-size\_\-t} {\em slen})}\label{group__Utils_a14}
 
 
 Returns an url-encoded copy of a string. \begin{Desc}
-\item[Parameters:]
+\item[Parameters: ]\par
 \begin{description}
-\item[{\em p}]Pool used to allocate the return value. \item[{\em src}]Original string. \item[{\em slen}]Length of original string. \end{description}
+\item[{\em 
+p}]Pool used to allocate the return value. \item[{\em 
+src}]Original string. \item[{\em 
+slen}]Length of original string. \end{description}
 \end{Desc}
 \begin{Desc}
-\item[Remarks:]Use this function insead of apreq\_\-encode if its caller might otherwise overflow dest. \end{Desc}
-\index{apreq_expires@{apreq\_\-expires}!Utils@{Utils}}\index{Utils@{Utils}!apreq_expires@{apreq\_\-expires}}\index{Utils@{Utils}!apreq_expires@{apreq\_\-expires}}
+\item[Remarks: ]\par
+Use this function insead of apreq\_\-encode if its caller might otherwise overflow dest. \end{Desc}
+\index{Utils@{Utils}!apreq_expires@{apreq\_\-expires}}
 \index{apreq_expires@{apreq\_\-expires}!Utils@{Utils}}
-\subsubsection{\setlength{\rightskip}{0pt plus 5cm}char$\ast$ apreq\_\-expires ({\bf apr\_\-pool\_\-t} $\ast$ {\em p}, const char $\ast$ {\em time\_\-str}, const {\bf apreq\_\-expires\_\-t} {\em type})}\label{group__Utils_a15}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}char$\ast$ apreq\_\-expires ({\bf apr\_\-pool\_\-t} $\ast$ {\em p}, const char $\ast$ {\em time\_\-str}, const {\bf apreq\_\-expires\_\-t} {\em type})}\label{group__Utils_a16}
 
 
-Returns an RFC-822 formatted time string. Similar to ap\_\-gm\_\-timestr\_\-822.
-
-\begin{Desc}
-\item[Parameters:]
+Returns an RFC-822 formatted time string. Similar to ap\_\-gm\_\-timestr\_\-822.\begin{Desc}
+\item[Parameters: ]\par
 \begin{description}
-\item[{\em req}]The current {\bf apreq\_\-request\_\-t} object. \item[{\em time\_\-str}]YMDhms time units (from now) until expiry. Understands \char`\"{}now\char`\"{}. \item[{\em type}]{\bf HTTP} for RFC822 dates, {\bf NSCOOKIE} for cookie dates. \end{description}
+\item[{\em 
+req}]The current {\bf apreq\_\-request\_\-t} {\rm (p.\,\pageref{structapreq__request__t})} object. \item[{\em 
+time\_\-str}]YMDhms time units (from now) until expiry. Understands \char`\"{}now\char`\"{}. \item[{\em 
+type}]{\bf HTTP} {\rm (p.\,\pageref{group__Utils_a38a21})} for RFC822 dates, {\bf NSCOOKIE} {\rm (p.\,\pageref{group__Utils_a38a22})} for cookie dates. \end{description}
 \end{Desc}
 \begin{Desc}
-\item[Returns:]Date string, (time\_\-str is offset from \char`\"{}now\char`\"{}) formatted either as an {\bf NSCOOKIE} or {\bf HTTP} date \end{Desc}
-
-
+\item[Returns: ]\par
+Date string, (time\_\-str is offset from \char`\"{}now\char`\"{}) formatted either as an {\bf NSCOOKIE} {\rm (p.\,\pageref{group__Utils_a38a22})} or {\bf HTTP} {\rm (p.\,\pageref{group__Utils_a38a21})} date \end{Desc}
 \begin{Desc}
-\item[{\bf Deprecated}]Use apr\_\-rfc822\_\-date instead. {\bf NSCOOKIE} strings are formatted with a '-' (instead of a ' ') character at offsets 7 and 11. \end{Desc}
-\index{apreq_file_mktemp@{apreq\_\-file\_\-mktemp}!Utils@{Utils}}\index{Utils@{Utils}!apreq_file_mktemp@{apreq\_\-file\_\-mktemp}}\index{Utils@{Utils}!apreq_file_mktemp@{apreq\_\-file\_\-mktemp}}
+\item[Deprecated: ]\par
+Use apr\_\-rfc822\_\-date instead. {\bf NSCOOKIE} {\rm (p.\,\pageref{group__Utils_a38a22})} strings are formatted with a '-' (instead of a ' ') character at offsets 7 and 11. \end{Desc}
+\index{Utils@{Utils}!apreq_file_mktemp@{apreq\_\-file\_\-mktemp}}
 \index{apreq_file_mktemp@{apreq\_\-file\_\-mktemp}!Utils@{Utils}}
-\subsubsection{\setlength{\rightskip}{0pt plus 5cm}{\bf apr\_\-status\_\-t} apreq\_\-file\_\-mktemp ({\bf apr\_\-file\_\-t} $\ast$$\ast$ {\em fp}, {\bf apr\_\-pool\_\-t} $\ast$ {\em pool}, const char $\ast$ {\em path})}\label{group__Utils_a19}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}{\bf apr\_\-status\_\-t} apreq\_\-file\_\-mktemp ({\bf apr\_\-file\_\-t} $\ast$$\ast$ {\em fp}, {\bf apr\_\-pool\_\-t} $\ast$ {\em pool}, const char $\ast$ {\em path})}\label{group__Utils_a20}
 
 
 Makes a temporary file. \begin{Desc}
-\item[Parameters:]
+\item[Parameters: ]\par
 \begin{description}
-\item[{\em fp}]Points to the temporary apr\_\-file\_\-t on success. \item[{\em pool}]Pool to associate with the temp file. When the pool is destroyed, the temp file will be closed and deleted. \item[{\em path}]The base directory which will contain the temp file. If param == NULL, the directory will be selected via tempnam(). See the tempnam manpage for details. \end{description}
+\item[{\em 
+fp}]Points to the temporary apr\_\-file\_\-t on success. \item[{\em 
+pool}]Pool to associate with the temp file. When the pool is destroyed, the temp file will be closed and deleted. \item[{\em 
+path}]The base directory which will contain the temp file. If param == NULL, the directory will be selected via tempnam(). See the tempnam manpage for details. \end{description}
 \end{Desc}
-\index{apreq_index@{apreq\_\-index}!Utils@{Utils}}\index{Utils@{Utils}!apreq_index@{apreq\_\-index}}\index{Utils@{Utils}!apreq_index@{apreq\_\-index}}
+\begin{Desc}
+\item[Returns: ]\par
+APR\_\-SUCCESS on success; error code otherwise. \end{Desc}
+\index{Utils@{Utils}!apreq_header_attribute@{apreq\_\-header\_\-attribute}}
+\index{apreq_header_attribute@{apreq\_\-header\_\-attribute}!Utils@{Utils}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}{\bf apr\_\-status\_\-t} apreq\_\-header\_\-attribute (const char $\ast$ {\em hdr}, const char $\ast$ {\em name}, const {\bf apr\_\-size\_\-t} {\em nlen}, const char $\ast$$\ast$ {\em val}, {\bf apr\_\-size\_\-t} $\ast$ {\em vlen})}\label{group__Utils_a23}
+
+
+Search a header string for the value of a particular named attribute. \begin{Desc}
+\item[Parameters: ]\par
+\begin{description}
+\item[{\em 
+hdr}]Header string to scan. \item[{\em 
+name}]Name of attribute to search for. \item[{\em 
+nlen}]Length of name. \item[{\em 
+val}]Location of (first) matching value. \item[{\em 
+vlen}]Length of matching value. \end{description}
+\end{Desc}
+\begin{Desc}
+\item[Returns: ]\par
+APR\_\-SUCCESS if found, otherwise APR\_\-NOTFOUND. \end{Desc}
+\index{Utils@{Utils}!apreq_index@{apreq\_\-index}}
 \index{apreq_index@{apreq\_\-index}!Utils@{Utils}}
 \subsubsection{\setlength{\rightskip}{0pt plus 5cm}{\bf apr\_\-ssize\_\-t} apreq\_\-index (const char $\ast$ {\em hay}, {\bf apr\_\-size\_\-t} {\em hlen}, const char $\ast$ {\em ndl}, {\bf apr\_\-size\_\-t} {\em nlen}, const {\bf apreq\_\-match\_\-t} {\em type})}\label{group__Utils_a9}
 
 
 Returns offset of match string's location, or -1 if no match is found. \begin{Desc}
-\item[Parameters:]
+\item[Parameters: ]\par
 \begin{description}
-\item[{\em hay}]Location of bytes to scan. \item[{\em hlen}]Number of bytes available for scanning. \item[{\em ndl}]Search string \item[{\em nlen}]Length of search string. \item[{\em type}]Match type. \end{description}
+\item[{\em 
+hay}]Location of bytes to scan. \item[{\em 
+hlen}]Number of bytes available for scanning. \item[{\em 
+ndl}]Search string \item[{\em 
+nlen}]Length of search string. \item[{\em 
+type}]Match type. \end{description}
 \end{Desc}
-\index{apreq_join@{apreq\_\-join}!Utils@{Utils}}\index{Utils@{Utils}!apreq_join@{apreq\_\-join}}\index{Utils@{Utils}!apreq_join@{apreq\_\-join}}
+\begin{Desc}
+\item[Returns: ]\par
+Offset of match string, or -1 if mo match is found. \end{Desc}
+\index{Utils@{Utils}!apreq_join@{apreq\_\-join}}
 \index{apreq_join@{apreq\_\-join}!Utils@{Utils}}
 \subsubsection{\setlength{\rightskip}{0pt plus 5cm}const char$\ast$ apreq\_\-join ({\bf apr\_\-pool\_\-t} $\ast$ {\em p}, const char $\ast$ {\em sep}, const {\bf apr\_\-array\_\-header\_\-t} $\ast$ {\em arr}, {\bf apreq\_\-join\_\-t} {\em mode})}\label{group__Utils_a7}
 
 
 Join an array of values. \begin{Desc}
-\item[Parameters:]
+\item[Parameters: ]\par
 \begin{description}
-\item[{\em p}]Pool to allocate return value. \item[{\em sep}]String that is inserted between the joined values. \item[{\em arr}]Array of values. \end{description}
+\item[{\em 
+p}]Pool to allocate return value. \item[{\em 
+sep}]String that is inserted between the joined values. \item[{\em 
+arr}]Array of values. \end{description}
 \end{Desc}
 \begin{Desc}
-\item[Remarks:]Return string can be upgraded to an {\bf apreq\_\-value\_\-t} with apreq\_\-stroval. \end{Desc}
-\index{apreq_make_value@{apreq\_\-make\_\-value}!Utils@{Utils}}\index{Utils@{Utils}!apreq_make_value@{apreq\_\-make\_\-value}}\index{Utils@{Utils}!apreq_make_value@{apreq\_\-make\_\-value}}
+\item[Remarks: ]\par
+Return string can be upgraded to an {\bf apreq\_\-value\_\-t} {\rm (p.\,\pageref{structapreq__value__t})}  with apreq\_\-stroval. \end{Desc}
+\index{Utils@{Utils}!apreq_make_value@{apreq\_\-make\_\-value}}
 \index{apreq_make_value@{apreq\_\-make\_\-value}!Utils@{Utils}}
 \subsubsection{\setlength{\rightskip}{0pt plus 5cm}{\bf apreq\_\-value\_\-t}$\ast$ apreq\_\-make\_\-value ({\bf apr\_\-pool\_\-t} $\ast$ {\em p}, const char $\ast$ {\em name}, const {\bf apr\_\-size\_\-t} {\em nlen}, const char $\ast$ {\em val}, const {\bf apr\_\-size\_\-t} {\em vlen})}\label{group__Utils_a3}
 
 
-Construcs an {\bf apreq\_\-value\_\-t} from the name/value info supplied by the arguments.
-
-\begin{Desc}
-\item[Parameters:]
+Construcs an {\bf apreq\_\-value\_\-t} {\rm (p.\,\pageref{structapreq__value__t})} from the name/value info supplied by the arguments.\begin{Desc}
+\item[Parameters: ]\par
 \begin{description}
-\item[{\em p}]Pool for allocating the name and value. \item[{\em name}]Name of value. \item[{\em nlen}]Length of name. \item[{\em val}]Value data. \item[{\em vlen}]Length of val. \end{description}
+\item[{\em 
+p}]Pool for allocating the name and value. \item[{\em 
+name}]Name of value. \item[{\em 
+nlen}]Length of name. \item[{\em 
+val}]Value data. \item[{\em 
+vlen}]Length of val. \end{description}
 \end{Desc}
 \begin{Desc}
-\item[Returns:]{\bf apreq\_\-value\_\-t} allocated from pool, with v-$>$data holding a copy of val, v-$>$status = 0, and v-$>$name pointing to a nul-terminated copy of name. \end{Desc}
-\index{apreq_memmem@{apreq\_\-memmem}!Utils@{Utils}}\index{Utils@{Utils}!apreq_memmem@{apreq\_\-memmem}}\index{Utils@{Utils}!apreq_memmem@{apreq\_\-memmem}}
+\item[Returns: ]\par
+{\bf apreq\_\-value\_\-t} {\rm (p.\,\pageref{structapreq__value__t})} allocated from pool,  with v-$>$data holding a copy of val, v-$>$status = 0, and v-$>$name pointing to a nul-terminated copy of name. \end{Desc}
+\index{Utils@{Utils}!apreq_memmem@{apreq\_\-memmem}}
 \index{apreq_memmem@{apreq\_\-memmem}!Utils@{Utils}}
 \subsubsection{\setlength{\rightskip}{0pt plus 5cm}char$\ast$ apreq\_\-memmem (char $\ast$ {\em hay}, {\bf apr\_\-size\_\-t} {\em hlen}, const char $\ast$ {\em ndl}, {\bf apr\_\-size\_\-t} {\em nlen}, const {\bf apreq\_\-match\_\-t} {\em type})}\label{group__Utils_a8}
 
 
 Return a pointer to the match string, or NULL if no match is found. \begin{Desc}
-\item[Parameters:]
+\item[Parameters: ]\par
 \begin{description}
-\item[{\em hay}]Location of bytes to scan. \item[{\em hlen}]Number of bytes available for scanning. \item[{\em ndl}]Search string \item[{\em nlen}]Length of search string. \item[{\em type}]Match type. \end{description}
+\item[{\em 
+hay}]Location of bytes to scan. \item[{\em 
+hlen}]Number of bytes available for scanning. \item[{\em 
+ndl}]Search string \item[{\em 
+nlen}]Length of search string. \item[{\em 
+type}]Match type. \end{description}
 \end{Desc}
-\index{apreq_merge_values@{apreq\_\-merge\_\-values}!Utils@{Utils}}\index{Utils@{Utils}!apreq_merge_values@{apreq\_\-merge\_\-values}}\index{Utils@{Utils}!apreq_merge_values@{apreq\_\-merge\_\-values}}
+\index{Utils@{Utils}!apreq_merge_values@{apreq\_\-merge\_\-values}}
 \index{apreq_merge_values@{apreq\_\-merge\_\-values}!Utils@{Utils}}
 \subsubsection{\setlength{\rightskip}{0pt plus 5cm}{\bf apreq\_\-value\_\-t}$\ast$ apreq\_\-merge\_\-values ({\bf apr\_\-pool\_\-t} $\ast$ {\em p}, const {\bf apr\_\-array\_\-header\_\-t} $\ast$ {\em arr})}\label{group__Utils_a5}
 
 
 Merges an array of values into one. \begin{Desc}
-\item[Parameters:]
+\item[Parameters: ]\par
 \begin{description}
-\item[{\em p}]Pool from which the new value is generated. \item[{\em arr}]Array of apr\_\-value\_\-t $\ast$. \end{description}
+\item[{\em 
+p}]Pool from which the new value is generated. \item[{\em 
+arr}]Array of apr\_\-value\_\-t $\ast$. \end{description}
 \end{Desc}
-\index{apreq_quote@{apreq\_\-quote}!Utils@{Utils}}\index{Utils@{Utils}!apreq_quote@{apreq\_\-quote}}\index{Utils@{Utils}!apreq_quote@{apreq\_\-quote}}
+\index{Utils@{Utils}!apreq_quote@{apreq\_\-quote}}
 \index{apreq_quote@{apreq\_\-quote}!Utils@{Utils}}
 \subsubsection{\setlength{\rightskip}{0pt plus 5cm}{\bf apr\_\-size\_\-t} apreq\_\-quote (char $\ast$ {\em dest}, const char $\ast$ {\em src}, const {\bf apr\_\-size\_\-t} {\em slen})}\label{group__Utils_a10}
 
 
-Places a quoted copy of src into dest. \begin{Desc}
-\item[Parameters:]
+Places a quoted copy of src into dest. Embedded quotes are escaped with a backslash ('$\backslash$'). \begin{Desc}
+\item[Parameters: ]\par
 \begin{description}
-\item[{\em dest}]Location of quoted copy. Must be large enough to hold the copy. \item[{\em src}]Original string. \item[{\em slen}]Length of original string. \end{description}
+\item[{\em 
+dest}]Location of quoted copy. Must be large enough to hold the copy and trailing null byte. \item[{\em 
+src}]Original string. \item[{\em 
+slen}]Length of original string. \item[{\em 
+dest}]Destination string. \end{description}
 \end{Desc}
 \begin{Desc}
-\item[Returns:]length of quoted copy in dest. \end{Desc}
-\index{apreq_unescape@{apreq\_\-unescape}!Utils@{Utils}}\index{Utils@{Utils}!apreq_unescape@{apreq\_\-unescape}}\index{Utils@{Utils}!apreq_unescape@{apreq\_\-unescape}}
+\item[Returns: ]\par
+length of quoted copy in dest. \end{Desc}
+\index{Utils@{Utils}!apreq_quote_once@{apreq\_\-quote\_\-once}}
+\index{apreq_quote_once@{apreq\_\-quote\_\-once}!Utils@{Utils}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}{\bf apr\_\-size\_\-t} apreq\_\-quote\_\-once (char $\ast$ {\em dest}, const char $\ast$ {\em src}, const {\bf apr\_\-size\_\-t} {\em slen})}\label{group__Utils_a11}
+
+
+Same as {\bf apreq\_\-quote}() {\rm (p.\,\pageref{group__Utils_a10})} except when src begins and ends in quote marks. In that case it assumes src is quoted correctly, and just copies src to dest. \begin{Desc}
+\item[Parameters: ]\par
+\begin{description}
+\item[{\em 
+dest}]Location of quoted copy. Must be large enough to hold the copy and trailing null byte. \item[{\em 
+src}]Original string. \item[{\em 
+slen}]Length of original string. \item[{\em 
+dest}]Destination string. \end{description}
+\end{Desc}
+\begin{Desc}
+\item[Returns: ]\par
+length of quoted copy in dest. \end{Desc}
+\index{Utils@{Utils}!apreq_unescape@{apreq\_\-unescape}}
 \index{apreq_unescape@{apreq\_\-unescape}!Utils@{Utils}}
-\subsubsection{\setlength{\rightskip}{0pt plus 5cm}{\bf apr\_\-ssize\_\-t} apreq\_\-unescape (char $\ast$ {\em str})}\label{group__Utils_a14}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}{\bf apr\_\-ssize\_\-t} apreq\_\-unescape (char $\ast$ {\em str})}\label{group__Utils_a15}
 
 
-An {\em in-situ\/} url-decoder. \begin{Desc}
-\item[Parameters:]
+An {\em in-situ} url-decoder. \begin{Desc}
+\item[Parameters: ]\par
 \begin{description}
-\item[{\em str}]The string to decode \end{description}
+\item[{\em 
+str}]The string to decode \end{description}
 \end{Desc}
 \begin{Desc}
-\item[Returns:]Length of decoded string, or $<$ 0 on error. \end{Desc}
+\item[Returns: ]\par
+Length of decoded string, or $<$ 0 on error. \end{Desc}
+\begin{Desc}
+\item[Remarks: ]\par
+Equivalent to apreq\_\-decode(str,str,strlen(str)). \end{Desc}

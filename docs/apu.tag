@@ -3,7 +3,7 @@
   <compound kind="file">
     <name>apr_anylock.h</name>
     <path>/home/joe/src/apache/apr-util/include/</path>
-    <filename>apr__anylock_8h</filename>
+    <filename>apr__anylock_8h.html</filename>
     <class kind="struct">apr_anylock_t</class>
     <class kind="union">apr_anylock_t::apr_anylock_u_t</class>
     <member kind="define">
@@ -34,7 +34,7 @@
   <compound kind="file">
     <name>apr_base64.h</name>
     <path>/home/joe/src/apache/apr-util/include/</path>
-    <filename>apr__base64_8h</filename>
+    <filename>apr__base64_8h.html</filename>
     <member kind="function">
       <type>int</type>
       <name>apr_base64_encode_len</name>
@@ -75,7 +75,7 @@
   <compound kind="file">
     <name>apr_buckets.h</name>
     <path>/home/joe/src/apache/apr-util/include/</path>
-    <filename>apr__buckets_8h</filename>
+    <filename>apr__buckets_8h.html</filename>
     <class kind="struct">apr_bucket</class>
     <class kind="struct">apr_bucket_brigade</class>
     <class kind="struct">apr_bucket_file</class>
@@ -129,176 +129,170 @@
     </member>
     <member kind="define">
       <type>#define</type>
-      <name>APR_BRIGADE_FOREACH</name>
-      <anchor>a83</anchor>
-      <arglist>(e, b)</arglist>
-    </member>
-    <member kind="define">
-      <type>#define</type>
       <name>APR_BRIGADE_INSERT_HEAD</name>
-      <anchor>a84</anchor>
+      <anchor>a83</anchor>
       <arglist>(b, e)</arglist>
     </member>
     <member kind="define">
       <type>#define</type>
       <name>APR_BRIGADE_INSERT_TAIL</name>
-      <anchor>a85</anchor>
+      <anchor>a84</anchor>
       <arglist>(b, e)</arglist>
     </member>
     <member kind="define">
       <type>#define</type>
       <name>APR_BRIGADE_CONCAT</name>
-      <anchor>a86</anchor>
+      <anchor>a85</anchor>
       <arglist>(a, b)</arglist>
     </member>
     <member kind="define">
       <type>#define</type>
       <name>APR_BRIGADE_PREPEND</name>
-      <anchor>a87</anchor>
+      <anchor>a86</anchor>
       <arglist>(a, b)</arglist>
     </member>
     <member kind="define">
       <type>#define</type>
       <name>APR_BUCKET_INSERT_BEFORE</name>
-      <anchor>a88</anchor>
+      <anchor>a87</anchor>
       <arglist>(a, b)</arglist>
     </member>
     <member kind="define">
       <type>#define</type>
       <name>APR_BUCKET_INSERT_AFTER</name>
-      <anchor>a89</anchor>
+      <anchor>a88</anchor>
       <arglist>(a, b)</arglist>
     </member>
     <member kind="define">
       <type>#define</type>
       <name>APR_BUCKET_NEXT</name>
-      <anchor>a90</anchor>
+      <anchor>a89</anchor>
       <arglist>(e)</arglist>
     </member>
     <member kind="define">
       <type>#define</type>
       <name>APR_BUCKET_PREV</name>
-      <anchor>a91</anchor>
+      <anchor>a90</anchor>
       <arglist>(e)</arglist>
     </member>
     <member kind="define">
       <type>#define</type>
       <name>APR_BUCKET_REMOVE</name>
-      <anchor>a92</anchor>
+      <anchor>a91</anchor>
       <arglist>(e)</arglist>
     </member>
     <member kind="define">
       <type>#define</type>
       <name>APR_BUCKET_INIT</name>
-      <anchor>a93</anchor>
+      <anchor>a92</anchor>
       <arglist>(e)</arglist>
     </member>
     <member kind="define">
       <type>#define</type>
       <name>APR_BUCKET_IS_METADATA</name>
-      <anchor>a94</anchor>
+      <anchor>a93</anchor>
       <arglist>(e)</arglist>
     </member>
     <member kind="define">
       <type>#define</type>
       <name>APR_BUCKET_IS_FLUSH</name>
-      <anchor>a95</anchor>
+      <anchor>a94</anchor>
       <arglist>(e)</arglist>
     </member>
     <member kind="define">
       <type>#define</type>
       <name>APR_BUCKET_IS_EOS</name>
-      <anchor>a96</anchor>
+      <anchor>a95</anchor>
       <arglist>(e)</arglist>
     </member>
     <member kind="define">
       <type>#define</type>
       <name>APR_BUCKET_IS_FILE</name>
-      <anchor>a97</anchor>
+      <anchor>a96</anchor>
       <arglist>(e)</arglist>
     </member>
     <member kind="define">
       <type>#define</type>
       <name>APR_BUCKET_IS_PIPE</name>
-      <anchor>a98</anchor>
+      <anchor>a97</anchor>
       <arglist>(e)</arglist>
     </member>
     <member kind="define">
       <type>#define</type>
       <name>APR_BUCKET_IS_SOCKET</name>
-      <anchor>a99</anchor>
+      <anchor>a98</anchor>
       <arglist>(e)</arglist>
     </member>
     <member kind="define">
       <type>#define</type>
       <name>APR_BUCKET_IS_HEAP</name>
-      <anchor>a100</anchor>
+      <anchor>a99</anchor>
       <arglist>(e)</arglist>
     </member>
     <member kind="define">
       <type>#define</type>
       <name>APR_BUCKET_IS_TRANSIENT</name>
-      <anchor>a101</anchor>
+      <anchor>a100</anchor>
       <arglist>(e)</arglist>
     </member>
     <member kind="define">
       <type>#define</type>
       <name>APR_BUCKET_IS_IMMORTAL</name>
-      <anchor>a102</anchor>
+      <anchor>a101</anchor>
       <arglist>(e)</arglist>
     </member>
     <member kind="define">
       <type>#define</type>
       <name>APR_BUCKET_IS_MMAP</name>
-      <anchor>a103</anchor>
+      <anchor>a102</anchor>
       <arglist>(e)</arglist>
     </member>
     <member kind="define">
       <type>#define</type>
       <name>APR_BUCKET_IS_POOL</name>
-      <anchor>a104</anchor>
+      <anchor>a103</anchor>
       <arglist>(e)</arglist>
     </member>
     <member kind="define">
       <type>#define</type>
       <name>APR_BUCKET_ALLOC_SIZE</name>
-      <anchor>a105</anchor>
+      <anchor>a104</anchor>
       <arglist></arglist>
     </member>
     <member kind="define">
       <type>#define</type>
       <name>apr_bucket_destroy</name>
-      <anchor>a106</anchor>
+      <anchor>a105</anchor>
       <arglist>(e)</arglist>
     </member>
     <member kind="define">
       <type>#define</type>
       <name>apr_bucket_delete</name>
-      <anchor>a107</anchor>
+      <anchor>a106</anchor>
       <arglist>(e)</arglist>
     </member>
     <member kind="define">
       <type>#define</type>
       <name>apr_bucket_read</name>
-      <anchor>a108</anchor>
+      <anchor>a107</anchor>
       <arglist>(e, str, len, block)</arglist>
     </member>
     <member kind="define">
       <type>#define</type>
       <name>apr_bucket_setaside</name>
-      <anchor>a109</anchor>
+      <anchor>a108</anchor>
       <arglist>(e, p)</arglist>
     </member>
     <member kind="define">
       <type>#define</type>
       <name>apr_bucket_split</name>
-      <anchor>a110</anchor>
+      <anchor>a109</anchor>
       <arglist>(e, point)</arglist>
     </member>
     <member kind="define">
       <type>#define</type>
       <name>apr_bucket_copy</name>
-      <anchor>a111</anchor>
+      <anchor>a110</anchor>
       <arglist>(e, c)</arglist>
     </member>
     <member kind="typedef">
@@ -369,17 +363,17 @@
     </member>
     <member kind="enumeration">
       <name>apr_read_type_e</name>
-      <anchor>a112</anchor>
+      <anchor>a111</anchor>
       <arglist></arglist>
     </member>
     <member kind="enumvalue">
       <name>APR_BLOCK_READ</name>
-      <anchor>a112a57</anchor>
+      <anchor>a111a56</anchor>
       <arglist></arglist>
     </member>
     <member kind="enumvalue">
       <name>APR_NONBLOCK_READ</name>
-      <anchor>a112a58</anchor>
+      <anchor>a111a57</anchor>
       <arglist></arglist>
     </member>
     <member kind="function">
@@ -776,7 +770,7 @@
   <compound kind="file">
     <name>apr_date.h</name>
     <path>/home/joe/src/apache/apr-util/include/</path>
-    <filename>apr__date_8h</filename>
+    <filename>apr__date_8h.html</filename>
     <member kind="define">
       <type>#define</type>
       <name>APR_DATE_BAD</name>
@@ -805,7 +799,7 @@
   <compound kind="file">
     <name>apr_dbm.h</name>
     <path>/home/joe/src/apache/apr-util/include/</path>
-    <filename>apr__dbm_8h</filename>
+    <filename>apr__dbm_8h.html</filename>
     <class kind="struct">apr_datum_t</class>
     <member kind="define">
       <type>#define</type>
@@ -919,119 +913,107 @@
   <compound kind="file">
     <name>apr_hooks.h</name>
     <path>/home/joe/src/apache/apr-util/include/</path>
-    <filename>apr__hooks_8h</filename>
+    <filename>apr__hooks_8h.html</filename>
     <member kind="define">
       <type>#define</type>
       <name>APR_IMPLEMENT_HOOK_GET_PROTO</name>
-      <anchor>a12</anchor>
+      <anchor>a7</anchor>
       <arglist>(ns, link, name)</arglist>
     </member>
     <member kind="define">
       <type>#define</type>
       <name>APR_DECLARE_EXTERNAL_HOOK</name>
-      <anchor>a13</anchor>
+      <anchor>a8</anchor>
       <arglist>(ns, link, ret, name, args)</arglist>
     </member>
     <member kind="define">
       <type>#define</type>
       <name>APR_HOOK_STRUCT</name>
-      <anchor>a14</anchor>
+      <anchor>a9</anchor>
       <arglist>(members)</arglist>
     </member>
     <member kind="define">
       <type>#define</type>
       <name>APR_HOOK_LINK</name>
-      <anchor>a15</anchor>
+      <anchor>a10</anchor>
       <arglist>(name)</arglist>
     </member>
     <member kind="define">
       <type>#define</type>
       <name>APR_IMPLEMENT_EXTERNAL_HOOK_BASE</name>
-      <anchor>a16</anchor>
+      <anchor>a11</anchor>
       <arglist>(ns, link, name)</arglist>
     </member>
     <member kind="define">
       <type>#define</type>
       <name>APR_IMPLEMENT_EXTERNAL_HOOK_VOID</name>
-      <anchor>a17</anchor>
+      <anchor>a12</anchor>
       <arglist>(ns, link, name, args_decl, args_use)</arglist>
     </member>
     <member kind="define">
       <type>#define</type>
       <name>APR_IMPLEMENT_EXTERNAL_HOOK_RUN_ALL</name>
-      <anchor>a18</anchor>
+      <anchor>a13</anchor>
       <arglist>(ns, link, ret, name, args_decl, args_use, ok, decline)</arglist>
     </member>
     <member kind="define">
       <type>#define</type>
       <name>APR_IMPLEMENT_EXTERNAL_HOOK_RUN_FIRST</name>
-      <anchor>a19</anchor>
+      <anchor>a14</anchor>
       <arglist>(ns, link, ret, name, args_decl, args_use, decline)</arglist>
     </member>
     <member kind="define">
       <type>#define</type>
       <name>APR_HOOK_REALLY_FIRST</name>
-      <anchor>a20</anchor>
+      <anchor>a15</anchor>
       <arglist></arglist>
     </member>
     <member kind="define">
       <type>#define</type>
       <name>APR_HOOK_FIRST</name>
-      <anchor>a21</anchor>
+      <anchor>a16</anchor>
       <arglist></arglist>
     </member>
     <member kind="define">
       <type>#define</type>
       <name>APR_HOOK_MIDDLE</name>
-      <anchor>a22</anchor>
+      <anchor>a17</anchor>
       <arglist></arglist>
     </member>
     <member kind="define">
       <type>#define</type>
       <name>APR_HOOK_LAST</name>
-      <anchor>a23</anchor>
+      <anchor>a18</anchor>
       <arglist></arglist>
     </member>
     <member kind="define">
       <type>#define</type>
       <name>APR_HOOK_REALLY_LAST</name>
-      <anchor>a24</anchor>
+      <anchor>a19</anchor>
       <arglist></arglist>
     </member>
     <member kind="function">
       <type>void</type>
       <name>apr_hook_sort_register</name>
-      <anchor>a6</anchor>
+      <anchor>a3</anchor>
       <arglist>(const char *szHookName, apr_array_header_t **aHooks)</arglist>
     </member>
     <member kind="function">
       <type>void</type>
       <name>apr_hook_sort_all</name>
-      <anchor>a7</anchor>
-      <arglist>(void)</arglist>
-    </member>
-    <member kind="function">
-      <type>void</type>
-      <name>apr_sort_hooks</name>
-      <anchor>a8</anchor>
+      <anchor>a4</anchor>
       <arglist>(void)</arglist>
     </member>
     <member kind="function">
       <type>void</type>
       <name>apr_hook_debug_show</name>
-      <anchor>a9</anchor>
-      <arglist>(const char *szName, const char *const *aszPre, const char *const *aszSucc)</arglist>
-    </member>
-    <member kind="function">
-      <type>void</type>
-      <name>apr_show_hook</name>
-      <anchor>a10</anchor>
+      <anchor>a5</anchor>
       <arglist>(const char *szName, const char *const *aszPre, const char *const *aszSucc)</arglist>
     </member>
     <member kind="function">
       <type>void</type>
       <name>apr_hook_deregister_all</name>
-      <anchor>a11</anchor>
+      <anchor>a6</anchor>
       <arglist>(void)</arglist>
     </member>
     <member kind="variable">
@@ -1041,40 +1023,22 @@
       <arglist></arglist>
     </member>
     <member kind="variable">
-      <type>apr_pool_t *</type>
-      <name>apr_global_hook_pool</name>
-      <anchor>a1</anchor>
-      <arglist></arglist>
-    </member>
-    <member kind="variable">
       <type>int</type>
       <name>apr_hook_debug_enabled</name>
-      <anchor>a2</anchor>
-      <arglist></arglist>
-    </member>
-    <member kind="variable">
-      <type>int</type>
-      <name>apr_debug_module_hooks</name>
-      <anchor>a3</anchor>
+      <anchor>a1</anchor>
       <arglist></arglist>
     </member>
     <member kind="variable">
       <type>const char *</type>
       <name>apr_hook_debug_current</name>
-      <anchor>a4</anchor>
-      <arglist></arglist>
-    </member>
-    <member kind="variable">
-      <type>const char *</type>
-      <name>apr_current_hooking_module</name>
-      <anchor>a5</anchor>
+      <anchor>a2</anchor>
       <arglist></arglist>
     </member>
   </compound>
   <compound kind="file">
     <name>apr_ldap.h</name>
     <path>/home/joe/src/apache/apr-util/include/</path>
-    <filename>apr__ldap_8h</filename>
+    <filename>apr__ldap_8h.html</filename>
     <member kind="define">
       <type>#define</type>
       <name>APR_HAS_LDAP</name>
@@ -1127,8 +1091,7 @@
   <compound kind="file">
     <name>apr_md4.h</name>
     <path>/home/joe/src/apache/apr-util/include/</path>
-    <filename>apr__md4_8h</filename>
-    <includes id="apr__xlate_8h" name="apr_xlate.h" local="yes">apr_xlate.h</includes>
+    <filename>apr__md4_8h.html</filename>
     <class kind="struct">apr_md4_ctx_t</class>
     <member kind="define">
       <type>#define</type>
@@ -1176,19 +1139,12 @@
   <compound kind="file">
     <name>apr_md5.h</name>
     <path>/home/joe/src/apache/apr-util/include/</path>
-    <filename>apr__md5_8h</filename>
-    <includes id="apr__xlate_8h" name="apr_xlate.h" local="yes">apr_xlate.h</includes>
+    <filename>apr__md5_8h.html</filename>
     <class kind="struct">apr_md5_ctx_t</class>
     <member kind="define">
       <type>#define</type>
       <name>APR_MD5_DIGESTSIZE</name>
       <anchor>a8</anchor>
-      <arglist></arglist>
-    </member>
-    <member kind="define">
-      <type>#define</type>
-      <name>MD5_DIGESTSIZE</name>
-      <anchor>a9</anchor>
       <arglist></arglist>
     </member>
     <member kind="typedef">
@@ -1243,36 +1199,36 @@
   <compound kind="file">
     <name>apr_optional.h</name>
     <path>/home/joe/src/apache/apr-util/include/</path>
-    <filename>apr__optional_8h</filename>
+    <filename>apr__optional_8h.html</filename>
     <member kind="define">
       <type>#define</type>
       <name>APR_OPTIONAL_FN_TYPE</name>
-      <anchor>a5</anchor>
+      <anchor>a3</anchor>
       <arglist>(name)</arglist>
     </member>
     <member kind="define">
       <type>#define</type>
       <name>APR_DECLARE_OPTIONAL_FN</name>
-      <anchor>a6</anchor>
+      <anchor>a4</anchor>
       <arglist>(ret, name, args)</arglist>
     </member>
     <member kind="define">
       <type>#define</type>
       <name>APR_REGISTER_OPTIONAL_FN</name>
-      <anchor>a7</anchor>
+      <anchor>a5</anchor>
       <arglist>(name)</arglist>
     </member>
     <member kind="define">
       <type>#define</type>
       <name>APR_RETRIEVE_OPTIONAL_FN</name>
-      <anchor>a8</anchor>
+      <anchor>a6</anchor>
       <arglist>(name)</arglist>
     </member>
-    <member kind="typedef">
-      <type>void(</type>
-      <name>apr_opt_fn_t</name>
+    <member kind="function">
+      <type>typedef</type>
+      <name>void</name>
       <anchor>a0</anchor>
-      <arglist>)(void)</arglist>
+      <arglist>(apr_opt_fn_t)(void)</arglist>
     </member>
     <member kind="function">
       <type>void</type>
@@ -1281,28 +1237,16 @@
       <arglist>(const char *szName, apr_opt_fn_t *pfn)</arglist>
     </member>
     <member kind="function">
-      <type>void</type>
-      <name>apr_register_optional_fn</name>
-      <anchor>a2</anchor>
-      <arglist>(const char *szName, apr_opt_fn_t *pfn)</arglist>
-    </member>
-    <member kind="function">
       <type>apr_opt_fn_t *</type>
       <name>apr_dynamic_fn_retrieve</name>
-      <anchor>a3</anchor>
-      <arglist>(const char *szName)</arglist>
-    </member>
-    <member kind="function">
-      <type>apr_opt_fn_t *</type>
-      <name>apr_retrieve_optional_fn</name>
-      <anchor>a4</anchor>
+      <anchor>a2</anchor>
       <arglist>(const char *szName)</arglist>
     </member>
   </compound>
   <compound kind="file">
     <name>apr_optional_hooks.h</name>
     <path>/home/joe/src/apache/apr-util/include/</path>
-    <filename>apr__optional__hooks_8h</filename>
+    <filename>apr__optional__hooks_8h.html</filename>
     <member kind="define">
       <type>#define</type>
       <name>APR_OPTIONAL_HOOK</name>
@@ -1331,7 +1275,7 @@
   <compound kind="file">
     <name>apr_queue.h</name>
     <path>/home/joe/src/apache/apr-util/include/</path>
-    <filename>apr__queue_8h</filename>
+    <filename>apr__queue_8h.html</filename>
     <member kind="typedef">
       <type>apr_queue_t</type>
       <name>apr_queue_t</name>
@@ -1390,7 +1334,7 @@
   <compound kind="file">
     <name>apr_reslist.h</name>
     <path>/home/joe/src/apache/apr-util/include/</path>
-    <filename>apr__reslist_8h</filename>
+    <filename>apr__reslist_8h.html</filename>
     <member kind="typedef">
       <type>apr_reslist_t</type>
       <name>apr_reslist_t</name>
@@ -1433,12 +1377,23 @@
       <anchor>a6</anchor>
       <arglist>(apr_reslist_t *reslist, void *resource)</arglist>
     </member>
+    <member kind="function">
+      <type>void</type>
+      <name>apr_reslist_timeout_set</name>
+      <anchor>a7</anchor>
+      <arglist>(apr_reslist_t *reslist, apr_interval_time_t timeout)</arglist>
+    </member>
+    <member kind="function">
+      <type>apr_status_t</type>
+      <name>apr_reslist_invalidate</name>
+      <anchor>a8</anchor>
+      <arglist>(apr_reslist_t *reslist, void *resource)</arglist>
+    </member>
   </compound>
   <compound kind="file">
     <name>apr_rmm.h</name>
     <path>/home/joe/src/apache/apr-util/include/</path>
-    <filename>apr__rmm_8h</filename>
-    <includes id="apr__anylock_8h" name="apr_anylock.h" local="yes">apr_anylock.h</includes>
+    <filename>apr__rmm_8h.html</filename>
     <member kind="typedef">
       <type>apr_rmm_t</type>
       <name>apr_rmm_t</name>
@@ -1521,7 +1476,7 @@
   <compound kind="file">
     <name>apr_sdbm.h</name>
     <path>/home/joe/src/apache/apr-util/include/</path>
-    <filename>apr__sdbm_8h</filename>
+    <filename>apr__sdbm_8h.html</filename>
     <class kind="struct">apr_sdbm_datum_t</class>
     <member kind="define">
       <type>#define</type>
@@ -1623,7 +1578,7 @@
   <compound kind="file">
     <name>apr_sha1.h</name>
     <path>/home/joe/src/apache/apr-util/include/</path>
-    <filename>apr__sha1_8h</filename>
+    <filename>apr__sha1_8h.html</filename>
     <class kind="struct">apr_sha1_ctx_t</class>
     <member kind="define">
       <type>#define</type>
@@ -1683,7 +1638,7 @@
   <compound kind="file">
     <name>apr_strmatch.h</name>
     <path>/home/joe/src/apache/apr-util/include/</path>
-    <filename>apr__strmatch_8h</filename>
+    <filename>apr__strmatch_8h.html</filename>
     <class kind="struct">apr_strmatch_pattern</class>
     <member kind="typedef">
       <type>apr_strmatch_pattern</type>
@@ -1707,156 +1662,156 @@
   <compound kind="file">
     <name>apr_uri.h</name>
     <path>/home/joe/src/apache/apr-util/include/</path>
-    <filename>apr__uri_8h</filename>
+    <filename>apr__uri_8h.html</filename>
     <class kind="struct">apr_uri_t</class>
     <member kind="define">
       <type>#define</type>
       <name>APR_URI_FTP_DEFAULT_PORT</name>
-      <anchor>a6</anchor>
+      <anchor>a5</anchor>
       <arglist></arglist>
     </member>
     <member kind="define">
       <type>#define</type>
       <name>APR_URI_SSH_DEFAULT_PORT</name>
-      <anchor>a7</anchor>
+      <anchor>a6</anchor>
       <arglist></arglist>
     </member>
     <member kind="define">
       <type>#define</type>
       <name>APR_URI_TELNET_DEFAULT_PORT</name>
-      <anchor>a8</anchor>
+      <anchor>a7</anchor>
       <arglist></arglist>
     </member>
     <member kind="define">
       <type>#define</type>
       <name>APR_URI_GOPHER_DEFAULT_PORT</name>
-      <anchor>a9</anchor>
+      <anchor>a8</anchor>
       <arglist></arglist>
     </member>
     <member kind="define">
       <type>#define</type>
       <name>APR_URI_HTTP_DEFAULT_PORT</name>
-      <anchor>a10</anchor>
+      <anchor>a9</anchor>
       <arglist></arglist>
     </member>
     <member kind="define">
       <type>#define</type>
       <name>APR_URI_POP_DEFAULT_PORT</name>
-      <anchor>a11</anchor>
+      <anchor>a10</anchor>
       <arglist></arglist>
     </member>
     <member kind="define">
       <type>#define</type>
       <name>APR_URI_NNTP_DEFAULT_PORT</name>
-      <anchor>a12</anchor>
+      <anchor>a11</anchor>
       <arglist></arglist>
     </member>
     <member kind="define">
       <type>#define</type>
       <name>APR_URI_IMAP_DEFAULT_PORT</name>
-      <anchor>a13</anchor>
+      <anchor>a12</anchor>
       <arglist></arglist>
     </member>
     <member kind="define">
       <type>#define</type>
       <name>APR_URI_PROSPERO_DEFAULT_PORT</name>
-      <anchor>a14</anchor>
+      <anchor>a13</anchor>
       <arglist></arglist>
     </member>
     <member kind="define">
       <type>#define</type>
       <name>APR_URI_WAIS_DEFAULT_PORT</name>
-      <anchor>a15</anchor>
+      <anchor>a14</anchor>
       <arglist></arglist>
     </member>
     <member kind="define">
       <type>#define</type>
       <name>APR_URI_LDAP_DEFAULT_PORT</name>
-      <anchor>a16</anchor>
+      <anchor>a15</anchor>
       <arglist></arglist>
     </member>
     <member kind="define">
       <type>#define</type>
       <name>APR_URI_HTTPS_DEFAULT_PORT</name>
-      <anchor>a17</anchor>
+      <anchor>a16</anchor>
       <arglist></arglist>
     </member>
     <member kind="define">
       <type>#define</type>
       <name>APR_URI_RTSP_DEFAULT_PORT</name>
-      <anchor>a18</anchor>
+      <anchor>a17</anchor>
       <arglist></arglist>
     </member>
     <member kind="define">
       <type>#define</type>
       <name>APR_URI_SNEWS_DEFAULT_PORT</name>
-      <anchor>a19</anchor>
+      <anchor>a18</anchor>
       <arglist></arglist>
     </member>
     <member kind="define">
       <type>#define</type>
       <name>APR_URI_ACAP_DEFAULT_PORT</name>
-      <anchor>a20</anchor>
+      <anchor>a19</anchor>
       <arglist></arglist>
     </member>
     <member kind="define">
       <type>#define</type>
       <name>APR_URI_NFS_DEFAULT_PORT</name>
-      <anchor>a21</anchor>
+      <anchor>a20</anchor>
       <arglist></arglist>
     </member>
     <member kind="define">
       <type>#define</type>
       <name>APR_URI_TIP_DEFAULT_PORT</name>
-      <anchor>a22</anchor>
+      <anchor>a21</anchor>
       <arglist></arglist>
     </member>
     <member kind="define">
       <type>#define</type>
       <name>APR_URI_SIP_DEFAULT_PORT</name>
-      <anchor>a23</anchor>
+      <anchor>a22</anchor>
       <arglist></arglist>
     </member>
     <member kind="define">
       <type>#define</type>
       <name>APR_URI_UNP_OMITSITEPART</name>
-      <anchor>a24</anchor>
+      <anchor>a23</anchor>
       <arglist></arglist>
     </member>
     <member kind="define">
       <type>#define</type>
       <name>APR_URI_UNP_OMITUSER</name>
-      <anchor>a25</anchor>
+      <anchor>a24</anchor>
       <arglist></arglist>
     </member>
     <member kind="define">
       <type>#define</type>
       <name>APR_URI_UNP_OMITPASSWORD</name>
-      <anchor>a26</anchor>
+      <anchor>a25</anchor>
       <arglist></arglist>
     </member>
     <member kind="define">
       <type>#define</type>
       <name>APR_URI_UNP_OMITUSERINFO</name>
-      <anchor>a27</anchor>
+      <anchor>a26</anchor>
       <arglist></arglist>
     </member>
     <member kind="define">
       <type>#define</type>
       <name>APR_URI_UNP_REVEALPASSWORD</name>
-      <anchor>a28</anchor>
+      <anchor>a27</anchor>
       <arglist></arglist>
     </member>
     <member kind="define">
       <type>#define</type>
       <name>APR_URI_UNP_OMITPATHINFO</name>
-      <anchor>a29</anchor>
+      <anchor>a28</anchor>
       <arglist></arglist>
     </member>
     <member kind="define">
       <type>#define</type>
       <name>APR_URI_UNP_OMITQUERY</name>
-      <anchor>a30</anchor>
+      <anchor>a29</anchor>
       <arglist></arglist>
     </member>
     <member kind="typedef">
@@ -1872,34 +1827,28 @@
       <arglist>(const char *scheme_str)</arglist>
     </member>
     <member kind="function">
-      <type>apr_port_t</type>
-      <name>apr_uri_default_port_for_scheme</name>
-      <anchor>a2</anchor>
-      <arglist>(const char *scheme_str)</arglist>
-    </member>
-    <member kind="function">
       <type>char *</type>
       <name>apr_uri_unparse</name>
-      <anchor>a3</anchor>
+      <anchor>a2</anchor>
       <arglist>(apr_pool_t *p, const apr_uri_t *uptr, unsigned flags)</arglist>
     </member>
     <member kind="function">
       <type>int</type>
       <name>apr_uri_parse</name>
-      <anchor>a4</anchor>
+      <anchor>a3</anchor>
       <arglist>(apr_pool_t *p, const char *uri, apr_uri_t *uptr)</arglist>
     </member>
     <member kind="function">
       <type>int</type>
       <name>apr_uri_parse_hostinfo</name>
-      <anchor>a5</anchor>
+      <anchor>a4</anchor>
       <arglist>(apr_pool_t *p, const char *hostinfo, apr_uri_t *uptr)</arglist>
     </member>
   </compound>
   <compound kind="file">
     <name>apr_uuid.h</name>
     <path>/home/joe/src/apache/apr-util/include/</path>
-    <filename>apr__uuid_8h</filename>
+    <filename>apr__uuid_8h.html</filename>
     <class kind="struct">apr_uuid_t</class>
     <member kind="define">
       <type>#define</type>
@@ -1929,17 +1878,17 @@
   <compound kind="file">
     <name>apr_xlate.h</name>
     <path>/home/joe/src/apache/apr-util/include/</path>
-    <filename>apr__xlate_8h</filename>
+    <filename>apr__xlate_8h.html</filename>
     <member kind="define">
       <type>#define</type>
       <name>APR_DEFAULT_CHARSET</name>
-      <anchor>a7</anchor>
+      <anchor>a6</anchor>
       <arglist></arglist>
     </member>
     <member kind="define">
       <type>#define</type>
       <name>APR_LOCALE_CHARSET</name>
-      <anchor>a8</anchor>
+      <anchor>a7</anchor>
       <arglist></arglist>
     </member>
     <member kind="typedef">
@@ -1962,34 +1911,27 @@
     </member>
     <member kind="function">
       <type>apr_status_t</type>
-      <name>apr_xlate_get_sb</name>
-      <anchor>a3</anchor>
-      <arglist>(apr_xlate_t *convset, int *onoff)</arglist>
-    </member>
-    <member kind="function">
-      <type>apr_status_t</type>
       <name>apr_xlate_conv_buffer</name>
-      <anchor>a4</anchor>
+      <anchor>a3</anchor>
       <arglist>(apr_xlate_t *convset, const char *inbuf, apr_size_t *inbytes_left, char *outbuf, apr_size_t *outbytes_left)</arglist>
     </member>
     <member kind="function">
       <type>apr_int32_t</type>
       <name>apr_xlate_conv_byte</name>
-      <anchor>a5</anchor>
+      <anchor>a4</anchor>
       <arglist>(apr_xlate_t *convset, unsigned char inchar)</arglist>
     </member>
     <member kind="function">
       <type>apr_status_t</type>
       <name>apr_xlate_close</name>
-      <anchor>a6</anchor>
+      <anchor>a5</anchor>
       <arglist>(apr_xlate_t *convset)</arglist>
     </member>
   </compound>
   <compound kind="file">
     <name>apr_xml.h</name>
     <path>/home/joe/src/apache/apr-util/include/</path>
-    <filename>apr__xml_8h</filename>
-    <namespace>Apache</namespace>
+    <filename>apr__xml_8h.html</filename>
     <class kind="struct">apr_text</class>
     <class kind="struct">apr_text_header</class>
     <class kind="struct">apr_xml_attr</class>
@@ -2161,7 +2103,7 @@
   <compound kind="file">
     <name>apu_version.h</name>
     <path>/home/joe/src/apache/apr-util/include/</path>
-    <filename>apu__version_8h</filename>
+    <filename>apu__version_8h.html</filename>
     <member kind="define">
       <type>#define</type>
       <name>APU_MAJOR_VERSION</name>
@@ -2214,7 +2156,7 @@
   <compound kind="file">
     <name>apu_want.h</name>
     <path>/home/joe/src/apache/apr-util/include/</path>
-    <filename>apu__want_8h</filename>
+    <filename>apu__want_8h.html</filename>
   </compound>
   <compound kind="struct">
     <name>apr_anylock_t</name>
@@ -3062,11 +3004,6 @@
       <arglist></arglist>
     </member>
   </compound>
-  <compound kind="page">
-    <name>deprecated</name>
-    <title>Deprecated List</title>
-    <filename>deprecated</filename>
-  </compound>
   <compound kind="group">
     <name>APR_Util_Base64</name>
     <title>Base64 Encoding</title>
@@ -3165,176 +3102,170 @@
     </member>
     <member kind="define">
       <type>#define</type>
-      <name>APR_BRIGADE_FOREACH</name>
-      <anchor>a83</anchor>
-      <arglist>(e, b)</arglist>
-    </member>
-    <member kind="define">
-      <type>#define</type>
       <name>APR_BRIGADE_INSERT_HEAD</name>
-      <anchor>a84</anchor>
+      <anchor>a83</anchor>
       <arglist>(b, e)</arglist>
     </member>
     <member kind="define">
       <type>#define</type>
       <name>APR_BRIGADE_INSERT_TAIL</name>
-      <anchor>a85</anchor>
+      <anchor>a84</anchor>
       <arglist>(b, e)</arglist>
     </member>
     <member kind="define">
       <type>#define</type>
       <name>APR_BRIGADE_CONCAT</name>
-      <anchor>a86</anchor>
+      <anchor>a85</anchor>
       <arglist>(a, b)</arglist>
     </member>
     <member kind="define">
       <type>#define</type>
       <name>APR_BRIGADE_PREPEND</name>
-      <anchor>a87</anchor>
+      <anchor>a86</anchor>
       <arglist>(a, b)</arglist>
     </member>
     <member kind="define">
       <type>#define</type>
       <name>APR_BUCKET_INSERT_BEFORE</name>
-      <anchor>a88</anchor>
+      <anchor>a87</anchor>
       <arglist>(a, b)</arglist>
     </member>
     <member kind="define">
       <type>#define</type>
       <name>APR_BUCKET_INSERT_AFTER</name>
-      <anchor>a89</anchor>
+      <anchor>a88</anchor>
       <arglist>(a, b)</arglist>
     </member>
     <member kind="define">
       <type>#define</type>
       <name>APR_BUCKET_NEXT</name>
-      <anchor>a90</anchor>
+      <anchor>a89</anchor>
       <arglist>(e)</arglist>
     </member>
     <member kind="define">
       <type>#define</type>
       <name>APR_BUCKET_PREV</name>
-      <anchor>a91</anchor>
+      <anchor>a90</anchor>
       <arglist>(e)</arglist>
     </member>
     <member kind="define">
       <type>#define</type>
       <name>APR_BUCKET_REMOVE</name>
-      <anchor>a92</anchor>
+      <anchor>a91</anchor>
       <arglist>(e)</arglist>
     </member>
     <member kind="define">
       <type>#define</type>
       <name>APR_BUCKET_INIT</name>
-      <anchor>a93</anchor>
+      <anchor>a92</anchor>
       <arglist>(e)</arglist>
     </member>
     <member kind="define">
       <type>#define</type>
       <name>APR_BUCKET_IS_METADATA</name>
-      <anchor>a94</anchor>
+      <anchor>a93</anchor>
       <arglist>(e)</arglist>
     </member>
     <member kind="define">
       <type>#define</type>
       <name>APR_BUCKET_IS_FLUSH</name>
-      <anchor>a95</anchor>
+      <anchor>a94</anchor>
       <arglist>(e)</arglist>
     </member>
     <member kind="define">
       <type>#define</type>
       <name>APR_BUCKET_IS_EOS</name>
-      <anchor>a96</anchor>
+      <anchor>a95</anchor>
       <arglist>(e)</arglist>
     </member>
     <member kind="define">
       <type>#define</type>
       <name>APR_BUCKET_IS_FILE</name>
-      <anchor>a97</anchor>
+      <anchor>a96</anchor>
       <arglist>(e)</arglist>
     </member>
     <member kind="define">
       <type>#define</type>
       <name>APR_BUCKET_IS_PIPE</name>
-      <anchor>a98</anchor>
+      <anchor>a97</anchor>
       <arglist>(e)</arglist>
     </member>
     <member kind="define">
       <type>#define</type>
       <name>APR_BUCKET_IS_SOCKET</name>
-      <anchor>a99</anchor>
+      <anchor>a98</anchor>
       <arglist>(e)</arglist>
     </member>
     <member kind="define">
       <type>#define</type>
       <name>APR_BUCKET_IS_HEAP</name>
-      <anchor>a100</anchor>
+      <anchor>a99</anchor>
       <arglist>(e)</arglist>
     </member>
     <member kind="define">
       <type>#define</type>
       <name>APR_BUCKET_IS_TRANSIENT</name>
-      <anchor>a101</anchor>
+      <anchor>a100</anchor>
       <arglist>(e)</arglist>
     </member>
     <member kind="define">
       <type>#define</type>
       <name>APR_BUCKET_IS_IMMORTAL</name>
-      <anchor>a102</anchor>
+      <anchor>a101</anchor>
       <arglist>(e)</arglist>
     </member>
     <member kind="define">
       <type>#define</type>
       <name>APR_BUCKET_IS_MMAP</name>
-      <anchor>a103</anchor>
+      <anchor>a102</anchor>
       <arglist>(e)</arglist>
     </member>
     <member kind="define">
       <type>#define</type>
       <name>APR_BUCKET_IS_POOL</name>
-      <anchor>a104</anchor>
+      <anchor>a103</anchor>
       <arglist>(e)</arglist>
     </member>
     <member kind="define">
       <type>#define</type>
       <name>APR_BUCKET_ALLOC_SIZE</name>
-      <anchor>a105</anchor>
+      <anchor>a104</anchor>
       <arglist></arglist>
     </member>
     <member kind="define">
       <type>#define</type>
       <name>apr_bucket_destroy</name>
-      <anchor>a106</anchor>
+      <anchor>a105</anchor>
       <arglist>(e)</arglist>
     </member>
     <member kind="define">
       <type>#define</type>
       <name>apr_bucket_delete</name>
-      <anchor>a107</anchor>
+      <anchor>a106</anchor>
       <arglist>(e)</arglist>
     </member>
     <member kind="define">
       <type>#define</type>
       <name>apr_bucket_read</name>
-      <anchor>a108</anchor>
+      <anchor>a107</anchor>
       <arglist>(e, str, len, block)</arglist>
     </member>
     <member kind="define">
       <type>#define</type>
       <name>apr_bucket_setaside</name>
-      <anchor>a109</anchor>
+      <anchor>a108</anchor>
       <arglist>(e, p)</arglist>
     </member>
     <member kind="define">
       <type>#define</type>
       <name>apr_bucket_split</name>
-      <anchor>a110</anchor>
+      <anchor>a109</anchor>
       <arglist>(e, point)</arglist>
     </member>
     <member kind="define">
       <type>#define</type>
       <name>apr_bucket_copy</name>
-      <anchor>a111</anchor>
+      <anchor>a110</anchor>
       <arglist>(e, c)</arglist>
     </member>
     <member kind="typedef">
@@ -3405,17 +3336,17 @@
     </member>
     <member kind="enumeration">
       <name>apr_read_type_e</name>
-      <anchor>a112</anchor>
+      <anchor>a111</anchor>
       <arglist></arglist>
     </member>
     <member kind="enumvalue">
       <name>APR_BLOCK_READ</name>
-      <anchor>a112a57</anchor>
+      <anchor>a111a56</anchor>
       <arglist></arglist>
     </member>
     <member kind="enumvalue">
       <name>APR_NONBLOCK_READ</name>
-      <anchor>a112a58</anchor>
+      <anchor>a111a57</anchor>
       <arglist></arglist>
     </member>
     <member kind="function">
@@ -3961,115 +3892,103 @@
     <member kind="define">
       <type>#define</type>
       <name>APR_IMPLEMENT_HOOK_GET_PROTO</name>
-      <anchor>a12</anchor>
+      <anchor>a7</anchor>
       <arglist>(ns, link, name)</arglist>
     </member>
     <member kind="define">
       <type>#define</type>
       <name>APR_DECLARE_EXTERNAL_HOOK</name>
-      <anchor>a13</anchor>
+      <anchor>a8</anchor>
       <arglist>(ns, link, ret, name, args)</arglist>
     </member>
     <member kind="define">
       <type>#define</type>
       <name>APR_HOOK_STRUCT</name>
-      <anchor>a14</anchor>
+      <anchor>a9</anchor>
       <arglist>(members)</arglist>
     </member>
     <member kind="define">
       <type>#define</type>
       <name>APR_HOOK_LINK</name>
-      <anchor>a15</anchor>
+      <anchor>a10</anchor>
       <arglist>(name)</arglist>
     </member>
     <member kind="define">
       <type>#define</type>
       <name>APR_IMPLEMENT_EXTERNAL_HOOK_BASE</name>
-      <anchor>a16</anchor>
+      <anchor>a11</anchor>
       <arglist>(ns, link, name)</arglist>
     </member>
     <member kind="define">
       <type>#define</type>
       <name>APR_IMPLEMENT_EXTERNAL_HOOK_VOID</name>
-      <anchor>a17</anchor>
+      <anchor>a12</anchor>
       <arglist>(ns, link, name, args_decl, args_use)</arglist>
     </member>
     <member kind="define">
       <type>#define</type>
       <name>APR_IMPLEMENT_EXTERNAL_HOOK_RUN_ALL</name>
-      <anchor>a18</anchor>
+      <anchor>a13</anchor>
       <arglist>(ns, link, ret, name, args_decl, args_use, ok, decline)</arglist>
     </member>
     <member kind="define">
       <type>#define</type>
       <name>APR_IMPLEMENT_EXTERNAL_HOOK_RUN_FIRST</name>
-      <anchor>a19</anchor>
+      <anchor>a14</anchor>
       <arglist>(ns, link, ret, name, args_decl, args_use, decline)</arglist>
     </member>
     <member kind="define">
       <type>#define</type>
       <name>APR_HOOK_REALLY_FIRST</name>
-      <anchor>a20</anchor>
+      <anchor>a15</anchor>
       <arglist></arglist>
     </member>
     <member kind="define">
       <type>#define</type>
       <name>APR_HOOK_FIRST</name>
-      <anchor>a21</anchor>
+      <anchor>a16</anchor>
       <arglist></arglist>
     </member>
     <member kind="define">
       <type>#define</type>
       <name>APR_HOOK_MIDDLE</name>
-      <anchor>a22</anchor>
+      <anchor>a17</anchor>
       <arglist></arglist>
     </member>
     <member kind="define">
       <type>#define</type>
       <name>APR_HOOK_LAST</name>
-      <anchor>a23</anchor>
+      <anchor>a18</anchor>
       <arglist></arglist>
     </member>
     <member kind="define">
       <type>#define</type>
       <name>APR_HOOK_REALLY_LAST</name>
-      <anchor>a24</anchor>
+      <anchor>a19</anchor>
       <arglist></arglist>
     </member>
     <member kind="function">
       <type>void</type>
       <name>apr_hook_sort_register</name>
-      <anchor>a6</anchor>
+      <anchor>a3</anchor>
       <arglist>(const char *szHookName, apr_array_header_t **aHooks)</arglist>
     </member>
     <member kind="function">
       <type>void</type>
       <name>apr_hook_sort_all</name>
-      <anchor>a7</anchor>
-      <arglist>(void)</arglist>
-    </member>
-    <member kind="function">
-      <type>void</type>
-      <name>apr_sort_hooks</name>
-      <anchor>a8</anchor>
+      <anchor>a4</anchor>
       <arglist>(void)</arglist>
     </member>
     <member kind="function">
       <type>void</type>
       <name>apr_hook_debug_show</name>
-      <anchor>a9</anchor>
-      <arglist>(const char *szName, const char *const *aszPre, const char *const *aszSucc)</arglist>
-    </member>
-    <member kind="function">
-      <type>void</type>
-      <name>apr_show_hook</name>
-      <anchor>a10</anchor>
+      <anchor>a5</anchor>
       <arglist>(const char *szName, const char *const *aszPre, const char *const *aszSucc)</arglist>
     </member>
     <member kind="function">
       <type>void</type>
       <name>apr_hook_deregister_all</name>
-      <anchor>a11</anchor>
+      <anchor>a6</anchor>
       <arglist>(void)</arglist>
     </member>
     <member kind="variable">
@@ -4079,33 +3998,15 @@
       <arglist></arglist>
     </member>
     <member kind="variable">
-      <type>apr_pool_t *</type>
-      <name>apr_global_hook_pool</name>
-      <anchor>a1</anchor>
-      <arglist></arglist>
-    </member>
-    <member kind="variable">
       <type>int</type>
       <name>apr_hook_debug_enabled</name>
-      <anchor>a2</anchor>
-      <arglist></arglist>
-    </member>
-    <member kind="variable">
-      <type>int</type>
-      <name>apr_debug_module_hooks</name>
-      <anchor>a3</anchor>
+      <anchor>a1</anchor>
       <arglist></arglist>
     </member>
     <member kind="variable">
       <type>const char *</type>
       <name>apr_hook_debug_current</name>
-      <anchor>a4</anchor>
-      <arglist></arglist>
-    </member>
-    <member kind="variable">
-      <type>const char *</type>
-      <name>apr_current_hooking_module</name>
-      <anchor>a5</anchor>
+      <anchor>a2</anchor>
       <arglist></arglist>
     </member>
   </compound>
@@ -4221,12 +4122,6 @@
       <anchor>a8</anchor>
       <arglist></arglist>
     </member>
-    <member kind="define">
-      <type>#define</type>
-      <name>MD5_DIGESTSIZE</name>
-      <anchor>a9</anchor>
-      <arglist></arglist>
-    </member>
     <member kind="typedef">
       <type>apr_md5_ctx_t</type>
       <name>apr_md5_ctx_t</name>
@@ -4283,32 +4178,32 @@
     <member kind="define">
       <type>#define</type>
       <name>APR_OPTIONAL_FN_TYPE</name>
-      <anchor>a5</anchor>
+      <anchor>a3</anchor>
       <arglist>(name)</arglist>
     </member>
     <member kind="define">
       <type>#define</type>
       <name>APR_DECLARE_OPTIONAL_FN</name>
-      <anchor>a6</anchor>
+      <anchor>a4</anchor>
       <arglist>(ret, name, args)</arglist>
     </member>
     <member kind="define">
       <type>#define</type>
       <name>APR_REGISTER_OPTIONAL_FN</name>
-      <anchor>a7</anchor>
+      <anchor>a5</anchor>
       <arglist>(name)</arglist>
     </member>
     <member kind="define">
       <type>#define</type>
       <name>APR_RETRIEVE_OPTIONAL_FN</name>
-      <anchor>a8</anchor>
+      <anchor>a6</anchor>
       <arglist>(name)</arglist>
     </member>
-    <member kind="typedef">
-      <type>void(</type>
-      <name>apr_opt_fn_t</name>
+    <member kind="function">
+      <type>typedef</type>
+      <name>void</name>
       <anchor>a0</anchor>
-      <arglist>)(void)</arglist>
+      <arglist>(apr_opt_fn_t)(void)</arglist>
     </member>
     <member kind="function">
       <type>void</type>
@@ -4317,21 +4212,9 @@
       <arglist>(const char *szName, apr_opt_fn_t *pfn)</arglist>
     </member>
     <member kind="function">
-      <type>void</type>
-      <name>apr_register_optional_fn</name>
-      <anchor>a2</anchor>
-      <arglist>(const char *szName, apr_opt_fn_t *pfn)</arglist>
-    </member>
-    <member kind="function">
       <type>apr_opt_fn_t *</type>
       <name>apr_dynamic_fn_retrieve</name>
-      <anchor>a3</anchor>
-      <arglist>(const char *szName)</arglist>
-    </member>
-    <member kind="function">
-      <type>apr_opt_fn_t *</type>
-      <name>apr_retrieve_optional_fn</name>
-      <anchor>a4</anchor>
+      <anchor>a2</anchor>
       <arglist>(const char *szName)</arglist>
     </member>
   </compound>
@@ -4467,6 +4350,18 @@
       <type>apr_status_t</type>
       <name>apr_reslist_release</name>
       <anchor>a6</anchor>
+      <arglist>(apr_reslist_t *reslist, void *resource)</arglist>
+    </member>
+    <member kind="function">
+      <type>void</type>
+      <name>apr_reslist_timeout_set</name>
+      <anchor>a7</anchor>
+      <arglist>(apr_reslist_t *reslist, apr_interval_time_t timeout)</arglist>
+    </member>
+    <member kind="function">
+      <type>apr_status_t</type>
+      <name>apr_reslist_invalidate</name>
+      <anchor>a8</anchor>
       <arglist>(apr_reslist_t *reslist, void *resource)</arglist>
     </member>
   </compound>
@@ -4687,151 +4582,151 @@
     <member kind="define">
       <type>#define</type>
       <name>APR_URI_FTP_DEFAULT_PORT</name>
-      <anchor>a6</anchor>
+      <anchor>a5</anchor>
       <arglist></arglist>
     </member>
     <member kind="define">
       <type>#define</type>
       <name>APR_URI_SSH_DEFAULT_PORT</name>
-      <anchor>a7</anchor>
+      <anchor>a6</anchor>
       <arglist></arglist>
     </member>
     <member kind="define">
       <type>#define</type>
       <name>APR_URI_TELNET_DEFAULT_PORT</name>
-      <anchor>a8</anchor>
+      <anchor>a7</anchor>
       <arglist></arglist>
     </member>
     <member kind="define">
       <type>#define</type>
       <name>APR_URI_GOPHER_DEFAULT_PORT</name>
-      <anchor>a9</anchor>
+      <anchor>a8</anchor>
       <arglist></arglist>
     </member>
     <member kind="define">
       <type>#define</type>
       <name>APR_URI_HTTP_DEFAULT_PORT</name>
-      <anchor>a10</anchor>
+      <anchor>a9</anchor>
       <arglist></arglist>
     </member>
     <member kind="define">
       <type>#define</type>
       <name>APR_URI_POP_DEFAULT_PORT</name>
-      <anchor>a11</anchor>
+      <anchor>a10</anchor>
       <arglist></arglist>
     </member>
     <member kind="define">
       <type>#define</type>
       <name>APR_URI_NNTP_DEFAULT_PORT</name>
-      <anchor>a12</anchor>
+      <anchor>a11</anchor>
       <arglist></arglist>
     </member>
     <member kind="define">
       <type>#define</type>
       <name>APR_URI_IMAP_DEFAULT_PORT</name>
-      <anchor>a13</anchor>
+      <anchor>a12</anchor>
       <arglist></arglist>
     </member>
     <member kind="define">
       <type>#define</type>
       <name>APR_URI_PROSPERO_DEFAULT_PORT</name>
-      <anchor>a14</anchor>
+      <anchor>a13</anchor>
       <arglist></arglist>
     </member>
     <member kind="define">
       <type>#define</type>
       <name>APR_URI_WAIS_DEFAULT_PORT</name>
-      <anchor>a15</anchor>
+      <anchor>a14</anchor>
       <arglist></arglist>
     </member>
     <member kind="define">
       <type>#define</type>
       <name>APR_URI_LDAP_DEFAULT_PORT</name>
-      <anchor>a16</anchor>
+      <anchor>a15</anchor>
       <arglist></arglist>
     </member>
     <member kind="define">
       <type>#define</type>
       <name>APR_URI_HTTPS_DEFAULT_PORT</name>
-      <anchor>a17</anchor>
+      <anchor>a16</anchor>
       <arglist></arglist>
     </member>
     <member kind="define">
       <type>#define</type>
       <name>APR_URI_RTSP_DEFAULT_PORT</name>
-      <anchor>a18</anchor>
+      <anchor>a17</anchor>
       <arglist></arglist>
     </member>
     <member kind="define">
       <type>#define</type>
       <name>APR_URI_SNEWS_DEFAULT_PORT</name>
-      <anchor>a19</anchor>
+      <anchor>a18</anchor>
       <arglist></arglist>
     </member>
     <member kind="define">
       <type>#define</type>
       <name>APR_URI_ACAP_DEFAULT_PORT</name>
-      <anchor>a20</anchor>
+      <anchor>a19</anchor>
       <arglist></arglist>
     </member>
     <member kind="define">
       <type>#define</type>
       <name>APR_URI_NFS_DEFAULT_PORT</name>
-      <anchor>a21</anchor>
+      <anchor>a20</anchor>
       <arglist></arglist>
     </member>
     <member kind="define">
       <type>#define</type>
       <name>APR_URI_TIP_DEFAULT_PORT</name>
-      <anchor>a22</anchor>
+      <anchor>a21</anchor>
       <arglist></arglist>
     </member>
     <member kind="define">
       <type>#define</type>
       <name>APR_URI_SIP_DEFAULT_PORT</name>
-      <anchor>a23</anchor>
+      <anchor>a22</anchor>
       <arglist></arglist>
     </member>
     <member kind="define">
       <type>#define</type>
       <name>APR_URI_UNP_OMITSITEPART</name>
-      <anchor>a24</anchor>
+      <anchor>a23</anchor>
       <arglist></arglist>
     </member>
     <member kind="define">
       <type>#define</type>
       <name>APR_URI_UNP_OMITUSER</name>
-      <anchor>a25</anchor>
+      <anchor>a24</anchor>
       <arglist></arglist>
     </member>
     <member kind="define">
       <type>#define</type>
       <name>APR_URI_UNP_OMITPASSWORD</name>
-      <anchor>a26</anchor>
+      <anchor>a25</anchor>
       <arglist></arglist>
     </member>
     <member kind="define">
       <type>#define</type>
       <name>APR_URI_UNP_OMITUSERINFO</name>
-      <anchor>a27</anchor>
+      <anchor>a26</anchor>
       <arglist></arglist>
     </member>
     <member kind="define">
       <type>#define</type>
       <name>APR_URI_UNP_REVEALPASSWORD</name>
-      <anchor>a28</anchor>
+      <anchor>a27</anchor>
       <arglist></arglist>
     </member>
     <member kind="define">
       <type>#define</type>
       <name>APR_URI_UNP_OMITPATHINFO</name>
-      <anchor>a29</anchor>
+      <anchor>a28</anchor>
       <arglist></arglist>
     </member>
     <member kind="define">
       <type>#define</type>
       <name>APR_URI_UNP_OMITQUERY</name>
-      <anchor>a30</anchor>
+      <anchor>a29</anchor>
       <arglist></arglist>
     </member>
     <member kind="typedef">
@@ -4847,27 +4742,21 @@
       <arglist>(const char *scheme_str)</arglist>
     </member>
     <member kind="function">
-      <type>apr_port_t</type>
-      <name>apr_uri_default_port_for_scheme</name>
-      <anchor>a2</anchor>
-      <arglist>(const char *scheme_str)</arglist>
-    </member>
-    <member kind="function">
       <type>char *</type>
       <name>apr_uri_unparse</name>
-      <anchor>a3</anchor>
+      <anchor>a2</anchor>
       <arglist>(apr_pool_t *p, const apr_uri_t *uptr, unsigned flags)</arglist>
     </member>
     <member kind="function">
       <type>int</type>
       <name>apr_uri_parse</name>
-      <anchor>a4</anchor>
+      <anchor>a3</anchor>
       <arglist>(apr_pool_t *p, const char *uri, apr_uri_t *uptr)</arglist>
     </member>
     <member kind="function">
       <type>int</type>
       <name>apr_uri_parse_hostinfo</name>
-      <anchor>a5</anchor>
+      <anchor>a4</anchor>
       <arglist>(apr_pool_t *p, const char *hostinfo, apr_uri_t *uptr)</arglist>
     </member>
   </compound>
@@ -4908,13 +4797,13 @@
     <member kind="define">
       <type>#define</type>
       <name>APR_DEFAULT_CHARSET</name>
-      <anchor>a7</anchor>
+      <anchor>a6</anchor>
       <arglist></arglist>
     </member>
     <member kind="define">
       <type>#define</type>
       <name>APR_LOCALE_CHARSET</name>
-      <anchor>a8</anchor>
+      <anchor>a7</anchor>
       <arglist></arglist>
     </member>
     <member kind="typedef">
@@ -4937,26 +4826,20 @@
     </member>
     <member kind="function">
       <type>apr_status_t</type>
-      <name>apr_xlate_get_sb</name>
-      <anchor>a3</anchor>
-      <arglist>(apr_xlate_t *convset, int *onoff)</arglist>
-    </member>
-    <member kind="function">
-      <type>apr_status_t</type>
       <name>apr_xlate_conv_buffer</name>
-      <anchor>a4</anchor>
+      <anchor>a3</anchor>
       <arglist>(apr_xlate_t *convset, const char *inbuf, apr_size_t *inbytes_left, char *outbuf, apr_size_t *outbytes_left)</arglist>
     </member>
     <member kind="function">
       <type>apr_int32_t</type>
       <name>apr_xlate_conv_byte</name>
-      <anchor>a5</anchor>
+      <anchor>a4</anchor>
       <arglist>(apr_xlate_t *convset, unsigned char inchar)</arglist>
     </member>
     <member kind="function">
       <type>apr_status_t</type>
       <name>apr_xlate_close</name>
-      <anchor>a6</anchor>
+      <anchor>a5</anchor>
       <arglist>(apr_xlate_t *convset)</arglist>
     </member>
   </compound>
@@ -4964,7 +4847,6 @@
     <name>APR_Util_XML</name>
     <title>XML</title>
     <filename>group__APR__Util__XML.html</filename>
-    <namespace>Apache</namespace>
     <class kind="struct">apr_text</class>
     <class kind="struct">apr_text_header</class>
     <class kind="struct">apr_xml_attr</class>
@@ -5195,31 +5077,23 @@
     </member>
     <member kind="define">
       <type>#define</type>
-      <name>APU_HAVE_DB_VERSION</name>
+      <name>APU_HAVE_APR_ICONV</name>
       <anchor>a7</anchor>
       <arglist></arglist>
     </member>
     <member kind="define">
       <type>#define</type>
-      <name>APU_HAVE_APR_ICONV</name>
+      <name>APU_HAVE_ICONV</name>
       <anchor>a8</anchor>
       <arglist></arglist>
     </member>
     <member kind="define">
       <type>#define</type>
-      <name>APU_HAVE_ICONV</name>
+      <name>APR_HAS_XLATE</name>
       <anchor>a9</anchor>
       <arglist></arglist>
     </member>
-    <member kind="define">
-      <type>#define</type>
-      <name>APR_HAS_XLATE</name>
-      <anchor>a10</anchor>
-      <arglist></arglist>
-    </member>
   </compound>
-  <compound kind="namespace">
-    <name>Apache</name>
-    <filename>namespaceApache.html</filename>
+  <compound kind="package">
   </compound>
 </tagfile>

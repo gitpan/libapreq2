@@ -4,6 +4,7 @@ use Config;
 use Getopt::Long;
 require Win32;
 use ExtUtils::MakeMaker;
+use File::Spec::Functions qw(catfile catdir);
 use warnings;
 use FindBin;
 
@@ -13,59 +14,22 @@ BEGIN {
 
 my $license = <<'END';
 # ====================================================================
-# The Apache Software License, Version 1.1
 #
-# Copyright (c) 2001-2003 The Apache Software Foundation.  All rights
-# reserved.
+#  Copyright 2003-2004  The Apache Software Foundation
 #
-# Redistribution and use in source and binary forms, with or without
-# modification, are permitted provided that the following conditions
-# are met:
+#  Licensed under the Apache License, Version 2.0 (the "License");
+#  you may not use this file except in compliance with the License.
+#  You may obtain a copy of the License at
 #
-# 1. Redistributions of source code must retain the above copyright
-#    notice, this list of conditions and the following disclaimer.
+#      http://www.apache.org/licenses/LICENSE-2.0
 #
-# 2. Redistributions in binary form must reproduce the above copyright
-#    notice, this list of conditions and the following disclaimer in
-#    the documentation and/or other materials provided with the
-#    distribution.
-#
-# 3. The end-user documentation included with the redistribution,
-#    if any, must include the following acknowledgment:
-#       "This product includes software developed by the
-#        Apache Software Foundation (http://www.apache.org/)."
-#    Alternately, this acknowledgment may appear in the software itself,
-#    if and wherever such third-party acknowledgments normally appear.
-#
-# 4. The names "Apache" and "Apache Software Foundation" must
-#    not be used to endorse or promote products derived from this
-#    software without prior written permission. For written
-#    permission, please contact apache@apache.org.
-#
-# 5. Products derived from this software may not be called "Apache",
-#    nor may "Apache" appear in their name, without prior written
-#    permission of the Apache Software Foundation.
-#
-# THIS SOFTWARE IS PROVIDED ``AS IS'' AND ANY EXPRESSED OR IMPLIED
-# WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES
-# OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
-# DISCLAIMED.  IN NO EVENT SHALL THE APACHE SOFTWARE FOUNDATION OR
-# ITS CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL,
-# SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT
-# LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF
-# USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND
-# ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY,
-# OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT
-# OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF
-# SUCH DAMAGE.
-# ====================================================================
-#
-# This software consists of voluntary contributions made by many
-# individuals on behalf of the Apache Software Foundation.  For more
-# information on the Apache Software Foundation, please see
-# <http://www.apache.org/>.
+#  Unless required by applicable law or agreed to in writing, software
+#  distributed under the License is distributed on an "AS IS" BASIS,
+#  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+#  See the License for the specific language governing permissions and
+#  limitations under the License.
 
-# APR-util script designed to allow easy command line access to APR-util
+# apreq2 script designed to allow easy command line access to apreq2
 # configuration parameters.
 
 END
@@ -88,10 +52,13 @@ die "Can't find a suitable Apache2 installation!"
     unless (-d $prefix and check($prefix));
 
 $prefix = Win32::GetShortPathName($prefix);
-$prefix =~ s!\\!/!g;
+my %ap_dir;
+foreach (qw(bin lib include build)) {
+    $ap_dir{$_} = catdir $prefix, $_;
+}
 
-my $src_version = "$apreq_home/src/apreq_version.h";
-my $apache_version = "$prefix/include/apreq_version.h";
+my $src_version = catfile $apreq_home, 'src', 'apreq_version.h';
+my $apache_version = catfile $ap_dir{include}, 'apreq_version.h';
 
 my $apreq_version = -e $src_version ? $src_version : $apache_version;
 open(my $inc, $apreq_version)
@@ -111,11 +78,11 @@ my %apreq_args = (APREQ_MAJOR_VERSION => $vers{MAJOR},
                   APREQ_LIBNAME => 'libapreq2.lib',
                   prefix => $prefix,
                   exec_prefix => $prefix,
-                  bindir => "$prefix/bin",
-                  libdir => "$prefix/lib",
+                  bindir => $ap_dir{bin},
+                  libdir => $ap_dir{lib},
                   datadir => $prefix,
-                  installbuilddir => "$prefix/build",
-                  includedir => "$prefix/include",
+                  installbuilddir => $ap_dir{build},
+                  includedir => $ap_dir{include},
                 
                   CC => $Config{cc},
                   CPP => $Config{cpp},
@@ -151,6 +118,7 @@ Known values for OPTION are:
   --installbuilddir print APR-util build helper directory
   --link-ld         print link switch(es) for linking to APREQ
   --apreq-so-ext    print the extensions of shared objects on this platform
+  --apreq-lib-file  print the name of the apreq lib file
   --version         print the APR-util version as a dotted triple
   --help            print this help
 
@@ -161,13 +129,14 @@ An application should use the results of --cflags, --cppflags, --includes,
 and --ldflags in their build process.
 EOF
 
-my $full = "$prefix/bin/$file";
-open(my $fh, ">$full") or die "Cannot open $full: $!";
+my $full = catfile $ap_dir{bin}, $file;
+open(my $fh, '>', $full) or die "Cannot open $full: $!";
 print $fh <<"END";
 #!$^X
 use strict;
 use warnings;
 use Getopt::Long;
+use File::Spec::Functions qw(catfile catdir);
 
 $license
 sub usage {
@@ -209,6 +178,7 @@ GetOptions(\%opts,
            'installbuilddir',
            'link-ld',
            'apreq-so-ext',
+           'apreq-lib-file',
            'version',
            'help'
           ) or usage();
@@ -220,24 +190,30 @@ if (exists $opts{prefix} and $opts{prefix} eq "") {
     exit(0);
 }
 my $user_prefix = defined $opts{prefix} ? $opts{prefix} : '';
+my %user_dir;
+if ($user_prefix) {
+    foreach (qw(lib bin include build)) {
+        $user_dir{$_} = catdir $user_prefix, $_;
+    }
+}
 my $flags = '';
 
 SWITCH : {
     local $\ = "\n";
     $opts{bindir} and do {
-        print $user_prefix ? "$user_prefix/bin" : $bindir;
+        print $user_prefix ? $user_dir{bin} : $bindir;
         last SWITCH;
     };
     $opts{includedir} and do {
-        print $user_prefix ? "$user_prefix/include" : $includedir;
+        print $user_prefix ? $user_dir{include} : $includedir;
         last SWITCH;
     };
     $opts{libdir} and do {
-        print $user_prefix ? "$user_prefix/lib" : $libdir;
+        print $user_prefix ? $user_dir{lib} : $libdir;
         last SWITCH;
     };
     $opts{installbuilddir} and do {
-        print $user_prefix ? "$user_prefix/build" : $installbuilddir;
+        print $user_prefix ? $user_dir{build} : $installbuilddir;
         last SWITCH;
     };
     $opts{srcdir} and do {
@@ -259,17 +235,24 @@ SWITCH : {
     $opts{cflags} and $flags .= " $CFLAGS ";
     $opts{cppflags} and $flags .= " $CPPFLAGS ";
     $opts{includes} and do {
-        my $inc = $user_prefix ? "$user_prefix/include" : $includedir;
+        my $inc = $user_prefix ? $user_dir{include} : $includedir;
         $flags .= qq{ /I"$inc" $EXTRA_INCLUDES };
     };
     $opts{ldflags} and $flags .= " $LDFLAGS ";
     $opts{libs} and $flags .= " $LIBS ";
     $opts{'link-ld'} and do {
-        my $libpath = $user_prefix ? "$user_prefix/lib" : $libdir;
+        my $libpath = $user_prefix ? $user_dir{lib} : $libdir;
         $flags .= qq{ /libpath:"$libpath" $APREQ_LIBNAME };
     };
     $opts{'apreq-so-ext'} and do {
         print $APREQ_SO_EXT;
+        last SWITCH;
+    };
+    $opts{'apreq-lib-file'} and do {
+        my $full_apreqlib = $user_prefix ? 
+            (catfile $user_dir{lib}, $APREQ_LIBNAME) :
+                (catfile $libdir, $APREQ_LIBNAME);
+        print $full_apreqlib;
         last SWITCH;
     };
     $opts{version} and do {

@@ -15,48 +15,61 @@ struct {\bf apreq\_\-value\_\-t}
 \subsection*{Defines}
 \begin{CompactItemize}
 \item 
-\#define {\bf APREQ\_\-DECLARE}(d)\ {\bf APR\_\-DECLARE}(d)\label{apreq_8h_a23}
+\index{APREQ_DECLARE@{APREQ\_\-DECLARE}!apreq.h@{apreq.h}}\index{apreq.h@{apreq.h}!APREQ_DECLARE@{APREQ\_\-DECLARE}}
+\#define {\bf APREQ\_\-DECLARE}(d)\ {\bf APR\_\-DECLARE}(d)\label{apreq_8h_a24}
 
 \item 
-\#define {\bf APREQ\_\-DECLARE\_\-NONSTD}(d)\ {\bf APR\_\-DECLARE\_\-NONSTD}(d)\label{apreq_8h_a24}
+\index{APREQ_DECLARE_NONSTD@{APREQ\_\-DECLARE\_\-NONSTD}!apreq.h@{apreq.h}}\index{apreq.h@{apreq.h}!APREQ_DECLARE_NONSTD@{APREQ\_\-DECLARE\_\-NONSTD}}
+\#define {\bf APREQ\_\-DECLARE\_\-NONSTD}(d)\ {\bf APR\_\-DECLARE\_\-NONSTD}(d)\label{apreq_8h_a25}
 
 \item 
-\#define {\bf APREQ\_\-URL\_\-ENCTYPE}\ \char`\"{}application/x-www-form-urlencoded\char`\"{}\label{apreq_8h_a25}
+\index{APREQ_URL_ENCTYPE@{APREQ\_\-URL\_\-ENCTYPE}!apreq.h@{apreq.h}}\index{apreq.h@{apreq.h}!APREQ_URL_ENCTYPE@{APREQ\_\-URL\_\-ENCTYPE}}
+\#define {\bf APREQ\_\-URL\_\-ENCTYPE}\ \char`\"{}application/x-www-form-urlencoded\char`\"{}\label{apreq_8h_a26}
 
 \item 
-\#define {\bf APREQ\_\-MFD\_\-ENCTYPE}\ \char`\"{}multipart/form-data\char`\"{}\label{apreq_8h_a26}
+\index{APREQ_MFD_ENCTYPE@{APREQ\_\-MFD\_\-ENCTYPE}!apreq.h@{apreq.h}}\index{apreq.h@{apreq.h}!APREQ_MFD_ENCTYPE@{APREQ\_\-MFD\_\-ENCTYPE}}
+\#define {\bf APREQ\_\-MFD\_\-ENCTYPE}\ \char`\"{}multipart/form-data\char`\"{}\label{apreq_8h_a27}
 
 \item 
-\#define {\bf APREQ\_\-XML\_\-ENCTYPE}\ \char`\"{}application/xml\char`\"{}\label{apreq_8h_a27}
+\index{APREQ_XML_ENCTYPE@{APREQ\_\-XML\_\-ENCTYPE}!apreq.h@{apreq.h}}\index{apreq.h@{apreq.h}!APREQ_XML_ENCTYPE@{APREQ\_\-XML\_\-ENCTYPE}}
+\#define {\bf APREQ\_\-XML\_\-ENCTYPE}\ \char`\"{}application/xml\char`\"{}\label{apreq_8h_a28}
 
 \item 
-\#define {\bf APREQ\_\-NELTS}\ 8\label{apreq_8h_a28}
+\index{APREQ_NELTS@{APREQ\_\-NELTS}!apreq.h@{apreq.h}}\index{apreq.h@{apreq.h}!APREQ_NELTS@{APREQ\_\-NELTS}}
+\#define {\bf APREQ\_\-NELTS}\ 8\label{apreq_8h_a29}
 
 \item 
-\#define {\bf apreq\_\-attr\_\-to\_\-type}(T, A, P)\ ( (T$\ast$) ((char$\ast$)(P)-offsetof(T,A)) )\label{apreq_8h_a29}
+\index{APREQ_READ_AHEAD@{APREQ\_\-READ\_\-AHEAD}!apreq.h@{apreq.h}}\index{apreq.h@{apreq.h}!APREQ_READ_AHEAD@{APREQ\_\-READ\_\-AHEAD}}
+\#define {\bf APREQ\_\-READ\_\-AHEAD}\ (64 $\ast$ 1024)\label{apreq_8h_a30}
 
 \item 
-\#define {\bf apreq\_\-char\_\-to\_\-value}(ptr)\ apreq\_\-attr\_\-to\_\-type({\bf apreq\_\-value\_\-t}, data, ptr)\label{apreq_8h_a30}
+\index{APREQ_MAX_BRIGADE_LEN@{APREQ\_\-MAX\_\-BRIGADE\_\-LEN}!apreq.h@{apreq.h}}\index{apreq.h@{apreq.h}!APREQ_MAX_BRIGADE_LEN@{APREQ\_\-MAX\_\-BRIGADE\_\-LEN}}
+\#define {\bf APREQ\_\-MAX\_\-BRIGADE\_\-LEN}\ (256 $\ast$ 1024)\label{apreq_8h_a31}
 
 \item 
-\#define {\bf apreq\_\-strtoval}(ptr)\ apreq\_\-char\_\-to\_\-value(ptr)\label{apreq_8h_a31}
+\index{apreq_attr_to_type@{apreq\_\-attr\_\-to\_\-type}!apreq.h@{apreq.h}}\index{apreq.h@{apreq.h}!apreq_attr_to_type@{apreq\_\-attr\_\-to\_\-type}}
+\#define {\bf apreq\_\-attr\_\-to\_\-type}(T, A, P)\ ( (T$\ast$) ((char$\ast$)(P)-offsetof(T,A)) )\label{apreq_8h_a32}
 
 \item 
-\#define {\bf apreq\_\-strlen}(ptr)\ (apreq\_\-strtoval(ptr) $\rightarrow$ size)\label{apreq_8h_a32}
+\#define {\bf apreq\_\-char\_\-to\_\-value}(ptr)\ apreq\_\-attr\_\-to\_\-type({\bf apreq\_\-value\_\-t}, data, ptr)
+\item 
+\index{apreq_strtoval@{apreq\_\-strtoval}!apreq.h@{apreq.h}}\index{apreq.h@{apreq.h}!apreq_strtoval@{apreq\_\-strtoval}}
+\#define {\bf apreq\_\-strtoval}(ptr)\ apreq\_\-char\_\-to\_\-value(ptr)\label{apreq_8h_a34}
 
 \item 
-\#define {\bf apreq\_\-unescape}(str)\ apreq\_\-decode(str,str,strlen(str))\label{apreq_8h_a33}
-
+\#define {\bf apreq\_\-strlen}(ptr)\ (apreq\_\-strtoval(ptr) $\rightarrow$ size)
 \end{CompactItemize}
 \subsection*{Typedefs}
 \begin{CompactItemize}
 \item 
 typedef apreq\_\-value\_\-t {\bf apreq\_\-value\_\-t}
 \item 
-typedef {\bf apreq\_\-value\_\-t} $\ast$( {\bf apreq\_\-value\_\-merge\_\-t} )({\bf apr\_\-pool\_\-t} $\ast$p, const {\bf apr\_\-array\_\-header\_\-t} $\ast$a)\label{apreq_8h_a1}
+\index{apreq_value_merge_t@{apreq\_\-value\_\-merge\_\-t}!apreq.h@{apreq.h}}\index{apreq.h@{apreq.h}!apreq_value_merge_t@{apreq\_\-value\_\-merge\_\-t}}
+typedef {\bf apreq\_\-value\_\-t} $\ast$ {\bf apreq\_\-value\_\-merge\_\-t} ({\bf apr\_\-pool\_\-t} $\ast$p, const {\bf apr\_\-array\_\-header\_\-t} $\ast$a)\label{apreq_8h_a1}
 
 \item 
-typedef {\bf apreq\_\-value\_\-t} $\ast$( {\bf apreq\_\-value\_\-copy\_\-t} )({\bf apr\_\-pool\_\-t} $\ast$p, const {\bf apreq\_\-value\_\-t} $\ast$v)\label{apreq_8h_a2}
+\index{apreq_value_copy_t@{apreq\_\-value\_\-copy\_\-t}!apreq.h@{apreq.h}}\index{apreq.h@{apreq.h}!apreq_value_copy_t@{apreq\_\-value\_\-copy\_\-t}}
+typedef {\bf apreq\_\-value\_\-t} $\ast$ {\bf apreq\_\-value\_\-copy\_\-t} ({\bf apr\_\-pool\_\-t} $\ast$p, const {\bf apreq\_\-value\_\-t} $\ast$v)\label{apreq_8h_a2}
 
 \end{CompactItemize}
 \subsection*{Enumerations}
@@ -85,7 +98,7 @@ enum {\bf apreq\_\-expires\_\-t} \{ {\bf HTTP},
 \item 
 {\bf apreq\_\-value\_\-t} $\ast$ {\bf apreq\_\-merge\_\-values} ({\bf apr\_\-pool\_\-t} $\ast$p, const {\bf apr\_\-array\_\-header\_\-t} $\ast$arr)
 \item 
-const char $\ast$ {\bf apreq\_\-enctype} (void $\ast$env)
+const char $\ast$ {\bf apreq\_\-enctype} ({\bf void} $\ast$env)
 \item 
 const char $\ast$ {\bf apreq\_\-join} ({\bf apr\_\-pool\_\-t} $\ast$p, const char $\ast$sep, const {\bf apr\_\-array\_\-header\_\-t} $\ast$arr, {\bf apreq\_\-join\_\-t} mode)
 \item 
@@ -94,6 +107,8 @@ char $\ast$ {\bf apreq\_\-memmem} (char $\ast$hay, {\bf apr\_\-size\_\-t} hlen, 
 {\bf apr\_\-ssize\_\-t} {\bf apreq\_\-index} (const char $\ast$hay, {\bf apr\_\-size\_\-t} hlen, const char $\ast$ndl, {\bf apr\_\-size\_\-t} nlen, const {\bf apreq\_\-match\_\-t} type)
 \item 
 {\bf apr\_\-size\_\-t} {\bf apreq\_\-quote} (char $\ast$dest, const char $\ast$src, const {\bf apr\_\-size\_\-t} slen)
+\item 
+{\bf apr\_\-size\_\-t} {\bf apreq\_\-quote\_\-once} (char $\ast$dest, const char $\ast$src, const {\bf apr\_\-size\_\-t} slen)
 \item 
 {\bf apr\_\-size\_\-t} {\bf apreq\_\-encode} (char $\ast$dest, const char $\ast$src, const {\bf apr\_\-size\_\-t} slen)
 \item 
@@ -115,18 +130,21 @@ char $\ast$ {\bf apreq\_\-expires} ({\bf apr\_\-pool\_\-t} $\ast$p, const char $
 \item 
 {\bf apr\_\-file\_\-t} $\ast$ {\bf apreq\_\-brigade\_\-spoolfile} ({\bf apr\_\-bucket\_\-brigade} $\ast$bb)
 \item 
-{\bf apr\_\-bucket\_\-brigade} $\ast$ {\bf apreq\_\-copy\_\-brigade} (const {\bf apr\_\-bucket\_\-brigade} $\ast$bb)\label{apreq_8h_a40}
-
+{\bf apr\_\-bucket\_\-brigade} $\ast$ {\bf apreq\_\-brigade\_\-copy} (const {\bf apr\_\-bucket\_\-brigade} $\ast$bb)
 \item 
-{\bf apr\_\-status\_\-t} {\bf apreq\_\-header\_\-attribute} (const char $\ast$hdr, const char $\ast$name, const {\bf apr\_\-size\_\-t} nlen, const char $\ast$$\ast$val, {\bf apr\_\-size\_\-t} $\ast$vlen)\label{apreq_8h_a41}
-
+{\bf apr\_\-status\_\-t} {\bf apreq\_\-header\_\-attribute} (const char $\ast$hdr, const char $\ast$name, const {\bf apr\_\-size\_\-t} nlen, const char $\ast$$\ast$val, {\bf apr\_\-size\_\-t} $\ast$vlen)
 \end{CompactItemize}
 
 
 \subsection{Detailed Description}
 Common functions, structures and macros.
 
-The objects in {\bf apreq.h} are used in various contexts:
+ The objects in {\bf apreq.h} are used in various contexts:
 
-\begin{itemize}
-\item {\bf apreq\_\-value\_\-t} - the base struct for params \& cookies\item string $<$-$>$ array converters\item substring search functions\item simple encoders \& decoders for urlencoded strings\item simple time, date, \& file-size converters\end{itemize}
+\begin{CompactItemize}
+\item 
+{\bf apreq\_\-value\_\-t} {\rm (p.\,\pageref{structapreq__value__t})} - the base struct for params \& cookies\item 
+string $<$-$>$ array converters\item 
+substring search functions\item 
+simple encoders \& decoders for urlencoded strings\item 
+simple time, date, \& file-size converters\end{CompactItemize}

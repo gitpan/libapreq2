@@ -7,8 +7,6 @@ use Apache::RequestRec;
 use Apache::RequestIO;
 use Apache::Request ();
 use Apache::Connection;
-use APR::Brigade;
-use APR::Bucket;
 
 sub handler {
     my $r = shift;
@@ -25,14 +23,8 @@ sub handler {
     }
     elsif ($test eq 'upload') {
         my ($upload) = values %{$req->upload};
-#        unlink("/tmp/foo");
-        my $bb = $upload->bb;
-        while (my $b = $bb->first) {
-            $b->read(my $buffer);
-            $r->print($buffer);
-            $b->remove;
-        }
-#        $upload->link("/tmp/foo");
+        $upload->slurp(my $data);
+        $r->print($data);
     }
 
     return 0;

@@ -8,76 +8,346 @@ struct {\bf apreq\_\-env\_\-t}
 \subsection*{Defines}
 \begin{CompactItemize}
 \item 
-\#define {\bf apreq\_\-env\_\-content\_\-type}(env)\ apreq\_\-env\_\-header\_\-in(env, \char`\"{}Content-Type\char`\"{})\label{group__ENV_a10}
-
+\#define {\bf apreq\_\-env\_\-content\_\-type}(env)\ apreq\_\-env\_\-header\_\-in(env, \char`\"{}Content-Type\char`\"{})
 \item 
-\#define {\bf apreq\_\-env\_\-cookie}(env)\ apreq\_\-env\_\-header\_\-in(env, \char`\"{}Cookie\char`\"{})\label{group__ENV_a11}
-
+\#define {\bf apreq\_\-env\_\-cookie}(env)\ apreq\_\-env\_\-header\_\-in(env, \char`\"{}Cookie\char`\"{})
 \item 
-\#define {\bf apreq\_\-env\_\-cookie2}(env)\ apreq\_\-env\_\-header\_\-in(env, \char`\"{}Cookie2\char`\"{})\label{group__ENV_a12}
-
+\#define {\bf apreq\_\-env\_\-cookie2}(env)\ apreq\_\-env\_\-header\_\-in(env, \char`\"{}Cookie2\char`\"{})
 \item 
-\#define {\bf apreq\_\-env\_\-set\_\-cookie}(e, s)\ apreq\_\-env\_\-header\_\-out(e,\char`\"{}Set-Cookie\char`\"{},s)\label{group__ENV_a13}
-
+\#define {\bf apreq\_\-env\_\-set\_\-cookie}(e, s)\ apreq\_\-env\_\-header\_\-out(e,\char`\"{}Set-Cookie\char`\"{},s)
 \item 
-\#define {\bf apreq\_\-env\_\-set\_\-cookie2}(e, s)\ apreq\_\-env\_\-header\_\-out(e,\char`\"{}Set-Cookie2\char`\"{},s)\label{group__ENV_a14}
-
+\#define {\bf apreq\_\-env\_\-set\_\-cookie2}(e, s)\ apreq\_\-env\_\-header\_\-out(e,\char`\"{}Set-Cookie2\char`\"{},s)
 \item 
 \#define {\bf APREQ\_\-ENV\_\-MODULE}(pre, name, mmn)
 \item 
-\#define {\bf apreq\_\-env\_\-name}\ (apreq\_\-env\_\-module(NULL) $\rightarrow$ name)\label{group__ENV_a16}
-
+\#define {\bf apreq\_\-env\_\-name}\ (apreq\_\-env\_\-module(NULL) $\rightarrow$ name)
 \item 
-\#define {\bf apreq\_\-env\_\-magic\_\-number}\ (apreq\_\-env\_\-module(NULL) $\rightarrow$ magic\_\-number)\label{group__ENV_a17}
-
+\#define {\bf apreq\_\-env\_\-magic\_\-number}\ (apreq\_\-env\_\-module(NULL) $\rightarrow$ magic\_\-number)
 \end{CompactItemize}
 \subsection*{Typedefs}
 \begin{CompactItemize}
 \item 
-typedef apreq\_\-env\_\-t {\bf apreq\_\-env\_\-t}\label{group__ENV_a0}
-
+typedef apreq\_\-env\_\-t {\bf apreq\_\-env\_\-t}
 \end{CompactItemize}
 \subsection*{Functions}
 \begin{CompactItemize}
 \item 
-void {\bf apreq\_\-log} (const char $\ast$file, int line, int level, {\bf apr\_\-status\_\-t} status, void $\ast$env, const char $\ast$fmt,...)\label{group__ENV_a1}
-
+{\bf void} {\bf apreq\_\-log} (const char $\ast$file, {\bf int} line, {\bf int} level, {\bf apr\_\-status\_\-t} status, {\bf void} $\ast$env, const char $\ast$fmt,...)
 \item 
-{\bf apr\_\-pool\_\-t} $\ast$ {\bf apreq\_\-env\_\-pool} (void $\ast$env)\label{group__ENV_a2}
-
+{\bf apr\_\-pool\_\-t} $\ast$ {\bf apreq\_\-env\_\-pool} ({\bf void} $\ast$env)
 \item 
-{\bf apreq\_\-jar\_\-t} $\ast$ {\bf apreq\_\-env\_\-jar} (void $\ast$env, {\bf apreq\_\-jar\_\-t} $\ast$jar)\label{group__ENV_a3}
-
+{\bf apreq\_\-jar\_\-t} $\ast$ {\bf apreq\_\-env\_\-jar} ({\bf void} $\ast$env, {\bf apreq\_\-jar\_\-t} $\ast$jar)
 \item 
-{\bf apreq\_\-request\_\-t} $\ast$ {\bf apreq\_\-env\_\-request} (void $\ast$env, {\bf apreq\_\-request\_\-t} $\ast$req)\label{group__ENV_a4}
-
+{\bf apreq\_\-request\_\-t} $\ast$ {\bf apreq\_\-env\_\-request} ({\bf void} $\ast$env, {\bf apreq\_\-request\_\-t} $\ast$req)
 \item 
-const char $\ast$ {\bf apreq\_\-env\_\-query\_\-string} (void $\ast$env)\label{group__ENV_a5}
-
+const char $\ast$ {\bf apreq\_\-env\_\-query\_\-string} ({\bf void} $\ast$env)
 \item 
-const char $\ast$ {\bf apreq\_\-env\_\-header\_\-in} (void $\ast$env, const char $\ast$name)\label{group__ENV_a6}
-
+const char $\ast$ {\bf apreq\_\-env\_\-header\_\-in} ({\bf void} $\ast$env, const char $\ast$name)
 \item 
-{\bf apr\_\-status\_\-t} {\bf apreq\_\-env\_\-header\_\-out} (void $\ast$env, const char $\ast$name, char $\ast$val)\label{group__ENV_a7}
-
+{\bf apr\_\-status\_\-t} {\bf apreq\_\-env\_\-header\_\-out} ({\bf void} $\ast$env, const char $\ast$name, char $\ast$val)
 \item 
-{\bf apr\_\-status\_\-t} {\bf apreq\_\-env\_\-read} (void $\ast$env, {\bf apr\_\-read\_\-type\_\-e} block, {\bf apr\_\-off\_\-t} bytes)\label{group__ENV_a8}
-
+{\bf apr\_\-status\_\-t} {\bf apreq\_\-env\_\-read} ({\bf void} $\ast$env, {\bf apr\_\-read\_\-type\_\-e} block, {\bf apr\_\-off\_\-t} bytes)
 \item 
-const apreq\_\-env\_\-t $\ast$ {\bf apreq\_\-env\_\-module} (const apreq\_\-env\_\-t $\ast$mod)\label{group__ENV_a9}
-
+const char $\ast$ {\bf apreq\_\-env\_\-temp\_\-dir} ({\bf void} $\ast$env, const char $\ast$path)
+\item 
+{\bf apr\_\-off\_\-t} {\bf apreq\_\-env\_\-max\_\-body} ({\bf void} $\ast$env, {\bf apr\_\-off\_\-t} bytes)
+\item 
+{\bf apr\_\-ssize\_\-t} {\bf apreq\_\-env\_\-max\_\-brigade} ({\bf void} $\ast$env, {\bf apr\_\-ssize\_\-t} bytes)
+\item 
+const {\bf apreq\_\-env\_\-t} $\ast$ {\bf apreq\_\-env\_\-module} (const {\bf apreq\_\-env\_\-t} $\ast$mod)
 \end{CompactItemize}
 
 
 \subsection{Define Documentation}
-\index{APREQ_ENV_MODULE@{APREQ\_\-ENV\_\-MODULE}!ENV@{ENV}}\index{ENV@{ENV}!APREQ_ENV_MODULE@{APREQ\_\-ENV\_\-MODULE}}\index{ENV@{ENV}!APREQ_ENV_MODULE@{APREQ\_\-ENV\_\-MODULE}}
+\index{ENV@{ENV}!apreq_env_content_type@{apreq\_\-env\_\-content\_\-type}}
+\index{apreq_env_content_type@{apreq\_\-env\_\-content\_\-type}!ENV@{ENV}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}\#define apreq\_\-env\_\-content\_\-type(env)\ apreq\_\-env\_\-header\_\-in(env, \char`\"{}Content-Type\char`\"{})}\label{group__ENV_a13}
+
+
+Fetch the environment's \char`\"{}Content-Type\char`\"{} header. \begin{Desc}
+\item[Parameters: ]\par
+\begin{description}
+\item[{\em 
+env}]The current environment. \end{description}
+\end{Desc}
+\begin{Desc}
+\item[Returns: ]\par
+The value of the Content-Type header, NULL if not found. \end{Desc}
+\index{ENV@{ENV}!apreq_env_cookie@{apreq\_\-env\_\-cookie}}
+\index{apreq_env_cookie@{apreq\_\-env\_\-cookie}!ENV@{ENV}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}\#define apreq\_\-env\_\-cookie(env)\ apreq\_\-env\_\-header\_\-in(env, \char`\"{}Cookie\char`\"{})}\label{group__ENV_a14}
+
+
+Fetch the environment's \char`\"{}Cookie\char`\"{} header. \begin{Desc}
+\item[Parameters: ]\par
+\begin{description}
+\item[{\em 
+env}]The current environment. \end{description}
+\end{Desc}
+\begin{Desc}
+\item[Returns: ]\par
+The value of the \char`\"{}Cookie\char`\"{} header, NULL if not found. \end{Desc}
+\index{ENV@{ENV}!apreq_env_cookie2@{apreq\_\-env\_\-cookie2}}
+\index{apreq_env_cookie2@{apreq\_\-env\_\-cookie2}!ENV@{ENV}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}\#define apreq\_\-env\_\-cookie2(env)\ apreq\_\-env\_\-header\_\-in(env, \char`\"{}Cookie2\char`\"{})}\label{group__ENV_a15}
+
+
+Fetch the environment's \char`\"{}Cookie2\char`\"{} header. \begin{Desc}
+\item[Parameters: ]\par
+\begin{description}
+\item[{\em 
+env}]The current environment. \end{description}
+\end{Desc}
+\begin{Desc}
+\item[Returns: ]\par
+The value of the \char`\"{}Cookie2\char`\"{} header, NULL if not found. \end{Desc}
+\index{ENV@{ENV}!apreq_env_magic_number@{apreq\_\-env\_\-magic\_\-number}}
+\index{apreq_env_magic_number@{apreq\_\-env\_\-magic\_\-number}!ENV@{ENV}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}\#define apreq\_\-env\_\-magic\_\-number\ (apreq\_\-env\_\-module(NULL) $\rightarrow$ magic\_\-number)}\label{group__ENV_a20}
+
+
+The current environment's magic (ie. version) number. \index{ENV@{ENV}!APREQ_ENV_MODULE@{APREQ\_\-ENV\_\-MODULE}}
 \index{APREQ_ENV_MODULE@{APREQ\_\-ENV\_\-MODULE}!ENV@{ENV}}
-\subsubsection{\setlength{\rightskip}{0pt plus 5cm}\#define APREQ\_\-ENV\_\-MODULE(pre, name, mmn)}\label{group__ENV_a15}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}\#define APREQ\_\-ENV\_\-MODULE(pre, name, mmn)}\label{group__ENV_a18}
 
 
 {\bf Value:}
 
 \footnotesize\begin{verbatim}const apreq_env_t pre##_module = { \
   name, mmn, pre##_log, pre##_pool, pre##_jar, pre##_request,               \
-  pre##_query_string, pre##_header_in, pre##_header_out, pre##_read }
-\end{verbatim}\normalsize 
+  pre##_query_string, pre##_header_in, pre##_header_out, pre##_read,        \
+  pre##_temp_dir, pre##_max_body, pre##_max_brigade }\end{verbatim}\normalsize 
+Convenience macro for defining an environment module by mapping a function prefix to an associated environment structure. \begin{Desc}
+\item[Parameters: ]\par
+\begin{description}
+\item[{\em 
+pre}]Prefix to define new environment. All attributes of the {\bf apreq\_\-env\_\-t} {\rm (p.\,\pageref{structapreq__env__t})} struct are defined with this as their prefix. The generated struct is named by appending \char`\"{}\_\-module\char`\"{} to the prefix. \item[{\em 
+name}]Name of this environment. \item[{\em 
+mmn}]Magic number (i.e. version number) of this environment. \end{description}
+\end{Desc}
+\index{ENV@{ENV}!apreq_env_name@{apreq\_\-env\_\-name}}
+\index{apreq_env_name@{apreq\_\-env\_\-name}!ENV@{ENV}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}\#define apreq\_\-env\_\-name\ (apreq\_\-env\_\-module(NULL) $\rightarrow$ name)}\label{group__ENV_a19}
+
+
+The current environment's name. \index{ENV@{ENV}!apreq_env_set_cookie@{apreq\_\-env\_\-set\_\-cookie}}
+\index{apreq_env_set_cookie@{apreq\_\-env\_\-set\_\-cookie}!ENV@{ENV}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}\#define apreq\_\-env\_\-set\_\-cookie(e, s)\ apreq\_\-env\_\-header\_\-out(e,\char`\"{}Set-Cookie\char`\"{},s)}\label{group__ENV_a16}
+
+
+Add a \char`\"{}Set-Cookie\char`\"{} header to the outgoing response headers. \begin{Desc}
+\item[Parameters: ]\par
+\begin{description}
+\item[{\em 
+e}]The current environment. \item[{\em 
+s}]The cookie string. \end{description}
+\end{Desc}
+\begin{Desc}
+\item[Returns: ]\par
+APR\_\-SUCCESS on success, error code otherwise. \end{Desc}
+\index{ENV@{ENV}!apreq_env_set_cookie2@{apreq\_\-env\_\-set\_\-cookie2}}
+\index{apreq_env_set_cookie2@{apreq\_\-env\_\-set\_\-cookie2}!ENV@{ENV}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}\#define apreq\_\-env\_\-set\_\-cookie2(e, s)\ apreq\_\-env\_\-header\_\-out(e,\char`\"{}Set-Cookie2\char`\"{},s)}\label{group__ENV_a17}
+
+
+Add a \char`\"{}Set-Cookie2\char`\"{} header to the outgoing response headers. \begin{Desc}
+\item[Parameters: ]\par
+\begin{description}
+\item[{\em 
+e}]The current environment. \item[{\em 
+s}]The cookie string. \end{description}
+\end{Desc}
+\begin{Desc}
+\item[Returns: ]\par
+APR\_\-SUCCESS on success, error code otherwise. \end{Desc}
+
+
+\subsection{Typedef Documentation}
+\index{ENV@{ENV}!apreq_env_t@{apreq\_\-env\_\-t}}
+\index{apreq_env_t@{apreq\_\-env\_\-t}!ENV@{ENV}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}typedef struct apreq\_\-env\_\-t  apreq\_\-env\_\-t}\label{group__ENV_a0}
+
+
+The environment structure, which must be fully defined for libapreq2 to operate properly in a given environment. 
+
+\subsection{Function Documentation}
+\index{ENV@{ENV}!apreq_env_header_in@{apreq\_\-env\_\-header\_\-in}}
+\index{apreq_env_header_in@{apreq\_\-env\_\-header\_\-in}!ENV@{ENV}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}const char$\ast$ apreq\_\-env\_\-header\_\-in ({\bf void} $\ast$ {\em env}, const char $\ast$ {\em name})}\label{group__ENV_a6}
+
+
+Fetch the header value (joined by \char`\"{}, \char`\"{} if there are multiple headers) for a given header name. \begin{Desc}
+\item[Parameters: ]\par
+\begin{description}
+\item[{\em 
+env}]The current environment. \item[{\em 
+name}]The header name. \end{description}
+\end{Desc}
+\begin{Desc}
+\item[Returns: ]\par
+The value of the header, NULL if not found. \end{Desc}
+\index{ENV@{ENV}!apreq_env_header_out@{apreq\_\-env\_\-header\_\-out}}
+\index{apreq_env_header_out@{apreq\_\-env\_\-header\_\-out}!ENV@{ENV}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}{\bf apr\_\-status\_\-t} apreq\_\-env\_\-header\_\-out ({\bf void} $\ast$ {\em env}, const char $\ast$ {\em name}, char $\ast$ {\em val})}\label{group__ENV_a7}
+
+
+Add a header field to the environment's outgoing response headers \begin{Desc}
+\item[Parameters: ]\par
+\begin{description}
+\item[{\em 
+env}]The current environment. \item[{\em 
+name}]The name of the outgoing header. \item[{\em 
+val}]Value of the outgoing header. \end{description}
+\end{Desc}
+\begin{Desc}
+\item[Returns: ]\par
+APR\_\-SUCCESS on success, error code otherwise. \end{Desc}
+\index{ENV@{ENV}!apreq_env_jar@{apreq\_\-env\_\-jar}}
+\index{apreq_env_jar@{apreq\_\-env\_\-jar}!ENV@{ENV}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}{\bf apreq\_\-jar\_\-t}$\ast$ apreq\_\-env\_\-jar ({\bf void} $\ast$ {\em env}, {\bf apreq\_\-jar\_\-t} $\ast$ {\em jar})}\label{group__ENV_a3}
+
+
+Get/set the jar currently associated to the environment. \begin{Desc}
+\item[Parameters: ]\par
+\begin{description}
+\item[{\em 
+env}]The current environment. \item[{\em 
+jar}]New Jar to associate. \end{description}
+\end{Desc}
+\begin{Desc}
+\item[Returns: ]\par
+The previous jar associated to the environment. jar == NULL gets the current jar, which will remain associated after the call. \end{Desc}
+\index{ENV@{ENV}!apreq_env_max_body@{apreq\_\-env\_\-max\_\-body}}
+\index{apreq_env_max_body@{apreq\_\-env\_\-max\_\-body}!ENV@{ENV}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}{\bf apr\_\-off\_\-t} apreq\_\-env\_\-max\_\-body ({\bf void} $\ast$ {\em env}, {\bf apr\_\-off\_\-t} {\em bytes})}\label{group__ENV_a10}
+
+
+Get/set the current max\_\-body setting. This is the maximum amount of bytes that will be read into the environment's parser. \begin{Desc}
+\item[Parameters: ]\par
+\begin{description}
+\item[{\em 
+env}]The current environment. \item[{\em 
+bytes}]The new max\_\-body setting. \end{description}
+\end{Desc}
+\begin{Desc}
+\item[Returns: ]\par
+The previous max\_\-body setting. Note: a call using bytes == -1 fetches the current max\_\-body setting without modifying it. \end{Desc}
+\index{ENV@{ENV}!apreq_env_max_brigade@{apreq\_\-env\_\-max\_\-brigade}}
+\index{apreq_env_max_brigade@{apreq\_\-env\_\-max\_\-brigade}!ENV@{ENV}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}{\bf apr\_\-ssize\_\-t} apreq\_\-env\_\-max\_\-brigade ({\bf void} $\ast$ {\em env}, {\bf apr\_\-ssize\_\-t} {\em bytes})}\label{group__ENV_a11}
+
+
+Get/set the current max\_\-brigade setting. This is the maximum amount of heap-allocated buckets libapreq2 will use for its brigades.  If additional buckets are necessary, they will be created from a temporary file. \begin{Desc}
+\item[Parameters: ]\par
+\begin{description}
+\item[{\em 
+env}]The current environment. \item[{\em 
+bytes}]The new max\_\-brigade setting. \end{description}
+\end{Desc}
+\begin{Desc}
+\item[Returns: ]\par
+The previous max\_\-brigade setting. Note: a call using bytes == -1 fetches the current max\_\-brigade setting without modifying it. \end{Desc}
+\index{ENV@{ENV}!apreq_env_module@{apreq\_\-env\_\-module}}
+\index{apreq_env_module@{apreq\_\-env\_\-module}!ENV@{ENV}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}const {\bf apreq\_\-env\_\-t}$\ast$ apreq\_\-env\_\-module (const {\bf apreq\_\-env\_\-t} $\ast$ {\em mod})}\label{group__ENV_a12}
+
+
+Get/set function for the active environment stucture. Usually this is called only once per process, to define the correct environment. \begin{Desc}
+\item[Parameters: ]\par
+\begin{description}
+\item[{\em 
+mod}]The new active environment. \end{description}
+\end{Desc}
+\begin{Desc}
+\item[Returns: ]\par
+The previous active environment. Note: a call using mod == NULL fetches the current environment module without modifying it. \end{Desc}
+\index{ENV@{ENV}!apreq_env_pool@{apreq\_\-env\_\-pool}}
+\index{apreq_env_pool@{apreq\_\-env\_\-pool}!ENV@{ENV}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}{\bf apr\_\-pool\_\-t}$\ast$ apreq\_\-env\_\-pool ({\bf void} $\ast$ {\em env})}\label{group__ENV_a2}
+
+
+Pool associated with the environment. \begin{Desc}
+\item[Parameters: ]\par
+\begin{description}
+\item[{\em 
+env}]The current environment \end{description}
+\end{Desc}
+\begin{Desc}
+\item[Returns: ]\par
+The associated pool. \end{Desc}
+\index{ENV@{ENV}!apreq_env_query_string@{apreq\_\-env\_\-query\_\-string}}
+\index{apreq_env_query_string@{apreq\_\-env\_\-query\_\-string}!ENV@{ENV}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}const char$\ast$ apreq\_\-env\_\-query\_\-string ({\bf void} $\ast$ {\em env})}\label{group__ENV_a5}
+
+
+Fetch the query string. \begin{Desc}
+\item[Parameters: ]\par
+\begin{description}
+\item[{\em 
+env}]The current environment. \end{description}
+\end{Desc}
+\begin{Desc}
+\item[Returns: ]\par
+The query string. \end{Desc}
+\index{ENV@{ENV}!apreq_env_read@{apreq\_\-env\_\-read}}
+\index{apreq_env_read@{apreq\_\-env\_\-read}!ENV@{ENV}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}{\bf apr\_\-status\_\-t} apreq\_\-env\_\-read ({\bf void} $\ast$ {\em env}, {\bf apr\_\-read\_\-type\_\-e} {\em block}, {\bf apr\_\-off\_\-t} {\em bytes})}\label{group__ENV_a8}
+
+
+Read data from the environment and into the current active parser. \begin{Desc}
+\item[Parameters: ]\par
+\begin{description}
+\item[{\em 
+env}]The current environment. \item[{\em 
+block}]Read type (APR\_\-READ\_\-BLOCK or APR\_\-READ\_\-NONBLOCK). \item[{\em 
+bytes}]Maximum number of bytes to read. \end{description}
+\end{Desc}
+\begin{Desc}
+\item[Returns: ]\par
+APR\_\-INCOMPLETE if there's more data to read, APR\_\-SUCCESS if everything was read \& parsed successfully, error code otherwise. \end{Desc}
+\index{ENV@{ENV}!apreq_env_request@{apreq\_\-env\_\-request}}
+\index{apreq_env_request@{apreq\_\-env\_\-request}!ENV@{ENV}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}{\bf apreq\_\-request\_\-t}$\ast$ apreq\_\-env\_\-request ({\bf void} $\ast$ {\em env}, {\bf apreq\_\-request\_\-t} $\ast$ {\em req})}\label{group__ENV_a4}
+
+
+Get/set the request currently associated to the environment. \begin{Desc}
+\item[Parameters: ]\par
+\begin{description}
+\item[{\em 
+env}]The current environment. \item[{\em 
+req}]New request to associate. \end{description}
+\end{Desc}
+\begin{Desc}
+\item[Returns: ]\par
+The previous request associated to the environment. req == NULL gets the current request, which will remain associated after the call. \end{Desc}
+\index{ENV@{ENV}!apreq_env_temp_dir@{apreq\_\-env\_\-temp\_\-dir}}
+\index{apreq_env_temp_dir@{apreq\_\-env\_\-temp\_\-dir}!ENV@{ENV}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}const char$\ast$ apreq\_\-env\_\-temp\_\-dir ({\bf void} $\ast$ {\em env}, const char $\ast$ {\em path})}\label{group__ENV_a9}
+
+
+Get/set the current temporary directory. \begin{Desc}
+\item[Parameters: ]\par
+\begin{description}
+\item[{\em 
+env}]The current environment. \item[{\em 
+path}]The full pathname of the new directory. \end{description}
+\end{Desc}
+\begin{Desc}
+\item[Returns: ]\par
+The path of the previous temporary directory. Note: a call using path==NULL fetches the current directory without resetting it to NULL. \end{Desc}
+\index{ENV@{ENV}!apreq_log@{apreq\_\-log}}
+\index{apreq_log@{apreq\_\-log}!ENV@{ENV}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}{\bf void} apreq\_\-log (const char $\ast$ {\em file}, {\bf int} {\em line}, {\bf int} {\em level}, {\bf apr\_\-status\_\-t} {\em status}, {\bf void} $\ast$ {\em env}, const char $\ast$ {\em fmt}, ...)}\label{group__ENV_a1}
+
+
+Analog of Apache's ap\_\-log\_\-rerror(). \begin{Desc}
+\item[Parameters: ]\par
+\begin{description}
+\item[{\em 
+file}]Filename to list in the log message. \item[{\em 
+line}]Line number from the file. \item[{\em 
+level}]Log level. \item[{\em 
+status}]Status code. \item[{\em 
+env}]Current environment. \item[{\em 
+fmt}]Format string for the log message. \end{description}
+\end{Desc}

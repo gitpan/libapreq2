@@ -1,6 +1,4 @@
-use strict;
-use warnings FATAL => 'all';
-use Apache2;
+
 use APR;
 use APR::Table;
 
@@ -8,8 +6,7 @@ package Apache::Cookie::Jar;
 push our(@ISA), __PACKAGE__ -> env;
 
 package Apache::Cookie::Table;
-use base 'APR::Table';
-
+push our(@ISA), 'APR::Table';
 
 package Apache::Cookie;
 
@@ -34,7 +31,7 @@ sub new {
 sub fetch {
     my $self = shift;
     my $jar = $self->jar(@_);
-    return wantarray ? %{scalar $jar->cookie} : $jar->cookie;
+    return wantarray ? %{(scalar $jar->cookie) || {}} : $jar->cookie;
 }
 
 sub freeze {

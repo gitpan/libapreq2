@@ -1,59 +1,24 @@
-/* ====================================================================
- * The Apache Software License, Version 1.1
- *
- * Copyright (c) 2003 The Apache Software Foundation.  All rights
- * reserved.
- *
- * Redistribution and use in source and binary forms, with or without
- * modification, are permitted provided that the following conditions
- * are met:
- *
- * 1. Redistributions of source code must retain the above copyright
- *    notice, this list of conditions and the following disclaimer.
- *
- * 2. Redistributions in binary form must reproduce the above copyright
- *    notice, this list of conditions and the following disclaimer in
- *    the documentation and/or other materials provided with the
- *    distribution.
- *
- * 3. The end-user documentation included with the redistribution,
- *    if any, must include the following acknowledgment:
- *       "This product includes software developed by the
- *        Apache Software Foundation (http://www.apache.org/)."
- *    Alternately, this acknowledgment may appear in the software itself,
- *    if and wherever such third-party acknowledgments normally appear.
- *
- * 4. The names "Apache" and "Apache Software Foundation" must
- *    not be used to endorse or promote products derived from this
- *    software without prior written permission. For written
- *    permission, please contact apache@apache.org.
- *
- * 5. Products derived from this software may not be called "Apache",
- *    nor may "Apache" appear in their name, without prior written
- *    permission of the Apache Software Foundation.
- *
- * THIS SOFTWARE IS PROVIDED ``AS IS'' AND ANY EXPRESSED OR IMPLIED
- * WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES
- * OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
- * DISCLAIMED.  IN NO EVENT SHALL THE APACHE SOFTWARE FOUNDATION OR
- * ITS CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL,
- * SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT
- * LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF
- * USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND
- * ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY,
- * OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT
- * OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF
- * SUCH DAMAGE.
- * ====================================================================
- *
- * This software consists of voluntary contributions made by many
- * individuals on behalf of the Apache Software Foundation.  For more
- * information on the Apache Software Foundation, please see
- * <http://www.apache.org/>.
- */
+/*
+**  Copyright 2003-2004  The Apache Software Foundation
+**
+**  Licensed under the Apache License, Version 2.0 (the "License");
+**  you may not use this file except in compliance with the License.
+**  You may obtain a copy of the License at
+**
+**      http://www.apache.org/licenses/LICENSE-2.0
+**
+**  Unless required by applicable law or agreed to in writing, software
+**  distributed under the License is distributed on an "AS IS" BASIS,
+**  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+**  See the License for the specific language governing permissions and
+**  limitations under the License.
+*/
 
 #ifndef APREQ_XS_POSTPERL_H
 #define APREQ_XS_POSTPERL_H
+
+/* backward compatibility macros support */
+#include "ppport.h"
 
 /**
  * @file apreq_xs_postperl.h
@@ -74,7 +39,7 @@
  * @return    The object, if found;  otherwise NULL.
  */
 APR_INLINE
-static SV *apreq_xs_find_obj(SV *in, const char *key)
+static SV *apreq_xs_find_obj(pTHX_ SV *in, const char *key)
 {
     const char altkey[] = { '_', key[0] };
 
@@ -84,12 +49,12 @@ static SV *apreq_xs_find_obj(SV *in, const char *key)
             MAGIC *mg;
             SV **svp;
         case SVt_PVHV:
-          if (SvMAGICAL(sv) && (mg = mg_find(sv,PERL_MAGIC_tied))) {
+            if (SvMAGICAL(sv) && (mg = mg_find(sv,PERL_MAGIC_tied))) {
                in = mg->mg_obj;
                break;
-           }
-           else if ((svp = hv_fetch((HV *)sv, key, 1, FALSE)) ||
-                    (svp = hv_fetch((HV *)sv, altkey, 2, FALSE)))
+            }
+            else if ((svp = hv_fetch((HV *)sv, key, 1, FALSE)) ||
+                     (svp = hv_fetch((HV *)sv, altkey, 2, FALSE)))
             {
                 in = *svp;
                 break;
@@ -112,9 +77,9 @@ static SV *apreq_xs_find_obj(SV *in, const char *key)
  * and produces a pointer to the object's C analog.
  */
 APR_INLINE
-static void *apreq_xs_perl2c(SV* in, const char *name)
+static void *apreq_xs_perl2c(pTHX_ SV* in, const char *name)
 {
-    SV *sv = apreq_xs_find_obj(in, name);
+    SV *sv = apreq_xs_find_obj(aTHX_ in, name);
     if (sv == NULL)
         return NULL;
     else 
@@ -126,7 +91,7 @@ static void *apreq_xs_perl2c(SV* in, const char *name)
  * and produces a pointer to the underlying C environment.
  */ 
 APR_INLINE
-static void *apreq_xs_perl2env(SV *sv)
+static void *apreq_xs_perl2env(pTHX_ SV *sv)
 {
     MAGIC *mg;
     if (sv != NULL && (mg = mg_find(sv, PERL_MAGIC_ext)))
@@ -145,8 +110,19 @@ APR_INLINE
 static SV *apreq_xs_c2perl(pTHX_ void *obj, void *env, const char *class)
 {
     SV *rv = sv_setref_pv(newSV(0), class, obj);
-    if (env)
-        sv_magic(SvRV(rv), Nullsv, PERL_MAGIC_ext, env, 0);
+    if (env) {
+        /* We use the old idiom for sv_magic() below,
+         * because perl 5.6 mangles the env pointer on
+         * the recommended 5.8.x invocation
+         *
+         *   sv_magic(SvRV(rv), Nullsv, PERL_MAGIC_ext, env, 0);
+         *
+         * 5.8.x is OK with the old way as well, but in the future
+         * we may have to use "#if PERL_VERSION < 8" ...
+         */
+        sv_magic(SvRV(rv), Nullsv, PERL_MAGIC_ext, Nullch, -1);
+        SvMAGIC(SvRV(rv))->mg_ptr = env;
+    }
     return rv;
 }
 
@@ -163,8 +139,19 @@ static SV *apreq_xs_table_c2perl(pTHX_ void *obj, void *env,
 {
     SV *sv = (SV *)newHV();
     SV *rv = sv_setref_pv(newSV(0), class, obj);
-    if (env)
-        sv_magic(SvRV(rv), Nullsv, PERL_MAGIC_ext, env, 0);
+    if (env) {
+        /* We use the old idiom for sv_magic() below,
+         * because perl 5.6 mangles the env pointer on
+         * the recommended 5.8.x invocation
+         *
+         *   sv_magic(SvRV(rv), Nullsv, PERL_MAGIC_ext, env, 0);
+         *
+         * 5.8.x is OK with the old way as well, but in the future
+         * we may have to use "#if PERL_VERSION < 8" ...
+         */
+        sv_magic(SvRV(rv), Nullsv, PERL_MAGIC_ext, Nullch, -1);
+        SvMAGIC(SvRV(rv))->mg_ptr = env;
+    }
 
     sv_magic(sv, rv, PERL_MAGIC_tied, Nullch, 0);
     SvREFCNT_dec(rv); /* corrects SvREFCNT_inc(rv) implicit in sv_magic */
@@ -174,8 +161,9 @@ static SV *apreq_xs_table_c2perl(pTHX_ void *obj, void *env,
 
 
 #define apreq_xs_2sv(t,class) apreq_xs_c2perl(aTHX_ t, env, class)
-#define apreq_xs_sv2(type,sv)((apreq_##type##_t *)apreq_xs_perl2c(sv, #type))
-#define apreq_xs_sv2env(sv) apreq_xs_perl2env(sv)
+#define apreq_xs_sv2(type,sv)((apreq_##type##_t *)apreq_xs_perl2c(aTHX_ sv, \
+                                                                  #type))
+#define apreq_xs_sv2env(sv) apreq_xs_perl2env(aTHX_ sv)
 
 /** Converts apreq_env to a Perl package, which forms the
  * base class for Apache::Request and Apache::Cookie::Jar objects.
@@ -199,7 +187,7 @@ static XS(apreq_xs_##type##_env)                        \
         XSRETURN(0);                                    \
                                                         \
     if (SvROK(ST(0))) {                                 \
-        SV *sv = apreq_xs_find_obj(ST(0), #type);       \
+        SV *sv = apreq_xs_find_obj(aTHX_ ST(0), #type); \
         void *env = apreq_xs_sv2env(sv);                \
                                                         \
         if (env)                                        \
@@ -215,7 +203,7 @@ static XS(apreq_xs_##type##_env)                        \
 }
 
 
-/** requires type##2sv macro */
+/** requires apreq_##type (type is either request or jar) */
 
 #define APREQ_XS_DEFINE_OBJECT(type)                                    \
 static XS(apreq_xs_##type)                                              \
@@ -276,8 +264,11 @@ struct apreq_xs_do_arg {
 static int apreq_xs_table_keys(void *data, const char *key,
                                const char *val)
 {
+#ifdef USE_ITHREADS
     struct apreq_xs_do_arg *d = (struct apreq_xs_do_arg *)data;
     dTHXa(d->perl);
+#endif
+
     dSP;
 
     if (key)
@@ -372,7 +363,7 @@ static XS(apreq_xs_##attr##_get)                                        \
         }                                                               \
                                                                         \
         RETVAL = apreq_xs_##attr##_##type(ST(0), key);                  \
-        if (!(COND) || !RETVAL)                                         \
+        if (!RETVAL || !(COND))                                         \
             XSRETURN_UNDEF;                                             \
         ST(0) = sv_2mortal(apreq_xs_##type##2sv(RETVAL,subclass));      \
         XSRETURN(1);                                                    \

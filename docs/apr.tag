@@ -3,7 +3,7 @@
   <compound kind="file">
     <name>apr.h</name>
     <path>/home/joe/src/apache/apr/include/</path>
-    <filename>apr_8h</filename>
+    <filename>apr_8h.html</filename>
     <member kind="define">
       <type>#define</type>
       <name>APR_INLINE</name>
@@ -156,577 +156,577 @@
     </member>
     <member kind="define">
       <type>#define</type>
-      <name>APR_HAVE_SYS_SENDFILE_H</name>
+      <name>APR_HAVE_SYS_IOCTL_H</name>
       <anchor>a36</anchor>
       <arglist></arglist>
     </member>
     <member kind="define">
       <type>#define</type>
-      <name>APR_HAVE_SYS_SIGNAL_H</name>
+      <name>APR_HAVE_SYS_SENDFILE_H</name>
       <anchor>a37</anchor>
       <arglist></arglist>
     </member>
     <member kind="define">
       <type>#define</type>
-      <name>APR_HAVE_SYS_SOCKET_H</name>
+      <name>APR_HAVE_SYS_SIGNAL_H</name>
       <anchor>a38</anchor>
       <arglist></arglist>
     </member>
     <member kind="define">
       <type>#define</type>
-      <name>APR_HAVE_SYS_SYSLIMITS_H</name>
+      <name>APR_HAVE_SYS_SOCKET_H</name>
       <anchor>a39</anchor>
       <arglist></arglist>
     </member>
     <member kind="define">
       <type>#define</type>
-      <name>APR_HAVE_SYS_TIME_H</name>
+      <name>APR_HAVE_SYS_SOCKIO_H</name>
       <anchor>a40</anchor>
       <arglist></arglist>
     </member>
     <member kind="define">
       <type>#define</type>
-      <name>APR_HAVE_SYS_TYPES_H</name>
+      <name>APR_HAVE_SYS_SYSLIMITS_H</name>
       <anchor>a41</anchor>
       <arglist></arglist>
     </member>
     <member kind="define">
       <type>#define</type>
-      <name>APR_HAVE_SYS_UIO_H</name>
+      <name>APR_HAVE_SYS_TIME_H</name>
       <anchor>a42</anchor>
       <arglist></arglist>
     </member>
     <member kind="define">
       <type>#define</type>
-      <name>APR_HAVE_SYS_UN_H</name>
+      <name>APR_HAVE_SYS_TYPES_H</name>
       <anchor>a43</anchor>
       <arglist></arglist>
     </member>
     <member kind="define">
       <type>#define</type>
-      <name>APR_HAVE_SYS_WAIT_H</name>
+      <name>APR_HAVE_SYS_UIO_H</name>
       <anchor>a44</anchor>
       <arglist></arglist>
     </member>
     <member kind="define">
       <type>#define</type>
-      <name>APR_HAVE_TIME_H</name>
+      <name>APR_HAVE_SYS_UN_H</name>
       <anchor>a45</anchor>
       <arglist></arglist>
     </member>
     <member kind="define">
       <type>#define</type>
-      <name>APR_HAVE_UNISTD_H</name>
+      <name>APR_HAVE_SYS_WAIT_H</name>
       <anchor>a46</anchor>
       <arglist></arglist>
     </member>
     <member kind="define">
       <type>#define</type>
-      <name>APR_HAVE_SHMEM_MMAP_TMP</name>
+      <name>APR_HAVE_TIME_H</name>
       <anchor>a47</anchor>
       <arglist></arglist>
     </member>
     <member kind="define">
       <type>#define</type>
-      <name>APR_HAVE_SHMEM_MMAP_SHM</name>
+      <name>APR_HAVE_UNISTD_H</name>
       <anchor>a48</anchor>
       <arglist></arglist>
     </member>
     <member kind="define">
       <type>#define</type>
-      <name>APR_HAVE_SHMEM_MMAP_ZERO</name>
+      <name>APR_HAVE_SHMEM_MMAP_TMP</name>
       <anchor>a49</anchor>
       <arglist></arglist>
     </member>
     <member kind="define">
       <type>#define</type>
-      <name>APR_HAVE_SHMEM_SHMGET_ANON</name>
+      <name>APR_HAVE_SHMEM_MMAP_SHM</name>
       <anchor>a50</anchor>
       <arglist></arglist>
     </member>
     <member kind="define">
       <type>#define</type>
-      <name>APR_HAVE_SHMEM_SHMGET</name>
+      <name>APR_HAVE_SHMEM_MMAP_ZERO</name>
       <anchor>a51</anchor>
       <arglist></arglist>
     </member>
     <member kind="define">
       <type>#define</type>
-      <name>APR_HAVE_SHMEM_MMAP_ANON</name>
+      <name>APR_HAVE_SHMEM_SHMGET_ANON</name>
       <anchor>a52</anchor>
       <arglist></arglist>
     </member>
     <member kind="define">
       <type>#define</type>
-      <name>APR_HAVE_SHMEM_BEOS</name>
+      <name>APR_HAVE_SHMEM_SHMGET</name>
       <anchor>a53</anchor>
       <arglist></arglist>
     </member>
     <member kind="define">
       <type>#define</type>
-      <name>APR_USE_SHMEM_MMAP_TMP</name>
+      <name>APR_HAVE_SHMEM_MMAP_ANON</name>
       <anchor>a54</anchor>
       <arglist></arglist>
     </member>
     <member kind="define">
       <type>#define</type>
-      <name>APR_USE_SHMEM_MMAP_SHM</name>
+      <name>APR_HAVE_SHMEM_BEOS</name>
       <anchor>a55</anchor>
       <arglist></arglist>
     </member>
     <member kind="define">
       <type>#define</type>
-      <name>APR_USE_SHMEM_MMAP_ZERO</name>
+      <name>APR_USE_SHMEM_MMAP_TMP</name>
       <anchor>a56</anchor>
       <arglist></arglist>
     </member>
     <member kind="define">
       <type>#define</type>
-      <name>APR_USE_SHMEM_SHMGET_ANON</name>
+      <name>APR_USE_SHMEM_MMAP_SHM</name>
       <anchor>a57</anchor>
       <arglist></arglist>
     </member>
     <member kind="define">
       <type>#define</type>
-      <name>APR_USE_SHMEM_SHMGET</name>
+      <name>APR_USE_SHMEM_MMAP_ZERO</name>
       <anchor>a58</anchor>
       <arglist></arglist>
     </member>
     <member kind="define">
       <type>#define</type>
-      <name>APR_USE_SHMEM_MMAP_ANON</name>
+      <name>APR_USE_SHMEM_SHMGET_ANON</name>
       <anchor>a59</anchor>
       <arglist></arglist>
     </member>
     <member kind="define">
       <type>#define</type>
-      <name>APR_USE_SHMEM_BEOS</name>
+      <name>APR_USE_SHMEM_SHMGET</name>
       <anchor>a60</anchor>
       <arglist></arglist>
     </member>
     <member kind="define">
       <type>#define</type>
-      <name>APR_USE_FLOCK_SERIALIZE</name>
+      <name>APR_USE_SHMEM_MMAP_ANON</name>
       <anchor>a61</anchor>
       <arglist></arglist>
     </member>
     <member kind="define">
       <type>#define</type>
-      <name>APR_USE_SYSVSEM_SERIALIZE</name>
+      <name>APR_USE_SHMEM_BEOS</name>
       <anchor>a62</anchor>
       <arglist></arglist>
     </member>
     <member kind="define">
       <type>#define</type>
-      <name>APR_USE_POSIXSEM_SERIALIZE</name>
+      <name>APR_USE_FLOCK_SERIALIZE</name>
       <anchor>a63</anchor>
       <arglist></arglist>
     </member>
     <member kind="define">
       <type>#define</type>
-      <name>APR_USE_FCNTL_SERIALIZE</name>
+      <name>APR_USE_SYSVSEM_SERIALIZE</name>
       <anchor>a64</anchor>
       <arglist></arglist>
     </member>
     <member kind="define">
       <type>#define</type>
-      <name>APR_USE_PROC_PTHREAD_SERIALIZE</name>
+      <name>APR_USE_POSIXSEM_SERIALIZE</name>
       <anchor>a65</anchor>
       <arglist></arglist>
     </member>
     <member kind="define">
       <type>#define</type>
-      <name>APR_USE_PTHREAD_SERIALIZE</name>
+      <name>APR_USE_FCNTL_SERIALIZE</name>
       <anchor>a66</anchor>
       <arglist></arglist>
     </member>
     <member kind="define">
       <type>#define</type>
-      <name>APR_HAS_FLOCK_SERIALIZE</name>
+      <name>APR_USE_PROC_PTHREAD_SERIALIZE</name>
       <anchor>a67</anchor>
       <arglist></arglist>
     </member>
     <member kind="define">
       <type>#define</type>
-      <name>APR_HAS_SYSVSEM_SERIALIZE</name>
+      <name>APR_USE_PTHREAD_SERIALIZE</name>
       <anchor>a68</anchor>
       <arglist></arglist>
     </member>
     <member kind="define">
       <type>#define</type>
-      <name>APR_HAS_POSIXSEM_SERIALIZE</name>
+      <name>APR_HAS_FLOCK_SERIALIZE</name>
       <anchor>a69</anchor>
       <arglist></arglist>
     </member>
     <member kind="define">
       <type>#define</type>
-      <name>APR_HAS_FCNTL_SERIALIZE</name>
+      <name>APR_HAS_SYSVSEM_SERIALIZE</name>
       <anchor>a70</anchor>
       <arglist></arglist>
     </member>
     <member kind="define">
       <type>#define</type>
-      <name>APR_HAS_PROC_PTHREAD_SERIALIZE</name>
+      <name>APR_HAS_POSIXSEM_SERIALIZE</name>
       <anchor>a71</anchor>
       <arglist></arglist>
     </member>
     <member kind="define">
       <type>#define</type>
-      <name>APR_HAS_RWLOCK_SERIALIZE</name>
+      <name>APR_HAS_FCNTL_SERIALIZE</name>
       <anchor>a72</anchor>
       <arglist></arglist>
     </member>
     <member kind="define">
       <type>#define</type>
-      <name>APR_PROCESS_LOCK_IS_GLOBAL</name>
+      <name>APR_HAS_PROC_PTHREAD_SERIALIZE</name>
       <anchor>a73</anchor>
       <arglist></arglist>
     </member>
     <member kind="define">
       <type>#define</type>
-      <name>APR_HAVE_CORKABLE_TCP</name>
+      <name>APR_PROCESS_LOCK_IS_GLOBAL</name>
       <anchor>a74</anchor>
       <arglist></arglist>
     </member>
     <member kind="define">
       <type>#define</type>
-      <name>APR_HAVE_GETRLIMIT</name>
+      <name>APR_HAVE_CORKABLE_TCP</name>
       <anchor>a75</anchor>
       <arglist></arglist>
     </member>
     <member kind="define">
       <type>#define</type>
-      <name>APR_HAVE_IN_ADDR</name>
+      <name>APR_HAVE_GETRLIMIT</name>
       <anchor>a76</anchor>
       <arglist></arglist>
     </member>
     <member kind="define">
       <type>#define</type>
-      <name>APR_HAVE_INET_ADDR</name>
+      <name>APR_HAVE_IN_ADDR</name>
       <anchor>a77</anchor>
       <arglist></arglist>
     </member>
     <member kind="define">
       <type>#define</type>
-      <name>APR_HAVE_INET_NETWORK</name>
+      <name>APR_HAVE_INET_ADDR</name>
       <anchor>a78</anchor>
       <arglist></arglist>
     </member>
     <member kind="define">
       <type>#define</type>
-      <name>APR_HAVE_IPV6</name>
+      <name>APR_HAVE_INET_NETWORK</name>
       <anchor>a79</anchor>
       <arglist></arglist>
     </member>
     <member kind="define">
       <type>#define</type>
-      <name>APR_HAVE_MEMMOVE</name>
+      <name>APR_HAVE_IPV6</name>
       <anchor>a80</anchor>
       <arglist></arglist>
     </member>
     <member kind="define">
       <type>#define</type>
-      <name>APR_HAVE_SETRLIMIT</name>
+      <name>APR_HAVE_MEMMOVE</name>
       <anchor>a81</anchor>
       <arglist></arglist>
     </member>
     <member kind="define">
       <type>#define</type>
-      <name>APR_HAVE_SIGACTION</name>
+      <name>APR_HAVE_SETRLIMIT</name>
       <anchor>a82</anchor>
       <arglist></arglist>
     </member>
     <member kind="define">
       <type>#define</type>
-      <name>APR_HAVE_SIGSUSPEND</name>
+      <name>APR_HAVE_SIGACTION</name>
       <anchor>a83</anchor>
       <arglist></arglist>
     </member>
     <member kind="define">
       <type>#define</type>
-      <name>APR_HAVE_SIGWAIT</name>
+      <name>APR_HAVE_SIGSUSPEND</name>
       <anchor>a84</anchor>
       <arglist></arglist>
     </member>
     <member kind="define">
       <type>#define</type>
-      <name>APR_HAVE_SA_STORAGE</name>
+      <name>APR_HAVE_SIGWAIT</name>
       <anchor>a85</anchor>
       <arglist></arglist>
     </member>
     <member kind="define">
       <type>#define</type>
-      <name>APR_HAVE_STRCASECMP</name>
+      <name>APR_HAVE_SA_STORAGE</name>
       <anchor>a86</anchor>
       <arglist></arglist>
     </member>
     <member kind="define">
       <type>#define</type>
-      <name>APR_HAVE_STRDUP</name>
+      <name>APR_HAVE_STRCASECMP</name>
       <anchor>a87</anchor>
       <arglist></arglist>
     </member>
     <member kind="define">
       <type>#define</type>
-      <name>APR_HAVE_STRICMP</name>
+      <name>APR_HAVE_STRDUP</name>
       <anchor>a88</anchor>
       <arglist></arglist>
     </member>
     <member kind="define">
       <type>#define</type>
-      <name>APR_HAVE_STRNCASECMP</name>
+      <name>APR_HAVE_STRICMP</name>
       <anchor>a89</anchor>
       <arglist></arglist>
     </member>
     <member kind="define">
       <type>#define</type>
-      <name>APR_HAVE_STRNICMP</name>
+      <name>APR_HAVE_STRNCASECMP</name>
       <anchor>a90</anchor>
       <arglist></arglist>
     </member>
     <member kind="define">
       <type>#define</type>
-      <name>APR_HAVE_STRSTR</name>
+      <name>APR_HAVE_STRNICMP</name>
       <anchor>a91</anchor>
       <arglist></arglist>
     </member>
     <member kind="define">
       <type>#define</type>
-      <name>APR_HAVE_MEMCHR</name>
+      <name>APR_HAVE_STRSTR</name>
       <anchor>a92</anchor>
       <arglist></arglist>
     </member>
     <member kind="define">
       <type>#define</type>
-      <name>APR_HAVE_STRUCT_RLIMIT</name>
+      <name>APR_HAVE_MEMCHR</name>
       <anchor>a93</anchor>
       <arglist></arglist>
     </member>
     <member kind="define">
       <type>#define</type>
-      <name>APR_HAVE_UNION_SEMUN</name>
+      <name>APR_HAVE_STRUCT_RLIMIT</name>
       <anchor>a94</anchor>
       <arglist></arglist>
     </member>
     <member kind="define">
       <type>#define</type>
-      <name>APR_HAVE_SCTP</name>
+      <name>APR_HAVE_UNION_SEMUN</name>
       <anchor>a95</anchor>
       <arglist></arglist>
     </member>
     <member kind="define">
       <type>#define</type>
-      <name>APR_HAS_SHARED_MEMORY</name>
+      <name>APR_HAVE_SCTP</name>
       <anchor>a96</anchor>
       <arglist></arglist>
     </member>
     <member kind="define">
       <type>#define</type>
-      <name>APR_HAS_THREADS</name>
+      <name>APR_HAS_SHARED_MEMORY</name>
       <anchor>a97</anchor>
       <arglist></arglist>
     </member>
     <member kind="define">
       <type>#define</type>
-      <name>APR_HAS_SENDFILE</name>
+      <name>APR_HAS_THREADS</name>
       <anchor>a98</anchor>
       <arglist></arglist>
     </member>
     <member kind="define">
       <type>#define</type>
-      <name>APR_HAS_MMAP</name>
+      <name>APR_HAS_SENDFILE</name>
       <anchor>a99</anchor>
       <arglist></arglist>
     </member>
     <member kind="define">
       <type>#define</type>
-      <name>APR_HAS_FORK</name>
+      <name>APR_HAS_MMAP</name>
       <anchor>a100</anchor>
       <arglist></arglist>
     </member>
     <member kind="define">
       <type>#define</type>
-      <name>APR_HAS_RANDOM</name>
+      <name>APR_HAS_FORK</name>
       <anchor>a101</anchor>
       <arglist></arglist>
     </member>
     <member kind="define">
       <type>#define</type>
-      <name>APR_HAS_OTHER_CHILD</name>
+      <name>APR_HAS_RANDOM</name>
       <anchor>a102</anchor>
       <arglist></arglist>
     </member>
     <member kind="define">
       <type>#define</type>
-      <name>APR_HAS_DSO</name>
+      <name>APR_HAS_OTHER_CHILD</name>
       <anchor>a103</anchor>
       <arglist></arglist>
     </member>
     <member kind="define">
       <type>#define</type>
-      <name>APR_HAS_SO_ACCEPTFILTER</name>
+      <name>APR_HAS_DSO</name>
       <anchor>a104</anchor>
       <arglist></arglist>
     </member>
     <member kind="define">
       <type>#define</type>
-      <name>APR_HAS_UNICODE_FS</name>
+      <name>APR_HAS_SO_ACCEPTFILTER</name>
       <anchor>a105</anchor>
       <arglist></arglist>
     </member>
     <member kind="define">
       <type>#define</type>
-      <name>APR_HAS_PROC_INVOKED</name>
+      <name>APR_HAS_UNICODE_FS</name>
       <anchor>a106</anchor>
       <arglist></arglist>
     </member>
     <member kind="define">
       <type>#define</type>
-      <name>APR_HAS_USER</name>
+      <name>APR_HAS_PROC_INVOKED</name>
       <anchor>a107</anchor>
       <arglist></arglist>
     </member>
     <member kind="define">
       <type>#define</type>
-      <name>APR_HAS_LARGE_FILES</name>
+      <name>APR_HAS_USER</name>
       <anchor>a108</anchor>
       <arglist></arglist>
     </member>
     <member kind="define">
       <type>#define</type>
-      <name>APR_HAS_XTHREAD_FILES</name>
+      <name>APR_HAS_LARGE_FILES</name>
       <anchor>a109</anchor>
       <arglist></arglist>
     </member>
     <member kind="define">
       <type>#define</type>
-      <name>APR_HAS_OS_UUID</name>
+      <name>APR_HAS_XTHREAD_FILES</name>
       <anchor>a110</anchor>
       <arglist></arglist>
     </member>
     <member kind="define">
       <type>#define</type>
-      <name>APR_FILES_AS_SOCKETS</name>
+      <name>APR_HAS_OS_UUID</name>
       <anchor>a111</anchor>
       <arglist></arglist>
     </member>
     <member kind="define">
       <type>#define</type>
-      <name>APR_CHARSET_EBCDIC</name>
+      <name>APR_FILES_AS_SOCKETS</name>
       <anchor>a112</anchor>
       <arglist></arglist>
     </member>
     <member kind="define">
       <type>#define</type>
-      <name>APR_TCP_NOPUSH_FLAG</name>
+      <name>APR_CHARSET_EBCDIC</name>
       <anchor>a113</anchor>
       <arglist></arglist>
     </member>
     <member kind="define">
       <type>#define</type>
-      <name>APR_TCP_NODELAY_INHERITED</name>
+      <name>APR_TCP_NOPUSH_FLAG</name>
       <anchor>a114</anchor>
       <arglist></arglist>
     </member>
     <member kind="define">
       <type>#define</type>
-      <name>APR_O_NONBLOCK_INHERITED</name>
+      <name>APR_TCP_NODELAY_INHERITED</name>
       <anchor>a115</anchor>
       <arglist></arglist>
     </member>
     <member kind="define">
       <type>#define</type>
-      <name>APR_SIZEOF_VOIDP</name>
+      <name>APR_O_NONBLOCK_INHERITED</name>
       <anchor>a116</anchor>
       <arglist></arglist>
     </member>
     <member kind="define">
       <type>#define</type>
-      <name>APR_INT64_C</name>
+      <name>APR_SIZEOF_VOIDP</name>
       <anchor>a117</anchor>
-      <arglist>(val)</arglist>
+      <arglist></arglist>
     </member>
     <member kind="define">
       <type>#define</type>
-      <name>APR_THREAD_FUNC</name>
+      <name>APR_IS_BIGENDIAN</name>
       <anchor>a118</anchor>
       <arglist></arglist>
     </member>
     <member kind="define">
       <type>#define</type>
-      <name>APR_DECLARE</name>
+      <name>APR_INT64_C</name>
       <anchor>a119</anchor>
-      <arglist>(type)</arglist>
+      <arglist>(val)</arglist>
     </member>
     <member kind="define">
       <type>#define</type>
-      <name>APR_DECLARE_NONSTD</name>
+      <name>APR_UINT64_C</name>
       <anchor>a120</anchor>
-      <arglist>(type)</arglist>
+      <arglist>(val)</arglist>
     </member>
     <member kind="define">
       <type>#define</type>
-      <name>APR_DECLARE_DATA</name>
+      <name>APR_THREAD_FUNC</name>
       <anchor>a121</anchor>
       <arglist></arglist>
     </member>
     <member kind="define">
       <type>#define</type>
-      <name>APR_SSIZE_T_FMT</name>
+      <name>APR_DECLARE</name>
       <anchor>a122</anchor>
-      <arglist></arglist>
+      <arglist>(type)</arglist>
     </member>
     <member kind="define">
       <type>#define</type>
-      <name>APR_SIZE_T_FMT</name>
+      <name>APR_DECLARE_NONSTD</name>
       <anchor>a123</anchor>
-      <arglist></arglist>
+      <arglist>(type)</arglist>
     </member>
     <member kind="define">
       <type>#define</type>
-      <name>APR_OFF_T_FMT</name>
+      <name>APR_DECLARE_DATA</name>
       <anchor>a124</anchor>
       <arglist></arglist>
     </member>
     <member kind="define">
       <type>#define</type>
-      <name>APR_PID_T_FMT</name>
+      <name>APR_SSIZE_T_FMT</name>
       <anchor>a125</anchor>
       <arglist></arglist>
     </member>
     <member kind="define">
       <type>#define</type>
-      <name>APR_INT64_T_FMT</name>
+      <name>APR_SIZE_T_FMT</name>
       <anchor>a126</anchor>
       <arglist></arglist>
     </member>
     <member kind="define">
       <type>#define</type>
-      <name>APR_UINT64_T_FMT</name>
+      <name>APR_OFF_T_FMT</name>
       <anchor>a127</anchor>
       <arglist></arglist>
     </member>
     <member kind="define">
       <type>#define</type>
-      <name>APR_UINT64_T_HEX_FMT</name>
+      <name>APR_PID_T_FMT</name>
       <anchor>a128</anchor>
       <arglist></arglist>
     </member>
     <member kind="define">
       <type>#define</type>
-      <name>APR_HAVE_INT64_STRFN</name>
+      <name>APR_INT64_T_FMT</name>
       <anchor>a129</anchor>
       <arglist></arglist>
     </member>
     <member kind="define">
       <type>#define</type>
-      <name>APR_INT64_STRFN</name>
+      <name>APR_UINT64_T_FMT</name>
       <anchor>a130</anchor>
       <arglist></arglist>
     </member>
     <member kind="define">
       <type>#define</type>
-      <name>APR_FORCE_ATOMIC_GENERIC</name>
+      <name>APR_UINT64_T_HEX_FMT</name>
       <anchor>a131</anchor>
       <arglist></arglist>
     </member>
@@ -791,13 +791,13 @@
       <arglist></arglist>
     </member>
     <member kind="typedef">
-      <type>long long</type>
+      <type>long</type>
       <name>apr_int64_t</name>
       <anchor>a5</anchor>
       <arglist></arglist>
     </member>
     <member kind="typedef">
-      <type>unsigned long long</type>
+      <type>unsigned long</type>
       <name>apr_uint64_t</name>
       <anchor>a6</anchor>
       <arglist></arglist>
@@ -830,12 +830,7 @@
   <compound kind="file">
     <name>apr_allocator.h</name>
     <path>/home/joe/src/apache/apr/include/</path>
-    <filename>apr__allocator_8h</filename>
-    <includes id="apr_8h" name="apr.h" local="yes">apr.h</includes>
-    <includes id="apr__errno_8h" name="apr_errno.h" local="yes">apr_errno.h</includes>
-    <includes id="apr__want_8h" name="apr_want.h" local="yes">apr_want.h</includes>
-    <includes id="apr__pools_8h" name="apr_pools.h" local="yes">apr_pools.h</includes>
-    <includes id="apr__thread__mutex_8h" name="apr_thread_mutex.h" local="yes">apr_thread_mutex.h</includes>
+    <filename>apr__allocator_8h.html</filename>
     <class kind="struct">apr_memnode_t</class>
     <member kind="define">
       <type>#define</type>
@@ -925,119 +920,72 @@
   <compound kind="file">
     <name>apr_atomic.h</name>
     <path>/home/joe/src/apache/apr/include/</path>
-    <filename>apr__atomic_8h</filename>
-    <includes id="apr_8h" name="apr.h" local="yes">apr.h</includes>
-    <includes id="apr__pools_8h" name="apr_pools.h" local="yes">apr_pools.h</includes>
+    <filename>apr__atomic_8h.html</filename>
     <member kind="function">
       <type>apr_status_t</type>
       <name>apr_atomic_init</name>
-      <anchor>a1</anchor>
+      <anchor>a0</anchor>
       <arglist>(apr_pool_t *p)</arglist>
     </member>
     <member kind="function">
       <type>apr_uint32_t</type>
-      <name>apr_atomic_read</name>
-      <anchor>a2</anchor>
-      <arglist>(volatile apr_atomic_t *mem)</arglist>
-    </member>
-    <member kind="function">
-      <type>void</type>
-      <name>apr_atomic_set</name>
-      <anchor>a3</anchor>
-      <arglist>(volatile apr_atomic_t *mem, apr_uint32_t val)</arglist>
-    </member>
-    <member kind="function">
-      <type>void</type>
-      <name>apr_atomic_add</name>
-      <anchor>a4</anchor>
-      <arglist>(volatile apr_atomic_t *mem, apr_uint32_t val)</arglist>
-    </member>
-    <member kind="function">
-      <type>void</type>
-      <name>apr_atomic_inc</name>
-      <anchor>a5</anchor>
-      <arglist>(volatile apr_atomic_t *mem)</arglist>
-    </member>
-    <member kind="function">
-      <type>int</type>
-      <name>apr_atomic_dec</name>
-      <anchor>a6</anchor>
-      <arglist>(volatile apr_atomic_t *mem)</arglist>
-    </member>
-    <member kind="function">
-      <type>apr_uint32_t</type>
-      <name>apr_atomic_cas</name>
-      <anchor>a7</anchor>
-      <arglist>(volatile apr_uint32_t *mem, long with, long cmp)</arglist>
-    </member>
-    <member kind="function">
-      <type>apr_uint32_t</type>
       <name>apr_atomic_read32</name>
-      <anchor>a8</anchor>
+      <anchor>a1</anchor>
       <arglist>(volatile apr_uint32_t *mem)</arglist>
     </member>
     <member kind="function">
       <type>void</type>
       <name>apr_atomic_set32</name>
-      <anchor>a9</anchor>
+      <anchor>a2</anchor>
       <arglist>(volatile apr_uint32_t *mem, apr_uint32_t val)</arglist>
     </member>
     <member kind="function">
-      <type>void</type>
+      <type>apr_uint32_t</type>
       <name>apr_atomic_add32</name>
-      <anchor>a10</anchor>
+      <anchor>a3</anchor>
       <arglist>(volatile apr_uint32_t *mem, apr_uint32_t val)</arglist>
     </member>
     <member kind="function">
       <type>void</type>
       <name>apr_atomic_sub32</name>
-      <anchor>a11</anchor>
+      <anchor>a4</anchor>
       <arglist>(volatile apr_uint32_t *mem, apr_uint32_t val)</arglist>
     </member>
     <member kind="function">
-      <type>void</type>
+      <type>apr_uint32_t</type>
       <name>apr_atomic_inc32</name>
-      <anchor>a12</anchor>
+      <anchor>a5</anchor>
       <arglist>(volatile apr_uint32_t *mem)</arglist>
     </member>
     <member kind="function">
       <type>int</type>
       <name>apr_atomic_dec32</name>
-      <anchor>a13</anchor>
+      <anchor>a6</anchor>
       <arglist>(volatile apr_uint32_t *mem)</arglist>
     </member>
     <member kind="function">
       <type>apr_uint32_t</type>
       <name>apr_atomic_cas32</name>
-      <anchor>a14</anchor>
+      <anchor>a7</anchor>
       <arglist>(volatile apr_uint32_t *mem, apr_uint32_t with, apr_uint32_t cmp)</arglist>
     </member>
     <member kind="function">
       <type>apr_uint32_t</type>
       <name>apr_atomic_xchg32</name>
-      <anchor>a15</anchor>
+      <anchor>a8</anchor>
       <arglist>(volatile apr_uint32_t *mem, apr_uint32_t val)</arglist>
     </member>
     <member kind="function">
       <type>void *</type>
       <name>apr_atomic_casptr</name>
-      <anchor>a16</anchor>
+      <anchor>a9</anchor>
       <arglist>(volatile void **mem, void *with, const void *cmp)</arglist>
-    </member>
-    <member kind="variable">
-      <type>typedef</type>
-      <name>apr_atomic_t</name>
-      <anchor>a0</anchor>
-      <arglist></arglist>
     </member>
   </compound>
   <compound kind="file">
     <name>apr_dso.h</name>
     <path>/home/joe/src/apache/apr/include/</path>
-    <filename>apr__dso_8h</filename>
-    <includes id="apr_8h" name="apr.h" local="yes">apr.h</includes>
-    <includes id="apr__pools_8h" name="apr_pools.h" local="yes">apr_pools.h</includes>
-    <includes id="apr__errno_8h" name="apr_errno.h" local="yes">apr_errno.h</includes>
+    <filename>apr__dso_8h.html</filename>
     <member kind="typedef">
       <type>apr_dso_handle_t</type>
       <name>apr_dso_handle_t</name>
@@ -1055,6 +1003,7 @@
       <name>apr_dso_load</name>
       <anchor>a2</anchor>
       <arglist>(apr_dso_handle_t **res_handle, const char *path, apr_pool_t *ctx)</arglist>
+      <docanchor>_bug000001</docanchor>
     </member>
     <member kind="function">
       <type>apr_status_t</type>
@@ -1078,9 +1027,7 @@
   <compound kind="file">
     <name>apr_env.h</name>
     <path>/home/joe/src/apache/apr/include/</path>
-    <filename>apr__env_8h</filename>
-    <includes id="apr__errno_8h" name="apr_errno.h" local="yes">apr_errno.h</includes>
-    <includes id="apr__pools_8h" name="apr_pools.h" local="yes">apr_pools.h</includes>
+    <filename>apr__env_8h.html</filename>
     <member kind="function">
       <type>apr_status_t</type>
       <name>apr_env_get</name>
@@ -1103,8 +1050,7 @@
   <compound kind="file">
     <name>apr_errno.h</name>
     <path>/home/joe/src/apache/apr/include/</path>
-    <filename>apr__errno_8h</filename>
-    <includes id="apr_8h" name="apr.h" local="yes">apr.h</includes>
+    <filename>apr__errno_8h.html</filename>
     <member kind="define">
       <type>#define</type>
       <name>APR_FROM_OS_ERROR</name>
@@ -1323,6 +1269,12 @@
     </member>
     <member kind="define">
       <type>#define</type>
+      <name>APR_ENOTENOUGHENTROPY</name>
+      <anchor>a25</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="define">
+      <type>#define</type>
       <name>APR_STATUS_IS_ENOSTAT</name>
       <anchor>a0</anchor>
       <arglist>(s)</arglist>
@@ -1473,398 +1425,404 @@
     </member>
     <member kind="define">
       <type>#define</type>
-      <name>APR_INCHILD</name>
+      <name>APR_STATUS_IS_ENOTENOUGHENTROPY</name>
       <anchor>a25</anchor>
+      <arglist>(s)</arglist>
+    </member>
+    <member kind="define">
+      <type>#define</type>
+      <name>APR_INCHILD</name>
+      <anchor>a26</anchor>
       <arglist></arglist>
     </member>
     <member kind="define">
       <type>#define</type>
       <name>APR_INPARENT</name>
-      <anchor>a26</anchor>
+      <anchor>a27</anchor>
       <arglist></arglist>
     </member>
     <member kind="define">
       <type>#define</type>
       <name>APR_DETACH</name>
-      <anchor>a27</anchor>
+      <anchor>a28</anchor>
       <arglist></arglist>
     </member>
     <member kind="define">
       <type>#define</type>
       <name>APR_NOTDETACH</name>
-      <anchor>a28</anchor>
+      <anchor>a29</anchor>
       <arglist></arglist>
     </member>
     <member kind="define">
       <type>#define</type>
       <name>APR_CHILD_DONE</name>
-      <anchor>a29</anchor>
+      <anchor>a30</anchor>
       <arglist></arglist>
     </member>
     <member kind="define">
       <type>#define</type>
       <name>APR_CHILD_NOTDONE</name>
-      <anchor>a30</anchor>
+      <anchor>a31</anchor>
       <arglist></arglist>
     </member>
     <member kind="define">
       <type>#define</type>
       <name>APR_TIMEUP</name>
-      <anchor>a31</anchor>
+      <anchor>a32</anchor>
       <arglist></arglist>
     </member>
     <member kind="define">
       <type>#define</type>
       <name>APR_INCOMPLETE</name>
-      <anchor>a32</anchor>
+      <anchor>a33</anchor>
       <arglist></arglist>
     </member>
     <member kind="define">
       <type>#define</type>
       <name>APR_BADCH</name>
-      <anchor>a33</anchor>
+      <anchor>a34</anchor>
       <arglist></arglist>
     </member>
     <member kind="define">
       <type>#define</type>
       <name>APR_BADARG</name>
-      <anchor>a34</anchor>
+      <anchor>a35</anchor>
       <arglist></arglist>
     </member>
     <member kind="define">
       <type>#define</type>
       <name>APR_EOF</name>
-      <anchor>a35</anchor>
+      <anchor>a36</anchor>
       <arglist></arglist>
     </member>
     <member kind="define">
       <type>#define</type>
       <name>APR_NOTFOUND</name>
-      <anchor>a36</anchor>
+      <anchor>a37</anchor>
       <arglist></arglist>
     </member>
     <member kind="define">
       <type>#define</type>
       <name>APR_ANONYMOUS</name>
-      <anchor>a37</anchor>
+      <anchor>a38</anchor>
       <arglist></arglist>
     </member>
     <member kind="define">
       <type>#define</type>
       <name>APR_FILEBASED</name>
-      <anchor>a38</anchor>
+      <anchor>a39</anchor>
       <arglist></arglist>
     </member>
     <member kind="define">
       <type>#define</type>
       <name>APR_KEYBASED</name>
-      <anchor>a39</anchor>
+      <anchor>a40</anchor>
       <arglist></arglist>
     </member>
     <member kind="define">
       <type>#define</type>
       <name>APR_EINIT</name>
-      <anchor>a40</anchor>
+      <anchor>a41</anchor>
       <arglist></arglist>
     </member>
     <member kind="define">
       <type>#define</type>
       <name>APR_ENOTIMPL</name>
-      <anchor>a41</anchor>
+      <anchor>a42</anchor>
       <arglist></arglist>
     </member>
     <member kind="define">
       <type>#define</type>
       <name>APR_EMISMATCH</name>
-      <anchor>a42</anchor>
+      <anchor>a43</anchor>
       <arglist></arglist>
     </member>
     <member kind="define">
       <type>#define</type>
       <name>APR_EBUSY</name>
-      <anchor>a43</anchor>
-      <arglist></arglist>
-    </member>
-    <member kind="define">
-      <type>#define</type>
-      <name>APR_STATUS_IS_INCHILD</name>
-      <anchor>a25</anchor>
-      <arglist>(s)</arglist>
-    </member>
-    <member kind="define">
-      <type>#define</type>
-      <name>APR_STATUS_IS_INPARENT</name>
-      <anchor>a26</anchor>
-      <arglist>(s)</arglist>
-    </member>
-    <member kind="define">
-      <type>#define</type>
-      <name>APR_STATUS_IS_DETACH</name>
-      <anchor>a27</anchor>
-      <arglist>(s)</arglist>
-    </member>
-    <member kind="define">
-      <type>#define</type>
-      <name>APR_STATUS_IS_NOTDETACH</name>
-      <anchor>a28</anchor>
-      <arglist>(s)</arglist>
-    </member>
-    <member kind="define">
-      <type>#define</type>
-      <name>APR_STATUS_IS_CHILD_DONE</name>
-      <anchor>a29</anchor>
-      <arglist>(s)</arglist>
-    </member>
-    <member kind="define">
-      <type>#define</type>
-      <name>APR_STATUS_IS_CHILD_NOTDONE</name>
-      <anchor>a30</anchor>
-      <arglist>(s)</arglist>
-    </member>
-    <member kind="define">
-      <type>#define</type>
-      <name>APR_STATUS_IS_TIMEUP</name>
-      <anchor>a31</anchor>
-      <arglist>(s)</arglist>
-    </member>
-    <member kind="define">
-      <type>#define</type>
-      <name>APR_STATUS_IS_INCOMPLETE</name>
-      <anchor>a32</anchor>
-      <arglist>(s)</arglist>
-    </member>
-    <member kind="define">
-      <type>#define</type>
-      <name>APR_STATUS_IS_BADCH</name>
-      <anchor>a33</anchor>
-      <arglist>(s)</arglist>
-    </member>
-    <member kind="define">
-      <type>#define</type>
-      <name>APR_STATUS_IS_BADARG</name>
-      <anchor>a34</anchor>
-      <arglist>(s)</arglist>
-    </member>
-    <member kind="define">
-      <type>#define</type>
-      <name>APR_STATUS_IS_EOF</name>
-      <anchor>a35</anchor>
-      <arglist>(s)</arglist>
-    </member>
-    <member kind="define">
-      <type>#define</type>
-      <name>APR_STATUS_IS_NOTFOUND</name>
-      <anchor>a36</anchor>
-      <arglist>(s)</arglist>
-    </member>
-    <member kind="define">
-      <type>#define</type>
-      <name>APR_STATUS_IS_ANONYMOUS</name>
-      <anchor>a37</anchor>
-      <arglist>(s)</arglist>
-    </member>
-    <member kind="define">
-      <type>#define</type>
-      <name>APR_STATUS_IS_FILEBASED</name>
-      <anchor>a38</anchor>
-      <arglist>(s)</arglist>
-    </member>
-    <member kind="define">
-      <type>#define</type>
-      <name>APR_STATUS_IS_KEYBASED</name>
-      <anchor>a39</anchor>
-      <arglist>(s)</arglist>
-    </member>
-    <member kind="define">
-      <type>#define</type>
-      <name>APR_STATUS_IS_EINIT</name>
-      <anchor>a40</anchor>
-      <arglist>(s)</arglist>
-    </member>
-    <member kind="define">
-      <type>#define</type>
-      <name>APR_STATUS_IS_ENOTIMPL</name>
-      <anchor>a41</anchor>
-      <arglist>(s)</arglist>
-    </member>
-    <member kind="define">
-      <type>#define</type>
-      <name>APR_STATUS_IS_EMISMATCH</name>
-      <anchor>a42</anchor>
-      <arglist>(s)</arglist>
-    </member>
-    <member kind="define">
-      <type>#define</type>
-      <name>APR_STATUS_IS_EBUSY</name>
-      <anchor>a43</anchor>
-      <arglist>(s)</arglist>
-    </member>
-    <member kind="define">
-      <type>#define</type>
-      <name>APR_EACCES</name>
       <anchor>a44</anchor>
       <arglist></arglist>
     </member>
     <member kind="define">
       <type>#define</type>
-      <name>APR_EEXIST</name>
+      <name>APR_STATUS_IS_INCHILD</name>
+      <anchor>a26</anchor>
+      <arglist>(s)</arglist>
+    </member>
+    <member kind="define">
+      <type>#define</type>
+      <name>APR_STATUS_IS_INPARENT</name>
+      <anchor>a27</anchor>
+      <arglist>(s)</arglist>
+    </member>
+    <member kind="define">
+      <type>#define</type>
+      <name>APR_STATUS_IS_DETACH</name>
+      <anchor>a28</anchor>
+      <arglist>(s)</arglist>
+    </member>
+    <member kind="define">
+      <type>#define</type>
+      <name>APR_STATUS_IS_NOTDETACH</name>
+      <anchor>a29</anchor>
+      <arglist>(s)</arglist>
+    </member>
+    <member kind="define">
+      <type>#define</type>
+      <name>APR_STATUS_IS_CHILD_DONE</name>
+      <anchor>a30</anchor>
+      <arglist>(s)</arglist>
+    </member>
+    <member kind="define">
+      <type>#define</type>
+      <name>APR_STATUS_IS_CHILD_NOTDONE</name>
+      <anchor>a31</anchor>
+      <arglist>(s)</arglist>
+    </member>
+    <member kind="define">
+      <type>#define</type>
+      <name>APR_STATUS_IS_TIMEUP</name>
+      <anchor>a32</anchor>
+      <arglist>(s)</arglist>
+    </member>
+    <member kind="define">
+      <type>#define</type>
+      <name>APR_STATUS_IS_INCOMPLETE</name>
+      <anchor>a33</anchor>
+      <arglist>(s)</arglist>
+    </member>
+    <member kind="define">
+      <type>#define</type>
+      <name>APR_STATUS_IS_BADCH</name>
+      <anchor>a34</anchor>
+      <arglist>(s)</arglist>
+    </member>
+    <member kind="define">
+      <type>#define</type>
+      <name>APR_STATUS_IS_BADARG</name>
+      <anchor>a35</anchor>
+      <arglist>(s)</arglist>
+    </member>
+    <member kind="define">
+      <type>#define</type>
+      <name>APR_STATUS_IS_EOF</name>
+      <anchor>a36</anchor>
+      <arglist>(s)</arglist>
+    </member>
+    <member kind="define">
+      <type>#define</type>
+      <name>APR_STATUS_IS_NOTFOUND</name>
+      <anchor>a37</anchor>
+      <arglist>(s)</arglist>
+    </member>
+    <member kind="define">
+      <type>#define</type>
+      <name>APR_STATUS_IS_ANONYMOUS</name>
+      <anchor>a38</anchor>
+      <arglist>(s)</arglist>
+    </member>
+    <member kind="define">
+      <type>#define</type>
+      <name>APR_STATUS_IS_FILEBASED</name>
+      <anchor>a39</anchor>
+      <arglist>(s)</arglist>
+    </member>
+    <member kind="define">
+      <type>#define</type>
+      <name>APR_STATUS_IS_KEYBASED</name>
+      <anchor>a40</anchor>
+      <arglist>(s)</arglist>
+    </member>
+    <member kind="define">
+      <type>#define</type>
+      <name>APR_STATUS_IS_EINIT</name>
+      <anchor>a41</anchor>
+      <arglist>(s)</arglist>
+    </member>
+    <member kind="define">
+      <type>#define</type>
+      <name>APR_STATUS_IS_ENOTIMPL</name>
+      <anchor>a42</anchor>
+      <arglist>(s)</arglist>
+    </member>
+    <member kind="define">
+      <type>#define</type>
+      <name>APR_STATUS_IS_EMISMATCH</name>
+      <anchor>a43</anchor>
+      <arglist>(s)</arglist>
+    </member>
+    <member kind="define">
+      <type>#define</type>
+      <name>APR_STATUS_IS_EBUSY</name>
+      <anchor>a44</anchor>
+      <arglist>(s)</arglist>
+    </member>
+    <member kind="define">
+      <type>#define</type>
+      <name>APR_EACCES</name>
       <anchor>a45</anchor>
       <arglist></arglist>
     </member>
     <member kind="define">
       <type>#define</type>
-      <name>APR_ENAMETOOLONG</name>
+      <name>APR_EEXIST</name>
       <anchor>a46</anchor>
       <arglist></arglist>
     </member>
     <member kind="define">
       <type>#define</type>
-      <name>APR_ENOENT</name>
+      <name>APR_ENAMETOOLONG</name>
       <anchor>a47</anchor>
       <arglist></arglist>
     </member>
     <member kind="define">
       <type>#define</type>
-      <name>APR_ENOTDIR</name>
+      <name>APR_ENOENT</name>
       <anchor>a48</anchor>
       <arglist></arglist>
     </member>
     <member kind="define">
       <type>#define</type>
-      <name>APR_ENOSPC</name>
+      <name>APR_ENOTDIR</name>
       <anchor>a49</anchor>
       <arglist></arglist>
     </member>
     <member kind="define">
       <type>#define</type>
-      <name>APR_ENOMEM</name>
+      <name>APR_ENOSPC</name>
       <anchor>a50</anchor>
       <arglist></arglist>
     </member>
     <member kind="define">
       <type>#define</type>
-      <name>APR_EMFILE</name>
+      <name>APR_ENOMEM</name>
       <anchor>a51</anchor>
       <arglist></arglist>
     </member>
     <member kind="define">
       <type>#define</type>
-      <name>APR_ENFILE</name>
+      <name>APR_EMFILE</name>
       <anchor>a52</anchor>
       <arglist></arglist>
     </member>
     <member kind="define">
       <type>#define</type>
-      <name>APR_EBADF</name>
+      <name>APR_ENFILE</name>
       <anchor>a53</anchor>
       <arglist></arglist>
     </member>
     <member kind="define">
       <type>#define</type>
-      <name>APR_EINVAL</name>
+      <name>APR_EBADF</name>
       <anchor>a54</anchor>
       <arglist></arglist>
     </member>
     <member kind="define">
       <type>#define</type>
-      <name>APR_ESPIPE</name>
+      <name>APR_EINVAL</name>
       <anchor>a55</anchor>
       <arglist></arglist>
     </member>
     <member kind="define">
       <type>#define</type>
-      <name>APR_EAGAIN</name>
+      <name>APR_ESPIPE</name>
       <anchor>a56</anchor>
       <arglist></arglist>
     </member>
     <member kind="define">
       <type>#define</type>
-      <name>APR_EINTR</name>
+      <name>APR_EAGAIN</name>
       <anchor>a57</anchor>
       <arglist></arglist>
     </member>
     <member kind="define">
       <type>#define</type>
-      <name>APR_ENOTSOCK</name>
+      <name>APR_EINTR</name>
       <anchor>a58</anchor>
       <arglist></arglist>
     </member>
     <member kind="define">
       <type>#define</type>
-      <name>APR_ECONNREFUSED</name>
+      <name>APR_ENOTSOCK</name>
       <anchor>a59</anchor>
       <arglist></arglist>
     </member>
     <member kind="define">
       <type>#define</type>
-      <name>APR_EINPROGRESS</name>
+      <name>APR_ECONNREFUSED</name>
       <anchor>a60</anchor>
       <arglist></arglist>
     </member>
     <member kind="define">
       <type>#define</type>
-      <name>APR_ECONNABORTED</name>
+      <name>APR_EINPROGRESS</name>
       <anchor>a61</anchor>
       <arglist></arglist>
     </member>
     <member kind="define">
       <type>#define</type>
-      <name>APR_ECONNRESET</name>
+      <name>APR_ECONNABORTED</name>
       <anchor>a62</anchor>
       <arglist></arglist>
     </member>
     <member kind="define">
       <type>#define</type>
-      <name>APR_ETIMEDOUT</name>
+      <name>APR_ECONNRESET</name>
       <anchor>a63</anchor>
       <arglist></arglist>
     </member>
     <member kind="define">
       <type>#define</type>
-      <name>APR_EHOSTUNREACH</name>
+      <name>APR_ETIMEDOUT</name>
       <anchor>a64</anchor>
       <arglist></arglist>
     </member>
     <member kind="define">
       <type>#define</type>
-      <name>APR_ENETUNREACH</name>
+      <name>APR_EHOSTUNREACH</name>
       <anchor>a65</anchor>
       <arglist></arglist>
     </member>
     <member kind="define">
       <type>#define</type>
-      <name>APR_EFTYPE</name>
+      <name>APR_ENETUNREACH</name>
       <anchor>a66</anchor>
       <arglist></arglist>
     </member>
     <member kind="define">
       <type>#define</type>
-      <name>APR_EPIPE</name>
+      <name>APR_EFTYPE</name>
       <anchor>a67</anchor>
       <arglist></arglist>
     </member>
     <member kind="define">
       <type>#define</type>
-      <name>APR_EXDEV</name>
+      <name>APR_EPIPE</name>
       <anchor>a68</anchor>
       <arglist></arglist>
     </member>
     <member kind="define">
       <type>#define</type>
-      <name>APR_ENOTEMPTY</name>
+      <name>APR_EXDEV</name>
       <anchor>a69</anchor>
       <arglist></arglist>
     </member>
     <member kind="define">
       <type>#define</type>
+      <name>APR_ENOTEMPTY</name>
+      <anchor>a70</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="define">
+      <type>#define</type>
       <name>APR_FROM_OS_ERROR</name>
-      <anchor>a125</anchor>
+      <anchor>a127</anchor>
       <arglist>(e)</arglist>
     </member>
     <member kind="define">
       <type>#define</type>
       <name>APR_TO_OS_ERROR</name>
-      <anchor>a126</anchor>
+      <anchor>a128</anchor>
       <arglist>(e)</arglist>
     </member>
     <member kind="define">
@@ -1894,163 +1852,163 @@
     <member kind="define">
       <type>#define</type>
       <name>APR_STATUS_IS_SUCCESS</name>
-      <anchor>a44</anchor>
-      <arglist>(s)</arglist>
-    </member>
-    <member kind="define">
-      <type>#define</type>
-      <name>APR_STATUS_IS_EACCES</name>
       <anchor>a45</anchor>
       <arglist>(s)</arglist>
     </member>
     <member kind="define">
       <type>#define</type>
-      <name>APR_STATUS_IS_EEXIST</name>
+      <name>APR_STATUS_IS_EACCES</name>
       <anchor>a46</anchor>
       <arglist>(s)</arglist>
     </member>
     <member kind="define">
       <type>#define</type>
-      <name>APR_STATUS_IS_ENAMETOOLONG</name>
+      <name>APR_STATUS_IS_EEXIST</name>
       <anchor>a47</anchor>
       <arglist>(s)</arglist>
     </member>
     <member kind="define">
       <type>#define</type>
-      <name>APR_STATUS_IS_ENOENT</name>
+      <name>APR_STATUS_IS_ENAMETOOLONG</name>
       <anchor>a48</anchor>
       <arglist>(s)</arglist>
     </member>
     <member kind="define">
       <type>#define</type>
-      <name>APR_STATUS_IS_ENOTDIR</name>
+      <name>APR_STATUS_IS_ENOENT</name>
       <anchor>a49</anchor>
       <arglist>(s)</arglist>
     </member>
     <member kind="define">
       <type>#define</type>
-      <name>APR_STATUS_IS_ENOSPC</name>
+      <name>APR_STATUS_IS_ENOTDIR</name>
       <anchor>a50</anchor>
       <arglist>(s)</arglist>
     </member>
     <member kind="define">
       <type>#define</type>
-      <name>APR_STATUS_IS_ENOMEM</name>
+      <name>APR_STATUS_IS_ENOSPC</name>
       <anchor>a51</anchor>
       <arglist>(s)</arglist>
     </member>
     <member kind="define">
       <type>#define</type>
-      <name>APR_STATUS_IS_EMFILE</name>
+      <name>APR_STATUS_IS_ENOMEM</name>
       <anchor>a52</anchor>
       <arglist>(s)</arglist>
     </member>
     <member kind="define">
       <type>#define</type>
-      <name>APR_STATUS_IS_ENFILE</name>
+      <name>APR_STATUS_IS_EMFILE</name>
       <anchor>a53</anchor>
       <arglist>(s)</arglist>
     </member>
     <member kind="define">
       <type>#define</type>
-      <name>APR_STATUS_IS_EBADF</name>
+      <name>APR_STATUS_IS_ENFILE</name>
       <anchor>a54</anchor>
       <arglist>(s)</arglist>
     </member>
     <member kind="define">
       <type>#define</type>
-      <name>APR_STATUS_IS_EINVAL</name>
+      <name>APR_STATUS_IS_EBADF</name>
       <anchor>a55</anchor>
       <arglist>(s)</arglist>
     </member>
     <member kind="define">
       <type>#define</type>
-      <name>APR_STATUS_IS_ESPIPE</name>
+      <name>APR_STATUS_IS_EINVAL</name>
       <anchor>a56</anchor>
       <arglist>(s)</arglist>
     </member>
     <member kind="define">
       <type>#define</type>
-      <name>APR_STATUS_IS_EAGAIN</name>
+      <name>APR_STATUS_IS_ESPIPE</name>
       <anchor>a57</anchor>
       <arglist>(s)</arglist>
     </member>
     <member kind="define">
       <type>#define</type>
-      <name>APR_STATUS_IS_EINTR</name>
+      <name>APR_STATUS_IS_EAGAIN</name>
       <anchor>a58</anchor>
       <arglist>(s)</arglist>
     </member>
     <member kind="define">
       <type>#define</type>
-      <name>APR_STATUS_IS_ENOTSOCK</name>
+      <name>APR_STATUS_IS_EINTR</name>
       <anchor>a59</anchor>
       <arglist>(s)</arglist>
     </member>
     <member kind="define">
       <type>#define</type>
-      <name>APR_STATUS_IS_ECONNREFUSED</name>
+      <name>APR_STATUS_IS_ENOTSOCK</name>
       <anchor>a60</anchor>
       <arglist>(s)</arglist>
     </member>
     <member kind="define">
       <type>#define</type>
-      <name>APR_STATUS_IS_EINPROGRESS</name>
+      <name>APR_STATUS_IS_ECONNREFUSED</name>
       <anchor>a61</anchor>
       <arglist>(s)</arglist>
     </member>
     <member kind="define">
       <type>#define</type>
-      <name>APR_STATUS_IS_ECONNABORTED</name>
+      <name>APR_STATUS_IS_EINPROGRESS</name>
       <anchor>a62</anchor>
       <arglist>(s)</arglist>
     </member>
     <member kind="define">
       <type>#define</type>
-      <name>APR_STATUS_IS_ECONNRESET</name>
+      <name>APR_STATUS_IS_ECONNABORTED</name>
       <anchor>a63</anchor>
       <arglist>(s)</arglist>
     </member>
     <member kind="define">
       <type>#define</type>
-      <name>APR_STATUS_IS_ETIMEDOUT</name>
+      <name>APR_STATUS_IS_ECONNRESET</name>
       <anchor>a64</anchor>
       <arglist>(s)</arglist>
     </member>
     <member kind="define">
       <type>#define</type>
-      <name>APR_STATUS_IS_EHOSTUNREACH</name>
+      <name>APR_STATUS_IS_ETIMEDOUT</name>
       <anchor>a65</anchor>
       <arglist>(s)</arglist>
     </member>
     <member kind="define">
       <type>#define</type>
-      <name>APR_STATUS_IS_ENETUNREACH</name>
+      <name>APR_STATUS_IS_EHOSTUNREACH</name>
       <anchor>a66</anchor>
       <arglist>(s)</arglist>
     </member>
     <member kind="define">
       <type>#define</type>
-      <name>APR_STATUS_IS_EFTYPE</name>
+      <name>APR_STATUS_IS_ENETUNREACH</name>
       <anchor>a67</anchor>
       <arglist>(s)</arglist>
     </member>
     <member kind="define">
       <type>#define</type>
-      <name>APR_STATUS_IS_EPIPE</name>
+      <name>APR_STATUS_IS_EFTYPE</name>
       <anchor>a68</anchor>
       <arglist>(s)</arglist>
     </member>
     <member kind="define">
       <type>#define</type>
-      <name>APR_STATUS_IS_EXDEV</name>
+      <name>APR_STATUS_IS_EPIPE</name>
       <anchor>a69</anchor>
       <arglist>(s)</arglist>
     </member>
     <member kind="define">
       <type>#define</type>
-      <name>APR_STATUS_IS_ENOTEMPTY</name>
+      <name>APR_STATUS_IS_EXDEV</name>
       <anchor>a70</anchor>
+      <arglist>(s)</arglist>
+    </member>
+    <member kind="define">
+      <type>#define</type>
+      <name>APR_STATUS_IS_ENOTEMPTY</name>
+      <anchor>a71</anchor>
       <arglist>(s)</arglist>
     </member>
     <member kind="typedef">
@@ -2069,78 +2027,90 @@
   <compound kind="file">
     <name>apr_file_info.h</name>
     <path>/home/joe/src/apache/apr/include/</path>
-    <filename>apr__file__info_8h</filename>
-    <includes id="apr_8h" name="apr.h" local="yes">apr.h</includes>
-    <includes id="apr__user_8h" name="apr_user.h" local="yes">apr_user.h</includes>
-    <includes id="apr__pools_8h" name="apr_pools.h" local="yes">apr_pools.h</includes>
-    <includes id="apr__tables_8h" name="apr_tables.h" local="yes">apr_tables.h</includes>
-    <includes id="apr__time_8h" name="apr_time.h" local="yes">apr_time.h</includes>
-    <includes id="apr__errno_8h" name="apr_errno.h" local="yes">apr_errno.h</includes>
+    <filename>apr__file__info_8h.html</filename>
     <class kind="struct">apr_finfo_t</class>
     <member kind="define">
       <type>#define</type>
-      <name>APR_UREAD</name>
+      <name>APR_USETID</name>
       <anchor>a0</anchor>
       <arglist></arglist>
     </member>
     <member kind="define">
       <type>#define</type>
-      <name>APR_UWRITE</name>
+      <name>APR_UREAD</name>
       <anchor>a1</anchor>
       <arglist></arglist>
     </member>
     <member kind="define">
       <type>#define</type>
-      <name>APR_UEXECUTE</name>
+      <name>APR_UWRITE</name>
       <anchor>a2</anchor>
       <arglist></arglist>
     </member>
     <member kind="define">
       <type>#define</type>
-      <name>APR_GREAD</name>
+      <name>APR_UEXECUTE</name>
       <anchor>a3</anchor>
       <arglist></arglist>
     </member>
     <member kind="define">
       <type>#define</type>
-      <name>APR_GWRITE</name>
+      <name>APR_GSETID</name>
       <anchor>a4</anchor>
       <arglist></arglist>
     </member>
     <member kind="define">
       <type>#define</type>
-      <name>APR_GEXECUTE</name>
+      <name>APR_GREAD</name>
       <anchor>a5</anchor>
       <arglist></arglist>
     </member>
     <member kind="define">
       <type>#define</type>
-      <name>APR_WREAD</name>
+      <name>APR_GWRITE</name>
       <anchor>a6</anchor>
       <arglist></arglist>
     </member>
     <member kind="define">
       <type>#define</type>
-      <name>APR_WWRITE</name>
+      <name>APR_GEXECUTE</name>
       <anchor>a7</anchor>
       <arglist></arglist>
     </member>
     <member kind="define">
       <type>#define</type>
-      <name>APR_WEXECUTE</name>
+      <name>APR_WSTICKY</name>
       <anchor>a8</anchor>
       <arglist></arglist>
     </member>
     <member kind="define">
       <type>#define</type>
-      <name>APR_OS_DEFAULT</name>
+      <name>APR_WREAD</name>
       <anchor>a9</anchor>
       <arglist></arglist>
     </member>
     <member kind="define">
       <type>#define</type>
-      <name>APR_FILE_SOURCE_PERMS</name>
+      <name>APR_WWRITE</name>
       <anchor>a10</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="define">
+      <type>#define</type>
+      <name>APR_WEXECUTE</name>
+      <anchor>a11</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="define">
+      <type>#define</type>
+      <name>APR_OS_DEFAULT</name>
+      <anchor>a12</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="define">
+      <type>#define</type>
+      <name>APR_FILE_SOURCE_PERMS</name>
+      <anchor>a13</anchor>
       <arglist></arglist>
     </member>
     <member kind="define">
@@ -2378,60 +2348,60 @@
     </member>
     <member kind="enumvalue">
       <name>APR_NOFILE</name>
-      <anchor>a4a49</anchor>
-      <arglist></arglist>
-    </member>
-    <member kind="enumvalue">
-      <name>APR_REG</name>
-      <anchor>a4a50</anchor>
-      <arglist></arglist>
-    </member>
-    <member kind="enumvalue">
-      <name>APR_DIR</name>
-      <anchor>a4a51</anchor>
-      <arglist></arglist>
-    </member>
-    <member kind="enumvalue">
-      <name>APR_CHR</name>
       <anchor>a4a52</anchor>
       <arglist></arglist>
     </member>
     <member kind="enumvalue">
-      <name>APR_BLK</name>
+      <name>APR_REG</name>
       <anchor>a4a53</anchor>
       <arglist></arglist>
     </member>
     <member kind="enumvalue">
-      <name>APR_PIPE</name>
+      <name>APR_DIR</name>
       <anchor>a4a54</anchor>
       <arglist></arglist>
     </member>
     <member kind="enumvalue">
-      <name>APR_LNK</name>
+      <name>APR_CHR</name>
       <anchor>a4a55</anchor>
       <arglist></arglist>
     </member>
     <member kind="enumvalue">
-      <name>APR_SOCK</name>
+      <name>APR_BLK</name>
       <anchor>a4a56</anchor>
       <arglist></arglist>
     </member>
     <member kind="enumvalue">
-      <name>APR_UNKFILE</name>
+      <name>APR_PIPE</name>
       <anchor>a4a57</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="enumvalue">
+      <name>APR_LNK</name>
+      <anchor>a4a58</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="enumvalue">
+      <name>APR_SOCK</name>
+      <anchor>a4a59</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="enumvalue">
+      <name>APR_UNKFILE</name>
+      <anchor>a4a60</anchor>
       <arglist></arglist>
     </member>
     <member kind="function">
       <type>apr_status_t</type>
       <name>apr_stat</name>
       <anchor>a1</anchor>
-      <arglist>(apr_finfo_t *finfo, const char *fname, apr_int32_t wanted, apr_pool_t *cont)</arglist>
+      <arglist>(apr_finfo_t *finfo, const char *fname, apr_int32_t wanted, apr_pool_t *pool)</arglist>
     </member>
     <member kind="function">
       <type>apr_status_t</type>
       <name>apr_dir_open</name>
       <anchor>a0</anchor>
-      <arglist>(apr_dir_t **new_dir, const char *dirname, apr_pool_t *cont)</arglist>
+      <arglist>(apr_dir_t **new_dir, const char *dirname, apr_pool_t *pool)</arglist>
     </member>
     <member kind="function">
       <type>apr_status_t</type>
@@ -2497,14 +2467,7 @@
   <compound kind="file">
     <name>apr_file_io.h</name>
     <path>/home/joe/src/apache/apr/include/</path>
-    <filename>apr__file__io_8h</filename>
-    <includes id="apr_8h" name="apr.h" local="yes">apr.h</includes>
-    <includes id="apr__pools_8h" name="apr_pools.h" local="yes">apr_pools.h</includes>
-    <includes id="apr__time_8h" name="apr_time.h" local="yes">apr_time.h</includes>
-    <includes id="apr__errno_8h" name="apr_errno.h" local="yes">apr_errno.h</includes>
-    <includes id="apr__file__info_8h" name="apr_file_info.h" local="yes">apr_file_info.h</includes>
-    <includes id="apr__inherit_8h" name="apr_inherit.h" local="yes">apr_inherit.h</includes>
-    <includes id="apr__want_8h" name="apr_want.h" local="yes">apr_want.h</includes>
+    <filename>apr__file__io_8h.html</filename>
     <member kind="define">
       <type>#define</type>
       <name>APR_WANT_STDIO</name>
@@ -2597,6 +2560,12 @@
     </member>
     <member kind="define">
       <type>#define</type>
+      <name>APR_LARGEFILE</name>
+      <anchor>a13</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="define">
+      <type>#define</type>
       <name>APR_SET</name>
       <anchor>a0</anchor>
       <arglist></arglist>
@@ -2677,7 +2646,7 @@
       <type>apr_status_t</type>
       <name>apr_file_open</name>
       <anchor>a3</anchor>
-      <arglist>(apr_file_t **new_file, const char *fname, apr_int32_t flag, apr_fileperms_t perm, apr_pool_t *cont)</arglist>
+      <arglist>(apr_file_t **newf, const char *fname, apr_int32_t flag, apr_fileperms_t perm, apr_pool_t *pool)</arglist>
     </member>
     <member kind="function">
       <type>apr_status_t</type>
@@ -2689,7 +2658,7 @@
       <type>apr_status_t</type>
       <name>apr_file_remove</name>
       <anchor>a5</anchor>
-      <arglist>(const char *path, apr_pool_t *cont)</arglist>
+      <arglist>(const char *path, apr_pool_t *pool)</arglist>
     </member>
     <member kind="function">
       <type>apr_status_t</type>
@@ -2719,19 +2688,19 @@
       <type>apr_status_t</type>
       <name>apr_file_open_stderr</name>
       <anchor>a10</anchor>
-      <arglist>(apr_file_t **thefile, apr_pool_t *cont)</arglist>
+      <arglist>(apr_file_t **thefile, apr_pool_t *pool)</arglist>
     </member>
     <member kind="function">
       <type>apr_status_t</type>
       <name>apr_file_open_stdout</name>
       <anchor>a11</anchor>
-      <arglist>(apr_file_t **thefile, apr_pool_t *cont)</arglist>
+      <arglist>(apr_file_t **thefile, apr_pool_t *pool)</arglist>
     </member>
     <member kind="function">
       <type>apr_status_t</type>
       <name>apr_file_open_stdin</name>
       <anchor>a12</anchor>
-      <arglist>(apr_file_t **thefile, apr_pool_t *cont)</arglist>
+      <arglist>(apr_file_t **thefile, apr_pool_t *pool)</arglist>
     </member>
     <member kind="function">
       <type>apr_status_t</type>
@@ -2827,13 +2796,13 @@
       <type>apr_status_t</type>
       <name>apr_file_pipe_create</name>
       <anchor>a28</anchor>
-      <arglist>(apr_file_t **in, apr_file_t **out, apr_pool_t *cont)</arglist>
+      <arglist>(apr_file_t **in, apr_file_t **out, apr_pool_t *pool)</arglist>
     </member>
     <member kind="function">
       <type>apr_status_t</type>
       <name>apr_file_namedpipe_create</name>
       <anchor>a29</anchor>
-      <arglist>(const char *filename, apr_fileperms_t perm, apr_pool_t *cont)</arglist>
+      <arglist>(const char *filename, apr_fileperms_t perm, apr_pool_t *pool)</arglist>
     </member>
     <member kind="function">
       <type>apr_status_t</type>
@@ -2893,7 +2862,7 @@
       <type>apr_status_t</type>
       <name>apr_file_attrs_set</name>
       <anchor>a39</anchor>
-      <arglist>(const char *fname, apr_fileattrs_t attributes, apr_fileattrs_t attr_mask, apr_pool_t *cont)</arglist>
+      <arglist>(const char *fname, apr_fileattrs_t attributes, apr_fileattrs_t attr_mask, apr_pool_t *pool)</arglist>
     </member>
     <member kind="function">
       <type>apr_status_t</type>
@@ -2905,7 +2874,7 @@
       <type>apr_status_t</type>
       <name>apr_dir_make</name>
       <anchor>a41</anchor>
-      <arglist>(const char *path, apr_fileperms_t perm, apr_pool_t *cont)</arglist>
+      <arglist>(const char *path, apr_fileperms_t perm, apr_pool_t *pool)</arglist>
     </member>
     <member kind="function">
       <type>apr_status_t</type>
@@ -2917,7 +2886,7 @@
       <type>apr_status_t</type>
       <name>apr_dir_remove</name>
       <anchor>a43</anchor>
-      <arglist>(const char *path, apr_pool_t *cont)</arglist>
+      <arglist>(const char *path, apr_pool_t *pool)</arglist>
     </member>
     <member kind="function">
       <type>apr_status_t</type>
@@ -2971,36 +2940,35 @@
   <compound kind="file">
     <name>apr_fnmatch.h</name>
     <path>/home/joe/src/apache/apr/include/</path>
-    <filename>apr__fnmatch_8h</filename>
-    <includes id="apr__errno_8h" name="apr_errno.h" local="yes">apr_errno.h</includes>
+    <filename>apr__fnmatch_8h.html</filename>
     <member kind="define">
       <type>#define</type>
       <name>APR_FNM_NOMATCH</name>
-      <anchor>a2</anchor>
-      <arglist></arglist>
-    </member>
-    <member kind="define">
-      <type>#define</type>
-      <name>APR_FNM_NOESCAPE</name>
       <anchor>a3</anchor>
       <arglist></arglist>
     </member>
     <member kind="define">
       <type>#define</type>
-      <name>APR_FNM_PATHNAME</name>
+      <name>APR_FNM_NOESCAPE</name>
       <anchor>a4</anchor>
       <arglist></arglist>
     </member>
     <member kind="define">
       <type>#define</type>
-      <name>APR_FNM_PERIOD</name>
+      <name>APR_FNM_PATHNAME</name>
       <anchor>a5</anchor>
       <arglist></arglist>
     </member>
     <member kind="define">
       <type>#define</type>
-      <name>APR_FNM_CASE_BLIND</name>
+      <name>APR_FNM_PERIOD</name>
       <anchor>a6</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="define">
+      <type>#define</type>
+      <name>APR_FNM_CASE_BLIND</name>
+      <anchor>a7</anchor>
       <arglist></arglist>
     </member>
     <member kind="function">
@@ -3015,14 +2983,17 @@
       <anchor>a1</anchor>
       <arglist>(const char *pattern)</arglist>
     </member>
+    <member kind="function">
+      <type>apr_status_t</type>
+      <name>apr_match_glob</name>
+      <anchor>a2</anchor>
+      <arglist>(const char *pattern, apr_array_header_t **result, apr_pool_t *p)</arglist>
+    </member>
   </compound>
   <compound kind="file">
     <name>apr_general.h</name>
     <path>/home/joe/src/apache/apr/include/</path>
-    <filename>apr__general_8h</filename>
-    <includes id="apr_8h" name="apr.h" local="yes">apr.h</includes>
-    <includes id="apr__pools_8h" name="apr_pools.h" local="yes">apr_pools.h</includes>
-    <includes id="apr__errno_8h" name="apr_errno.h" local="yes">apr_errno.h</includes>
+    <filename>apr__general_8h.html</filename>
     <member kind="define">
       <type>#define</type>
       <name>FALSE</name>
@@ -3135,15 +3106,14 @@
   <compound kind="file">
     <name>apr_getopt.h</name>
     <path>/home/joe/src/apache/apr/include/</path>
-    <filename>apr__getopt_8h</filename>
-    <includes id="apr__pools_8h" name="apr_pools.h" local="yes">apr_pools.h</includes>
+    <filename>apr__getopt_8h.html</filename>
     <class kind="struct">apr_getopt_option_t</class>
     <class kind="struct">apr_getopt_t</class>
     <member kind="typedef">
-      <type>void(</type>
-      <name>apr_getopt_err_fn_t</name>
+      <type>const char *</type>
+      <name>err</name>
       <anchor>a0</anchor>
-      <arglist>)(void *arg, const char *err,...)</arglist>
+      <arglist></arglist>
     </member>
     <member kind="typedef">
       <type>apr_getopt_t</type>
@@ -3158,32 +3128,34 @@
       <arglist></arglist>
     </member>
     <member kind="function">
+      <type>typedef</type>
+      <name>void</name>
+      <anchor>a3</anchor>
+      <arglist>(apr_getopt_err_fn_t)(void *arg</arglist>
+    </member>
+    <member kind="function">
       <type>apr_status_t</type>
       <name>apr_getopt_init</name>
-      <anchor>a3</anchor>
+      <anchor>a4</anchor>
       <arglist>(apr_getopt_t **os, apr_pool_t *cont, int argc, const char *const *argv)</arglist>
     </member>
     <member kind="function">
       <type>apr_status_t</type>
       <name>apr_getopt</name>
-      <anchor>a4</anchor>
+      <anchor>a5</anchor>
       <arglist>(apr_getopt_t *os, const char *opts, char *option_ch, const char **option_arg)</arglist>
     </member>
     <member kind="function">
       <type>apr_status_t</type>
       <name>apr_getopt_long</name>
-      <anchor>a5</anchor>
+      <anchor>a6</anchor>
       <arglist>(apr_getopt_t *os, const apr_getopt_option_t *opts, int *option_ch, const char **option_arg)</arglist>
     </member>
   </compound>
   <compound kind="file">
     <name>apr_global_mutex.h</name>
     <path>/home/joe/src/apache/apr/include/</path>
-    <filename>apr__global__mutex_8h</filename>
-    <includes id="apr_8h" name="apr.h" local="yes">apr.h</includes>
-    <includes id="apr__proc__mutex_8h" name="apr_proc_mutex.h" local="yes">apr_proc_mutex.h</includes>
-    <includes id="apr__pools_8h" name="apr_pools.h" local="yes">apr_pools.h</includes>
-    <includes id="apr__errno_8h" name="apr_errno.h" local="yes">apr_errno.h</includes>
+    <filename>apr__global__mutex_8h.html</filename>
     <member kind="typedef">
       <type>apr_global_mutex_t</type>
       <name>apr_global_mutex_t</name>
@@ -3236,12 +3208,11 @@
   <compound kind="file">
     <name>apr_hash.h</name>
     <path>/home/joe/src/apache/apr/include/</path>
-    <filename>apr__hash_8h</filename>
-    <includes id="apr__pools_8h" name="apr_pools.h" local="yes">apr_pools.h</includes>
+    <filename>apr__hash_8h.html</filename>
     <member kind="define">
       <type>#define</type>
       <name>APR_HASH_KEY_STRING</name>
-      <anchor>a13</anchor>
+      <anchor>a16</anchor>
       <arglist></arglist>
     </member>
     <member kind="typedef">
@@ -3256,77 +3227,95 @@
       <anchor>a1</anchor>
       <arglist></arglist>
     </member>
+    <member kind="typedef">
+      <type>unsigned int(*</type>
+      <name>apr_hashfunc_t</name>
+      <anchor>a2</anchor>
+      <arglist>)(const char *key, apr_ssize_t *klen)</arglist>
+    </member>
+    <member kind="function">
+      <type>unsigned int</type>
+      <name>apr_hashfunc_default</name>
+      <anchor>a3</anchor>
+      <arglist>(const char *key, apr_ssize_t *klen)</arglist>
+    </member>
     <member kind="function">
       <type>apr_hash_t *</type>
       <name>apr_hash_make</name>
-      <anchor>a2</anchor>
+      <anchor>a4</anchor>
       <arglist>(apr_pool_t *pool)</arglist>
     </member>
     <member kind="function">
       <type>apr_hash_t *</type>
+      <name>apr_hash_make_custom</name>
+      <anchor>a5</anchor>
+      <arglist>(apr_pool_t *pool, apr_hashfunc_t hash_func)</arglist>
+    </member>
+    <member kind="function">
+      <type>apr_hash_t *</type>
       <name>apr_hash_copy</name>
-      <anchor>a3</anchor>
+      <anchor>a6</anchor>
       <arglist>(apr_pool_t *pool, const apr_hash_t *h)</arglist>
     </member>
     <member kind="function">
       <type>void</type>
       <name>apr_hash_set</name>
-      <anchor>a4</anchor>
+      <anchor>a7</anchor>
       <arglist>(apr_hash_t *ht, const void *key, apr_ssize_t klen, const void *val)</arglist>
     </member>
     <member kind="function">
       <type>void *</type>
       <name>apr_hash_get</name>
-      <anchor>a5</anchor>
+      <anchor>a8</anchor>
       <arglist>(apr_hash_t *ht, const void *key, apr_ssize_t klen)</arglist>
     </member>
     <member kind="function">
       <type>apr_hash_index_t *</type>
       <name>apr_hash_first</name>
-      <anchor>a6</anchor>
+      <anchor>a9</anchor>
       <arglist>(apr_pool_t *p, apr_hash_t *ht)</arglist>
     </member>
     <member kind="function">
       <type>apr_hash_index_t *</type>
       <name>apr_hash_next</name>
-      <anchor>a7</anchor>
+      <anchor>a10</anchor>
       <arglist>(apr_hash_index_t *hi)</arglist>
     </member>
     <member kind="function">
       <type>void</type>
       <name>apr_hash_this</name>
-      <anchor>a8</anchor>
+      <anchor>a11</anchor>
       <arglist>(apr_hash_index_t *hi, const void **key, apr_ssize_t *klen, void **val)</arglist>
     </member>
     <member kind="function">
       <type>unsigned int</type>
       <name>apr_hash_count</name>
-      <anchor>a9</anchor>
+      <anchor>a12</anchor>
       <arglist>(apr_hash_t *ht)</arglist>
     </member>
     <member kind="function">
       <type>apr_hash_t *</type>
       <name>apr_hash_overlay</name>
-      <anchor>a10</anchor>
+      <anchor>a13</anchor>
       <arglist>(apr_pool_t *p, const apr_hash_t *overlay, const apr_hash_t *base)</arglist>
     </member>
     <member kind="function">
       <type>apr_hash_t *</type>
       <name>apr_hash_merge</name>
-      <anchor>a11</anchor>
+      <anchor>a14</anchor>
       <arglist>(apr_pool_t *p, const apr_hash_t *h1, const apr_hash_t *h2, void *(*merger)(apr_pool_t *p, const void *key, apr_ssize_t klen, const void *h1_val, const void *h2_val, const void *data), const void *data)</arglist>
     </member>
     <member kind="function">
       <type>apr_pool_t *</type>
       <name>apr_hash_pool_get</name>
-      <anchor>a12</anchor>
+      <anchor>a15</anchor>
       <arglist>(const apr_hash_t *thehash)</arglist>
     </member>
   </compound>
   <compound kind="file">
     <name>apr_inherit.h</name>
     <path>/home/joe/src/apache/apr/include/</path>
-    <filename>apr__inherit_8h</filename>
+    <filename>apr__inherit_8h.html</filename>
     <member kind="define">
       <type>#define</type>
       <name>APR_DECLARE_INHERIT_SET</name>
@@ -3343,9 +3332,7 @@
   <compound kind="file">
     <name>apr_lib.h</name>
     <path>/home/joe/src/apache/apr/include/</path>
-    <filename>apr__lib_8h</filename>
-    <includes id="apr_8h" name="apr.h" local="yes">apr.h</includes>
-    <includes id="apr__errno_8h" name="apr_errno.h" local="yes">apr_errno.h</includes>
+    <filename>apr__lib_8h.html</filename>
     <class kind="struct">apr_vformatter_buff_t</class>
     <member kind="define">
       <type>#define</type>
@@ -3471,12 +3458,7 @@
   <compound kind="file">
     <name>apr_mmap.h</name>
     <path>/home/joe/src/apache/apr/include/</path>
-    <filename>apr__mmap_8h</filename>
-    <includes id="apr_8h" name="apr.h" local="yes">apr.h</includes>
-    <includes id="apr__pools_8h" name="apr_pools.h" local="yes">apr_pools.h</includes>
-    <includes id="apr__errno_8h" name="apr_errno.h" local="yes">apr_errno.h</includes>
-    <includes id="apr__ring_8h" name="apr_ring.h" local="yes">apr_ring.h</includes>
-    <includes id="apr__file__io_8h" name="apr_file_io.h" local="yes">apr_file_io.h</includes>
+    <filename>apr__mmap_8h.html</filename>
     <class kind="struct">apr_mmap_t</class>
     <member kind="define">
       <type>#define</type>
@@ -3542,30 +3524,25 @@
   <compound kind="file">
     <name>apr_network_io.h</name>
     <path>/home/joe/src/apache/apr/include/</path>
-    <filename>apr__network__io_8h</filename>
-    <includes id="apr_8h" name="apr.h" local="yes">apr.h</includes>
-    <includes id="apr__pools_8h" name="apr_pools.h" local="yes">apr_pools.h</includes>
-    <includes id="apr__file__io_8h" name="apr_file_io.h" local="yes">apr_file_io.h</includes>
-    <includes id="apr__errno_8h" name="apr_errno.h" local="yes">apr_errno.h</includes>
-    <includes id="apr__inherit_8h" name="apr_inherit.h" local="yes">apr_inherit.h</includes>
+    <filename>apr__network__io_8h.html</filename>
     <class kind="struct">apr_hdtr_t</class>
     <class kind="struct">apr_sockaddr_t</class>
     <member kind="define">
       <type>#define</type>
       <name>APR_MAX_SECS_TO_LINGER</name>
-      <anchor>a43</anchor>
+      <anchor>a41</anchor>
       <arglist></arglist>
     </member>
     <member kind="define">
       <type>#define</type>
       <name>APRMAXHOSTLEN</name>
-      <anchor>a44</anchor>
+      <anchor>a42</anchor>
       <arglist></arglist>
     </member>
     <member kind="define">
       <type>#define</type>
       <name>APR_ANYADDR</name>
-      <anchor>a45</anchor>
+      <anchor>a43</anchor>
       <arglist></arglist>
     </member>
     <member kind="define">
@@ -3600,98 +3577,92 @@
     </member>
     <member kind="define">
       <type>#define</type>
-      <name>APR_SO_TIMEOUT</name>
+      <name>APR_SO_SNDBUF</name>
       <anchor>a5</anchor>
       <arglist></arglist>
     </member>
     <member kind="define">
       <type>#define</type>
-      <name>APR_SO_SNDBUF</name>
+      <name>APR_SO_RCVBUF</name>
       <anchor>a6</anchor>
       <arglist></arglist>
     </member>
     <member kind="define">
       <type>#define</type>
-      <name>APR_SO_RCVBUF</name>
+      <name>APR_SO_DISCONNECTED</name>
       <anchor>a7</anchor>
       <arglist></arglist>
     </member>
     <member kind="define">
       <type>#define</type>
-      <name>APR_SO_DISCONNECTED</name>
+      <name>APR_TCP_NODELAY</name>
       <anchor>a8</anchor>
       <arglist></arglist>
     </member>
     <member kind="define">
       <type>#define</type>
-      <name>APR_TCP_NODELAY</name>
+      <name>APR_TCP_NOPUSH</name>
       <anchor>a9</anchor>
       <arglist></arglist>
     </member>
     <member kind="define">
       <type>#define</type>
-      <name>APR_TCP_NOPUSH</name>
+      <name>APR_RESET_NODELAY</name>
       <anchor>a10</anchor>
       <arglist></arglist>
     </member>
     <member kind="define">
       <type>#define</type>
-      <name>APR_RESET_NODELAY</name>
+      <name>APR_INCOMPLETE_READ</name>
       <anchor>a11</anchor>
       <arglist></arglist>
     </member>
     <member kind="define">
       <type>#define</type>
-      <name>APR_INCOMPLETE_READ</name>
+      <name>APR_INCOMPLETE_WRITE</name>
       <anchor>a12</anchor>
       <arglist></arglist>
     </member>
     <member kind="define">
       <type>#define</type>
-      <name>APR_INCOMPLETE_WRITE</name>
+      <name>APR_IPV6_V6ONLY</name>
       <anchor>a13</anchor>
       <arglist></arglist>
     </member>
     <member kind="define">
       <type>#define</type>
-      <name>APR_IPV6_V6ONLY</name>
-      <anchor>a14</anchor>
-      <arglist></arglist>
-    </member>
-    <member kind="define">
-      <type>#define</type>
       <name>APR_IPV4_ADDR_OK</name>
-      <anchor>a46</anchor>
+      <anchor>a44</anchor>
       <arglist></arglist>
     </member>
     <member kind="define">
       <type>#define</type>
       <name>APR_IPV6_ADDR_OK</name>
-      <anchor>a47</anchor>
+      <anchor>a45</anchor>
       <arglist></arglist>
     </member>
     <member kind="define">
       <type>#define</type>
       <name>APR_INADDR_NONE</name>
-      <anchor>a48</anchor>
+      <anchor>a46</anchor>
       <arglist></arglist>
     </member>
     <member kind="define">
       <type>#define</type>
       <name>APR_INET</name>
-      <anchor>a49</anchor>
+      <anchor>a47</anchor>
       <arglist></arglist>
     </member>
     <member kind="define">
       <type>#define</type>
       <name>APR_UNSPEC</name>
-      <anchor>a50</anchor>
+      <anchor>a48</anchor>
       <arglist></arglist>
     </member>
     <member kind="define">
       <type>#define</type>
       <name>APR_INET6</name>
-      <anchor>a51</anchor>
+      <anchor>a49</anchor>
       <arglist></arglist>
     </member>
     <member kind="define">
@@ -3715,13 +3686,13 @@
     <member kind="define">
       <type>#define</type>
       <name>apr_inet_addr</name>
-      <anchor>a52</anchor>
+      <anchor>a50</anchor>
       <arglist></arglist>
     </member>
     <member kind="define">
       <type>#define</type>
       <name>APR_SENDFILE_DISCONNECT_SOCKET</name>
-      <anchor>a53</anchor>
+      <anchor>a51</anchor>
       <arglist></arglist>
     </member>
     <member kind="typedef">
@@ -3762,27 +3733,27 @@
     </member>
     <member kind="enumeration">
       <name>apr_shutdown_how_e</name>
-      <anchor>a54</anchor>
+      <anchor>a52</anchor>
       <arglist></arglist>
     </member>
     <member kind="enumvalue">
       <name>APR_SHUTDOWN_READ</name>
-      <anchor>a54a35</anchor>
+      <anchor>a52a34</anchor>
       <arglist></arglist>
     </member>
     <member kind="enumvalue">
       <name>APR_SHUTDOWN_WRITE</name>
-      <anchor>a54a36</anchor>
+      <anchor>a52a35</anchor>
       <arglist></arglist>
     </member>
     <member kind="enumvalue">
       <name>APR_SHUTDOWN_READWRITE</name>
-      <anchor>a54a37</anchor>
+      <anchor>a52a36</anchor>
       <arglist></arglist>
     </member>
     <member kind="enumeration">
       <name>apr_interface_e</name>
-      <anchor>a55</anchor>
+      <anchor>a53</anchor>
       <arglist></arglist>
     </member>
     <member kind="function">
@@ -3925,135 +3896,117 @@
     </member>
     <member kind="function">
       <type>apr_status_t</type>
-      <name>apr_socket_addr_get</name>
+      <name>apr_socket_atmark</name>
       <anchor>a29</anchor>
+      <arglist>(apr_socket_t *sock, int *atmark)</arglist>
+    </member>
+    <member kind="function">
+      <type>apr_status_t</type>
+      <name>apr_socket_addr_get</name>
+      <anchor>a30</anchor>
       <arglist>(apr_sockaddr_t **sa, apr_interface_e which, apr_socket_t *sock)</arglist>
     </member>
     <member kind="function">
       <type>apr_status_t</type>
-      <name>apr_sockaddr_port_set</name>
-      <anchor>a30</anchor>
-      <arglist>(apr_sockaddr_t *sockaddr, apr_port_t port)</arglist>
-    </member>
-    <member kind="function">
-      <type>apr_status_t</type>
-      <name>apr_sockaddr_port_get</name>
-      <anchor>a31</anchor>
-      <arglist>(apr_port_t *port, apr_sockaddr_t *sockaddr)</arglist>
-    </member>
-    <member kind="function">
-      <type>apr_status_t</type>
-      <name>apr_sockaddr_ip_set</name>
-      <anchor>a32</anchor>
-      <arglist>(apr_sockaddr_t *sockaddr, const char *addr)</arglist>
-    </member>
-    <member kind="function">
-      <type>apr_status_t</type>
       <name>apr_sockaddr_ip_get</name>
-      <anchor>a33</anchor>
+      <anchor>a31</anchor>
       <arglist>(char **addr, apr_sockaddr_t *sockaddr)</arglist>
     </member>
     <member kind="function">
       <type>int</type>
       <name>apr_sockaddr_equal</name>
-      <anchor>a34</anchor>
+      <anchor>a32</anchor>
       <arglist>(const apr_sockaddr_t *addr1, const apr_sockaddr_t *addr2)</arglist>
     </member>
     <member kind="function">
       <type>apr_status_t</type>
-      <name>apr_socket_from_file</name>
-      <anchor>a35</anchor>
-      <arglist>(apr_socket_t **newsock, apr_file_t *file)</arglist>
+      <name>apr_socket_type_get</name>
+      <anchor>a33</anchor>
+      <arglist>(apr_socket_t *sock, int *type)</arglist>
     </member>
     <member kind="function">
       <type>apr_status_t</type>
       <name>apr_getservbyname</name>
-      <anchor>a36</anchor>
+      <anchor>a34</anchor>
       <arglist>(apr_sockaddr_t *sockaddr, const char *servname)</arglist>
     </member>
     <member kind="function">
       <type>apr_status_t</type>
       <name>apr_ipsubnet_create</name>
-      <anchor>a37</anchor>
+      <anchor>a35</anchor>
       <arglist>(apr_ipsubnet_t **ipsub, const char *ipstr, const char *mask_or_numbits, apr_pool_t *p)</arglist>
     </member>
     <member kind="function">
       <type>int</type>
       <name>apr_ipsubnet_test</name>
-      <anchor>a38</anchor>
+      <anchor>a36</anchor>
       <arglist>(apr_ipsubnet_t *ipsub, apr_sockaddr_t *sa)</arglist>
     </member>
     <member kind="function">
       <type>apr_status_t</type>
       <name>apr_socket_accept_filter</name>
-      <anchor>a39</anchor>
+      <anchor>a37</anchor>
       <arglist>(apr_socket_t *sock, char *name, char *args)</arglist>
     </member>
     <member kind="function">
       <type>apr_status_t</type>
       <name>apr_socket_protocol_get</name>
-      <anchor>a40</anchor>
+      <anchor>a38</anchor>
       <arglist>(apr_socket_t *sock, int *protocol)</arglist>
     </member>
     <member kind="function">
       <type>apr_status_t</type>
       <name>apr_socket_inherit_set</name>
-      <anchor>a41</anchor>
+      <anchor>a39</anchor>
       <arglist>(apr_socket_t *thesocket)</arglist>
     </member>
     <member kind="function">
       <type>apr_status_t</type>
       <name>apr_socket_inherit_unset</name>
-      <anchor>a42</anchor>
+      <anchor>a40</anchor>
       <arglist>(apr_socket_t *thesocket)</arglist>
     </member>
   </compound>
   <compound kind="file">
     <name>apr_poll.h</name>
     <path>/home/joe/src/apache/apr/include/</path>
-    <filename>apr__poll_8h</filename>
-    <includes id="apr_8h" name="apr.h" local="yes">apr.h</includes>
-    <includes id="apr__pools_8h" name="apr_pools.h" local="yes">apr_pools.h</includes>
-    <includes id="apr__errno_8h" name="apr_errno.h" local="yes">apr_errno.h</includes>
-    <includes id="apr__inherit_8h" name="apr_inherit.h" local="yes">apr_inherit.h</includes>
-    <includes id="apr__file__io_8h" name="apr_file_io.h" local="yes">apr_file_io.h</includes>
-    <includes id="apr__network__io_8h" name="apr_network_io.h" local="yes">apr_network_io.h</includes>
+    <filename>apr__poll_8h.html</filename>
     <class kind="union">apr_descriptor</class>
     <class kind="struct">apr_pollfd_t</class>
     <member kind="define">
       <type>#define</type>
       <name>APR_POLLIN</name>
-      <anchor>a0</anchor>
+      <anchor>a8</anchor>
       <arglist></arglist>
     </member>
     <member kind="define">
       <type>#define</type>
       <name>APR_POLLPRI</name>
-      <anchor>a1</anchor>
+      <anchor>a9</anchor>
       <arglist></arglist>
     </member>
     <member kind="define">
       <type>#define</type>
       <name>APR_POLLOUT</name>
-      <anchor>a2</anchor>
+      <anchor>a10</anchor>
       <arglist></arglist>
     </member>
     <member kind="define">
       <type>#define</type>
       <name>APR_POLLERR</name>
-      <anchor>a3</anchor>
+      <anchor>a11</anchor>
       <arglist></arglist>
     </member>
     <member kind="define">
       <type>#define</type>
       <name>APR_POLLHUP</name>
-      <anchor>a4</anchor>
+      <anchor>a12</anchor>
       <arglist></arglist>
     </member>
     <member kind="define">
       <type>#define</type>
       <name>APR_POLLNVAL</name>
-      <anchor>a5</anchor>
+      <anchor>a13</anchor>
       <arglist></arglist>
     </member>
     <member kind="typedef">
@@ -4095,86 +4048,45 @@
     </member>
     <member kind="function">
       <type>apr_status_t</type>
-      <name>apr_poll_setup</name>
-      <anchor>a2</anchor>
-      <arglist>(apr_pollfd_t **new_poll, apr_int32_t num, apr_pool_t *cont)</arglist>
-    </member>
-    <member kind="function">
-      <type>apr_status_t</type>
-      <name>apr_poll</name>
-      <anchor>a3</anchor>
-      <arglist>(apr_pollfd_t *aprset, apr_int32_t numsock, apr_int32_t *nsds, apr_interval_time_t timeout)</arglist>
-    </member>
-    <member kind="function">
-      <type>apr_status_t</type>
-      <name>apr_poll_socket_add</name>
-      <anchor>a4</anchor>
-      <arglist>(apr_pollfd_t *aprset, apr_socket_t *sock, apr_int16_t event)</arglist>
-    </member>
-    <member kind="function">
-      <type>apr_status_t</type>
-      <name>apr_poll_socket_mask</name>
-      <anchor>a5</anchor>
-      <arglist>(apr_pollfd_t *aprset, apr_socket_t *sock, apr_int16_t events)</arglist>
-    </member>
-    <member kind="function">
-      <type>apr_status_t</type>
-      <name>apr_poll_socket_remove</name>
-      <anchor>a6</anchor>
-      <arglist>(apr_pollfd_t *aprset, apr_socket_t *sock)</arglist>
-    </member>
-    <member kind="function">
-      <type>apr_status_t</type>
-      <name>apr_poll_socket_clear</name>
-      <anchor>a7</anchor>
-      <arglist>(apr_pollfd_t *aprset, apr_int16_t events)</arglist>
-    </member>
-    <member kind="function">
-      <type>apr_status_t</type>
-      <name>apr_poll_revents_get</name>
-      <anchor>a8</anchor>
-      <arglist>(apr_int16_t *event, apr_socket_t *sock, apr_pollfd_t *aprset)</arglist>
-    </member>
-    <member kind="function">
-      <type>apr_status_t</type>
       <name>apr_pollset_create</name>
-      <anchor>a9</anchor>
+      <anchor>a2</anchor>
       <arglist>(apr_pollset_t **pollset, apr_uint32_t size, apr_pool_t *p, apr_uint32_t flags)</arglist>
     </member>
     <member kind="function">
       <type>apr_status_t</type>
       <name>apr_pollset_destroy</name>
-      <anchor>a10</anchor>
+      <anchor>a3</anchor>
       <arglist>(apr_pollset_t *pollset)</arglist>
     </member>
     <member kind="function">
       <type>apr_status_t</type>
       <name>apr_pollset_add</name>
-      <anchor>a11</anchor>
+      <anchor>a4</anchor>
       <arglist>(apr_pollset_t *pollset, const apr_pollfd_t *descriptor)</arglist>
     </member>
     <member kind="function">
       <type>apr_status_t</type>
       <name>apr_pollset_remove</name>
-      <anchor>a12</anchor>
+      <anchor>a5</anchor>
       <arglist>(apr_pollset_t *pollset, const apr_pollfd_t *descriptor)</arglist>
     </member>
     <member kind="function">
       <type>apr_status_t</type>
       <name>apr_pollset_poll</name>
-      <anchor>a13</anchor>
+      <anchor>a6</anchor>
       <arglist>(apr_pollset_t *pollset, apr_interval_time_t timeout, apr_int32_t *num, const apr_pollfd_t **descriptors)</arglist>
+    </member>
+    <member kind="function">
+      <type>apr_status_t</type>
+      <name>apr_poll</name>
+      <anchor>a7</anchor>
+      <arglist>(apr_pollfd_t *aprset, apr_int32_t numsock, apr_int32_t *nsds, apr_interval_time_t timeout)</arglist>
     </member>
   </compound>
   <compound kind="file">
     <name>apr_pools.h</name>
     <path>/home/joe/src/apache/apr/include/</path>
-    <filename>apr__pools_8h</filename>
-    <includes id="apr_8h" name="apr.h" local="yes">apr.h</includes>
-    <includes id="apr__errno_8h" name="apr_errno.h" local="yes">apr_errno.h</includes>
-    <includes id="apr__general_8h" name="apr_general.h" local="yes">apr_general.h</includes>
-    <includes id="apr__want_8h" name="apr_want.h" local="yes">apr_want.h</includes>
-    <includes id="apr__allocator_8h" name="apr_allocator.h" local="yes">apr_allocator.h</includes>
+    <filename>apr__pools_8h.html</filename>
     <member kind="define">
       <type>#define</type>
       <name>APR_WANT_MEMFUNC</name>
@@ -4413,30 +4325,19 @@
   <compound kind="file">
     <name>apr_portable.h</name>
     <path>/home/joe/src/apache/apr/include/</path>
-    <filename>apr__portable_8h</filename>
-    <includes id="apr_8h" name="apr.h" local="yes">apr.h</includes>
-    <includes id="apr__pools_8h" name="apr_pools.h" local="yes">apr_pools.h</includes>
-    <includes id="apr__thread__proc_8h" name="apr_thread_proc.h" local="yes">apr_thread_proc.h</includes>
-    <includes id="apr__file__io_8h" name="apr_file_io.h" local="yes">apr_file_io.h</includes>
-    <includes id="apr__network__io_8h" name="apr_network_io.h" local="yes">apr_network_io.h</includes>
-    <includes id="apr__errno_8h" name="apr_errno.h" local="yes">apr_errno.h</includes>
-    <includes id="apr__global__mutex_8h" name="apr_global_mutex.h" local="yes">apr_global_mutex.h</includes>
-    <includes id="apr__proc__mutex_8h" name="apr_proc_mutex.h" local="yes">apr_proc_mutex.h</includes>
-    <includes id="apr__time_8h" name="apr_time.h" local="yes">apr_time.h</includes>
-    <includes id="apr__dso_8h" name="apr_dso.h" local="yes">apr_dso.h</includes>
-    <includes id="apr__shm_8h" name="apr_shm.h" local="yes">apr_shm.h</includes>
+    <filename>apr__portable_8h.html</filename>
     <class kind="struct">apr_os_proc_mutex_t</class>
     <class kind="struct">apr_os_sock_info_t</class>
     <member kind="define">
       <type>#define</type>
       <name>apr_os_global_mutex_t</name>
-      <anchor>a30</anchor>
+      <anchor>a31</anchor>
       <arglist></arglist>
     </member>
     <member kind="define">
       <type>#define</type>
       <name>apr_os_global_mutex_get</name>
-      <anchor>a31</anchor>
+      <anchor>a32</anchor>
       <arglist></arglist>
     </member>
     <member kind="typedef">
@@ -4603,44 +4504,50 @@
     </member>
     <member kind="function">
       <type>apr_status_t</type>
-      <name>apr_os_dir_put</name>
+      <name>apr_os_pipe_put_ex</name>
       <anchor>a21</anchor>
+      <arglist>(apr_file_t **file, apr_os_file_t *thefile, int register_cleanup, apr_pool_t *cont)</arglist>
+    </member>
+    <member kind="function">
+      <type>apr_status_t</type>
+      <name>apr_os_dir_put</name>
+      <anchor>a22</anchor>
       <arglist>(apr_dir_t **dir, apr_os_dir_t *thedir, apr_pool_t *cont)</arglist>
     </member>
     <member kind="function">
       <type>apr_status_t</type>
       <name>apr_os_sock_put</name>
-      <anchor>a22</anchor>
+      <anchor>a23</anchor>
       <arglist>(apr_socket_t **sock, apr_os_sock_t *thesock, apr_pool_t *cont)</arglist>
     </member>
     <member kind="function">
       <type>apr_status_t</type>
       <name>apr_os_sock_make</name>
-      <anchor>a23</anchor>
+      <anchor>a24</anchor>
       <arglist>(apr_socket_t **apr_sock, apr_os_sock_info_t *os_sock_info, apr_pool_t *cont)</arglist>
     </member>
     <member kind="function">
       <type>apr_status_t</type>
       <name>apr_os_proc_mutex_put</name>
-      <anchor>a24</anchor>
+      <anchor>a25</anchor>
       <arglist>(apr_proc_mutex_t **pmutex, apr_os_proc_mutex_t *ospmutex, apr_pool_t *cont)</arglist>
     </member>
     <member kind="function">
       <type>apr_status_t</type>
       <name>apr_os_imp_time_put</name>
-      <anchor>a25</anchor>
+      <anchor>a26</anchor>
       <arglist>(apr_time_t *aprtime, apr_os_imp_time_t **ostime, apr_pool_t *cont)</arglist>
     </member>
     <member kind="function">
       <type>apr_status_t</type>
       <name>apr_os_exp_time_put</name>
-      <anchor>a26</anchor>
+      <anchor>a27</anchor>
       <arglist>(apr_time_exp_t *aprtime, apr_os_exp_time_t **ostime, apr_pool_t *cont)</arglist>
     </member>
     <member kind="function">
       <type>apr_status_t</type>
       <name>apr_os_shm_put</name>
-      <anchor>a27</anchor>
+      <anchor>a28</anchor>
       <arglist>(apr_shm_t **shm, apr_os_shm_t *osshm, apr_pool_t *cont)</arglist>
     </member>
     <member kind="function">
@@ -4658,23 +4565,20 @@
     <member kind="function">
       <type>const char *</type>
       <name>apr_os_default_encoding</name>
-      <anchor>a28</anchor>
+      <anchor>a29</anchor>
       <arglist>(apr_pool_t *pool)</arglist>
     </member>
     <member kind="function">
       <type>const char *</type>
       <name>apr_os_locale_encoding</name>
-      <anchor>a29</anchor>
+      <anchor>a30</anchor>
       <arglist>(apr_pool_t *pool)</arglist>
     </member>
   </compound>
   <compound kind="file">
     <name>apr_proc_mutex.h</name>
     <path>/home/joe/src/apache/apr/include/</path>
-    <filename>apr__proc__mutex_8h</filename>
-    <includes id="apr_8h" name="apr.h" local="yes">apr.h</includes>
-    <includes id="apr__pools_8h" name="apr_pools.h" local="yes">apr_pools.h</includes>
-    <includes id="apr__errno_8h" name="apr_errno.h" local="yes">apr_errno.h</includes>
+    <filename>apr__proc__mutex_8h.html</filename>
     <member kind="typedef">
       <type>apr_proc_mutex_t</type>
       <name>apr_proc_mutex_t</name>
@@ -4786,8 +4690,7 @@
   <compound kind="file">
     <name>apr_ring.h</name>
     <path>/home/joe/src/apache/apr/include/</path>
-    <filename>apr__ring_8h</filename>
-    <includes id="apr__general_8h" name="apr_general.h" local="yes">apr_general.h</includes>
+    <filename>apr__ring_8h.html</filename>
     <member kind="define">
       <type>#define</type>
       <name>APR_RING_ENTRY</name>
@@ -4922,54 +4825,39 @@
     </member>
     <member kind="define">
       <type>#define</type>
-      <name>APR_RING_FOREACH</name>
-      <anchor>a22</anchor>
-      <arglist>(ep, hp, elem, link)</arglist>
-    </member>
-    <member kind="define">
-      <type>#define</type>
-      <name>APR_RING_FOREACH_REVERSE</name>
-      <anchor>a23</anchor>
-      <arglist>(ep, hp, elem, link)</arglist>
-    </member>
-    <member kind="define">
-      <type>#define</type>
       <name>APR_RING_CHECK_ONE</name>
-      <anchor>a24</anchor>
+      <anchor>a22</anchor>
       <arglist>(msg, ptr)</arglist>
     </member>
     <member kind="define">
       <type>#define</type>
       <name>APR_RING_CHECK</name>
-      <anchor>a25</anchor>
+      <anchor>a23</anchor>
       <arglist>(hp, elem, link, msg)</arglist>
     </member>
     <member kind="define">
       <type>#define</type>
       <name>APR_RING_CHECK_CONSISTENCY</name>
-      <anchor>a26</anchor>
+      <anchor>a24</anchor>
       <arglist>(hp, elem, link)</arglist>
     </member>
     <member kind="define">
       <type>#define</type>
       <name>APR_RING_CHECK_ELEM</name>
-      <anchor>a27</anchor>
+      <anchor>a25</anchor>
       <arglist>(ep, elem, link, msg)</arglist>
     </member>
     <member kind="define">
       <type>#define</type>
       <name>APR_RING_CHECK_ELEM_CONSISTENCY</name>
-      <anchor>a28</anchor>
+      <anchor>a26</anchor>
       <arglist>(ep, elem, link)</arglist>
     </member>
   </compound>
   <compound kind="file">
     <name>apr_shm.h</name>
     <path>/home/joe/src/apache/apr/include/</path>
-    <filename>apr__shm_8h</filename>
-    <includes id="apr_8h" name="apr.h" local="yes">apr.h</includes>
-    <includes id="apr__pools_8h" name="apr_pools.h" local="yes">apr_pools.h</includes>
-    <includes id="apr__errno_8h" name="apr_errno.h" local="yes">apr_errno.h</includes>
+    <filename>apr__shm_8h.html</filename>
     <member kind="typedef">
       <type>apr_shm_t</type>
       <name>apr_shm_t</name>
@@ -4984,47 +4872,51 @@
     </member>
     <member kind="function">
       <type>apr_status_t</type>
-      <name>apr_shm_destroy</name>
+      <name>apr_shm_remove</name>
       <anchor>a2</anchor>
+      <arglist>(const char *filename, apr_pool_t *pool)</arglist>
+    </member>
+    <member kind="function">
+      <type>apr_status_t</type>
+      <name>apr_shm_destroy</name>
+      <anchor>a3</anchor>
       <arglist>(apr_shm_t *m)</arglist>
     </member>
     <member kind="function">
       <type>apr_status_t</type>
       <name>apr_shm_attach</name>
-      <anchor>a3</anchor>
+      <anchor>a4</anchor>
       <arglist>(apr_shm_t **m, const char *filename, apr_pool_t *pool)</arglist>
     </member>
     <member kind="function">
       <type>apr_status_t</type>
       <name>apr_shm_detach</name>
-      <anchor>a4</anchor>
+      <anchor>a5</anchor>
       <arglist>(apr_shm_t *m)</arglist>
     </member>
     <member kind="function">
       <type>void *</type>
       <name>apr_shm_baseaddr_get</name>
-      <anchor>a5</anchor>
+      <anchor>a6</anchor>
       <arglist>(const apr_shm_t *m)</arglist>
     </member>
     <member kind="function">
       <type>apr_size_t</type>
       <name>apr_shm_size_get</name>
-      <anchor>a6</anchor>
+      <anchor>a7</anchor>
       <arglist>(const apr_shm_t *m)</arglist>
     </member>
     <member kind="function">
       <type>apr_pool_t *</type>
       <name>apr_shm_pool_get</name>
-      <anchor>a7</anchor>
+      <anchor>a8</anchor>
       <arglist>(const apr_shm_t *theshm)</arglist>
     </member>
   </compound>
   <compound kind="file">
     <name>apr_signal.h</name>
     <path>/home/joe/src/apache/apr/include/</path>
-    <filename>apr__signal_8h</filename>
-    <includes id="apr_8h" name="apr.h" local="yes">apr.h</includes>
-    <includes id="apr__pools_8h" name="apr_pools.h" local="yes">apr_pools.h</includes>
+    <filename>apr__signal_8h.html</filename>
     <member kind="typedef">
       <type>void</type>
       <name>apr_sigfunc_t</name>
@@ -5049,15 +4941,23 @@
       <anchor>a3</anchor>
       <arglist>(apr_pool_t *pglobal)</arglist>
     </member>
+    <member kind="function">
+      <type>apr_status_t</type>
+      <name>apr_signal_block</name>
+      <anchor>a4</anchor>
+      <arglist>(int signum)</arglist>
+    </member>
+    <member kind="function">
+      <type>apr_status_t</type>
+      <name>apr_signal_unblock</name>
+      <anchor>a5</anchor>
+      <arglist>(int signum)</arglist>
+    </member>
   </compound>
   <compound kind="file">
     <name>apr_strings.h</name>
     <path>/home/joe/src/apache/apr/include/</path>
-    <filename>apr__strings_8h</filename>
-    <includes id="apr_8h" name="apr.h" local="yes">apr.h</includes>
-    <includes id="apr__errno_8h" name="apr_errno.h" local="yes">apr_errno.h</includes>
-    <includes id="apr__pools_8h" name="apr_pools.h" local="yes">apr_pools.h</includes>
-    <includes id="apr__want_8h" name="apr_want.h" local="yes">apr_want.h</includes>
+    <filename>apr__strings_8h.html</filename>
     <member kind="function">
       <type>int</type>
       <name>apr_strnatcmp</name>
@@ -5173,31 +5073,34 @@
       <arglist>(apr_pool_t *p, apr_off_t n)</arglist>
     </member>
     <member kind="function">
+      <type>apr_status_t</type>
+      <name>apr_strtoff</name>
+      <anchor>a17</anchor>
+      <arglist>(apr_off_t *offset, const char *buf, char **end, int base)</arglist>
+    </member>
+    <member kind="function">
       <type>apr_int64_t</type>
       <name>apr_strtoi64</name>
-      <anchor>a17</anchor>
+      <anchor>a18</anchor>
       <arglist>(const char *buf, char **end, int base)</arglist>
     </member>
     <member kind="function">
       <type>apr_int64_t</type>
       <name>apr_atoi64</name>
-      <anchor>a18</anchor>
+      <anchor>a19</anchor>
       <arglist>(const char *buf)</arglist>
     </member>
     <member kind="function">
       <type>char *</type>
       <name>apr_strfsize</name>
-      <anchor>a19</anchor>
+      <anchor>a20</anchor>
       <arglist>(apr_off_t size, char *buf)</arglist>
     </member>
   </compound>
   <compound kind="file">
     <name>apr_support.h</name>
     <path>/home/joe/src/apache/apr/include/</path>
-    <filename>apr__support_8h</filename>
-    <includes id="apr_8h" name="apr.h" local="yes">apr.h</includes>
-    <includes id="apr__network__io_8h" name="apr_network_io.h" local="yes">apr_network_io.h</includes>
-    <includes id="apr__file__io_8h" name="apr_file_io.h" local="yes">apr_file_io.h</includes>
+    <filename>apr__support_8h.html</filename>
     <member kind="function">
       <type>apr_status_t</type>
       <name>apr_wait_for_io_or_timeout</name>
@@ -5208,21 +5111,19 @@
   <compound kind="file">
     <name>apr_tables.h</name>
     <path>/home/joe/src/apache/apr/include/</path>
-    <filename>apr__tables_8h</filename>
-    <includes id="apr_8h" name="apr.h" local="yes">apr.h</includes>
-    <includes id="apr__pools_8h" name="apr_pools.h" local="yes">apr_pools.h</includes>
+    <filename>apr__tables_8h.html</filename>
     <class kind="struct">apr_array_header_t</class>
     <class kind="struct">apr_table_entry_t</class>
     <member kind="define">
       <type>#define</type>
       <name>APR_OVERLAP_TABLES_SET</name>
-      <anchor>a31</anchor>
+      <anchor>a33</anchor>
       <arglist></arglist>
     </member>
     <member kind="define">
       <type>#define</type>
       <name>APR_OVERLAP_TABLES_MERGE</name>
-      <anchor>a32</anchor>
+      <anchor>a34</anchor>
       <arglist></arglist>
     </member>
     <member kind="typedef">
@@ -5244,183 +5145,190 @@
       <arglist></arglist>
     </member>
     <member kind="typedef">
-      <type>int(</type>
-      <name>apr_table_do_callback_fn_t</name>
+      <type>const char *</type>
+      <name>key</name>
       <anchor>a3</anchor>
-      <arglist>)(void *rec, const char *key, const char *value)</arglist>
+      <arglist></arglist>
+    </member>
+    <member kind="typedef">
+      <type>const char const char *</type>
+      <name>value</name>
+      <anchor>a4</anchor>
+      <arglist></arglist>
     </member>
     <member kind="function">
       <type>const apr_array_header_t *</type>
       <name>apr_table_elts</name>
-      <anchor>a4</anchor>
-      <arglist>(const apr_table_t *t)</arglist>
-    </member>
-    <member kind="function">
-      <type>int</type>
-      <name>apr_is_empty_table</name>
       <anchor>a5</anchor>
       <arglist>(const apr_table_t *t)</arglist>
     </member>
     <member kind="function">
       <type>int</type>
-      <name>apr_is_empty_array</name>
+      <name>apr_is_empty_table</name>
       <anchor>a6</anchor>
+      <arglist>(const apr_table_t *t)</arglist>
+    </member>
+    <member kind="function">
+      <type>int</type>
+      <name>apr_is_empty_array</name>
+      <anchor>a7</anchor>
       <arglist>(const apr_array_header_t *a)</arglist>
     </member>
     <member kind="function">
       <type>apr_array_header_t *</type>
       <name>apr_array_make</name>
-      <anchor>a7</anchor>
+      <anchor>a8</anchor>
       <arglist>(apr_pool_t *p, int nelts, int elt_size)</arglist>
     </member>
     <member kind="function">
       <type>void *</type>
       <name>apr_array_push</name>
-      <anchor>a8</anchor>
+      <anchor>a9</anchor>
       <arglist>(apr_array_header_t *arr)</arglist>
     </member>
     <member kind="function">
       <type>void *</type>
       <name>apr_array_pop</name>
-      <anchor>a9</anchor>
+      <anchor>a10</anchor>
       <arglist>(apr_array_header_t *arr)</arglist>
     </member>
     <member kind="function">
       <type>void</type>
       <name>apr_array_cat</name>
-      <anchor>a10</anchor>
+      <anchor>a11</anchor>
       <arglist>(apr_array_header_t *dst, const apr_array_header_t *src)</arglist>
     </member>
     <member kind="function">
       <type>apr_array_header_t *</type>
       <name>apr_array_copy</name>
-      <anchor>a11</anchor>
-      <arglist>(apr_pool_t *p, const apr_array_header_t *arr)</arglist>
-    </member>
-    <member kind="function">
-      <type>apr_array_header_t *</type>
-      <name>apr_array_copy_hdr</name>
       <anchor>a12</anchor>
       <arglist>(apr_pool_t *p, const apr_array_header_t *arr)</arglist>
     </member>
     <member kind="function">
       <type>apr_array_header_t *</type>
-      <name>apr_array_append</name>
+      <name>apr_array_copy_hdr</name>
       <anchor>a13</anchor>
+      <arglist>(apr_pool_t *p, const apr_array_header_t *arr)</arglist>
+    </member>
+    <member kind="function">
+      <type>apr_array_header_t *</type>
+      <name>apr_array_append</name>
+      <anchor>a14</anchor>
       <arglist>(apr_pool_t *p, const apr_array_header_t *first, const apr_array_header_t *second)</arglist>
     </member>
     <member kind="function">
       <type>char *</type>
       <name>apr_array_pstrcat</name>
-      <anchor>a14</anchor>
+      <anchor>a15</anchor>
       <arglist>(apr_pool_t *p, const apr_array_header_t *arr, const char sep)</arglist>
     </member>
     <member kind="function">
       <type>apr_table_t *</type>
       <name>apr_table_make</name>
-      <anchor>a15</anchor>
+      <anchor>a16</anchor>
       <arglist>(apr_pool_t *p, int nelts)</arglist>
     </member>
     <member kind="function">
       <type>apr_table_t *</type>
       <name>apr_table_copy</name>
-      <anchor>a16</anchor>
+      <anchor>a17</anchor>
       <arglist>(apr_pool_t *p, const apr_table_t *t)</arglist>
     </member>
     <member kind="function">
       <type>void</type>
       <name>apr_table_clear</name>
-      <anchor>a17</anchor>
+      <anchor>a18</anchor>
       <arglist>(apr_table_t *t)</arglist>
     </member>
     <member kind="function">
       <type>const char *</type>
       <name>apr_table_get</name>
-      <anchor>a18</anchor>
+      <anchor>a19</anchor>
       <arglist>(const apr_table_t *t, const char *key)</arglist>
     </member>
     <member kind="function">
       <type>void</type>
       <name>apr_table_set</name>
-      <anchor>a19</anchor>
-      <arglist>(apr_table_t *t, const char *key, const char *val)</arglist>
-    </member>
-    <member kind="function">
-      <type>void</type>
-      <name>apr_table_setn</name>
       <anchor>a20</anchor>
       <arglist>(apr_table_t *t, const char *key, const char *val)</arglist>
     </member>
     <member kind="function">
       <type>void</type>
-      <name>apr_table_unset</name>
+      <name>apr_table_setn</name>
       <anchor>a21</anchor>
+      <arglist>(apr_table_t *t, const char *key, const char *val)</arglist>
+    </member>
+    <member kind="function">
+      <type>void</type>
+      <name>apr_table_unset</name>
+      <anchor>a22</anchor>
       <arglist>(apr_table_t *t, const char *key)</arglist>
     </member>
     <member kind="function">
       <type>void</type>
       <name>apr_table_merge</name>
-      <anchor>a22</anchor>
-      <arglist>(apr_table_t *t, const char *key, const char *val)</arglist>
-    </member>
-    <member kind="function">
-      <type>void</type>
-      <name>apr_table_mergen</name>
       <anchor>a23</anchor>
       <arglist>(apr_table_t *t, const char *key, const char *val)</arglist>
     </member>
     <member kind="function">
       <type>void</type>
-      <name>apr_table_add</name>
+      <name>apr_table_mergen</name>
       <anchor>a24</anchor>
       <arglist>(apr_table_t *t, const char *key, const char *val)</arglist>
     </member>
     <member kind="function">
       <type>void</type>
-      <name>apr_table_addn</name>
+      <name>apr_table_add</name>
       <anchor>a25</anchor>
+      <arglist>(apr_table_t *t, const char *key, const char *val)</arglist>
+    </member>
+    <member kind="function">
+      <type>void</type>
+      <name>apr_table_addn</name>
+      <anchor>a26</anchor>
       <arglist>(apr_table_t *t, const char *key, const char *val)</arglist>
     </member>
     <member kind="function">
       <type>apr_table_t *</type>
       <name>apr_table_overlay</name>
-      <anchor>a26</anchor>
+      <anchor>a27</anchor>
       <arglist>(apr_pool_t *p, const apr_table_t *overlay, const apr_table_t *base)</arglist>
+    </member>
+    <member kind="function">
+      <type>typedef</type>
+      <name>int</name>
+      <anchor>a28</anchor>
+      <arglist>(apr_table_do_callback_fn_t)(void *rec</arglist>
     </member>
     <member kind="function">
       <type>int</type>
       <name>apr_table_do</name>
-      <anchor>a27</anchor>
+      <anchor>a29</anchor>
       <arglist>(apr_table_do_callback_fn_t *comp, void *rec, const apr_table_t *t,...)</arglist>
     </member>
     <member kind="function">
       <type>int</type>
       <name>apr_table_vdo</name>
-      <anchor>a28</anchor>
+      <anchor>a30</anchor>
       <arglist>(apr_table_do_callback_fn_t *comp, void *rec, const apr_table_t *t, va_list vp)</arglist>
     </member>
     <member kind="function">
       <type>void</type>
       <name>apr_table_overlap</name>
-      <anchor>a29</anchor>
+      <anchor>a31</anchor>
       <arglist>(apr_table_t *a, const apr_table_t *b, unsigned flags)</arglist>
     </member>
     <member kind="function">
       <type>void</type>
       <name>apr_table_compress</name>
-      <anchor>a30</anchor>
+      <anchor>a32</anchor>
       <arglist>(apr_table_t *t, unsigned flags)</arglist>
     </member>
   </compound>
   <compound kind="file">
     <name>apr_thread_cond.h</name>
     <path>/home/joe/src/apache/apr/include/</path>
-    <filename>apr__thread__cond_8h</filename>
-    <includes id="apr_8h" name="apr.h" local="yes">apr.h</includes>
-    <includes id="apr__pools_8h" name="apr_pools.h" local="yes">apr_pools.h</includes>
-    <includes id="apr__errno_8h" name="apr_errno.h" local="yes">apr_errno.h</includes>
-    <includes id="apr__time_8h" name="apr_time.h" local="yes">apr_time.h</includes>
-    <includes id="apr__thread__mutex_8h" name="apr_thread_mutex.h" local="yes">apr_thread_mutex.h</includes>
+    <filename>apr__thread__cond_8h.html</filename>
     <member kind="typedef">
       <type>apr_thread_cond_t</type>
       <name>apr_thread_cond_t</name>
@@ -5473,10 +5381,7 @@
   <compound kind="file">
     <name>apr_thread_mutex.h</name>
     <path>/home/joe/src/apache/apr/include/</path>
-    <filename>apr__thread__mutex_8h</filename>
-    <includes id="apr_8h" name="apr.h" local="yes">apr.h</includes>
-    <includes id="apr__errno_8h" name="apr_errno.h" local="yes">apr_errno.h</includes>
-    <includes id="apr__pools_8h" name="apr_pools.h" local="yes">apr_pools.h</includes>
+    <filename>apr__thread__mutex_8h.html</filename>
     <member kind="define">
       <type>#define</type>
       <name>APR_THREAD_MUTEX_DEFAULT</name>
@@ -5541,82 +5446,78 @@
   <compound kind="file">
     <name>apr_thread_proc.h</name>
     <path>/home/joe/src/apache/apr/include/</path>
-    <filename>apr__thread__proc_8h</filename>
-    <includes id="apr_8h" name="apr.h" local="yes">apr.h</includes>
-    <includes id="apr__file__io_8h" name="apr_file_io.h" local="yes">apr_file_io.h</includes>
-    <includes id="apr__pools_8h" name="apr_pools.h" local="yes">apr_pools.h</includes>
-    <includes id="apr__errno_8h" name="apr_errno.h" local="yes">apr_errno.h</includes>
+    <filename>apr__thread__proc_8h.html</filename>
     <class kind="struct">apr_proc_t</class>
     <member kind="define">
       <type>#define</type>
       <name>APR_PROC_CHECK_EXIT</name>
-      <anchor>a55</anchor>
-      <arglist>(x)</arglist>
-    </member>
-    <member kind="define">
-      <type>#define</type>
-      <name>APR_PROC_CHECK_SIGNALED</name>
       <anchor>a56</anchor>
       <arglist>(x)</arglist>
     </member>
     <member kind="define">
       <type>#define</type>
-      <name>APR_PROC_CHECK_CORE_DUMP</name>
+      <name>APR_PROC_CHECK_SIGNALED</name>
       <anchor>a57</anchor>
       <arglist>(x)</arglist>
     </member>
     <member kind="define">
       <type>#define</type>
-      <name>APR_NO_PIPE</name>
+      <name>APR_PROC_CHECK_CORE_DUMP</name>
       <anchor>a58</anchor>
-      <arglist></arglist>
+      <arglist>(x)</arglist>
     </member>
     <member kind="define">
       <type>#define</type>
-      <name>APR_FULL_BLOCK</name>
+      <name>APR_NO_PIPE</name>
       <anchor>a59</anchor>
       <arglist></arglist>
     </member>
     <member kind="define">
       <type>#define</type>
-      <name>APR_FULL_NONBLOCK</name>
+      <name>APR_FULL_BLOCK</name>
       <anchor>a60</anchor>
       <arglist></arglist>
     </member>
     <member kind="define">
       <type>#define</type>
-      <name>APR_PARENT_BLOCK</name>
+      <name>APR_FULL_NONBLOCK</name>
       <anchor>a61</anchor>
       <arglist></arglist>
     </member>
     <member kind="define">
       <type>#define</type>
-      <name>APR_CHILD_BLOCK</name>
+      <name>APR_PARENT_BLOCK</name>
       <anchor>a62</anchor>
       <arglist></arglist>
     </member>
     <member kind="define">
       <type>#define</type>
-      <name>APR_LIMIT_CPU</name>
+      <name>APR_CHILD_BLOCK</name>
       <anchor>a63</anchor>
       <arglist></arglist>
     </member>
     <member kind="define">
       <type>#define</type>
-      <name>APR_LIMIT_MEM</name>
+      <name>APR_LIMIT_CPU</name>
       <anchor>a64</anchor>
       <arglist></arglist>
     </member>
     <member kind="define">
       <type>#define</type>
-      <name>APR_LIMIT_NPROC</name>
+      <name>APR_LIMIT_MEM</name>
       <anchor>a65</anchor>
       <arglist></arglist>
     </member>
     <member kind="define">
       <type>#define</type>
-      <name>APR_LIMIT_NOFILE</name>
+      <name>APR_LIMIT_NPROC</name>
       <anchor>a66</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="define">
+      <type>#define</type>
+      <name>APR_LIMIT_NOFILE</name>
+      <anchor>a67</anchor>
       <arglist></arglist>
     </member>
     <member kind="define">
@@ -5658,13 +5559,13 @@
     <member kind="define">
       <type>#define</type>
       <name>APR_PROC_DETACH_FOREGROUND</name>
-      <anchor>a67</anchor>
+      <anchor>a68</anchor>
       <arglist></arglist>
     </member>
     <member kind="define">
       <type>#define</type>
       <name>APR_PROC_DETACH_DAEMONIZE</name>
-      <anchor>a68</anchor>
+      <anchor>a69</anchor>
       <arglist></arglist>
     </member>
     <member kind="typedef">
@@ -5674,427 +5575,432 @@
       <arglist></arglist>
     </member>
     <member kind="typedef">
-      <type>void(</type>
-      <name>apr_child_errfn_t</name>
+      <type>apr_status_t</type>
+      <name>err</name>
       <anchor>a1</anchor>
-      <arglist>)(apr_pool_t *proc, apr_status_t err, const char *description)</arglist>
+      <arglist></arglist>
+    </member>
+    <member kind="typedef">
+      <type>apr_status_t const char *</type>
+      <name>description</name>
+      <anchor>a2</anchor>
+      <arglist></arglist>
     </member>
     <member kind="typedef">
       <type>apr_thread_t</type>
       <name>apr_thread_t</name>
-      <anchor>a2</anchor>
+      <anchor>a3</anchor>
       <arglist></arglist>
     </member>
     <member kind="typedef">
       <type>apr_threadattr_t</type>
       <name>apr_threadattr_t</name>
-      <anchor>a3</anchor>
+      <anchor>a4</anchor>
       <arglist></arglist>
     </member>
     <member kind="typedef">
       <type>apr_procattr_t</type>
       <name>apr_procattr_t</name>
-      <anchor>a4</anchor>
+      <anchor>a5</anchor>
       <arglist></arglist>
     </member>
     <member kind="typedef">
       <type>apr_thread_once_t</type>
       <name>apr_thread_once_t</name>
-      <anchor>a5</anchor>
+      <anchor>a6</anchor>
       <arglist></arglist>
     </member>
     <member kind="typedef">
       <type>apr_threadkey_t</type>
       <name>apr_threadkey_t</name>
-      <anchor>a6</anchor>
+      <anchor>a7</anchor>
       <arglist></arglist>
     </member>
     <member kind="typedef">
       <type>apr_other_child_rec_t</type>
       <name>apr_other_child_rec_t</name>
-      <anchor>a7</anchor>
+      <anchor>a8</anchor>
       <arglist></arglist>
     </member>
     <member kind="typedef">
       <type>void *(APR_THREAD_FUNC *</type>
       <name>apr_thread_start_t</name>
-      <anchor>a8</anchor>
+      <anchor>a9</anchor>
       <arglist>)(apr_thread_t *, void *)</arglist>
     </member>
     <member kind="enumeration">
       <name>apr_cmdtype_e</name>
-      <anchor>a69</anchor>
-      <arglist></arglist>
-    </member>
-    <member kind="enumvalue">
-      <name>APR_SHELLCMD</name>
-      <anchor>a69a29</anchor>
-      <arglist></arglist>
-    </member>
-    <member kind="enumvalue">
-      <name>APR_PROGRAM</name>
-      <anchor>a69a30</anchor>
-      <arglist></arglist>
-    </member>
-    <member kind="enumvalue">
-      <name>APR_PROGRAM_ENV</name>
-      <anchor>a69a31</anchor>
-      <arglist></arglist>
-    </member>
-    <member kind="enumvalue">
-      <name>APR_PROGRAM_PATH</name>
-      <anchor>a69a32</anchor>
-      <arglist></arglist>
-    </member>
-    <member kind="enumeration">
-      <name>apr_wait_how_e</name>
       <anchor>a70</anchor>
       <arglist></arglist>
     </member>
     <member kind="enumvalue">
-      <name>APR_WAIT</name>
-      <anchor>a70a33</anchor>
+      <name>APR_SHELLCMD</name>
+      <anchor>a70a30</anchor>
       <arglist></arglist>
     </member>
     <member kind="enumvalue">
-      <name>APR_NOWAIT</name>
-      <anchor>a70a34</anchor>
+      <name>APR_PROGRAM</name>
+      <anchor>a70a31</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="enumvalue">
+      <name>APR_PROGRAM_ENV</name>
+      <anchor>a70a32</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="enumvalue">
+      <name>APR_PROGRAM_PATH</name>
+      <anchor>a70a33</anchor>
       <arglist></arglist>
     </member>
     <member kind="enumeration">
-      <name>apr_exit_why_e</name>
+      <name>apr_wait_how_e</name>
       <anchor>a71</anchor>
       <arglist></arglist>
     </member>
     <member kind="enumvalue">
-      <name>APR_PROC_EXIT</name>
+      <name>APR_WAIT</name>
+      <anchor>a71a34</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="enumvalue">
+      <name>APR_NOWAIT</name>
       <anchor>a71a35</anchor>
       <arglist></arglist>
     </member>
-    <member kind="enumvalue">
-      <name>APR_PROC_SIGNAL</name>
-      <anchor>a71a36</anchor>
-      <arglist></arglist>
-    </member>
-    <member kind="enumvalue">
-      <name>APR_PROC_SIGNAL_CORE</name>
-      <anchor>a71a37</anchor>
-      <arglist></arglist>
-    </member>
     <member kind="enumeration">
-      <name>apr_kill_conditions_e</name>
+      <name>apr_exit_why_e</name>
       <anchor>a72</anchor>
       <arglist></arglist>
     </member>
     <member kind="enumvalue">
-      <name>APR_KILL_NEVER</name>
+      <name>APR_PROC_EXIT</name>
+      <anchor>a72a36</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="enumvalue">
+      <name>APR_PROC_SIGNAL</name>
+      <anchor>a72a37</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="enumvalue">
+      <name>APR_PROC_SIGNAL_CORE</name>
       <anchor>a72a38</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="enumeration">
+      <name>apr_kill_conditions_e</name>
+      <anchor>a73</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="enumvalue">
+      <name>APR_KILL_NEVER</name>
+      <anchor>a73a39</anchor>
       <arglist></arglist>
     </member>
     <member kind="enumvalue">
       <name>APR_KILL_ALWAYS</name>
-      <anchor>a72a39</anchor>
+      <anchor>a73a40</anchor>
       <arglist></arglist>
     </member>
     <member kind="enumvalue">
       <name>APR_KILL_AFTER_TIMEOUT</name>
-      <anchor>a72a40</anchor>
+      <anchor>a73a41</anchor>
       <arglist></arglist>
     </member>
     <member kind="enumvalue">
       <name>APR_JUST_WAIT</name>
-      <anchor>a72a41</anchor>
+      <anchor>a73a42</anchor>
       <arglist></arglist>
     </member>
     <member kind="enumvalue">
       <name>APR_KILL_ONLY_ONCE</name>
-      <anchor>a72a42</anchor>
+      <anchor>a73a43</anchor>
       <arglist></arglist>
+    </member>
+    <member kind="function">
+      <type>typedef</type>
+      <name>void</name>
+      <anchor>a10</anchor>
+      <arglist>(apr_child_errfn_t)(apr_pool_t *proc</arglist>
     </member>
     <member kind="function">
       <type>apr_status_t</type>
       <name>apr_threadattr_create</name>
-      <anchor>a9</anchor>
+      <anchor>a11</anchor>
       <arglist>(apr_threadattr_t **new_attr, apr_pool_t *cont)</arglist>
     </member>
     <member kind="function">
       <type>apr_status_t</type>
       <name>apr_threadattr_detach_set</name>
-      <anchor>a10</anchor>
+      <anchor>a12</anchor>
       <arglist>(apr_threadattr_t *attr, apr_int32_t on)</arglist>
     </member>
     <member kind="function">
       <type>apr_status_t</type>
       <name>apr_threadattr_detach_get</name>
-      <anchor>a11</anchor>
+      <anchor>a13</anchor>
       <arglist>(apr_threadattr_t *attr)</arglist>
     </member>
     <member kind="function">
       <type>apr_status_t</type>
+      <name>apr_threadattr_stacksize_set</name>
+      <anchor>a14</anchor>
+      <arglist>(apr_threadattr_t *attr, apr_size_t stacksize)</arglist>
+    </member>
+    <member kind="function">
+      <type>apr_status_t</type>
       <name>apr_thread_create</name>
-      <anchor>a12</anchor>
+      <anchor>a15</anchor>
       <arglist>(apr_thread_t **new_thread, apr_threadattr_t *attr, apr_thread_start_t func, void *data, apr_pool_t *cont)</arglist>
     </member>
     <member kind="function">
       <type>apr_status_t</type>
       <name>apr_thread_exit</name>
-      <anchor>a13</anchor>
+      <anchor>a16</anchor>
       <arglist>(apr_thread_t *thd, apr_status_t retval)</arglist>
     </member>
     <member kind="function">
       <type>apr_status_t</type>
       <name>apr_thread_join</name>
-      <anchor>a14</anchor>
+      <anchor>a17</anchor>
       <arglist>(apr_status_t *retval, apr_thread_t *thd)</arglist>
     </member>
     <member kind="function">
       <type>void</type>
       <name>apr_thread_yield</name>
-      <anchor>a15</anchor>
+      <anchor>a18</anchor>
       <arglist>(void)</arglist>
     </member>
     <member kind="function">
       <type>apr_status_t</type>
       <name>apr_thread_once_init</name>
-      <anchor>a16</anchor>
+      <anchor>a19</anchor>
       <arglist>(apr_thread_once_t **control, apr_pool_t *p)</arglist>
     </member>
     <member kind="function">
       <type>apr_status_t</type>
       <name>apr_thread_once</name>
-      <anchor>a17</anchor>
+      <anchor>a20</anchor>
       <arglist>(apr_thread_once_t *control, void(*func)(void))</arglist>
     </member>
     <member kind="function">
       <type>apr_status_t</type>
       <name>apr_thread_detach</name>
-      <anchor>a18</anchor>
+      <anchor>a21</anchor>
       <arglist>(apr_thread_t *thd)</arglist>
     </member>
     <member kind="function">
       <type>apr_status_t</type>
       <name>apr_thread_data_get</name>
-      <anchor>a19</anchor>
+      <anchor>a22</anchor>
       <arglist>(void **data, const char *key, apr_thread_t *thread)</arglist>
     </member>
     <member kind="function">
       <type>apr_status_t</type>
       <name>apr_thread_data_set</name>
-      <anchor>a20</anchor>
+      <anchor>a23</anchor>
       <arglist>(void *data, const char *key, apr_status_t(*cleanup)(void *), apr_thread_t *thread)</arglist>
     </member>
     <member kind="function">
       <type>apr_status_t</type>
       <name>apr_threadkey_private_create</name>
-      <anchor>a21</anchor>
+      <anchor>a24</anchor>
       <arglist>(apr_threadkey_t **key, void(*dest)(void *), apr_pool_t *cont)</arglist>
     </member>
     <member kind="function">
       <type>apr_status_t</type>
       <name>apr_threadkey_private_get</name>
-      <anchor>a22</anchor>
+      <anchor>a25</anchor>
       <arglist>(void **new_mem, apr_threadkey_t *key)</arglist>
     </member>
     <member kind="function">
       <type>apr_status_t</type>
       <name>apr_threadkey_private_set</name>
-      <anchor>a23</anchor>
+      <anchor>a26</anchor>
       <arglist>(void *priv, apr_threadkey_t *key)</arglist>
     </member>
     <member kind="function">
       <type>apr_status_t</type>
       <name>apr_threadkey_private_delete</name>
-      <anchor>a24</anchor>
+      <anchor>a27</anchor>
       <arglist>(apr_threadkey_t *key)</arglist>
     </member>
     <member kind="function">
       <type>apr_status_t</type>
       <name>apr_threadkey_data_get</name>
-      <anchor>a25</anchor>
+      <anchor>a28</anchor>
       <arglist>(void **data, const char *key, apr_threadkey_t *threadkey)</arglist>
     </member>
     <member kind="function">
       <type>apr_status_t</type>
       <name>apr_threadkey_data_set</name>
-      <anchor>a26</anchor>
+      <anchor>a29</anchor>
       <arglist>(void *data, const char *key, apr_status_t(*cleanup)(void *), apr_threadkey_t *threadkey)</arglist>
     </member>
     <member kind="function">
       <type>apr_status_t</type>
       <name>apr_procattr_create</name>
-      <anchor>a27</anchor>
+      <anchor>a30</anchor>
       <arglist>(apr_procattr_t **new_attr, apr_pool_t *cont)</arglist>
     </member>
     <member kind="function">
       <type>apr_status_t</type>
       <name>apr_procattr_io_set</name>
-      <anchor>a28</anchor>
+      <anchor>a31</anchor>
       <arglist>(apr_procattr_t *attr, apr_int32_t in, apr_int32_t out, apr_int32_t err)</arglist>
     </member>
     <member kind="function">
       <type>apr_status_t</type>
       <name>apr_procattr_child_in_set</name>
-      <anchor>a29</anchor>
+      <anchor>a32</anchor>
       <arglist>(struct apr_procattr_t *attr, apr_file_t *child_in, apr_file_t *parent_in)</arglist>
     </member>
     <member kind="function">
       <type>apr_status_t</type>
       <name>apr_procattr_child_out_set</name>
-      <anchor>a30</anchor>
+      <anchor>a33</anchor>
       <arglist>(struct apr_procattr_t *attr, apr_file_t *child_out, apr_file_t *parent_out)</arglist>
     </member>
     <member kind="function">
       <type>apr_status_t</type>
       <name>apr_procattr_child_err_set</name>
-      <anchor>a31</anchor>
+      <anchor>a34</anchor>
       <arglist>(struct apr_procattr_t *attr, apr_file_t *child_err, apr_file_t *parent_err)</arglist>
     </member>
     <member kind="function">
       <type>apr_status_t</type>
       <name>apr_procattr_dir_set</name>
-      <anchor>a32</anchor>
+      <anchor>a35</anchor>
       <arglist>(apr_procattr_t *attr, const char *dir)</arglist>
     </member>
     <member kind="function">
       <type>apr_status_t</type>
       <name>apr_procattr_cmdtype_set</name>
-      <anchor>a33</anchor>
+      <anchor>a36</anchor>
       <arglist>(apr_procattr_t *attr, apr_cmdtype_e cmd)</arglist>
     </member>
     <member kind="function">
       <type>apr_status_t</type>
       <name>apr_procattr_detach_set</name>
-      <anchor>a34</anchor>
+      <anchor>a37</anchor>
       <arglist>(apr_procattr_t *attr, apr_int32_t detach)</arglist>
     </member>
     <member kind="function">
       <type>apr_status_t</type>
       <name>apr_procattr_limit_set</name>
-      <anchor>a35</anchor>
+      <anchor>a38</anchor>
       <arglist>(apr_procattr_t *attr, apr_int32_t what, struct rlimit *limit)</arglist>
     </member>
     <member kind="function">
       <type>apr_status_t</type>
       <name>apr_procattr_child_errfn_set</name>
-      <anchor>a36</anchor>
+      <anchor>a39</anchor>
       <arglist>(apr_procattr_t *attr, apr_child_errfn_t *errfn)</arglist>
     </member>
     <member kind="function">
       <type>apr_status_t</type>
       <name>apr_procattr_error_check_set</name>
-      <anchor>a37</anchor>
+      <anchor>a40</anchor>
       <arglist>(apr_procattr_t *attr, apr_int32_t chk)</arglist>
     </member>
     <member kind="function">
       <type>apr_status_t</type>
       <name>apr_proc_fork</name>
-      <anchor>a38</anchor>
+      <anchor>a41</anchor>
       <arglist>(apr_proc_t *proc, apr_pool_t *cont)</arglist>
     </member>
     <member kind="function">
       <type>apr_status_t</type>
       <name>apr_proc_create</name>
-      <anchor>a39</anchor>
-      <arglist>(apr_proc_t *new_proc, const char *progname, const char *const *args, const char *const *env, apr_procattr_t *attr, apr_pool_t *cont)</arglist>
+      <anchor>a42</anchor>
+      <arglist>(apr_proc_t *new_proc, const char *progname, const char *const *args, const char *const *env, apr_procattr_t *attr, apr_pool_t *pool)</arglist>
     </member>
     <member kind="function">
       <type>apr_status_t</type>
       <name>apr_proc_wait</name>
-      <anchor>a40</anchor>
+      <anchor>a43</anchor>
       <arglist>(apr_proc_t *proc, int *exitcode, apr_exit_why_e *exitwhy, apr_wait_how_e waithow)</arglist>
     </member>
     <member kind="function">
       <type>apr_status_t</type>
       <name>apr_proc_wait_all_procs</name>
-      <anchor>a41</anchor>
+      <anchor>a44</anchor>
       <arglist>(apr_proc_t *proc, int *exitcode, apr_exit_why_e *exitwhy, apr_wait_how_e waithow, apr_pool_t *p)</arglist>
+      <docanchor>_bug000002</docanchor>
     </member>
     <member kind="function">
       <type>apr_status_t</type>
       <name>apr_proc_detach</name>
-      <anchor>a42</anchor>
+      <anchor>a45</anchor>
       <arglist>(int daemonize)</arglist>
     </member>
     <member kind="function">
       <type>void</type>
       <name>apr_proc_other_child_register</name>
-      <anchor>a43</anchor>
+      <anchor>a46</anchor>
       <arglist>(apr_proc_t *proc, void(*maintenance)(int reason, void *, int status), void *data, apr_file_t *write_fd, apr_pool_t *p)</arglist>
+      <docanchor>_bug000003</docanchor>
     </member>
     <member kind="function">
       <type>void</type>
       <name>apr_proc_other_child_unregister</name>
-      <anchor>a44</anchor>
+      <anchor>a47</anchor>
       <arglist>(void *data)</arglist>
     </member>
     <member kind="function">
       <type>apr_status_t</type>
       <name>apr_proc_other_child_alert</name>
-      <anchor>a45</anchor>
+      <anchor>a48</anchor>
       <arglist>(apr_proc_t *proc, int reason, int status)</arglist>
     </member>
     <member kind="function">
       <type>void</type>
       <name>apr_proc_other_child_refresh</name>
-      <anchor>a46</anchor>
+      <anchor>a49</anchor>
       <arglist>(apr_other_child_rec_t *ocr, int reason)</arglist>
     </member>
     <member kind="function">
       <type>void</type>
       <name>apr_proc_other_child_refresh_all</name>
-      <anchor>a47</anchor>
+      <anchor>a50</anchor>
       <arglist>(int reason)</arglist>
-    </member>
-    <member kind="function">
-      <type>void</type>
-      <name>apr_proc_other_child_check</name>
-      <anchor>a48</anchor>
-      <arglist>(void)</arglist>
-    </member>
-    <member kind="function">
-      <type>apr_status_t</type>
-      <name>apr_proc_other_child_read</name>
-      <anchor>a49</anchor>
-      <arglist>(apr_proc_t *proc, int status)</arglist>
     </member>
     <member kind="function">
       <type>apr_status_t</type>
       <name>apr_proc_kill</name>
-      <anchor>a50</anchor>
+      <anchor>a51</anchor>
       <arglist>(apr_proc_t *proc, int sig)</arglist>
     </member>
     <member kind="function">
       <type>void</type>
       <name>apr_pool_note_subprocess</name>
-      <anchor>a51</anchor>
+      <anchor>a52</anchor>
       <arglist>(apr_pool_t *a, apr_proc_t *proc, apr_kill_conditions_e how)</arglist>
     </member>
     <member kind="function">
       <type>apr_status_t</type>
       <name>apr_setup_signal_thread</name>
-      <anchor>a52</anchor>
+      <anchor>a53</anchor>
       <arglist>(void)</arglist>
     </member>
     <member kind="function">
       <type>apr_status_t</type>
       <name>apr_signal_thread</name>
-      <anchor>a53</anchor>
+      <anchor>a54</anchor>
       <arglist>(int(*signal_handler)(int signum))</arglist>
     </member>
     <member kind="function">
       <type>apr_pool_t *</type>
       <name>apr_thread_pool_get</name>
-      <anchor>a54</anchor>
+      <anchor>a55</anchor>
       <arglist>(const apr_thread_t *thethread)</arglist>
     </member>
   </compound>
   <compound kind="file">
     <name>apr_thread_rwlock.h</name>
     <path>/home/joe/src/apache/apr/include/</path>
-    <filename>apr__thread__rwlock_8h</filename>
-    <includes id="apr_8h" name="apr.h" local="yes">apr.h</includes>
-    <includes id="apr__pools_8h" name="apr_pools.h" local="yes">apr_pools.h</includes>
-    <includes id="apr__errno_8h" name="apr_errno.h" local="yes">apr_errno.h</includes>
+    <filename>apr__thread__rwlock_8h.html</filename>
     <member kind="typedef">
       <type>apr_thread_rwlock_t</type>
       <name>apr_thread_rwlock_t</name>
@@ -6153,10 +6059,7 @@
   <compound kind="file">
     <name>apr_time.h</name>
     <path>/home/joe/src/apache/apr/include/</path>
-    <filename>apr__time_8h</filename>
-    <includes id="apr_8h" name="apr.h" local="yes">apr.h</includes>
-    <includes id="apr__pools_8h" name="apr_pools.h" local="yes">apr_pools.h</includes>
-    <includes id="apr__errno_8h" name="apr_errno.h" local="yes">apr_errno.h</includes>
+    <filename>apr__time_8h.html</filename>
     <class kind="struct">apr_time_exp_t</class>
     <member kind="define">
       <type>#define</type>
@@ -6336,10 +6239,7 @@
   <compound kind="file">
     <name>apr_user.h</name>
     <path>/home/joe/src/apache/apr/include/</path>
-    <filename>apr__user_8h</filename>
-    <includes id="apr_8h" name="apr.h" local="yes">apr.h</includes>
-    <includes id="apr__errno_8h" name="apr_errno.h" local="yes">apr_errno.h</includes>
-    <includes id="apr__pools_8h" name="apr_pools.h" local="yes">apr_pools.h</includes>
+    <filename>apr__user_8h.html</filename>
     <member kind="define">
       <type>#define</type>
       <name>apr_uid_compare</name>
@@ -6404,8 +6304,7 @@
   <compound kind="file">
     <name>apr_version.h</name>
     <path>/home/joe/src/apache/apr/include/</path>
-    <filename>apr__version_8h</filename>
-    <includes id="apr_8h" name="apr.h" local="yes">apr.h</includes>
+    <filename>apr__version_8h.html</filename>
     <class kind="struct">apr_version_t</class>
     <member kind="define">
       <type>#define</type>
@@ -6459,8 +6358,7 @@
   <compound kind="file">
     <name>apr_want.h</name>
     <path>/home/joe/src/apache/apr/include/</path>
-    <filename>apr__want_8h</filename>
-    <includes id="apr_8h" name="apr.h" local="yes">apr.h</includes>
+    <filename>apr__want_8h.html</filename>
   </compound>
   <compound kind="struct">
     <name>apr_array_header_t</name>
@@ -6867,6 +6765,12 @@
       <anchor>m4</anchor>
       <arglist></arglist>
     </member>
+    <member kind="variable">
+      <type>int</type>
+      <name>protocol</name>
+      <anchor>m5</anchor>
+      <arglist></arglist>
+    </member>
   </compound>
   <compound kind="struct">
     <name>apr_pollfd_t</name>
@@ -6940,6 +6844,7 @@
       <name>invoked</name>
       <anchor>m4</anchor>
       <arglist></arglist>
+      <docanchor>_bug000004</docanchor>
     </member>
     <member kind="variable">
       <type>HANDLE</type>
@@ -7177,11 +7082,6 @@
     <title>Bug List</title>
     <filename>bug</filename>
   </compound>
-  <compound kind="page">
-    <name>deprecated</name>
-    <title>Deprecated List</title>
-    <filename>deprecated</filename>
-  </compound>
   <compound kind="group">
     <name>APR</name>
     <title>Apache Portability Runtime library</title>
@@ -7375,577 +7275,577 @@
     </member>
     <member kind="define">
       <type>#define</type>
-      <name>APR_HAVE_SYS_SENDFILE_H</name>
+      <name>APR_HAVE_SYS_IOCTL_H</name>
       <anchor>a36</anchor>
       <arglist></arglist>
     </member>
     <member kind="define">
       <type>#define</type>
-      <name>APR_HAVE_SYS_SIGNAL_H</name>
+      <name>APR_HAVE_SYS_SENDFILE_H</name>
       <anchor>a37</anchor>
       <arglist></arglist>
     </member>
     <member kind="define">
       <type>#define</type>
-      <name>APR_HAVE_SYS_SOCKET_H</name>
+      <name>APR_HAVE_SYS_SIGNAL_H</name>
       <anchor>a38</anchor>
       <arglist></arglist>
     </member>
     <member kind="define">
       <type>#define</type>
-      <name>APR_HAVE_SYS_SYSLIMITS_H</name>
+      <name>APR_HAVE_SYS_SOCKET_H</name>
       <anchor>a39</anchor>
       <arglist></arglist>
     </member>
     <member kind="define">
       <type>#define</type>
-      <name>APR_HAVE_SYS_TIME_H</name>
+      <name>APR_HAVE_SYS_SOCKIO_H</name>
       <anchor>a40</anchor>
       <arglist></arglist>
     </member>
     <member kind="define">
       <type>#define</type>
-      <name>APR_HAVE_SYS_TYPES_H</name>
+      <name>APR_HAVE_SYS_SYSLIMITS_H</name>
       <anchor>a41</anchor>
       <arglist></arglist>
     </member>
     <member kind="define">
       <type>#define</type>
-      <name>APR_HAVE_SYS_UIO_H</name>
+      <name>APR_HAVE_SYS_TIME_H</name>
       <anchor>a42</anchor>
       <arglist></arglist>
     </member>
     <member kind="define">
       <type>#define</type>
-      <name>APR_HAVE_SYS_UN_H</name>
+      <name>APR_HAVE_SYS_TYPES_H</name>
       <anchor>a43</anchor>
       <arglist></arglist>
     </member>
     <member kind="define">
       <type>#define</type>
-      <name>APR_HAVE_SYS_WAIT_H</name>
+      <name>APR_HAVE_SYS_UIO_H</name>
       <anchor>a44</anchor>
       <arglist></arglist>
     </member>
     <member kind="define">
       <type>#define</type>
-      <name>APR_HAVE_TIME_H</name>
+      <name>APR_HAVE_SYS_UN_H</name>
       <anchor>a45</anchor>
       <arglist></arglist>
     </member>
     <member kind="define">
       <type>#define</type>
-      <name>APR_HAVE_UNISTD_H</name>
+      <name>APR_HAVE_SYS_WAIT_H</name>
       <anchor>a46</anchor>
       <arglist></arglist>
     </member>
     <member kind="define">
       <type>#define</type>
-      <name>APR_HAVE_SHMEM_MMAP_TMP</name>
+      <name>APR_HAVE_TIME_H</name>
       <anchor>a47</anchor>
       <arglist></arglist>
     </member>
     <member kind="define">
       <type>#define</type>
-      <name>APR_HAVE_SHMEM_MMAP_SHM</name>
+      <name>APR_HAVE_UNISTD_H</name>
       <anchor>a48</anchor>
       <arglist></arglist>
     </member>
     <member kind="define">
       <type>#define</type>
-      <name>APR_HAVE_SHMEM_MMAP_ZERO</name>
+      <name>APR_HAVE_SHMEM_MMAP_TMP</name>
       <anchor>a49</anchor>
       <arglist></arglist>
     </member>
     <member kind="define">
       <type>#define</type>
-      <name>APR_HAVE_SHMEM_SHMGET_ANON</name>
+      <name>APR_HAVE_SHMEM_MMAP_SHM</name>
       <anchor>a50</anchor>
       <arglist></arglist>
     </member>
     <member kind="define">
       <type>#define</type>
-      <name>APR_HAVE_SHMEM_SHMGET</name>
+      <name>APR_HAVE_SHMEM_MMAP_ZERO</name>
       <anchor>a51</anchor>
       <arglist></arglist>
     </member>
     <member kind="define">
       <type>#define</type>
-      <name>APR_HAVE_SHMEM_MMAP_ANON</name>
+      <name>APR_HAVE_SHMEM_SHMGET_ANON</name>
       <anchor>a52</anchor>
       <arglist></arglist>
     </member>
     <member kind="define">
       <type>#define</type>
-      <name>APR_HAVE_SHMEM_BEOS</name>
+      <name>APR_HAVE_SHMEM_SHMGET</name>
       <anchor>a53</anchor>
       <arglist></arglist>
     </member>
     <member kind="define">
       <type>#define</type>
-      <name>APR_USE_SHMEM_MMAP_TMP</name>
+      <name>APR_HAVE_SHMEM_MMAP_ANON</name>
       <anchor>a54</anchor>
       <arglist></arglist>
     </member>
     <member kind="define">
       <type>#define</type>
-      <name>APR_USE_SHMEM_MMAP_SHM</name>
+      <name>APR_HAVE_SHMEM_BEOS</name>
       <anchor>a55</anchor>
       <arglist></arglist>
     </member>
     <member kind="define">
       <type>#define</type>
-      <name>APR_USE_SHMEM_MMAP_ZERO</name>
+      <name>APR_USE_SHMEM_MMAP_TMP</name>
       <anchor>a56</anchor>
       <arglist></arglist>
     </member>
     <member kind="define">
       <type>#define</type>
-      <name>APR_USE_SHMEM_SHMGET_ANON</name>
+      <name>APR_USE_SHMEM_MMAP_SHM</name>
       <anchor>a57</anchor>
       <arglist></arglist>
     </member>
     <member kind="define">
       <type>#define</type>
-      <name>APR_USE_SHMEM_SHMGET</name>
+      <name>APR_USE_SHMEM_MMAP_ZERO</name>
       <anchor>a58</anchor>
       <arglist></arglist>
     </member>
     <member kind="define">
       <type>#define</type>
-      <name>APR_USE_SHMEM_MMAP_ANON</name>
+      <name>APR_USE_SHMEM_SHMGET_ANON</name>
       <anchor>a59</anchor>
       <arglist></arglist>
     </member>
     <member kind="define">
       <type>#define</type>
-      <name>APR_USE_SHMEM_BEOS</name>
+      <name>APR_USE_SHMEM_SHMGET</name>
       <anchor>a60</anchor>
       <arglist></arglist>
     </member>
     <member kind="define">
       <type>#define</type>
-      <name>APR_USE_FLOCK_SERIALIZE</name>
+      <name>APR_USE_SHMEM_MMAP_ANON</name>
       <anchor>a61</anchor>
       <arglist></arglist>
     </member>
     <member kind="define">
       <type>#define</type>
-      <name>APR_USE_SYSVSEM_SERIALIZE</name>
+      <name>APR_USE_SHMEM_BEOS</name>
       <anchor>a62</anchor>
       <arglist></arglist>
     </member>
     <member kind="define">
       <type>#define</type>
-      <name>APR_USE_POSIXSEM_SERIALIZE</name>
+      <name>APR_USE_FLOCK_SERIALIZE</name>
       <anchor>a63</anchor>
       <arglist></arglist>
     </member>
     <member kind="define">
       <type>#define</type>
-      <name>APR_USE_FCNTL_SERIALIZE</name>
+      <name>APR_USE_SYSVSEM_SERIALIZE</name>
       <anchor>a64</anchor>
       <arglist></arglist>
     </member>
     <member kind="define">
       <type>#define</type>
-      <name>APR_USE_PROC_PTHREAD_SERIALIZE</name>
+      <name>APR_USE_POSIXSEM_SERIALIZE</name>
       <anchor>a65</anchor>
       <arglist></arglist>
     </member>
     <member kind="define">
       <type>#define</type>
-      <name>APR_USE_PTHREAD_SERIALIZE</name>
+      <name>APR_USE_FCNTL_SERIALIZE</name>
       <anchor>a66</anchor>
       <arglist></arglist>
     </member>
     <member kind="define">
       <type>#define</type>
-      <name>APR_HAS_FLOCK_SERIALIZE</name>
+      <name>APR_USE_PROC_PTHREAD_SERIALIZE</name>
       <anchor>a67</anchor>
       <arglist></arglist>
     </member>
     <member kind="define">
       <type>#define</type>
-      <name>APR_HAS_SYSVSEM_SERIALIZE</name>
+      <name>APR_USE_PTHREAD_SERIALIZE</name>
       <anchor>a68</anchor>
       <arglist></arglist>
     </member>
     <member kind="define">
       <type>#define</type>
-      <name>APR_HAS_POSIXSEM_SERIALIZE</name>
+      <name>APR_HAS_FLOCK_SERIALIZE</name>
       <anchor>a69</anchor>
       <arglist></arglist>
     </member>
     <member kind="define">
       <type>#define</type>
-      <name>APR_HAS_FCNTL_SERIALIZE</name>
+      <name>APR_HAS_SYSVSEM_SERIALIZE</name>
       <anchor>a70</anchor>
       <arglist></arglist>
     </member>
     <member kind="define">
       <type>#define</type>
-      <name>APR_HAS_PROC_PTHREAD_SERIALIZE</name>
+      <name>APR_HAS_POSIXSEM_SERIALIZE</name>
       <anchor>a71</anchor>
       <arglist></arglist>
     </member>
     <member kind="define">
       <type>#define</type>
-      <name>APR_HAS_RWLOCK_SERIALIZE</name>
+      <name>APR_HAS_FCNTL_SERIALIZE</name>
       <anchor>a72</anchor>
       <arglist></arglist>
     </member>
     <member kind="define">
       <type>#define</type>
-      <name>APR_PROCESS_LOCK_IS_GLOBAL</name>
+      <name>APR_HAS_PROC_PTHREAD_SERIALIZE</name>
       <anchor>a73</anchor>
       <arglist></arglist>
     </member>
     <member kind="define">
       <type>#define</type>
-      <name>APR_HAVE_CORKABLE_TCP</name>
+      <name>APR_PROCESS_LOCK_IS_GLOBAL</name>
       <anchor>a74</anchor>
       <arglist></arglist>
     </member>
     <member kind="define">
       <type>#define</type>
-      <name>APR_HAVE_GETRLIMIT</name>
+      <name>APR_HAVE_CORKABLE_TCP</name>
       <anchor>a75</anchor>
       <arglist></arglist>
     </member>
     <member kind="define">
       <type>#define</type>
-      <name>APR_HAVE_IN_ADDR</name>
+      <name>APR_HAVE_GETRLIMIT</name>
       <anchor>a76</anchor>
       <arglist></arglist>
     </member>
     <member kind="define">
       <type>#define</type>
-      <name>APR_HAVE_INET_ADDR</name>
+      <name>APR_HAVE_IN_ADDR</name>
       <anchor>a77</anchor>
       <arglist></arglist>
     </member>
     <member kind="define">
       <type>#define</type>
-      <name>APR_HAVE_INET_NETWORK</name>
+      <name>APR_HAVE_INET_ADDR</name>
       <anchor>a78</anchor>
       <arglist></arglist>
     </member>
     <member kind="define">
       <type>#define</type>
-      <name>APR_HAVE_IPV6</name>
+      <name>APR_HAVE_INET_NETWORK</name>
       <anchor>a79</anchor>
       <arglist></arglist>
     </member>
     <member kind="define">
       <type>#define</type>
-      <name>APR_HAVE_MEMMOVE</name>
+      <name>APR_HAVE_IPV6</name>
       <anchor>a80</anchor>
       <arglist></arglist>
     </member>
     <member kind="define">
       <type>#define</type>
-      <name>APR_HAVE_SETRLIMIT</name>
+      <name>APR_HAVE_MEMMOVE</name>
       <anchor>a81</anchor>
       <arglist></arglist>
     </member>
     <member kind="define">
       <type>#define</type>
-      <name>APR_HAVE_SIGACTION</name>
+      <name>APR_HAVE_SETRLIMIT</name>
       <anchor>a82</anchor>
       <arglist></arglist>
     </member>
     <member kind="define">
       <type>#define</type>
-      <name>APR_HAVE_SIGSUSPEND</name>
+      <name>APR_HAVE_SIGACTION</name>
       <anchor>a83</anchor>
       <arglist></arglist>
     </member>
     <member kind="define">
       <type>#define</type>
-      <name>APR_HAVE_SIGWAIT</name>
+      <name>APR_HAVE_SIGSUSPEND</name>
       <anchor>a84</anchor>
       <arglist></arglist>
     </member>
     <member kind="define">
       <type>#define</type>
-      <name>APR_HAVE_SA_STORAGE</name>
+      <name>APR_HAVE_SIGWAIT</name>
       <anchor>a85</anchor>
       <arglist></arglist>
     </member>
     <member kind="define">
       <type>#define</type>
-      <name>APR_HAVE_STRCASECMP</name>
+      <name>APR_HAVE_SA_STORAGE</name>
       <anchor>a86</anchor>
       <arglist></arglist>
     </member>
     <member kind="define">
       <type>#define</type>
-      <name>APR_HAVE_STRDUP</name>
+      <name>APR_HAVE_STRCASECMP</name>
       <anchor>a87</anchor>
       <arglist></arglist>
     </member>
     <member kind="define">
       <type>#define</type>
-      <name>APR_HAVE_STRICMP</name>
+      <name>APR_HAVE_STRDUP</name>
       <anchor>a88</anchor>
       <arglist></arglist>
     </member>
     <member kind="define">
       <type>#define</type>
-      <name>APR_HAVE_STRNCASECMP</name>
+      <name>APR_HAVE_STRICMP</name>
       <anchor>a89</anchor>
       <arglist></arglist>
     </member>
     <member kind="define">
       <type>#define</type>
-      <name>APR_HAVE_STRNICMP</name>
+      <name>APR_HAVE_STRNCASECMP</name>
       <anchor>a90</anchor>
       <arglist></arglist>
     </member>
     <member kind="define">
       <type>#define</type>
-      <name>APR_HAVE_STRSTR</name>
+      <name>APR_HAVE_STRNICMP</name>
       <anchor>a91</anchor>
       <arglist></arglist>
     </member>
     <member kind="define">
       <type>#define</type>
-      <name>APR_HAVE_MEMCHR</name>
+      <name>APR_HAVE_STRSTR</name>
       <anchor>a92</anchor>
       <arglist></arglist>
     </member>
     <member kind="define">
       <type>#define</type>
-      <name>APR_HAVE_STRUCT_RLIMIT</name>
+      <name>APR_HAVE_MEMCHR</name>
       <anchor>a93</anchor>
       <arglist></arglist>
     </member>
     <member kind="define">
       <type>#define</type>
-      <name>APR_HAVE_UNION_SEMUN</name>
+      <name>APR_HAVE_STRUCT_RLIMIT</name>
       <anchor>a94</anchor>
       <arglist></arglist>
     </member>
     <member kind="define">
       <type>#define</type>
-      <name>APR_HAVE_SCTP</name>
+      <name>APR_HAVE_UNION_SEMUN</name>
       <anchor>a95</anchor>
       <arglist></arglist>
     </member>
     <member kind="define">
       <type>#define</type>
-      <name>APR_HAS_SHARED_MEMORY</name>
+      <name>APR_HAVE_SCTP</name>
       <anchor>a96</anchor>
       <arglist></arglist>
     </member>
     <member kind="define">
       <type>#define</type>
-      <name>APR_HAS_THREADS</name>
+      <name>APR_HAS_SHARED_MEMORY</name>
       <anchor>a97</anchor>
       <arglist></arglist>
     </member>
     <member kind="define">
       <type>#define</type>
-      <name>APR_HAS_SENDFILE</name>
+      <name>APR_HAS_THREADS</name>
       <anchor>a98</anchor>
       <arglist></arglist>
     </member>
     <member kind="define">
       <type>#define</type>
-      <name>APR_HAS_MMAP</name>
+      <name>APR_HAS_SENDFILE</name>
       <anchor>a99</anchor>
       <arglist></arglist>
     </member>
     <member kind="define">
       <type>#define</type>
-      <name>APR_HAS_FORK</name>
+      <name>APR_HAS_MMAP</name>
       <anchor>a100</anchor>
       <arglist></arglist>
     </member>
     <member kind="define">
       <type>#define</type>
-      <name>APR_HAS_RANDOM</name>
+      <name>APR_HAS_FORK</name>
       <anchor>a101</anchor>
       <arglist></arglist>
     </member>
     <member kind="define">
       <type>#define</type>
-      <name>APR_HAS_OTHER_CHILD</name>
+      <name>APR_HAS_RANDOM</name>
       <anchor>a102</anchor>
       <arglist></arglist>
     </member>
     <member kind="define">
       <type>#define</type>
-      <name>APR_HAS_DSO</name>
+      <name>APR_HAS_OTHER_CHILD</name>
       <anchor>a103</anchor>
       <arglist></arglist>
     </member>
     <member kind="define">
       <type>#define</type>
-      <name>APR_HAS_SO_ACCEPTFILTER</name>
+      <name>APR_HAS_DSO</name>
       <anchor>a104</anchor>
       <arglist></arglist>
     </member>
     <member kind="define">
       <type>#define</type>
-      <name>APR_HAS_UNICODE_FS</name>
+      <name>APR_HAS_SO_ACCEPTFILTER</name>
       <anchor>a105</anchor>
       <arglist></arglist>
     </member>
     <member kind="define">
       <type>#define</type>
-      <name>APR_HAS_PROC_INVOKED</name>
+      <name>APR_HAS_UNICODE_FS</name>
       <anchor>a106</anchor>
       <arglist></arglist>
     </member>
     <member kind="define">
       <type>#define</type>
-      <name>APR_HAS_USER</name>
+      <name>APR_HAS_PROC_INVOKED</name>
       <anchor>a107</anchor>
       <arglist></arglist>
     </member>
     <member kind="define">
       <type>#define</type>
-      <name>APR_HAS_LARGE_FILES</name>
+      <name>APR_HAS_USER</name>
       <anchor>a108</anchor>
       <arglist></arglist>
     </member>
     <member kind="define">
       <type>#define</type>
-      <name>APR_HAS_XTHREAD_FILES</name>
+      <name>APR_HAS_LARGE_FILES</name>
       <anchor>a109</anchor>
       <arglist></arglist>
     </member>
     <member kind="define">
       <type>#define</type>
-      <name>APR_HAS_OS_UUID</name>
+      <name>APR_HAS_XTHREAD_FILES</name>
       <anchor>a110</anchor>
       <arglist></arglist>
     </member>
     <member kind="define">
       <type>#define</type>
-      <name>APR_FILES_AS_SOCKETS</name>
+      <name>APR_HAS_OS_UUID</name>
       <anchor>a111</anchor>
       <arglist></arglist>
     </member>
     <member kind="define">
       <type>#define</type>
-      <name>APR_CHARSET_EBCDIC</name>
+      <name>APR_FILES_AS_SOCKETS</name>
       <anchor>a112</anchor>
       <arglist></arglist>
     </member>
     <member kind="define">
       <type>#define</type>
-      <name>APR_TCP_NOPUSH_FLAG</name>
+      <name>APR_CHARSET_EBCDIC</name>
       <anchor>a113</anchor>
       <arglist></arglist>
     </member>
     <member kind="define">
       <type>#define</type>
-      <name>APR_TCP_NODELAY_INHERITED</name>
+      <name>APR_TCP_NOPUSH_FLAG</name>
       <anchor>a114</anchor>
       <arglist></arglist>
     </member>
     <member kind="define">
       <type>#define</type>
-      <name>APR_O_NONBLOCK_INHERITED</name>
+      <name>APR_TCP_NODELAY_INHERITED</name>
       <anchor>a115</anchor>
       <arglist></arglist>
     </member>
     <member kind="define">
       <type>#define</type>
-      <name>APR_SIZEOF_VOIDP</name>
+      <name>APR_O_NONBLOCK_INHERITED</name>
       <anchor>a116</anchor>
       <arglist></arglist>
     </member>
     <member kind="define">
       <type>#define</type>
-      <name>APR_INT64_C</name>
+      <name>APR_SIZEOF_VOIDP</name>
       <anchor>a117</anchor>
-      <arglist>(val)</arglist>
+      <arglist></arglist>
     </member>
     <member kind="define">
       <type>#define</type>
-      <name>APR_THREAD_FUNC</name>
+      <name>APR_IS_BIGENDIAN</name>
       <anchor>a118</anchor>
       <arglist></arglist>
     </member>
     <member kind="define">
       <type>#define</type>
-      <name>APR_DECLARE</name>
+      <name>APR_INT64_C</name>
       <anchor>a119</anchor>
-      <arglist>(type)</arglist>
+      <arglist>(val)</arglist>
     </member>
     <member kind="define">
       <type>#define</type>
-      <name>APR_DECLARE_NONSTD</name>
+      <name>APR_UINT64_C</name>
       <anchor>a120</anchor>
-      <arglist>(type)</arglist>
+      <arglist>(val)</arglist>
     </member>
     <member kind="define">
       <type>#define</type>
-      <name>APR_DECLARE_DATA</name>
+      <name>APR_THREAD_FUNC</name>
       <anchor>a121</anchor>
       <arglist></arglist>
     </member>
     <member kind="define">
       <type>#define</type>
-      <name>APR_SSIZE_T_FMT</name>
+      <name>APR_DECLARE</name>
       <anchor>a122</anchor>
-      <arglist></arglist>
+      <arglist>(type)</arglist>
     </member>
     <member kind="define">
       <type>#define</type>
-      <name>APR_SIZE_T_FMT</name>
+      <name>APR_DECLARE_NONSTD</name>
       <anchor>a123</anchor>
-      <arglist></arglist>
+      <arglist>(type)</arglist>
     </member>
     <member kind="define">
       <type>#define</type>
-      <name>APR_OFF_T_FMT</name>
+      <name>APR_DECLARE_DATA</name>
       <anchor>a124</anchor>
       <arglist></arglist>
     </member>
     <member kind="define">
       <type>#define</type>
-      <name>APR_PID_T_FMT</name>
+      <name>APR_SSIZE_T_FMT</name>
       <anchor>a125</anchor>
       <arglist></arglist>
     </member>
     <member kind="define">
       <type>#define</type>
-      <name>APR_INT64_T_FMT</name>
+      <name>APR_SIZE_T_FMT</name>
       <anchor>a126</anchor>
       <arglist></arglist>
     </member>
     <member kind="define">
       <type>#define</type>
-      <name>APR_UINT64_T_FMT</name>
+      <name>APR_OFF_T_FMT</name>
       <anchor>a127</anchor>
       <arglist></arglist>
     </member>
     <member kind="define">
       <type>#define</type>
-      <name>APR_UINT64_T_HEX_FMT</name>
+      <name>APR_PID_T_FMT</name>
       <anchor>a128</anchor>
       <arglist></arglist>
     </member>
     <member kind="define">
       <type>#define</type>
-      <name>APR_HAVE_INT64_STRFN</name>
+      <name>APR_INT64_T_FMT</name>
       <anchor>a129</anchor>
       <arglist></arglist>
     </member>
     <member kind="define">
       <type>#define</type>
-      <name>APR_INT64_STRFN</name>
+      <name>APR_UINT64_T_FMT</name>
       <anchor>a130</anchor>
       <arglist></arglist>
     </member>
     <member kind="define">
       <type>#define</type>
-      <name>APR_FORCE_ATOMIC_GENERIC</name>
+      <name>APR_UINT64_T_HEX_FMT</name>
       <anchor>a131</anchor>
       <arglist></arglist>
     </member>
@@ -8010,13 +7910,13 @@
       <arglist></arglist>
     </member>
     <member kind="typedef">
-      <type>long long</type>
+      <type>long</type>
       <name>apr_int64_t</name>
       <anchor>a5</anchor>
       <arglist></arglist>
     </member>
     <member kind="typedef">
-      <type>unsigned long long</type>
+      <type>unsigned long</type>
       <name>apr_uint64_t</name>
       <anchor>a6</anchor>
       <arglist></arglist>
@@ -8137,104 +8037,62 @@
     <member kind="function">
       <type>apr_status_t</type>
       <name>apr_atomic_init</name>
-      <anchor>a1</anchor>
+      <anchor>a0</anchor>
       <arglist>(apr_pool_t *p)</arglist>
     </member>
     <member kind="function">
       <type>apr_uint32_t</type>
-      <name>apr_atomic_read</name>
-      <anchor>a2</anchor>
-      <arglist>(volatile apr_atomic_t *mem)</arglist>
-    </member>
-    <member kind="function">
-      <type>void</type>
-      <name>apr_atomic_set</name>
-      <anchor>a3</anchor>
-      <arglist>(volatile apr_atomic_t *mem, apr_uint32_t val)</arglist>
-    </member>
-    <member kind="function">
-      <type>void</type>
-      <name>apr_atomic_add</name>
-      <anchor>a4</anchor>
-      <arglist>(volatile apr_atomic_t *mem, apr_uint32_t val)</arglist>
-    </member>
-    <member kind="function">
-      <type>void</type>
-      <name>apr_atomic_inc</name>
-      <anchor>a5</anchor>
-      <arglist>(volatile apr_atomic_t *mem)</arglist>
-    </member>
-    <member kind="function">
-      <type>int</type>
-      <name>apr_atomic_dec</name>
-      <anchor>a6</anchor>
-      <arglist>(volatile apr_atomic_t *mem)</arglist>
-    </member>
-    <member kind="function">
-      <type>apr_uint32_t</type>
-      <name>apr_atomic_cas</name>
-      <anchor>a7</anchor>
-      <arglist>(volatile apr_uint32_t *mem, long with, long cmp)</arglist>
-    </member>
-    <member kind="function">
-      <type>apr_uint32_t</type>
       <name>apr_atomic_read32</name>
-      <anchor>a8</anchor>
+      <anchor>a1</anchor>
       <arglist>(volatile apr_uint32_t *mem)</arglist>
     </member>
     <member kind="function">
       <type>void</type>
       <name>apr_atomic_set32</name>
-      <anchor>a9</anchor>
+      <anchor>a2</anchor>
       <arglist>(volatile apr_uint32_t *mem, apr_uint32_t val)</arglist>
     </member>
     <member kind="function">
-      <type>void</type>
+      <type>apr_uint32_t</type>
       <name>apr_atomic_add32</name>
-      <anchor>a10</anchor>
+      <anchor>a3</anchor>
       <arglist>(volatile apr_uint32_t *mem, apr_uint32_t val)</arglist>
     </member>
     <member kind="function">
       <type>void</type>
       <name>apr_atomic_sub32</name>
-      <anchor>a11</anchor>
+      <anchor>a4</anchor>
       <arglist>(volatile apr_uint32_t *mem, apr_uint32_t val)</arglist>
     </member>
     <member kind="function">
-      <type>void</type>
+      <type>apr_uint32_t</type>
       <name>apr_atomic_inc32</name>
-      <anchor>a12</anchor>
+      <anchor>a5</anchor>
       <arglist>(volatile apr_uint32_t *mem)</arglist>
     </member>
     <member kind="function">
       <type>int</type>
       <name>apr_atomic_dec32</name>
-      <anchor>a13</anchor>
+      <anchor>a6</anchor>
       <arglist>(volatile apr_uint32_t *mem)</arglist>
     </member>
     <member kind="function">
       <type>apr_uint32_t</type>
       <name>apr_atomic_cas32</name>
-      <anchor>a14</anchor>
+      <anchor>a7</anchor>
       <arglist>(volatile apr_uint32_t *mem, apr_uint32_t with, apr_uint32_t cmp)</arglist>
     </member>
     <member kind="function">
       <type>apr_uint32_t</type>
       <name>apr_atomic_xchg32</name>
-      <anchor>a15</anchor>
+      <anchor>a8</anchor>
       <arglist>(volatile apr_uint32_t *mem, apr_uint32_t val)</arglist>
     </member>
     <member kind="function">
       <type>void *</type>
       <name>apr_atomic_casptr</name>
-      <anchor>a16</anchor>
+      <anchor>a9</anchor>
       <arglist>(volatile void **mem, void *with, const void *cmp)</arglist>
-    </member>
-    <member kind="variable">
-      <type>typedef</type>
-      <name>apr_atomic_t</name>
-      <anchor>a0</anchor>
-      <arglist></arglist>
     </member>
   </compound>
   <compound kind="group">
@@ -8258,6 +8116,7 @@
       <name>apr_dso_load</name>
       <anchor>a2</anchor>
       <arglist>(apr_dso_handle_t **res_handle, const char *path, apr_pool_t *ctx)</arglist>
+      <docanchor>_bug000001</docanchor>
     </member>
     <member kind="function">
       <type>apr_status_t</type>
@@ -8566,272 +8425,278 @@
     </member>
     <member kind="define">
       <type>#define</type>
-      <name>APR_INCHILD</name>
+      <name>APR_ENOTENOUGHENTROPY</name>
       <anchor>a25</anchor>
       <arglist></arglist>
     </member>
     <member kind="define">
       <type>#define</type>
-      <name>APR_INPARENT</name>
+      <name>APR_INCHILD</name>
       <anchor>a26</anchor>
       <arglist></arglist>
     </member>
     <member kind="define">
       <type>#define</type>
-      <name>APR_DETACH</name>
+      <name>APR_INPARENT</name>
       <anchor>a27</anchor>
       <arglist></arglist>
     </member>
     <member kind="define">
       <type>#define</type>
-      <name>APR_NOTDETACH</name>
+      <name>APR_DETACH</name>
       <anchor>a28</anchor>
       <arglist></arglist>
     </member>
     <member kind="define">
       <type>#define</type>
-      <name>APR_CHILD_DONE</name>
+      <name>APR_NOTDETACH</name>
       <anchor>a29</anchor>
       <arglist></arglist>
     </member>
     <member kind="define">
       <type>#define</type>
-      <name>APR_CHILD_NOTDONE</name>
+      <name>APR_CHILD_DONE</name>
       <anchor>a30</anchor>
       <arglist></arglist>
     </member>
     <member kind="define">
       <type>#define</type>
-      <name>APR_TIMEUP</name>
+      <name>APR_CHILD_NOTDONE</name>
       <anchor>a31</anchor>
       <arglist></arglist>
     </member>
     <member kind="define">
       <type>#define</type>
-      <name>APR_INCOMPLETE</name>
+      <name>APR_TIMEUP</name>
       <anchor>a32</anchor>
       <arglist></arglist>
     </member>
     <member kind="define">
       <type>#define</type>
-      <name>APR_BADCH</name>
+      <name>APR_INCOMPLETE</name>
       <anchor>a33</anchor>
       <arglist></arglist>
     </member>
     <member kind="define">
       <type>#define</type>
-      <name>APR_BADARG</name>
+      <name>APR_BADCH</name>
       <anchor>a34</anchor>
       <arglist></arglist>
     </member>
     <member kind="define">
       <type>#define</type>
-      <name>APR_EOF</name>
+      <name>APR_BADARG</name>
       <anchor>a35</anchor>
       <arglist></arglist>
     </member>
     <member kind="define">
       <type>#define</type>
-      <name>APR_NOTFOUND</name>
+      <name>APR_EOF</name>
       <anchor>a36</anchor>
       <arglist></arglist>
     </member>
     <member kind="define">
       <type>#define</type>
-      <name>APR_ANONYMOUS</name>
+      <name>APR_NOTFOUND</name>
       <anchor>a37</anchor>
       <arglist></arglist>
     </member>
     <member kind="define">
       <type>#define</type>
-      <name>APR_FILEBASED</name>
+      <name>APR_ANONYMOUS</name>
       <anchor>a38</anchor>
       <arglist></arglist>
     </member>
     <member kind="define">
       <type>#define</type>
-      <name>APR_KEYBASED</name>
+      <name>APR_FILEBASED</name>
       <anchor>a39</anchor>
       <arglist></arglist>
     </member>
     <member kind="define">
       <type>#define</type>
-      <name>APR_EINIT</name>
+      <name>APR_KEYBASED</name>
       <anchor>a40</anchor>
       <arglist></arglist>
     </member>
     <member kind="define">
       <type>#define</type>
-      <name>APR_ENOTIMPL</name>
+      <name>APR_EINIT</name>
       <anchor>a41</anchor>
       <arglist></arglist>
     </member>
     <member kind="define">
       <type>#define</type>
-      <name>APR_EMISMATCH</name>
+      <name>APR_ENOTIMPL</name>
       <anchor>a42</anchor>
       <arglist></arglist>
     </member>
     <member kind="define">
       <type>#define</type>
-      <name>APR_EBUSY</name>
+      <name>APR_EMISMATCH</name>
       <anchor>a43</anchor>
       <arglist></arglist>
     </member>
     <member kind="define">
       <type>#define</type>
-      <name>APR_EACCES</name>
+      <name>APR_EBUSY</name>
       <anchor>a44</anchor>
       <arglist></arglist>
     </member>
     <member kind="define">
       <type>#define</type>
-      <name>APR_EEXIST</name>
+      <name>APR_EACCES</name>
       <anchor>a45</anchor>
       <arglist></arglist>
     </member>
     <member kind="define">
       <type>#define</type>
-      <name>APR_ENAMETOOLONG</name>
+      <name>APR_EEXIST</name>
       <anchor>a46</anchor>
       <arglist></arglist>
     </member>
     <member kind="define">
       <type>#define</type>
-      <name>APR_ENOENT</name>
+      <name>APR_ENAMETOOLONG</name>
       <anchor>a47</anchor>
       <arglist></arglist>
     </member>
     <member kind="define">
       <type>#define</type>
-      <name>APR_ENOTDIR</name>
+      <name>APR_ENOENT</name>
       <anchor>a48</anchor>
       <arglist></arglist>
     </member>
     <member kind="define">
       <type>#define</type>
-      <name>APR_ENOSPC</name>
+      <name>APR_ENOTDIR</name>
       <anchor>a49</anchor>
       <arglist></arglist>
     </member>
     <member kind="define">
       <type>#define</type>
-      <name>APR_ENOMEM</name>
+      <name>APR_ENOSPC</name>
       <anchor>a50</anchor>
       <arglist></arglist>
     </member>
     <member kind="define">
       <type>#define</type>
-      <name>APR_EMFILE</name>
+      <name>APR_ENOMEM</name>
       <anchor>a51</anchor>
       <arglist></arglist>
     </member>
     <member kind="define">
       <type>#define</type>
-      <name>APR_ENFILE</name>
+      <name>APR_EMFILE</name>
       <anchor>a52</anchor>
       <arglist></arglist>
     </member>
     <member kind="define">
       <type>#define</type>
-      <name>APR_EBADF</name>
+      <name>APR_ENFILE</name>
       <anchor>a53</anchor>
       <arglist></arglist>
     </member>
     <member kind="define">
       <type>#define</type>
-      <name>APR_EINVAL</name>
+      <name>APR_EBADF</name>
       <anchor>a54</anchor>
       <arglist></arglist>
     </member>
     <member kind="define">
       <type>#define</type>
-      <name>APR_ESPIPE</name>
+      <name>APR_EINVAL</name>
       <anchor>a55</anchor>
       <arglist></arglist>
     </member>
     <member kind="define">
       <type>#define</type>
-      <name>APR_EAGAIN</name>
+      <name>APR_ESPIPE</name>
       <anchor>a56</anchor>
       <arglist></arglist>
     </member>
     <member kind="define">
       <type>#define</type>
-      <name>APR_EINTR</name>
+      <name>APR_EAGAIN</name>
       <anchor>a57</anchor>
       <arglist></arglist>
     </member>
     <member kind="define">
       <type>#define</type>
-      <name>APR_ENOTSOCK</name>
+      <name>APR_EINTR</name>
       <anchor>a58</anchor>
       <arglist></arglist>
     </member>
     <member kind="define">
       <type>#define</type>
-      <name>APR_ECONNREFUSED</name>
+      <name>APR_ENOTSOCK</name>
       <anchor>a59</anchor>
       <arglist></arglist>
     </member>
     <member kind="define">
       <type>#define</type>
-      <name>APR_EINPROGRESS</name>
+      <name>APR_ECONNREFUSED</name>
       <anchor>a60</anchor>
       <arglist></arglist>
     </member>
     <member kind="define">
       <type>#define</type>
-      <name>APR_ECONNABORTED</name>
+      <name>APR_EINPROGRESS</name>
       <anchor>a61</anchor>
       <arglist></arglist>
     </member>
     <member kind="define">
       <type>#define</type>
-      <name>APR_ECONNRESET</name>
+      <name>APR_ECONNABORTED</name>
       <anchor>a62</anchor>
       <arglist></arglist>
     </member>
     <member kind="define">
       <type>#define</type>
-      <name>APR_ETIMEDOUT</name>
+      <name>APR_ECONNRESET</name>
       <anchor>a63</anchor>
       <arglist></arglist>
     </member>
     <member kind="define">
       <type>#define</type>
-      <name>APR_EHOSTUNREACH</name>
+      <name>APR_ETIMEDOUT</name>
       <anchor>a64</anchor>
       <arglist></arglist>
     </member>
     <member kind="define">
       <type>#define</type>
-      <name>APR_ENETUNREACH</name>
+      <name>APR_EHOSTUNREACH</name>
       <anchor>a65</anchor>
       <arglist></arglist>
     </member>
     <member kind="define">
       <type>#define</type>
-      <name>APR_EFTYPE</name>
+      <name>APR_ENETUNREACH</name>
       <anchor>a66</anchor>
       <arglist></arglist>
     </member>
     <member kind="define">
       <type>#define</type>
-      <name>APR_EPIPE</name>
+      <name>APR_EFTYPE</name>
       <anchor>a67</anchor>
       <arglist></arglist>
     </member>
     <member kind="define">
       <type>#define</type>
-      <name>APR_EXDEV</name>
+      <name>APR_EPIPE</name>
       <anchor>a68</anchor>
       <arglist></arglist>
     </member>
     <member kind="define">
       <type>#define</type>
-      <name>APR_ENOTEMPTY</name>
+      <name>APR_EXDEV</name>
       <anchor>a69</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="define">
+      <type>#define</type>
+      <name>APR_ENOTEMPTY</name>
+      <anchor>a70</anchor>
       <arglist></arglist>
     </member>
   </compound>
@@ -8991,278 +8856,284 @@
     </member>
     <member kind="define">
       <type>#define</type>
-      <name>APR_STATUS_IS_INCHILD</name>
+      <name>APR_STATUS_IS_ENOTENOUGHENTROPY</name>
       <anchor>a25</anchor>
       <arglist>(s)</arglist>
     </member>
     <member kind="define">
       <type>#define</type>
-      <name>APR_STATUS_IS_INPARENT</name>
+      <name>APR_STATUS_IS_INCHILD</name>
       <anchor>a26</anchor>
       <arglist>(s)</arglist>
     </member>
     <member kind="define">
       <type>#define</type>
-      <name>APR_STATUS_IS_DETACH</name>
+      <name>APR_STATUS_IS_INPARENT</name>
       <anchor>a27</anchor>
       <arglist>(s)</arglist>
     </member>
     <member kind="define">
       <type>#define</type>
-      <name>APR_STATUS_IS_NOTDETACH</name>
+      <name>APR_STATUS_IS_DETACH</name>
       <anchor>a28</anchor>
       <arglist>(s)</arglist>
     </member>
     <member kind="define">
       <type>#define</type>
-      <name>APR_STATUS_IS_CHILD_DONE</name>
+      <name>APR_STATUS_IS_NOTDETACH</name>
       <anchor>a29</anchor>
       <arglist>(s)</arglist>
     </member>
     <member kind="define">
       <type>#define</type>
-      <name>APR_STATUS_IS_CHILD_NOTDONE</name>
+      <name>APR_STATUS_IS_CHILD_DONE</name>
       <anchor>a30</anchor>
       <arglist>(s)</arglist>
     </member>
     <member kind="define">
       <type>#define</type>
-      <name>APR_STATUS_IS_TIMEUP</name>
+      <name>APR_STATUS_IS_CHILD_NOTDONE</name>
       <anchor>a31</anchor>
       <arglist>(s)</arglist>
     </member>
     <member kind="define">
       <type>#define</type>
-      <name>APR_STATUS_IS_INCOMPLETE</name>
+      <name>APR_STATUS_IS_TIMEUP</name>
       <anchor>a32</anchor>
       <arglist>(s)</arglist>
     </member>
     <member kind="define">
       <type>#define</type>
-      <name>APR_STATUS_IS_BADCH</name>
+      <name>APR_STATUS_IS_INCOMPLETE</name>
       <anchor>a33</anchor>
       <arglist>(s)</arglist>
     </member>
     <member kind="define">
       <type>#define</type>
-      <name>APR_STATUS_IS_BADARG</name>
+      <name>APR_STATUS_IS_BADCH</name>
       <anchor>a34</anchor>
       <arglist>(s)</arglist>
     </member>
     <member kind="define">
       <type>#define</type>
-      <name>APR_STATUS_IS_EOF</name>
+      <name>APR_STATUS_IS_BADARG</name>
       <anchor>a35</anchor>
       <arglist>(s)</arglist>
     </member>
     <member kind="define">
       <type>#define</type>
-      <name>APR_STATUS_IS_NOTFOUND</name>
+      <name>APR_STATUS_IS_EOF</name>
       <anchor>a36</anchor>
       <arglist>(s)</arglist>
     </member>
     <member kind="define">
       <type>#define</type>
-      <name>APR_STATUS_IS_ANONYMOUS</name>
+      <name>APR_STATUS_IS_NOTFOUND</name>
       <anchor>a37</anchor>
       <arglist>(s)</arglist>
     </member>
     <member kind="define">
       <type>#define</type>
-      <name>APR_STATUS_IS_FILEBASED</name>
+      <name>APR_STATUS_IS_ANONYMOUS</name>
       <anchor>a38</anchor>
       <arglist>(s)</arglist>
     </member>
     <member kind="define">
       <type>#define</type>
-      <name>APR_STATUS_IS_KEYBASED</name>
+      <name>APR_STATUS_IS_FILEBASED</name>
       <anchor>a39</anchor>
       <arglist>(s)</arglist>
     </member>
     <member kind="define">
       <type>#define</type>
-      <name>APR_STATUS_IS_EINIT</name>
+      <name>APR_STATUS_IS_KEYBASED</name>
       <anchor>a40</anchor>
       <arglist>(s)</arglist>
     </member>
     <member kind="define">
       <type>#define</type>
-      <name>APR_STATUS_IS_ENOTIMPL</name>
+      <name>APR_STATUS_IS_EINIT</name>
       <anchor>a41</anchor>
       <arglist>(s)</arglist>
     </member>
     <member kind="define">
       <type>#define</type>
-      <name>APR_STATUS_IS_EMISMATCH</name>
+      <name>APR_STATUS_IS_ENOTIMPL</name>
       <anchor>a42</anchor>
       <arglist>(s)</arglist>
     </member>
     <member kind="define">
       <type>#define</type>
-      <name>APR_STATUS_IS_EBUSY</name>
+      <name>APR_STATUS_IS_EMISMATCH</name>
       <anchor>a43</anchor>
       <arglist>(s)</arglist>
     </member>
     <member kind="define">
       <type>#define</type>
-      <name>APR_STATUS_IS_SUCCESS</name>
+      <name>APR_STATUS_IS_EBUSY</name>
       <anchor>a44</anchor>
       <arglist>(s)</arglist>
     </member>
     <member kind="define">
       <type>#define</type>
-      <name>APR_STATUS_IS_EACCES</name>
+      <name>APR_STATUS_IS_SUCCESS</name>
       <anchor>a45</anchor>
       <arglist>(s)</arglist>
     </member>
     <member kind="define">
       <type>#define</type>
-      <name>APR_STATUS_IS_EEXIST</name>
+      <name>APR_STATUS_IS_EACCES</name>
       <anchor>a46</anchor>
       <arglist>(s)</arglist>
     </member>
     <member kind="define">
       <type>#define</type>
-      <name>APR_STATUS_IS_ENAMETOOLONG</name>
+      <name>APR_STATUS_IS_EEXIST</name>
       <anchor>a47</anchor>
       <arglist>(s)</arglist>
     </member>
     <member kind="define">
       <type>#define</type>
-      <name>APR_STATUS_IS_ENOENT</name>
+      <name>APR_STATUS_IS_ENAMETOOLONG</name>
       <anchor>a48</anchor>
       <arglist>(s)</arglist>
     </member>
     <member kind="define">
       <type>#define</type>
-      <name>APR_STATUS_IS_ENOTDIR</name>
+      <name>APR_STATUS_IS_ENOENT</name>
       <anchor>a49</anchor>
       <arglist>(s)</arglist>
     </member>
     <member kind="define">
       <type>#define</type>
-      <name>APR_STATUS_IS_ENOSPC</name>
+      <name>APR_STATUS_IS_ENOTDIR</name>
       <anchor>a50</anchor>
       <arglist>(s)</arglist>
     </member>
     <member kind="define">
       <type>#define</type>
-      <name>APR_STATUS_IS_ENOMEM</name>
+      <name>APR_STATUS_IS_ENOSPC</name>
       <anchor>a51</anchor>
       <arglist>(s)</arglist>
     </member>
     <member kind="define">
       <type>#define</type>
-      <name>APR_STATUS_IS_EMFILE</name>
+      <name>APR_STATUS_IS_ENOMEM</name>
       <anchor>a52</anchor>
       <arglist>(s)</arglist>
     </member>
     <member kind="define">
       <type>#define</type>
-      <name>APR_STATUS_IS_ENFILE</name>
+      <name>APR_STATUS_IS_EMFILE</name>
       <anchor>a53</anchor>
       <arglist>(s)</arglist>
     </member>
     <member kind="define">
       <type>#define</type>
-      <name>APR_STATUS_IS_EBADF</name>
+      <name>APR_STATUS_IS_ENFILE</name>
       <anchor>a54</anchor>
       <arglist>(s)</arglist>
     </member>
     <member kind="define">
       <type>#define</type>
-      <name>APR_STATUS_IS_EINVAL</name>
+      <name>APR_STATUS_IS_EBADF</name>
       <anchor>a55</anchor>
       <arglist>(s)</arglist>
     </member>
     <member kind="define">
       <type>#define</type>
-      <name>APR_STATUS_IS_ESPIPE</name>
+      <name>APR_STATUS_IS_EINVAL</name>
       <anchor>a56</anchor>
       <arglist>(s)</arglist>
     </member>
     <member kind="define">
       <type>#define</type>
-      <name>APR_STATUS_IS_EAGAIN</name>
+      <name>APR_STATUS_IS_ESPIPE</name>
       <anchor>a57</anchor>
       <arglist>(s)</arglist>
     </member>
     <member kind="define">
       <type>#define</type>
-      <name>APR_STATUS_IS_EINTR</name>
+      <name>APR_STATUS_IS_EAGAIN</name>
       <anchor>a58</anchor>
       <arglist>(s)</arglist>
     </member>
     <member kind="define">
       <type>#define</type>
-      <name>APR_STATUS_IS_ENOTSOCK</name>
+      <name>APR_STATUS_IS_EINTR</name>
       <anchor>a59</anchor>
       <arglist>(s)</arglist>
     </member>
     <member kind="define">
       <type>#define</type>
-      <name>APR_STATUS_IS_ECONNREFUSED</name>
+      <name>APR_STATUS_IS_ENOTSOCK</name>
       <anchor>a60</anchor>
       <arglist>(s)</arglist>
     </member>
     <member kind="define">
       <type>#define</type>
-      <name>APR_STATUS_IS_EINPROGRESS</name>
+      <name>APR_STATUS_IS_ECONNREFUSED</name>
       <anchor>a61</anchor>
       <arglist>(s)</arglist>
     </member>
     <member kind="define">
       <type>#define</type>
-      <name>APR_STATUS_IS_ECONNABORTED</name>
+      <name>APR_STATUS_IS_EINPROGRESS</name>
       <anchor>a62</anchor>
       <arglist>(s)</arglist>
     </member>
     <member kind="define">
       <type>#define</type>
-      <name>APR_STATUS_IS_ECONNRESET</name>
+      <name>APR_STATUS_IS_ECONNABORTED</name>
       <anchor>a63</anchor>
       <arglist>(s)</arglist>
     </member>
     <member kind="define">
       <type>#define</type>
-      <name>APR_STATUS_IS_ETIMEDOUT</name>
+      <name>APR_STATUS_IS_ECONNRESET</name>
       <anchor>a64</anchor>
       <arglist>(s)</arglist>
     </member>
     <member kind="define">
       <type>#define</type>
-      <name>APR_STATUS_IS_EHOSTUNREACH</name>
+      <name>APR_STATUS_IS_ETIMEDOUT</name>
       <anchor>a65</anchor>
       <arglist>(s)</arglist>
     </member>
     <member kind="define">
       <type>#define</type>
-      <name>APR_STATUS_IS_ENETUNREACH</name>
+      <name>APR_STATUS_IS_EHOSTUNREACH</name>
       <anchor>a66</anchor>
       <arglist>(s)</arglist>
     </member>
     <member kind="define">
       <type>#define</type>
-      <name>APR_STATUS_IS_EFTYPE</name>
+      <name>APR_STATUS_IS_ENETUNREACH</name>
       <anchor>a67</anchor>
       <arglist>(s)</arglist>
     </member>
     <member kind="define">
       <type>#define</type>
-      <name>APR_STATUS_IS_EPIPE</name>
+      <name>APR_STATUS_IS_EFTYPE</name>
       <anchor>a68</anchor>
       <arglist>(s)</arglist>
     </member>
     <member kind="define">
       <type>#define</type>
-      <name>APR_STATUS_IS_EXDEV</name>
+      <name>APR_STATUS_IS_EPIPE</name>
       <anchor>a69</anchor>
       <arglist>(s)</arglist>
     </member>
     <member kind="define">
       <type>#define</type>
-      <name>APR_STATUS_IS_ENOTEMPTY</name>
+      <name>APR_STATUS_IS_EXDEV</name>
       <anchor>a70</anchor>
+      <arglist>(s)</arglist>
+    </member>
+    <member kind="define">
+      <type>#define</type>
+      <name>APR_STATUS_IS_ENOTEMPTY</name>
+      <anchor>a71</anchor>
       <arglist>(s)</arglist>
     </member>
   </compound>
@@ -9305,47 +9176,47 @@
     </member>
     <member kind="enumvalue">
       <name>APR_NOFILE</name>
-      <anchor>a4a49</anchor>
-      <arglist></arglist>
-    </member>
-    <member kind="enumvalue">
-      <name>APR_REG</name>
-      <anchor>a4a50</anchor>
-      <arglist></arglist>
-    </member>
-    <member kind="enumvalue">
-      <name>APR_DIR</name>
-      <anchor>a4a51</anchor>
-      <arglist></arglist>
-    </member>
-    <member kind="enumvalue">
-      <name>APR_CHR</name>
       <anchor>a4a52</anchor>
       <arglist></arglist>
     </member>
     <member kind="enumvalue">
-      <name>APR_BLK</name>
+      <name>APR_REG</name>
       <anchor>a4a53</anchor>
       <arglist></arglist>
     </member>
     <member kind="enumvalue">
-      <name>APR_PIPE</name>
+      <name>APR_DIR</name>
       <anchor>a4a54</anchor>
       <arglist></arglist>
     </member>
     <member kind="enumvalue">
-      <name>APR_LNK</name>
+      <name>APR_CHR</name>
       <anchor>a4a55</anchor>
       <arglist></arglist>
     </member>
     <member kind="enumvalue">
-      <name>APR_SOCK</name>
+      <name>APR_BLK</name>
       <anchor>a4a56</anchor>
       <arglist></arglist>
     </member>
     <member kind="enumvalue">
-      <name>APR_UNKFILE</name>
+      <name>APR_PIPE</name>
       <anchor>a4a57</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="enumvalue">
+      <name>APR_LNK</name>
+      <anchor>a4a58</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="enumvalue">
+      <name>APR_SOCK</name>
+      <anchor>a4a59</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="enumvalue">
+      <name>APR_UNKFILE</name>
+      <anchor>a4a60</anchor>
       <arglist></arglist>
     </member>
   </compound>
@@ -9355,68 +9226,86 @@
     <filename>group__apr__file__permissions.html</filename>
     <member kind="define">
       <type>#define</type>
-      <name>APR_UREAD</name>
+      <name>APR_USETID</name>
       <anchor>a0</anchor>
       <arglist></arglist>
     </member>
     <member kind="define">
       <type>#define</type>
-      <name>APR_UWRITE</name>
+      <name>APR_UREAD</name>
       <anchor>a1</anchor>
       <arglist></arglist>
     </member>
     <member kind="define">
       <type>#define</type>
-      <name>APR_UEXECUTE</name>
+      <name>APR_UWRITE</name>
       <anchor>a2</anchor>
       <arglist></arglist>
     </member>
     <member kind="define">
       <type>#define</type>
-      <name>APR_GREAD</name>
+      <name>APR_UEXECUTE</name>
       <anchor>a3</anchor>
       <arglist></arglist>
     </member>
     <member kind="define">
       <type>#define</type>
-      <name>APR_GWRITE</name>
+      <name>APR_GSETID</name>
       <anchor>a4</anchor>
       <arglist></arglist>
     </member>
     <member kind="define">
       <type>#define</type>
-      <name>APR_GEXECUTE</name>
+      <name>APR_GREAD</name>
       <anchor>a5</anchor>
       <arglist></arglist>
     </member>
     <member kind="define">
       <type>#define</type>
-      <name>APR_WREAD</name>
+      <name>APR_GWRITE</name>
       <anchor>a6</anchor>
       <arglist></arglist>
     </member>
     <member kind="define">
       <type>#define</type>
-      <name>APR_WWRITE</name>
+      <name>APR_GEXECUTE</name>
       <anchor>a7</anchor>
       <arglist></arglist>
     </member>
     <member kind="define">
       <type>#define</type>
-      <name>APR_WEXECUTE</name>
+      <name>APR_WSTICKY</name>
       <anchor>a8</anchor>
       <arglist></arglist>
     </member>
     <member kind="define">
       <type>#define</type>
-      <name>APR_OS_DEFAULT</name>
+      <name>APR_WREAD</name>
       <anchor>a9</anchor>
       <arglist></arglist>
     </member>
     <member kind="define">
       <type>#define</type>
-      <name>APR_FILE_SOURCE_PERMS</name>
+      <name>APR_WWRITE</name>
       <anchor>a10</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="define">
+      <type>#define</type>
+      <name>APR_WEXECUTE</name>
+      <anchor>a11</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="define">
+      <type>#define</type>
+      <name>APR_OS_DEFAULT</name>
+      <anchor>a12</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="define">
+      <type>#define</type>
+      <name>APR_FILE_SOURCE_PERMS</name>
+      <anchor>a13</anchor>
       <arglist></arglist>
     </member>
   </compound>
@@ -9573,7 +9462,7 @@
       <type>apr_status_t</type>
       <name>apr_stat</name>
       <anchor>a1</anchor>
-      <arglist>(apr_finfo_t *finfo, const char *fname, apr_int32_t wanted, apr_pool_t *cont)</arglist>
+      <arglist>(apr_finfo_t *finfo, const char *fname, apr_int32_t wanted, apr_pool_t *pool)</arglist>
     </member>
   </compound>
   <compound kind="group">
@@ -9584,7 +9473,7 @@
       <type>apr_status_t</type>
       <name>apr_dir_open</name>
       <anchor>a0</anchor>
-      <arglist>(apr_dir_t **new_dir, const char *dirname, apr_pool_t *cont)</arglist>
+      <arglist>(apr_dir_t **new_dir, const char *dirname, apr_pool_t *pool)</arglist>
     </member>
     <member kind="function">
       <type>apr_status_t</type>
@@ -9742,7 +9631,7 @@
       <type>apr_status_t</type>
       <name>apr_file_open</name>
       <anchor>a3</anchor>
-      <arglist>(apr_file_t **new_file, const char *fname, apr_int32_t flag, apr_fileperms_t perm, apr_pool_t *cont)</arglist>
+      <arglist>(apr_file_t **newf, const char *fname, apr_int32_t flag, apr_fileperms_t perm, apr_pool_t *pool)</arglist>
     </member>
     <member kind="function">
       <type>apr_status_t</type>
@@ -9754,7 +9643,7 @@
       <type>apr_status_t</type>
       <name>apr_file_remove</name>
       <anchor>a5</anchor>
-      <arglist>(const char *path, apr_pool_t *cont)</arglist>
+      <arglist>(const char *path, apr_pool_t *pool)</arglist>
     </member>
     <member kind="function">
       <type>apr_status_t</type>
@@ -9784,19 +9673,19 @@
       <type>apr_status_t</type>
       <name>apr_file_open_stderr</name>
       <anchor>a10</anchor>
-      <arglist>(apr_file_t **thefile, apr_pool_t *cont)</arglist>
+      <arglist>(apr_file_t **thefile, apr_pool_t *pool)</arglist>
     </member>
     <member kind="function">
       <type>apr_status_t</type>
       <name>apr_file_open_stdout</name>
       <anchor>a11</anchor>
-      <arglist>(apr_file_t **thefile, apr_pool_t *cont)</arglist>
+      <arglist>(apr_file_t **thefile, apr_pool_t *pool)</arglist>
     </member>
     <member kind="function">
       <type>apr_status_t</type>
       <name>apr_file_open_stdin</name>
       <anchor>a12</anchor>
-      <arglist>(apr_file_t **thefile, apr_pool_t *cont)</arglist>
+      <arglist>(apr_file_t **thefile, apr_pool_t *pool)</arglist>
     </member>
     <member kind="function">
       <type>apr_status_t</type>
@@ -9892,13 +9781,13 @@
       <type>apr_status_t</type>
       <name>apr_file_pipe_create</name>
       <anchor>a28</anchor>
-      <arglist>(apr_file_t **in, apr_file_t **out, apr_pool_t *cont)</arglist>
+      <arglist>(apr_file_t **in, apr_file_t **out, apr_pool_t *pool)</arglist>
     </member>
     <member kind="function">
       <type>apr_status_t</type>
       <name>apr_file_namedpipe_create</name>
       <anchor>a29</anchor>
-      <arglist>(const char *filename, apr_fileperms_t perm, apr_pool_t *cont)</arglist>
+      <arglist>(const char *filename, apr_fileperms_t perm, apr_pool_t *pool)</arglist>
     </member>
     <member kind="function">
       <type>apr_status_t</type>
@@ -9958,7 +9847,7 @@
       <type>apr_status_t</type>
       <name>apr_file_attrs_set</name>
       <anchor>a39</anchor>
-      <arglist>(const char *fname, apr_fileattrs_t attributes, apr_fileattrs_t attr_mask, apr_pool_t *cont)</arglist>
+      <arglist>(const char *fname, apr_fileattrs_t attributes, apr_fileattrs_t attr_mask, apr_pool_t *pool)</arglist>
     </member>
     <member kind="function">
       <type>apr_status_t</type>
@@ -9970,7 +9859,7 @@
       <type>apr_status_t</type>
       <name>apr_dir_make</name>
       <anchor>a41</anchor>
-      <arglist>(const char *path, apr_fileperms_t perm, apr_pool_t *cont)</arglist>
+      <arglist>(const char *path, apr_fileperms_t perm, apr_pool_t *pool)</arglist>
     </member>
     <member kind="function">
       <type>apr_status_t</type>
@@ -9982,7 +9871,7 @@
       <type>apr_status_t</type>
       <name>apr_dir_remove</name>
       <anchor>a43</anchor>
-      <arglist>(const char *path, apr_pool_t *cont)</arglist>
+      <arglist>(const char *path, apr_pool_t *pool)</arglist>
     </member>
     <member kind="function">
       <type>apr_status_t</type>
@@ -10115,6 +10004,12 @@
       <anchor>a12</anchor>
       <arglist></arglist>
     </member>
+    <member kind="define">
+      <type>#define</type>
+      <name>APR_LARGEFILE</name>
+      <anchor>a13</anchor>
+      <arglist></arglist>
+    </member>
   </compound>
   <compound kind="group">
     <name>apr_file_seek_flags</name>
@@ -10198,31 +10093,31 @@
     <member kind="define">
       <type>#define</type>
       <name>APR_FNM_NOMATCH</name>
-      <anchor>a2</anchor>
-      <arglist></arglist>
-    </member>
-    <member kind="define">
-      <type>#define</type>
-      <name>APR_FNM_NOESCAPE</name>
       <anchor>a3</anchor>
       <arglist></arglist>
     </member>
     <member kind="define">
       <type>#define</type>
-      <name>APR_FNM_PATHNAME</name>
+      <name>APR_FNM_NOESCAPE</name>
       <anchor>a4</anchor>
       <arglist></arglist>
     </member>
     <member kind="define">
       <type>#define</type>
-      <name>APR_FNM_PERIOD</name>
+      <name>APR_FNM_PATHNAME</name>
       <anchor>a5</anchor>
       <arglist></arglist>
     </member>
     <member kind="define">
       <type>#define</type>
-      <name>APR_FNM_CASE_BLIND</name>
+      <name>APR_FNM_PERIOD</name>
       <anchor>a6</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="define">
+      <type>#define</type>
+      <name>APR_FNM_CASE_BLIND</name>
+      <anchor>a7</anchor>
       <arglist></arglist>
     </member>
     <member kind="function">
@@ -10236,6 +10131,12 @@
       <name>apr_fnmatch_test</name>
       <anchor>a1</anchor>
       <arglist>(const char *pattern)</arglist>
+    </member>
+    <member kind="function">
+      <type>apr_status_t</type>
+      <name>apr_match_glob</name>
+      <anchor>a2</anchor>
+      <arglist>(const char *pattern, apr_array_header_t **result, apr_pool_t *p)</arglist>
     </member>
   </compound>
   <compound kind="group">
@@ -10368,10 +10269,10 @@
     <class kind="struct">apr_getopt_option_t</class>
     <class kind="struct">apr_getopt_t</class>
     <member kind="typedef">
-      <type>void(</type>
-      <name>apr_getopt_err_fn_t</name>
+      <type>const char *</type>
+      <name>err</name>
       <anchor>a0</anchor>
-      <arglist>)(void *arg, const char *err,...)</arglist>
+      <arglist></arglist>
     </member>
     <member kind="typedef">
       <type>apr_getopt_t</type>
@@ -10386,21 +10287,27 @@
       <arglist></arglist>
     </member>
     <member kind="function">
+      <type>typedef</type>
+      <name>void</name>
+      <anchor>a3</anchor>
+      <arglist>(apr_getopt_err_fn_t)(void *arg</arglist>
+    </member>
+    <member kind="function">
       <type>apr_status_t</type>
       <name>apr_getopt_init</name>
-      <anchor>a3</anchor>
+      <anchor>a4</anchor>
       <arglist>(apr_getopt_t **os, apr_pool_t *cont, int argc, const char *const *argv)</arglist>
     </member>
     <member kind="function">
       <type>apr_status_t</type>
       <name>apr_getopt</name>
-      <anchor>a4</anchor>
+      <anchor>a5</anchor>
       <arglist>(apr_getopt_t *os, const char *opts, char *option_ch, const char **option_arg)</arglist>
     </member>
     <member kind="function">
       <type>apr_status_t</type>
       <name>apr_getopt_long</name>
-      <anchor>a5</anchor>
+      <anchor>a6</anchor>
       <arglist>(apr_getopt_t *os, const apr_getopt_option_t *opts, int *option_ch, const char **option_arg)</arglist>
     </member>
   </compound>
@@ -10464,7 +10371,7 @@
     <member kind="define">
       <type>#define</type>
       <name>APR_HASH_KEY_STRING</name>
-      <anchor>a13</anchor>
+      <anchor>a16</anchor>
       <arglist></arglist>
     </member>
     <member kind="typedef">
@@ -10479,70 +10386,88 @@
       <anchor>a1</anchor>
       <arglist></arglist>
     </member>
+    <member kind="typedef">
+      <type>unsigned int(*</type>
+      <name>apr_hashfunc_t</name>
+      <anchor>a2</anchor>
+      <arglist>)(const char *key, apr_ssize_t *klen)</arglist>
+    </member>
+    <member kind="function">
+      <type>unsigned int</type>
+      <name>apr_hashfunc_default</name>
+      <anchor>a3</anchor>
+      <arglist>(const char *key, apr_ssize_t *klen)</arglist>
+    </member>
     <member kind="function">
       <type>apr_hash_t *</type>
       <name>apr_hash_make</name>
-      <anchor>a2</anchor>
+      <anchor>a4</anchor>
       <arglist>(apr_pool_t *pool)</arglist>
     </member>
     <member kind="function">
       <type>apr_hash_t *</type>
+      <name>apr_hash_make_custom</name>
+      <anchor>a5</anchor>
+      <arglist>(apr_pool_t *pool, apr_hashfunc_t hash_func)</arglist>
+    </member>
+    <member kind="function">
+      <type>apr_hash_t *</type>
       <name>apr_hash_copy</name>
-      <anchor>a3</anchor>
+      <anchor>a6</anchor>
       <arglist>(apr_pool_t *pool, const apr_hash_t *h)</arglist>
     </member>
     <member kind="function">
       <type>void</type>
       <name>apr_hash_set</name>
-      <anchor>a4</anchor>
+      <anchor>a7</anchor>
       <arglist>(apr_hash_t *ht, const void *key, apr_ssize_t klen, const void *val)</arglist>
     </member>
     <member kind="function">
       <type>void *</type>
       <name>apr_hash_get</name>
-      <anchor>a5</anchor>
+      <anchor>a8</anchor>
       <arglist>(apr_hash_t *ht, const void *key, apr_ssize_t klen)</arglist>
     </member>
     <member kind="function">
       <type>apr_hash_index_t *</type>
       <name>apr_hash_first</name>
-      <anchor>a6</anchor>
+      <anchor>a9</anchor>
       <arglist>(apr_pool_t *p, apr_hash_t *ht)</arglist>
     </member>
     <member kind="function">
       <type>apr_hash_index_t *</type>
       <name>apr_hash_next</name>
-      <anchor>a7</anchor>
+      <anchor>a10</anchor>
       <arglist>(apr_hash_index_t *hi)</arglist>
     </member>
     <member kind="function">
       <type>void</type>
       <name>apr_hash_this</name>
-      <anchor>a8</anchor>
+      <anchor>a11</anchor>
       <arglist>(apr_hash_index_t *hi, const void **key, apr_ssize_t *klen, void **val)</arglist>
     </member>
     <member kind="function">
       <type>unsigned int</type>
       <name>apr_hash_count</name>
-      <anchor>a9</anchor>
+      <anchor>a12</anchor>
       <arglist>(apr_hash_t *ht)</arglist>
     </member>
     <member kind="function">
       <type>apr_hash_t *</type>
       <name>apr_hash_overlay</name>
-      <anchor>a10</anchor>
+      <anchor>a13</anchor>
       <arglist>(apr_pool_t *p, const apr_hash_t *overlay, const apr_hash_t *base)</arglist>
     </member>
     <member kind="function">
       <type>apr_hash_t *</type>
       <name>apr_hash_merge</name>
-      <anchor>a11</anchor>
+      <anchor>a14</anchor>
       <arglist>(apr_pool_t *p, const apr_hash_t *h1, const apr_hash_t *h2, void *(*merger)(apr_pool_t *p, const void *key, apr_ssize_t klen, const void *h1_val, const void *h2_val, const void *data), const void *data)</arglist>
     </member>
     <member kind="function">
       <type>apr_pool_t *</type>
       <name>apr_hash_pool_get</name>
-      <anchor>a12</anchor>
+      <anchor>a15</anchor>
       <arglist>(const apr_hash_t *thehash)</arglist>
     </member>
   </compound>
@@ -10754,67 +10679,67 @@
     <member kind="define">
       <type>#define</type>
       <name>APR_MAX_SECS_TO_LINGER</name>
-      <anchor>a43</anchor>
+      <anchor>a41</anchor>
       <arglist></arglist>
     </member>
     <member kind="define">
       <type>#define</type>
       <name>APRMAXHOSTLEN</name>
-      <anchor>a44</anchor>
+      <anchor>a42</anchor>
       <arglist></arglist>
     </member>
     <member kind="define">
       <type>#define</type>
       <name>APR_ANYADDR</name>
-      <anchor>a45</anchor>
+      <anchor>a43</anchor>
       <arglist></arglist>
     </member>
     <member kind="define">
       <type>#define</type>
       <name>APR_IPV4_ADDR_OK</name>
-      <anchor>a46</anchor>
+      <anchor>a44</anchor>
       <arglist></arglist>
     </member>
     <member kind="define">
       <type>#define</type>
       <name>APR_IPV6_ADDR_OK</name>
-      <anchor>a47</anchor>
+      <anchor>a45</anchor>
       <arglist></arglist>
     </member>
     <member kind="define">
       <type>#define</type>
       <name>APR_INADDR_NONE</name>
-      <anchor>a48</anchor>
+      <anchor>a46</anchor>
       <arglist></arglist>
     </member>
     <member kind="define">
       <type>#define</type>
       <name>APR_INET</name>
-      <anchor>a49</anchor>
+      <anchor>a47</anchor>
       <arglist></arglist>
     </member>
     <member kind="define">
       <type>#define</type>
       <name>APR_UNSPEC</name>
-      <anchor>a50</anchor>
+      <anchor>a48</anchor>
       <arglist></arglist>
     </member>
     <member kind="define">
       <type>#define</type>
       <name>APR_INET6</name>
-      <anchor>a51</anchor>
+      <anchor>a49</anchor>
       <arglist></arglist>
     </member>
     <member kind="define">
       <type>#define</type>
       <name>apr_inet_addr</name>
-      <anchor>a52</anchor>
+      <anchor>a50</anchor>
       <arglist></arglist>
     </member>
     <member kind="define">
       <type>#define</type>
       <name>APR_SENDFILE_DISCONNECT_SOCKET</name>
-      <anchor>a53</anchor>
+      <anchor>a51</anchor>
       <arglist></arglist>
     </member>
     <member kind="typedef">
@@ -10855,27 +10780,27 @@
     </member>
     <member kind="enumeration">
       <name>apr_shutdown_how_e</name>
-      <anchor>a54</anchor>
+      <anchor>a52</anchor>
       <arglist></arglist>
     </member>
     <member kind="enumvalue">
       <name>APR_SHUTDOWN_READ</name>
-      <anchor>a54a35</anchor>
+      <anchor>a52a34</anchor>
       <arglist></arglist>
     </member>
     <member kind="enumvalue">
       <name>APR_SHUTDOWN_WRITE</name>
-      <anchor>a54a36</anchor>
+      <anchor>a52a35</anchor>
       <arglist></arglist>
     </member>
     <member kind="enumvalue">
       <name>APR_SHUTDOWN_READWRITE</name>
-      <anchor>a54a37</anchor>
+      <anchor>a52a36</anchor>
       <arglist></arglist>
     </member>
     <member kind="enumeration">
       <name>apr_interface_e</name>
-      <anchor>a55</anchor>
+      <anchor>a53</anchor>
       <arglist></arglist>
     </member>
     <member kind="function">
@@ -11018,86 +10943,74 @@
     </member>
     <member kind="function">
       <type>apr_status_t</type>
-      <name>apr_socket_addr_get</name>
+      <name>apr_socket_atmark</name>
       <anchor>a29</anchor>
+      <arglist>(apr_socket_t *sock, int *atmark)</arglist>
+    </member>
+    <member kind="function">
+      <type>apr_status_t</type>
+      <name>apr_socket_addr_get</name>
+      <anchor>a30</anchor>
       <arglist>(apr_sockaddr_t **sa, apr_interface_e which, apr_socket_t *sock)</arglist>
     </member>
     <member kind="function">
       <type>apr_status_t</type>
-      <name>apr_sockaddr_port_set</name>
-      <anchor>a30</anchor>
-      <arglist>(apr_sockaddr_t *sockaddr, apr_port_t port)</arglist>
-    </member>
-    <member kind="function">
-      <type>apr_status_t</type>
-      <name>apr_sockaddr_port_get</name>
-      <anchor>a31</anchor>
-      <arglist>(apr_port_t *port, apr_sockaddr_t *sockaddr)</arglist>
-    </member>
-    <member kind="function">
-      <type>apr_status_t</type>
-      <name>apr_sockaddr_ip_set</name>
-      <anchor>a32</anchor>
-      <arglist>(apr_sockaddr_t *sockaddr, const char *addr)</arglist>
-    </member>
-    <member kind="function">
-      <type>apr_status_t</type>
       <name>apr_sockaddr_ip_get</name>
-      <anchor>a33</anchor>
+      <anchor>a31</anchor>
       <arglist>(char **addr, apr_sockaddr_t *sockaddr)</arglist>
     </member>
     <member kind="function">
       <type>int</type>
       <name>apr_sockaddr_equal</name>
-      <anchor>a34</anchor>
+      <anchor>a32</anchor>
       <arglist>(const apr_sockaddr_t *addr1, const apr_sockaddr_t *addr2)</arglist>
     </member>
     <member kind="function">
       <type>apr_status_t</type>
-      <name>apr_socket_from_file</name>
-      <anchor>a35</anchor>
-      <arglist>(apr_socket_t **newsock, apr_file_t *file)</arglist>
+      <name>apr_socket_type_get</name>
+      <anchor>a33</anchor>
+      <arglist>(apr_socket_t *sock, int *type)</arglist>
     </member>
     <member kind="function">
       <type>apr_status_t</type>
       <name>apr_getservbyname</name>
-      <anchor>a36</anchor>
+      <anchor>a34</anchor>
       <arglist>(apr_sockaddr_t *sockaddr, const char *servname)</arglist>
     </member>
     <member kind="function">
       <type>apr_status_t</type>
       <name>apr_ipsubnet_create</name>
-      <anchor>a37</anchor>
+      <anchor>a35</anchor>
       <arglist>(apr_ipsubnet_t **ipsub, const char *ipstr, const char *mask_or_numbits, apr_pool_t *p)</arglist>
     </member>
     <member kind="function">
       <type>int</type>
       <name>apr_ipsubnet_test</name>
-      <anchor>a38</anchor>
+      <anchor>a36</anchor>
       <arglist>(apr_ipsubnet_t *ipsub, apr_sockaddr_t *sa)</arglist>
     </member>
     <member kind="function">
       <type>apr_status_t</type>
       <name>apr_socket_accept_filter</name>
-      <anchor>a39</anchor>
+      <anchor>a37</anchor>
       <arglist>(apr_socket_t *sock, char *name, char *args)</arglist>
     </member>
     <member kind="function">
       <type>apr_status_t</type>
       <name>apr_socket_protocol_get</name>
-      <anchor>a40</anchor>
+      <anchor>a38</anchor>
       <arglist>(apr_socket_t *sock, int *protocol)</arglist>
     </member>
     <member kind="function">
       <type>apr_status_t</type>
       <name>apr_socket_inherit_set</name>
-      <anchor>a41</anchor>
+      <anchor>a39</anchor>
       <arglist>(apr_socket_t *thesocket)</arglist>
     </member>
     <member kind="function">
       <type>apr_status_t</type>
       <name>apr_socket_inherit_unset</name>
-      <anchor>a42</anchor>
+      <anchor>a40</anchor>
       <arglist>(apr_socket_t *thesocket)</arglist>
     </member>
   </compound>
@@ -11137,62 +11050,56 @@
     </member>
     <member kind="define">
       <type>#define</type>
-      <name>APR_SO_TIMEOUT</name>
+      <name>APR_SO_SNDBUF</name>
       <anchor>a5</anchor>
       <arglist></arglist>
     </member>
     <member kind="define">
       <type>#define</type>
-      <name>APR_SO_SNDBUF</name>
+      <name>APR_SO_RCVBUF</name>
       <anchor>a6</anchor>
       <arglist></arglist>
     </member>
     <member kind="define">
       <type>#define</type>
-      <name>APR_SO_RCVBUF</name>
+      <name>APR_SO_DISCONNECTED</name>
       <anchor>a7</anchor>
       <arglist></arglist>
     </member>
     <member kind="define">
       <type>#define</type>
-      <name>APR_SO_DISCONNECTED</name>
+      <name>APR_TCP_NODELAY</name>
       <anchor>a8</anchor>
       <arglist></arglist>
     </member>
     <member kind="define">
       <type>#define</type>
-      <name>APR_TCP_NODELAY</name>
+      <name>APR_TCP_NOPUSH</name>
       <anchor>a9</anchor>
       <arglist></arglist>
     </member>
     <member kind="define">
       <type>#define</type>
-      <name>APR_TCP_NOPUSH</name>
+      <name>APR_RESET_NODELAY</name>
       <anchor>a10</anchor>
       <arglist></arglist>
     </member>
     <member kind="define">
       <type>#define</type>
-      <name>APR_RESET_NODELAY</name>
+      <name>APR_INCOMPLETE_READ</name>
       <anchor>a11</anchor>
       <arglist></arglist>
     </member>
     <member kind="define">
       <type>#define</type>
-      <name>APR_INCOMPLETE_READ</name>
+      <name>APR_INCOMPLETE_WRITE</name>
       <anchor>a12</anchor>
       <arglist></arglist>
     </member>
     <member kind="define">
       <type>#define</type>
-      <name>APR_INCOMPLETE_WRITE</name>
-      <anchor>a13</anchor>
-      <arglist></arglist>
-    </member>
-    <member kind="define">
-      <type>#define</type>
       <name>APR_IPV6_V6ONLY</name>
-      <anchor>a14</anchor>
+      <anchor>a13</anchor>
       <arglist></arglist>
     </member>
   </compound>
@@ -11223,9 +11130,44 @@
     <name>apr_poll</name>
     <title>Poll Routines</title>
     <filename>group__apr__poll.html</filename>
-    <subgroup>apr_poll_opt</subgroup>
     <class kind="union">apr_descriptor</class>
     <class kind="struct">apr_pollfd_t</class>
+    <member kind="define">
+      <type>#define</type>
+      <name>APR_POLLIN</name>
+      <anchor>a8</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="define">
+      <type>#define</type>
+      <name>APR_POLLPRI</name>
+      <anchor>a9</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="define">
+      <type>#define</type>
+      <name>APR_POLLOUT</name>
+      <anchor>a10</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="define">
+      <type>#define</type>
+      <name>APR_POLLERR</name>
+      <anchor>a11</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="define">
+      <type>#define</type>
+      <name>APR_POLLHUP</name>
+      <anchor>a12</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="define">
+      <type>#define</type>
+      <name>APR_POLLNVAL</name>
+      <anchor>a13</anchor>
+      <arglist></arglist>
+    </member>
     <member kind="typedef">
       <type>apr_pollfd_t</type>
       <name>apr_pollfd_t</name>
@@ -11265,116 +11207,39 @@
     </member>
     <member kind="function">
       <type>apr_status_t</type>
-      <name>apr_poll_setup</name>
-      <anchor>a2</anchor>
-      <arglist>(apr_pollfd_t **new_poll, apr_int32_t num, apr_pool_t *cont)</arglist>
-    </member>
-    <member kind="function">
-      <type>apr_status_t</type>
-      <name>apr_poll</name>
-      <anchor>a3</anchor>
-      <arglist>(apr_pollfd_t *aprset, apr_int32_t numsock, apr_int32_t *nsds, apr_interval_time_t timeout)</arglist>
-    </member>
-    <member kind="function">
-      <type>apr_status_t</type>
-      <name>apr_poll_socket_add</name>
-      <anchor>a4</anchor>
-      <arglist>(apr_pollfd_t *aprset, apr_socket_t *sock, apr_int16_t event)</arglist>
-    </member>
-    <member kind="function">
-      <type>apr_status_t</type>
-      <name>apr_poll_socket_mask</name>
-      <anchor>a5</anchor>
-      <arglist>(apr_pollfd_t *aprset, apr_socket_t *sock, apr_int16_t events)</arglist>
-    </member>
-    <member kind="function">
-      <type>apr_status_t</type>
-      <name>apr_poll_socket_remove</name>
-      <anchor>a6</anchor>
-      <arglist>(apr_pollfd_t *aprset, apr_socket_t *sock)</arglist>
-    </member>
-    <member kind="function">
-      <type>apr_status_t</type>
-      <name>apr_poll_socket_clear</name>
-      <anchor>a7</anchor>
-      <arglist>(apr_pollfd_t *aprset, apr_int16_t events)</arglist>
-    </member>
-    <member kind="function">
-      <type>apr_status_t</type>
-      <name>apr_poll_revents_get</name>
-      <anchor>a8</anchor>
-      <arglist>(apr_int16_t *event, apr_socket_t *sock, apr_pollfd_t *aprset)</arglist>
-    </member>
-    <member kind="function">
-      <type>apr_status_t</type>
       <name>apr_pollset_create</name>
-      <anchor>a9</anchor>
+      <anchor>a2</anchor>
       <arglist>(apr_pollset_t **pollset, apr_uint32_t size, apr_pool_t *p, apr_uint32_t flags)</arglist>
     </member>
     <member kind="function">
       <type>apr_status_t</type>
       <name>apr_pollset_destroy</name>
-      <anchor>a10</anchor>
+      <anchor>a3</anchor>
       <arglist>(apr_pollset_t *pollset)</arglist>
     </member>
     <member kind="function">
       <type>apr_status_t</type>
       <name>apr_pollset_add</name>
-      <anchor>a11</anchor>
+      <anchor>a4</anchor>
       <arglist>(apr_pollset_t *pollset, const apr_pollfd_t *descriptor)</arglist>
     </member>
     <member kind="function">
       <type>apr_status_t</type>
       <name>apr_pollset_remove</name>
-      <anchor>a12</anchor>
+      <anchor>a5</anchor>
       <arglist>(apr_pollset_t *pollset, const apr_pollfd_t *descriptor)</arglist>
     </member>
     <member kind="function">
       <type>apr_status_t</type>
       <name>apr_pollset_poll</name>
-      <anchor>a13</anchor>
+      <anchor>a6</anchor>
       <arglist>(apr_pollset_t *pollset, apr_interval_time_t timeout, apr_int32_t *num, const apr_pollfd_t **descriptors)</arglist>
     </member>
-  </compound>
-  <compound kind="group">
-    <name>apr_poll_opt</name>
-    <title>Poll options</title>
-    <filename>group__apr__poll__opt.html</filename>
-    <member kind="define">
-      <type>#define</type>
-      <name>APR_POLLIN</name>
-      <anchor>a0</anchor>
-      <arglist></arglist>
-    </member>
-    <member kind="define">
-      <type>#define</type>
-      <name>APR_POLLPRI</name>
-      <anchor>a1</anchor>
-      <arglist></arglist>
-    </member>
-    <member kind="define">
-      <type>#define</type>
-      <name>APR_POLLOUT</name>
-      <anchor>a2</anchor>
-      <arglist></arglist>
-    </member>
-    <member kind="define">
-      <type>#define</type>
-      <name>APR_POLLERR</name>
-      <anchor>a3</anchor>
-      <arglist></arglist>
-    </member>
-    <member kind="define">
-      <type>#define</type>
-      <name>APR_POLLHUP</name>
-      <anchor>a4</anchor>
-      <arglist></arglist>
-    </member>
-    <member kind="define">
-      <type>#define</type>
-      <name>APR_POLLNVAL</name>
-      <anchor>a5</anchor>
-      <arglist></arglist>
+    <member kind="function">
+      <type>apr_status_t</type>
+      <name>apr_poll</name>
+      <anchor>a7</anchor>
+      <arglist>(apr_pollfd_t *aprset, apr_int32_t numsock, apr_int32_t *nsds, apr_interval_time_t timeout)</arglist>
     </member>
   </compound>
   <compound kind="group">
@@ -11627,13 +11492,13 @@
     <member kind="define">
       <type>#define</type>
       <name>apr_os_global_mutex_t</name>
-      <anchor>a30</anchor>
+      <anchor>a31</anchor>
       <arglist></arglist>
     </member>
     <member kind="define">
       <type>#define</type>
       <name>apr_os_global_mutex_get</name>
-      <anchor>a31</anchor>
+      <anchor>a32</anchor>
       <arglist></arglist>
     </member>
     <member kind="typedef">
@@ -11764,56 +11629,62 @@
     </member>
     <member kind="function">
       <type>apr_status_t</type>
-      <name>apr_os_dir_put</name>
+      <name>apr_os_pipe_put_ex</name>
       <anchor>a21</anchor>
+      <arglist>(apr_file_t **file, apr_os_file_t *thefile, int register_cleanup, apr_pool_t *cont)</arglist>
+    </member>
+    <member kind="function">
+      <type>apr_status_t</type>
+      <name>apr_os_dir_put</name>
+      <anchor>a22</anchor>
       <arglist>(apr_dir_t **dir, apr_os_dir_t *thedir, apr_pool_t *cont)</arglist>
     </member>
     <member kind="function">
       <type>apr_status_t</type>
       <name>apr_os_sock_put</name>
-      <anchor>a22</anchor>
+      <anchor>a23</anchor>
       <arglist>(apr_socket_t **sock, apr_os_sock_t *thesock, apr_pool_t *cont)</arglist>
     </member>
     <member kind="function">
       <type>apr_status_t</type>
       <name>apr_os_sock_make</name>
-      <anchor>a23</anchor>
+      <anchor>a24</anchor>
       <arglist>(apr_socket_t **apr_sock, apr_os_sock_info_t *os_sock_info, apr_pool_t *cont)</arglist>
     </member>
     <member kind="function">
       <type>apr_status_t</type>
       <name>apr_os_proc_mutex_put</name>
-      <anchor>a24</anchor>
+      <anchor>a25</anchor>
       <arglist>(apr_proc_mutex_t **pmutex, apr_os_proc_mutex_t *ospmutex, apr_pool_t *cont)</arglist>
     </member>
     <member kind="function">
       <type>apr_status_t</type>
       <name>apr_os_imp_time_put</name>
-      <anchor>a25</anchor>
+      <anchor>a26</anchor>
       <arglist>(apr_time_t *aprtime, apr_os_imp_time_t **ostime, apr_pool_t *cont)</arglist>
     </member>
     <member kind="function">
       <type>apr_status_t</type>
       <name>apr_os_exp_time_put</name>
-      <anchor>a26</anchor>
+      <anchor>a27</anchor>
       <arglist>(apr_time_exp_t *aprtime, apr_os_exp_time_t **ostime, apr_pool_t *cont)</arglist>
     </member>
     <member kind="function">
       <type>apr_status_t</type>
       <name>apr_os_shm_put</name>
-      <anchor>a27</anchor>
+      <anchor>a28</anchor>
       <arglist>(apr_shm_t **shm, apr_os_shm_t *osshm, apr_pool_t *cont)</arglist>
     </member>
     <member kind="function">
       <type>const char *</type>
       <name>apr_os_default_encoding</name>
-      <anchor>a28</anchor>
+      <anchor>a29</anchor>
       <arglist>(apr_pool_t *pool)</arglist>
     </member>
     <member kind="function">
       <type>const char *</type>
       <name>apr_os_locale_encoding</name>
-      <anchor>a29</anchor>
+      <anchor>a30</anchor>
       <arglist>(apr_pool_t *pool)</arglist>
     </member>
   </compound>
@@ -12125,44 +11996,32 @@
     </member>
     <member kind="define">
       <type>#define</type>
-      <name>APR_RING_FOREACH</name>
-      <anchor>a22</anchor>
-      <arglist>(ep, hp, elem, link)</arglist>
-    </member>
-    <member kind="define">
-      <type>#define</type>
-      <name>APR_RING_FOREACH_REVERSE</name>
-      <anchor>a23</anchor>
-      <arglist>(ep, hp, elem, link)</arglist>
-    </member>
-    <member kind="define">
-      <type>#define</type>
       <name>APR_RING_CHECK_ONE</name>
-      <anchor>a24</anchor>
+      <anchor>a22</anchor>
       <arglist>(msg, ptr)</arglist>
     </member>
     <member kind="define">
       <type>#define</type>
       <name>APR_RING_CHECK</name>
-      <anchor>a25</anchor>
+      <anchor>a23</anchor>
       <arglist>(hp, elem, link, msg)</arglist>
     </member>
     <member kind="define">
       <type>#define</type>
       <name>APR_RING_CHECK_CONSISTENCY</name>
-      <anchor>a26</anchor>
+      <anchor>a24</anchor>
       <arglist>(hp, elem, link)</arglist>
     </member>
     <member kind="define">
       <type>#define</type>
       <name>APR_RING_CHECK_ELEM</name>
-      <anchor>a27</anchor>
+      <anchor>a25</anchor>
       <arglist>(ep, elem, link, msg)</arglist>
     </member>
     <member kind="define">
       <type>#define</type>
       <name>APR_RING_CHECK_ELEM_CONSISTENCY</name>
-      <anchor>a28</anchor>
+      <anchor>a26</anchor>
       <arglist>(ep, elem, link)</arglist>
     </member>
   </compound>
@@ -12184,38 +12043,44 @@
     </member>
     <member kind="function">
       <type>apr_status_t</type>
-      <name>apr_shm_destroy</name>
+      <name>apr_shm_remove</name>
       <anchor>a2</anchor>
+      <arglist>(const char *filename, apr_pool_t *pool)</arglist>
+    </member>
+    <member kind="function">
+      <type>apr_status_t</type>
+      <name>apr_shm_destroy</name>
+      <anchor>a3</anchor>
       <arglist>(apr_shm_t *m)</arglist>
     </member>
     <member kind="function">
       <type>apr_status_t</type>
       <name>apr_shm_attach</name>
-      <anchor>a3</anchor>
+      <anchor>a4</anchor>
       <arglist>(apr_shm_t **m, const char *filename, apr_pool_t *pool)</arglist>
     </member>
     <member kind="function">
       <type>apr_status_t</type>
       <name>apr_shm_detach</name>
-      <anchor>a4</anchor>
+      <anchor>a5</anchor>
       <arglist>(apr_shm_t *m)</arglist>
     </member>
     <member kind="function">
       <type>void *</type>
       <name>apr_shm_baseaddr_get</name>
-      <anchor>a5</anchor>
+      <anchor>a6</anchor>
       <arglist>(const apr_shm_t *m)</arglist>
     </member>
     <member kind="function">
       <type>apr_size_t</type>
       <name>apr_shm_size_get</name>
-      <anchor>a6</anchor>
+      <anchor>a7</anchor>
       <arglist>(const apr_shm_t *m)</arglist>
     </member>
     <member kind="function">
       <type>apr_pool_t *</type>
       <name>apr_shm_pool_get</name>
-      <anchor>a7</anchor>
+      <anchor>a8</anchor>
       <arglist>(const apr_shm_t *theshm)</arglist>
     </member>
   </compound>
@@ -12246,6 +12111,18 @@
       <name>apr_signal_init</name>
       <anchor>a3</anchor>
       <arglist>(apr_pool_t *pglobal)</arglist>
+    </member>
+    <member kind="function">
+      <type>apr_status_t</type>
+      <name>apr_signal_block</name>
+      <anchor>a4</anchor>
+      <arglist>(int signum)</arglist>
+    </member>
+    <member kind="function">
+      <type>apr_status_t</type>
+      <name>apr_signal_unblock</name>
+      <anchor>a5</anchor>
+      <arglist>(int signum)</arglist>
     </member>
   </compound>
   <compound kind="group">
@@ -12356,21 +12233,27 @@
       <arglist>(apr_pool_t *p, apr_off_t n)</arglist>
     </member>
     <member kind="function">
+      <type>apr_status_t</type>
+      <name>apr_strtoff</name>
+      <anchor>a17</anchor>
+      <arglist>(apr_off_t *offset, const char *buf, char **end, int base)</arglist>
+    </member>
+    <member kind="function">
       <type>apr_int64_t</type>
       <name>apr_strtoi64</name>
-      <anchor>a17</anchor>
+      <anchor>a18</anchor>
       <arglist>(const char *buf, char **end, int base)</arglist>
     </member>
     <member kind="function">
       <type>apr_int64_t</type>
       <name>apr_atoi64</name>
-      <anchor>a18</anchor>
+      <anchor>a19</anchor>
       <arglist>(const char *buf)</arglist>
     </member>
     <member kind="function">
       <type>char *</type>
       <name>apr_strfsize</name>
-      <anchor>a19</anchor>
+      <anchor>a20</anchor>
       <arglist>(apr_off_t size, char *buf)</arglist>
     </member>
   </compound>
@@ -12411,13 +12294,13 @@
     <member kind="define">
       <type>#define</type>
       <name>APR_OVERLAP_TABLES_SET</name>
-      <anchor>a31</anchor>
+      <anchor>a33</anchor>
       <arglist></arglist>
     </member>
     <member kind="define">
       <type>#define</type>
       <name>APR_OVERLAP_TABLES_MERGE</name>
-      <anchor>a32</anchor>
+      <anchor>a34</anchor>
       <arglist></arglist>
     </member>
     <member kind="typedef">
@@ -12439,171 +12322,183 @@
       <arglist></arglist>
     </member>
     <member kind="typedef">
-      <type>int(</type>
-      <name>apr_table_do_callback_fn_t</name>
+      <type>const char *</type>
+      <name>key</name>
       <anchor>a3</anchor>
-      <arglist>)(void *rec, const char *key, const char *value)</arglist>
+      <arglist></arglist>
+    </member>
+    <member kind="typedef">
+      <type>const char const char *</type>
+      <name>value</name>
+      <anchor>a4</anchor>
+      <arglist></arglist>
     </member>
     <member kind="function">
       <type>const apr_array_header_t *</type>
       <name>apr_table_elts</name>
-      <anchor>a4</anchor>
-      <arglist>(const apr_table_t *t)</arglist>
-    </member>
-    <member kind="function">
-      <type>int</type>
-      <name>apr_is_empty_table</name>
       <anchor>a5</anchor>
       <arglist>(const apr_table_t *t)</arglist>
     </member>
     <member kind="function">
       <type>int</type>
-      <name>apr_is_empty_array</name>
+      <name>apr_is_empty_table</name>
       <anchor>a6</anchor>
+      <arglist>(const apr_table_t *t)</arglist>
+    </member>
+    <member kind="function">
+      <type>int</type>
+      <name>apr_is_empty_array</name>
+      <anchor>a7</anchor>
       <arglist>(const apr_array_header_t *a)</arglist>
     </member>
     <member kind="function">
       <type>apr_array_header_t *</type>
       <name>apr_array_make</name>
-      <anchor>a7</anchor>
+      <anchor>a8</anchor>
       <arglist>(apr_pool_t *p, int nelts, int elt_size)</arglist>
     </member>
     <member kind="function">
       <type>void *</type>
       <name>apr_array_push</name>
-      <anchor>a8</anchor>
+      <anchor>a9</anchor>
       <arglist>(apr_array_header_t *arr)</arglist>
     </member>
     <member kind="function">
       <type>void *</type>
       <name>apr_array_pop</name>
-      <anchor>a9</anchor>
+      <anchor>a10</anchor>
       <arglist>(apr_array_header_t *arr)</arglist>
     </member>
     <member kind="function">
       <type>void</type>
       <name>apr_array_cat</name>
-      <anchor>a10</anchor>
+      <anchor>a11</anchor>
       <arglist>(apr_array_header_t *dst, const apr_array_header_t *src)</arglist>
     </member>
     <member kind="function">
       <type>apr_array_header_t *</type>
       <name>apr_array_copy</name>
-      <anchor>a11</anchor>
-      <arglist>(apr_pool_t *p, const apr_array_header_t *arr)</arglist>
-    </member>
-    <member kind="function">
-      <type>apr_array_header_t *</type>
-      <name>apr_array_copy_hdr</name>
       <anchor>a12</anchor>
       <arglist>(apr_pool_t *p, const apr_array_header_t *arr)</arglist>
     </member>
     <member kind="function">
       <type>apr_array_header_t *</type>
-      <name>apr_array_append</name>
+      <name>apr_array_copy_hdr</name>
       <anchor>a13</anchor>
+      <arglist>(apr_pool_t *p, const apr_array_header_t *arr)</arglist>
+    </member>
+    <member kind="function">
+      <type>apr_array_header_t *</type>
+      <name>apr_array_append</name>
+      <anchor>a14</anchor>
       <arglist>(apr_pool_t *p, const apr_array_header_t *first, const apr_array_header_t *second)</arglist>
     </member>
     <member kind="function">
       <type>char *</type>
       <name>apr_array_pstrcat</name>
-      <anchor>a14</anchor>
+      <anchor>a15</anchor>
       <arglist>(apr_pool_t *p, const apr_array_header_t *arr, const char sep)</arglist>
     </member>
     <member kind="function">
       <type>apr_table_t *</type>
       <name>apr_table_make</name>
-      <anchor>a15</anchor>
+      <anchor>a16</anchor>
       <arglist>(apr_pool_t *p, int nelts)</arglist>
     </member>
     <member kind="function">
       <type>apr_table_t *</type>
       <name>apr_table_copy</name>
-      <anchor>a16</anchor>
+      <anchor>a17</anchor>
       <arglist>(apr_pool_t *p, const apr_table_t *t)</arglist>
     </member>
     <member kind="function">
       <type>void</type>
       <name>apr_table_clear</name>
-      <anchor>a17</anchor>
+      <anchor>a18</anchor>
       <arglist>(apr_table_t *t)</arglist>
     </member>
     <member kind="function">
       <type>const char *</type>
       <name>apr_table_get</name>
-      <anchor>a18</anchor>
+      <anchor>a19</anchor>
       <arglist>(const apr_table_t *t, const char *key)</arglist>
     </member>
     <member kind="function">
       <type>void</type>
       <name>apr_table_set</name>
-      <anchor>a19</anchor>
-      <arglist>(apr_table_t *t, const char *key, const char *val)</arglist>
-    </member>
-    <member kind="function">
-      <type>void</type>
-      <name>apr_table_setn</name>
       <anchor>a20</anchor>
       <arglist>(apr_table_t *t, const char *key, const char *val)</arglist>
     </member>
     <member kind="function">
       <type>void</type>
-      <name>apr_table_unset</name>
+      <name>apr_table_setn</name>
       <anchor>a21</anchor>
+      <arglist>(apr_table_t *t, const char *key, const char *val)</arglist>
+    </member>
+    <member kind="function">
+      <type>void</type>
+      <name>apr_table_unset</name>
+      <anchor>a22</anchor>
       <arglist>(apr_table_t *t, const char *key)</arglist>
     </member>
     <member kind="function">
       <type>void</type>
       <name>apr_table_merge</name>
-      <anchor>a22</anchor>
-      <arglist>(apr_table_t *t, const char *key, const char *val)</arglist>
-    </member>
-    <member kind="function">
-      <type>void</type>
-      <name>apr_table_mergen</name>
       <anchor>a23</anchor>
       <arglist>(apr_table_t *t, const char *key, const char *val)</arglist>
     </member>
     <member kind="function">
       <type>void</type>
-      <name>apr_table_add</name>
+      <name>apr_table_mergen</name>
       <anchor>a24</anchor>
       <arglist>(apr_table_t *t, const char *key, const char *val)</arglist>
     </member>
     <member kind="function">
       <type>void</type>
-      <name>apr_table_addn</name>
+      <name>apr_table_add</name>
       <anchor>a25</anchor>
+      <arglist>(apr_table_t *t, const char *key, const char *val)</arglist>
+    </member>
+    <member kind="function">
+      <type>void</type>
+      <name>apr_table_addn</name>
+      <anchor>a26</anchor>
       <arglist>(apr_table_t *t, const char *key, const char *val)</arglist>
     </member>
     <member kind="function">
       <type>apr_table_t *</type>
       <name>apr_table_overlay</name>
-      <anchor>a26</anchor>
+      <anchor>a27</anchor>
       <arglist>(apr_pool_t *p, const apr_table_t *overlay, const apr_table_t *base)</arglist>
+    </member>
+    <member kind="function">
+      <type>typedef</type>
+      <name>int</name>
+      <anchor>a28</anchor>
+      <arglist>(apr_table_do_callback_fn_t)(void *rec</arglist>
     </member>
     <member kind="function">
       <type>int</type>
       <name>apr_table_do</name>
-      <anchor>a27</anchor>
+      <anchor>a29</anchor>
       <arglist>(apr_table_do_callback_fn_t *comp, void *rec, const apr_table_t *t,...)</arglist>
     </member>
     <member kind="function">
       <type>int</type>
       <name>apr_table_vdo</name>
-      <anchor>a28</anchor>
+      <anchor>a30</anchor>
       <arglist>(apr_table_do_callback_fn_t *comp, void *rec, const apr_table_t *t, va_list vp)</arglist>
     </member>
     <member kind="function">
       <type>void</type>
       <name>apr_table_overlap</name>
-      <anchor>a29</anchor>
+      <anchor>a31</anchor>
       <arglist>(apr_table_t *a, const apr_table_t *b, unsigned flags)</arglist>
     </member>
     <member kind="function">
       <type>void</type>
       <name>apr_table_compress</name>
-      <anchor>a30</anchor>
+      <anchor>a32</anchor>
       <arglist>(apr_table_t *t, unsigned flags)</arglist>
     </member>
   </compound>
@@ -12734,85 +12629,85 @@
     <member kind="define">
       <type>#define</type>
       <name>APR_PROC_CHECK_EXIT</name>
-      <anchor>a55</anchor>
-      <arglist>(x)</arglist>
-    </member>
-    <member kind="define">
-      <type>#define</type>
-      <name>APR_PROC_CHECK_SIGNALED</name>
       <anchor>a56</anchor>
       <arglist>(x)</arglist>
     </member>
     <member kind="define">
       <type>#define</type>
-      <name>APR_PROC_CHECK_CORE_DUMP</name>
+      <name>APR_PROC_CHECK_SIGNALED</name>
       <anchor>a57</anchor>
       <arglist>(x)</arglist>
     </member>
     <member kind="define">
       <type>#define</type>
-      <name>APR_NO_PIPE</name>
+      <name>APR_PROC_CHECK_CORE_DUMP</name>
       <anchor>a58</anchor>
-      <arglist></arglist>
+      <arglist>(x)</arglist>
     </member>
     <member kind="define">
       <type>#define</type>
-      <name>APR_FULL_BLOCK</name>
+      <name>APR_NO_PIPE</name>
       <anchor>a59</anchor>
       <arglist></arglist>
     </member>
     <member kind="define">
       <type>#define</type>
-      <name>APR_FULL_NONBLOCK</name>
+      <name>APR_FULL_BLOCK</name>
       <anchor>a60</anchor>
       <arglist></arglist>
     </member>
     <member kind="define">
       <type>#define</type>
-      <name>APR_PARENT_BLOCK</name>
+      <name>APR_FULL_NONBLOCK</name>
       <anchor>a61</anchor>
       <arglist></arglist>
     </member>
     <member kind="define">
       <type>#define</type>
-      <name>APR_CHILD_BLOCK</name>
+      <name>APR_PARENT_BLOCK</name>
       <anchor>a62</anchor>
       <arglist></arglist>
     </member>
     <member kind="define">
       <type>#define</type>
-      <name>APR_LIMIT_CPU</name>
+      <name>APR_CHILD_BLOCK</name>
       <anchor>a63</anchor>
       <arglist></arglist>
     </member>
     <member kind="define">
       <type>#define</type>
-      <name>APR_LIMIT_MEM</name>
+      <name>APR_LIMIT_CPU</name>
       <anchor>a64</anchor>
       <arglist></arglist>
     </member>
     <member kind="define">
       <type>#define</type>
-      <name>APR_LIMIT_NPROC</name>
+      <name>APR_LIMIT_MEM</name>
       <anchor>a65</anchor>
       <arglist></arglist>
     </member>
     <member kind="define">
       <type>#define</type>
-      <name>APR_LIMIT_NOFILE</name>
+      <name>APR_LIMIT_NPROC</name>
       <anchor>a66</anchor>
       <arglist></arglist>
     </member>
     <member kind="define">
       <type>#define</type>
-      <name>APR_PROC_DETACH_FOREGROUND</name>
+      <name>APR_LIMIT_NOFILE</name>
       <anchor>a67</anchor>
       <arglist></arglist>
     </member>
     <member kind="define">
       <type>#define</type>
-      <name>APR_PROC_DETACH_DAEMONIZE</name>
+      <name>APR_PROC_DETACH_FOREGROUND</name>
       <anchor>a68</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="define">
+      <type>#define</type>
+      <name>APR_PROC_DETACH_DAEMONIZE</name>
+      <anchor>a69</anchor>
       <arglist></arglist>
     </member>
     <member kind="typedef">
@@ -12822,417 +12717,425 @@
       <arglist></arglist>
     </member>
     <member kind="typedef">
-      <type>void(</type>
-      <name>apr_child_errfn_t</name>
+      <type>apr_status_t</type>
+      <name>err</name>
       <anchor>a1</anchor>
-      <arglist>)(apr_pool_t *proc, apr_status_t err, const char *description)</arglist>
+      <arglist></arglist>
+    </member>
+    <member kind="typedef">
+      <type>apr_status_t const char *</type>
+      <name>description</name>
+      <anchor>a2</anchor>
+      <arglist></arglist>
     </member>
     <member kind="typedef">
       <type>apr_thread_t</type>
       <name>apr_thread_t</name>
-      <anchor>a2</anchor>
+      <anchor>a3</anchor>
       <arglist></arglist>
     </member>
     <member kind="typedef">
       <type>apr_threadattr_t</type>
       <name>apr_threadattr_t</name>
-      <anchor>a3</anchor>
+      <anchor>a4</anchor>
       <arglist></arglist>
     </member>
     <member kind="typedef">
       <type>apr_procattr_t</type>
       <name>apr_procattr_t</name>
-      <anchor>a4</anchor>
+      <anchor>a5</anchor>
       <arglist></arglist>
     </member>
     <member kind="typedef">
       <type>apr_thread_once_t</type>
       <name>apr_thread_once_t</name>
-      <anchor>a5</anchor>
+      <anchor>a6</anchor>
       <arglist></arglist>
     </member>
     <member kind="typedef">
       <type>apr_threadkey_t</type>
       <name>apr_threadkey_t</name>
-      <anchor>a6</anchor>
+      <anchor>a7</anchor>
       <arglist></arglist>
     </member>
     <member kind="typedef">
       <type>apr_other_child_rec_t</type>
       <name>apr_other_child_rec_t</name>
-      <anchor>a7</anchor>
+      <anchor>a8</anchor>
       <arglist></arglist>
     </member>
     <member kind="typedef">
       <type>void *(APR_THREAD_FUNC *</type>
       <name>apr_thread_start_t</name>
-      <anchor>a8</anchor>
+      <anchor>a9</anchor>
       <arglist>)(apr_thread_t *, void *)</arglist>
     </member>
     <member kind="enumeration">
       <name>apr_cmdtype_e</name>
-      <anchor>a69</anchor>
-      <arglist></arglist>
-    </member>
-    <member kind="enumvalue">
-      <name>APR_SHELLCMD</name>
-      <anchor>a69a29</anchor>
-      <arglist></arglist>
-    </member>
-    <member kind="enumvalue">
-      <name>APR_PROGRAM</name>
-      <anchor>a69a30</anchor>
-      <arglist></arglist>
-    </member>
-    <member kind="enumvalue">
-      <name>APR_PROGRAM_ENV</name>
-      <anchor>a69a31</anchor>
-      <arglist></arglist>
-    </member>
-    <member kind="enumvalue">
-      <name>APR_PROGRAM_PATH</name>
-      <anchor>a69a32</anchor>
-      <arglist></arglist>
-    </member>
-    <member kind="enumeration">
-      <name>apr_wait_how_e</name>
       <anchor>a70</anchor>
       <arglist></arglist>
     </member>
     <member kind="enumvalue">
-      <name>APR_WAIT</name>
-      <anchor>a70a33</anchor>
+      <name>APR_SHELLCMD</name>
+      <anchor>a70a30</anchor>
       <arglist></arglist>
     </member>
     <member kind="enumvalue">
-      <name>APR_NOWAIT</name>
-      <anchor>a70a34</anchor>
+      <name>APR_PROGRAM</name>
+      <anchor>a70a31</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="enumvalue">
+      <name>APR_PROGRAM_ENV</name>
+      <anchor>a70a32</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="enumvalue">
+      <name>APR_PROGRAM_PATH</name>
+      <anchor>a70a33</anchor>
       <arglist></arglist>
     </member>
     <member kind="enumeration">
-      <name>apr_exit_why_e</name>
+      <name>apr_wait_how_e</name>
       <anchor>a71</anchor>
       <arglist></arglist>
     </member>
     <member kind="enumvalue">
-      <name>APR_PROC_EXIT</name>
+      <name>APR_WAIT</name>
+      <anchor>a71a34</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="enumvalue">
+      <name>APR_NOWAIT</name>
       <anchor>a71a35</anchor>
       <arglist></arglist>
     </member>
-    <member kind="enumvalue">
-      <name>APR_PROC_SIGNAL</name>
-      <anchor>a71a36</anchor>
-      <arglist></arglist>
-    </member>
-    <member kind="enumvalue">
-      <name>APR_PROC_SIGNAL_CORE</name>
-      <anchor>a71a37</anchor>
-      <arglist></arglist>
-    </member>
     <member kind="enumeration">
-      <name>apr_kill_conditions_e</name>
+      <name>apr_exit_why_e</name>
       <anchor>a72</anchor>
       <arglist></arglist>
     </member>
     <member kind="enumvalue">
-      <name>APR_KILL_NEVER</name>
+      <name>APR_PROC_EXIT</name>
+      <anchor>a72a36</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="enumvalue">
+      <name>APR_PROC_SIGNAL</name>
+      <anchor>a72a37</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="enumvalue">
+      <name>APR_PROC_SIGNAL_CORE</name>
       <anchor>a72a38</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="enumeration">
+      <name>apr_kill_conditions_e</name>
+      <anchor>a73</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="enumvalue">
+      <name>APR_KILL_NEVER</name>
+      <anchor>a73a39</anchor>
       <arglist></arglist>
     </member>
     <member kind="enumvalue">
       <name>APR_KILL_ALWAYS</name>
-      <anchor>a72a39</anchor>
+      <anchor>a73a40</anchor>
       <arglist></arglist>
     </member>
     <member kind="enumvalue">
       <name>APR_KILL_AFTER_TIMEOUT</name>
-      <anchor>a72a40</anchor>
+      <anchor>a73a41</anchor>
       <arglist></arglist>
     </member>
     <member kind="enumvalue">
       <name>APR_JUST_WAIT</name>
-      <anchor>a72a41</anchor>
+      <anchor>a73a42</anchor>
       <arglist></arglist>
     </member>
     <member kind="enumvalue">
       <name>APR_KILL_ONLY_ONCE</name>
-      <anchor>a72a42</anchor>
+      <anchor>a73a43</anchor>
       <arglist></arglist>
+    </member>
+    <member kind="function">
+      <type>typedef</type>
+      <name>void</name>
+      <anchor>a10</anchor>
+      <arglist>(apr_child_errfn_t)(apr_pool_t *proc</arglist>
     </member>
     <member kind="function">
       <type>apr_status_t</type>
       <name>apr_threadattr_create</name>
-      <anchor>a9</anchor>
+      <anchor>a11</anchor>
       <arglist>(apr_threadattr_t **new_attr, apr_pool_t *cont)</arglist>
     </member>
     <member kind="function">
       <type>apr_status_t</type>
       <name>apr_threadattr_detach_set</name>
-      <anchor>a10</anchor>
+      <anchor>a12</anchor>
       <arglist>(apr_threadattr_t *attr, apr_int32_t on)</arglist>
     </member>
     <member kind="function">
       <type>apr_status_t</type>
       <name>apr_threadattr_detach_get</name>
-      <anchor>a11</anchor>
+      <anchor>a13</anchor>
       <arglist>(apr_threadattr_t *attr)</arglist>
     </member>
     <member kind="function">
       <type>apr_status_t</type>
+      <name>apr_threadattr_stacksize_set</name>
+      <anchor>a14</anchor>
+      <arglist>(apr_threadattr_t *attr, apr_size_t stacksize)</arglist>
+    </member>
+    <member kind="function">
+      <type>apr_status_t</type>
       <name>apr_thread_create</name>
-      <anchor>a12</anchor>
+      <anchor>a15</anchor>
       <arglist>(apr_thread_t **new_thread, apr_threadattr_t *attr, apr_thread_start_t func, void *data, apr_pool_t *cont)</arglist>
     </member>
     <member kind="function">
       <type>apr_status_t</type>
       <name>apr_thread_exit</name>
-      <anchor>a13</anchor>
+      <anchor>a16</anchor>
       <arglist>(apr_thread_t *thd, apr_status_t retval)</arglist>
     </member>
     <member kind="function">
       <type>apr_status_t</type>
       <name>apr_thread_join</name>
-      <anchor>a14</anchor>
+      <anchor>a17</anchor>
       <arglist>(apr_status_t *retval, apr_thread_t *thd)</arglist>
     </member>
     <member kind="function">
       <type>void</type>
       <name>apr_thread_yield</name>
-      <anchor>a15</anchor>
+      <anchor>a18</anchor>
       <arglist>(void)</arglist>
     </member>
     <member kind="function">
       <type>apr_status_t</type>
       <name>apr_thread_once_init</name>
-      <anchor>a16</anchor>
+      <anchor>a19</anchor>
       <arglist>(apr_thread_once_t **control, apr_pool_t *p)</arglist>
     </member>
     <member kind="function">
       <type>apr_status_t</type>
       <name>apr_thread_once</name>
-      <anchor>a17</anchor>
+      <anchor>a20</anchor>
       <arglist>(apr_thread_once_t *control, void(*func)(void))</arglist>
     </member>
     <member kind="function">
       <type>apr_status_t</type>
       <name>apr_thread_detach</name>
-      <anchor>a18</anchor>
+      <anchor>a21</anchor>
       <arglist>(apr_thread_t *thd)</arglist>
     </member>
     <member kind="function">
       <type>apr_status_t</type>
       <name>apr_thread_data_get</name>
-      <anchor>a19</anchor>
+      <anchor>a22</anchor>
       <arglist>(void **data, const char *key, apr_thread_t *thread)</arglist>
     </member>
     <member kind="function">
       <type>apr_status_t</type>
       <name>apr_thread_data_set</name>
-      <anchor>a20</anchor>
+      <anchor>a23</anchor>
       <arglist>(void *data, const char *key, apr_status_t(*cleanup)(void *), apr_thread_t *thread)</arglist>
     </member>
     <member kind="function">
       <type>apr_status_t</type>
       <name>apr_threadkey_private_create</name>
-      <anchor>a21</anchor>
+      <anchor>a24</anchor>
       <arglist>(apr_threadkey_t **key, void(*dest)(void *), apr_pool_t *cont)</arglist>
     </member>
     <member kind="function">
       <type>apr_status_t</type>
       <name>apr_threadkey_private_get</name>
-      <anchor>a22</anchor>
+      <anchor>a25</anchor>
       <arglist>(void **new_mem, apr_threadkey_t *key)</arglist>
     </member>
     <member kind="function">
       <type>apr_status_t</type>
       <name>apr_threadkey_private_set</name>
-      <anchor>a23</anchor>
+      <anchor>a26</anchor>
       <arglist>(void *priv, apr_threadkey_t *key)</arglist>
     </member>
     <member kind="function">
       <type>apr_status_t</type>
       <name>apr_threadkey_private_delete</name>
-      <anchor>a24</anchor>
+      <anchor>a27</anchor>
       <arglist>(apr_threadkey_t *key)</arglist>
     </member>
     <member kind="function">
       <type>apr_status_t</type>
       <name>apr_threadkey_data_get</name>
-      <anchor>a25</anchor>
+      <anchor>a28</anchor>
       <arglist>(void **data, const char *key, apr_threadkey_t *threadkey)</arglist>
     </member>
     <member kind="function">
       <type>apr_status_t</type>
       <name>apr_threadkey_data_set</name>
-      <anchor>a26</anchor>
+      <anchor>a29</anchor>
       <arglist>(void *data, const char *key, apr_status_t(*cleanup)(void *), apr_threadkey_t *threadkey)</arglist>
     </member>
     <member kind="function">
       <type>apr_status_t</type>
       <name>apr_procattr_create</name>
-      <anchor>a27</anchor>
+      <anchor>a30</anchor>
       <arglist>(apr_procattr_t **new_attr, apr_pool_t *cont)</arglist>
     </member>
     <member kind="function">
       <type>apr_status_t</type>
       <name>apr_procattr_io_set</name>
-      <anchor>a28</anchor>
+      <anchor>a31</anchor>
       <arglist>(apr_procattr_t *attr, apr_int32_t in, apr_int32_t out, apr_int32_t err)</arglist>
     </member>
     <member kind="function">
       <type>apr_status_t</type>
       <name>apr_procattr_child_in_set</name>
-      <anchor>a29</anchor>
+      <anchor>a32</anchor>
       <arglist>(struct apr_procattr_t *attr, apr_file_t *child_in, apr_file_t *parent_in)</arglist>
     </member>
     <member kind="function">
       <type>apr_status_t</type>
       <name>apr_procattr_child_out_set</name>
-      <anchor>a30</anchor>
+      <anchor>a33</anchor>
       <arglist>(struct apr_procattr_t *attr, apr_file_t *child_out, apr_file_t *parent_out)</arglist>
     </member>
     <member kind="function">
       <type>apr_status_t</type>
       <name>apr_procattr_child_err_set</name>
-      <anchor>a31</anchor>
+      <anchor>a34</anchor>
       <arglist>(struct apr_procattr_t *attr, apr_file_t *child_err, apr_file_t *parent_err)</arglist>
     </member>
     <member kind="function">
       <type>apr_status_t</type>
       <name>apr_procattr_dir_set</name>
-      <anchor>a32</anchor>
+      <anchor>a35</anchor>
       <arglist>(apr_procattr_t *attr, const char *dir)</arglist>
     </member>
     <member kind="function">
       <type>apr_status_t</type>
       <name>apr_procattr_cmdtype_set</name>
-      <anchor>a33</anchor>
+      <anchor>a36</anchor>
       <arglist>(apr_procattr_t *attr, apr_cmdtype_e cmd)</arglist>
     </member>
     <member kind="function">
       <type>apr_status_t</type>
       <name>apr_procattr_detach_set</name>
-      <anchor>a34</anchor>
+      <anchor>a37</anchor>
       <arglist>(apr_procattr_t *attr, apr_int32_t detach)</arglist>
     </member>
     <member kind="function">
       <type>apr_status_t</type>
       <name>apr_procattr_limit_set</name>
-      <anchor>a35</anchor>
+      <anchor>a38</anchor>
       <arglist>(apr_procattr_t *attr, apr_int32_t what, struct rlimit *limit)</arglist>
     </member>
     <member kind="function">
       <type>apr_status_t</type>
       <name>apr_procattr_child_errfn_set</name>
-      <anchor>a36</anchor>
+      <anchor>a39</anchor>
       <arglist>(apr_procattr_t *attr, apr_child_errfn_t *errfn)</arglist>
     </member>
     <member kind="function">
       <type>apr_status_t</type>
       <name>apr_procattr_error_check_set</name>
-      <anchor>a37</anchor>
+      <anchor>a40</anchor>
       <arglist>(apr_procattr_t *attr, apr_int32_t chk)</arglist>
     </member>
     <member kind="function">
       <type>apr_status_t</type>
       <name>apr_proc_fork</name>
-      <anchor>a38</anchor>
+      <anchor>a41</anchor>
       <arglist>(apr_proc_t *proc, apr_pool_t *cont)</arglist>
     </member>
     <member kind="function">
       <type>apr_status_t</type>
       <name>apr_proc_create</name>
-      <anchor>a39</anchor>
-      <arglist>(apr_proc_t *new_proc, const char *progname, const char *const *args, const char *const *env, apr_procattr_t *attr, apr_pool_t *cont)</arglist>
+      <anchor>a42</anchor>
+      <arglist>(apr_proc_t *new_proc, const char *progname, const char *const *args, const char *const *env, apr_procattr_t *attr, apr_pool_t *pool)</arglist>
     </member>
     <member kind="function">
       <type>apr_status_t</type>
       <name>apr_proc_wait</name>
-      <anchor>a40</anchor>
+      <anchor>a43</anchor>
       <arglist>(apr_proc_t *proc, int *exitcode, apr_exit_why_e *exitwhy, apr_wait_how_e waithow)</arglist>
     </member>
     <member kind="function">
       <type>apr_status_t</type>
       <name>apr_proc_wait_all_procs</name>
-      <anchor>a41</anchor>
+      <anchor>a44</anchor>
       <arglist>(apr_proc_t *proc, int *exitcode, apr_exit_why_e *exitwhy, apr_wait_how_e waithow, apr_pool_t *p)</arglist>
+      <docanchor>_bug000002</docanchor>
     </member>
     <member kind="function">
       <type>apr_status_t</type>
       <name>apr_proc_detach</name>
-      <anchor>a42</anchor>
+      <anchor>a45</anchor>
       <arglist>(int daemonize)</arglist>
     </member>
     <member kind="function">
       <type>void</type>
       <name>apr_proc_other_child_register</name>
-      <anchor>a43</anchor>
+      <anchor>a46</anchor>
       <arglist>(apr_proc_t *proc, void(*maintenance)(int reason, void *, int status), void *data, apr_file_t *write_fd, apr_pool_t *p)</arglist>
+      <docanchor>_bug000003</docanchor>
     </member>
     <member kind="function">
       <type>void</type>
       <name>apr_proc_other_child_unregister</name>
-      <anchor>a44</anchor>
+      <anchor>a47</anchor>
       <arglist>(void *data)</arglist>
     </member>
     <member kind="function">
       <type>apr_status_t</type>
       <name>apr_proc_other_child_alert</name>
-      <anchor>a45</anchor>
+      <anchor>a48</anchor>
       <arglist>(apr_proc_t *proc, int reason, int status)</arglist>
     </member>
     <member kind="function">
       <type>void</type>
       <name>apr_proc_other_child_refresh</name>
-      <anchor>a46</anchor>
+      <anchor>a49</anchor>
       <arglist>(apr_other_child_rec_t *ocr, int reason)</arglist>
     </member>
     <member kind="function">
       <type>void</type>
       <name>apr_proc_other_child_refresh_all</name>
-      <anchor>a47</anchor>
+      <anchor>a50</anchor>
       <arglist>(int reason)</arglist>
-    </member>
-    <member kind="function">
-      <type>void</type>
-      <name>apr_proc_other_child_check</name>
-      <anchor>a48</anchor>
-      <arglist>(void)</arglist>
-    </member>
-    <member kind="function">
-      <type>apr_status_t</type>
-      <name>apr_proc_other_child_read</name>
-      <anchor>a49</anchor>
-      <arglist>(apr_proc_t *proc, int status)</arglist>
     </member>
     <member kind="function">
       <type>apr_status_t</type>
       <name>apr_proc_kill</name>
-      <anchor>a50</anchor>
+      <anchor>a51</anchor>
       <arglist>(apr_proc_t *proc, int sig)</arglist>
     </member>
     <member kind="function">
       <type>void</type>
       <name>apr_pool_note_subprocess</name>
-      <anchor>a51</anchor>
+      <anchor>a52</anchor>
       <arglist>(apr_pool_t *a, apr_proc_t *proc, apr_kill_conditions_e how)</arglist>
     </member>
     <member kind="function">
       <type>apr_status_t</type>
       <name>apr_setup_signal_thread</name>
-      <anchor>a52</anchor>
+      <anchor>a53</anchor>
       <arglist>(void)</arglist>
     </member>
     <member kind="function">
       <type>apr_status_t</type>
       <name>apr_signal_thread</name>
-      <anchor>a53</anchor>
+      <anchor>a54</anchor>
       <arglist>(int(*signal_handler)(int signum))</arglist>
     </member>
     <member kind="function">
       <type>apr_pool_t *</type>
       <name>apr_thread_pool_get</name>
-      <anchor>a54</anchor>
+      <anchor>a55</anchor>
       <arglist>(const apr_thread_t *thethread)</arglist>
     </member>
   </compound>

@@ -43,11 +43,11 @@ The following attributes are optional:
 
 =over 4
 
-=item POST_MAX
+=item POST_MAX, MAX_BODY
 
 Limit the size of POST data (in bytes).
 
-=item DISABLE_UPLOADS
+=item DISABLE_UPLOADS [TODO]
 
 Disable file uploads.
 
@@ -84,6 +84,20 @@ $upload->fh after the hook exits.
                                );
 
 =back
+
+=head2 instance
+
+The default (and only) behavior of I<Apache::Request> is to intelligently
+cache B<POST> data for the duration of the request.  Thus there is no longer
+the need for a separate C<instance()> method as existed in I<Apache::Request>
+for Apache 1.3 - all B<POST> data is always available from each and every 
+I<Apache::Request> object created during the request's lifetime.
+
+If you need an C<instance()> method to make ease the pains of porting to
+Apache 2.0, you can add this shortcut to your C<startup.pl>:
+
+    use Apache::Request;
+    *Apache::Request::instance = \&Apache::Request::new;
 
 =head2 param
 
@@ -231,6 +245,18 @@ To avoid recopying the upload's internal tempfile brigade on a
 
 Typically the new name must lie on the same file system as the
 brigade's tempfile. Check your system's link(2) manpage for details.
+
+=head2 slurp
+
+Reads the full contents of a file upload into the scalar argument.
+The return value is currently an APR status code (0 on success, error otherwise),
+but this may change in a future release (to bring this function
+in line with similar read-type functions in mp2).
+
+  # print out the upload file
+  my $contents;
+  print $contents if $upload->slurp($contents) == 0;
+
 
 =head1 SEE ALSO
 

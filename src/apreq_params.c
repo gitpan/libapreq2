@@ -1,63 +1,20 @@
-/* ====================================================================
- * The Apache Software License, Version 1.1
- *
- * Copyright (c) 2003 The Apache Software Foundation.  All rights
- * reserved.
- *
- * Redistribution and use in source and binary forms, with or without
- * modification, are permitted provided that the following conditions
- * are met:
- *
- * 1. Redistributions of source code must retain the above copyright
- *    notice, this list of conditions and the following disclaimer.
- *
- * 2. Redistributions in binary form must reproduce the above copyright
- *    notice, this list of conditions and the following disclaimer in
- *    the documentation and/or other materials provided with the
- *    distribution.
- *
- * 3. The end-user documentation included with the redistribution,
- *    if any, must include the following acknowledgment:
- *       "This product includes software developed by the
- *        Apache Software Foundation (http://www.apache.org/)."
- *    Alternately, this acknowledgment may appear in the software itself,
- *    if and wherever such third-party acknowledgments normally appear.
- *
- * 4. The names "Apache" and "Apache Software Foundation" must
- *    not be used to endorse or promote products derived from this
- *    software without prior written permission. For written
- *    permission, please contact apache@apache.org.
- *
- * 5. Products derived from this software may not be called "Apache",
- *    nor may "Apache" appear in their name, without prior written
- *    permission of the Apache Software Foundation.
- *
- * THIS SOFTWARE IS PROVIDED ``AS IS'' AND ANY EXPRESSED OR IMPLIED
- * WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES
- * OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
- * DISCLAIMED.  IN NO EVENT SHALL THE APACHE SOFTWARE FOUNDATION OR
- * ITS CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL,
- * SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT
- * LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF
- * USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND
- * ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY,
- * OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT
- * OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF
- * SUCH DAMAGE.
- * ====================================================================
- *
- * This software consists of voluntary contributions made by many
- * individuals on behalf of the Apache Software Foundation.  For more
- * information on the Apache Software Foundation, please see
- * <http://www.apache.org/>.
- *
- * Portions of this software are based upon public domain software
- * originally written at the National Center for Supercomputing Applications,
- * University of Illinois, Urbana-Champaign.
- */
+/*
+**  Copyright 2003-2004  The Apache Software Foundation
+**
+**  Licensed under the Apache License, Version 2.0 (the "License");
+**  you may not use this file except in compliance with the License.
+**  You may obtain a copy of the License at
+**
+**      http://www.apache.org/licenses/LICENSE-2.0
+**
+**  Unless required by applicable law or agreed to in writing, software
+**  distributed under the License is distributed on an "AS IS" BASIS,
+**  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+**  See the License for the specific language governing permissions and
+**  limitations under the License.
+*/
 
 #include "apreq_params.h"
-#include "apreq_parsers.h"
 #include "apreq_env.h"
 #include "apr_strings.h"
 #include "apr_lib.h"
@@ -93,16 +50,7 @@ APREQ_DECLARE(apreq_param_t *) apreq_make_param(apr_pool_t *p,
 APREQ_DECLARE(apreq_request_t *) apreq_request(void *env, const char *qs)
 {
     apreq_request_t *req;
-    apreq_cfg_t *cfg;
     apr_pool_t *p;
-
-    /** default parser configuration */
-    static const apreq_cfg_t default_cfg = {
-        MAX_LEN,          /**< limit on POST data size */
-        MAX_BRIGADE_LEN,  /**< limit on brigade size */
-        MAX_FIELDS,       /**< maximum number of form fields */
-        MAX_READ_AHEAD    /**< maximum amount of prefetch data */
-    };
 
     if (qs == NULL) {
         apreq_request_t *old_req = apreq_env_request(env,NULL);
@@ -115,11 +63,8 @@ APREQ_DECLARE(apreq_request_t *) apreq_request(void *env, const char *qs)
         req = apr_palloc(p, sizeof *req);
         req->env      = env;
         req->args     = apr_table_make(p, APREQ_NELTS);
-        req->cfg      = apr_palloc(p, sizeof(apreq_cfg_t));
         req->body     = NULL;
         req->parser   = apreq_parser(env, NULL);
-
-        /* XXX need to install copy/merge callbacks for apreq_param_t */
 
         /* XXX get/set race condition here wrt apreq_env_request? */
         old_req = apreq_env_request(env, req);
@@ -138,14 +83,10 @@ APREQ_DECLARE(apreq_request_t *) apreq_request(void *env, const char *qs)
         req = apr_palloc(p, sizeof *req);
         req->env      = env;
         req->args     = apr_table_make(p, APREQ_NELTS);
-        req->cfg      = apr_palloc(p, sizeof(apreq_cfg_t));
         req->body     = NULL;
         req->parser   = apreq_parser(env, NULL);
 
-        /* XXX need to install copy/merge callbacks for apreq_param_t */ 
     }
-
-    *req->cfg = default_cfg;
 
     if (qs != NULL) {
         apr_status_t s = apreq_parse_query_string(p, req->args, qs);
@@ -162,31 +103,80 @@ APREQ_DECLARE(apreq_param_t *)apreq_param(const apreq_request_t *req,
 {
     const char *val = apr_table_get(req->args, name);
 
-    if (val == NULL && req->body)
+    while (val == NULL) {
+        apr_status_t s = apreq_env_read(req->env, APR_BLOCK_READ,APREQ_READ_AHEAD);
+        if (req->body == NULL)
+            return NULL;
         val = apr_table_get(req->body, name);
-
-    if (val == NULL) {
-        if (req->cfg->read_ahead) {
-            apreq_env_read(req->env, APR_BLOCK_READ, req->cfg->read_ahead);
-            if (req->body)
-                val = apr_table_get(req->body, name);
-        }
+        if (s != APR_INCOMPLETE && val == NULL)
+            return NULL;
     }
-    return val ? apreq_value_to_param(apreq_strtoval(val)) : NULL;
+
+    return apreq_value_to_param(apreq_strtoval(val));
 }
 
 
 APREQ_DECLARE(apr_table_t *) apreq_params(apr_pool_t *pool,
                                           const apreq_request_t *req)
 {
-    if (req->cfg->read_ahead) {
-        apr_status_t s;
-        do s = apreq_env_read(req->env, APR_BLOCK_READ, req->cfg->read_ahead);
-        while (s == APR_INCOMPLETE);
-    }
+    apr_status_t s;
+
+    do s = apreq_env_read(req->env, APR_BLOCK_READ, APREQ_READ_AHEAD);
+    while (s == APR_INCOMPLETE);
 
     return req->body ? apr_table_overlay(pool, req->args, req->body) :
         apr_table_copy(pool, req->args);
+}
+
+
+static int param_push(void *data, const char *key, const char *val)
+{
+    apr_array_header_t *arr = data;
+    *(apreq_param_t **)apr_array_push(arr) = 
+        apreq_value_to_param(apreq_strtoval(val));
+    return 0;
+}
+
+
+APREQ_DECLARE(apr_array_header_t *) apreq_params_as_array(apr_pool_t *p,
+                                                          apreq_request_t *req,
+                                                          const char *key)
+{
+    apr_status_t s;
+    apr_array_header_t *arr = apr_array_make(p, apr_table_elts(req->args)->nelts,
+                                             sizeof(apreq_param_t *));
+
+    apr_table_do(param_push, arr, req->args, key);
+
+    do s = apreq_env_read(req->env, APR_BLOCK_READ, APREQ_READ_AHEAD);
+    while (s == APR_INCOMPLETE);
+
+    if (req->body)
+        apr_table_do(param_push, arr, req->body, key);
+
+    return arr;
+}
+
+APREQ_DECLARE(const char *) apreq_params_as_string(apr_pool_t *p,
+                                                   apreq_request_t *req,
+                                                   const char *key,
+                                                   apreq_join_t mode)
+{
+    /* Must adjust apreq_param_t pointers to apreq_value_t. */
+#ifdef DEBUG
+    assert(sizeof(apreq_param_t **) == sizeof(apreq_value_t **));
+#endif
+    apr_array_header_t *arr = apreq_params_as_array(p, req, key);
+    apreq_param_t **elt = (apreq_param_t **)arr->elts;
+    apreq_param_t **const end = elt + arr->nelts;
+    if (arr->nelts == 0)
+        return NULL;
+
+    while (elt < end) {
+        *(apreq_value_t **)elt = &(**elt).v;
+        ++elt;
+    }
+    return apreq_join(p, ", ", arr, mode);
 }
 
 
@@ -275,11 +265,10 @@ APREQ_DECLARE(apr_status_t) apreq_parse_query_string(apr_pool_t *pool,
                     vlen = qs - start - nlen - 1;
 
                 param = apreq_decode_param(pool, start, nlen, vlen);
+                if (param->v.status != APR_SUCCESS)
+                    return param->v.status;
 
-                if (param)
-                    apr_table_addn(t, param->v.name, param->v.data);
-                else
-                    return APR_BADARG;
+                apr_table_addn(t, param->v.name, param->v.data);
             }
 
             if (*qs == 0)
@@ -296,8 +285,6 @@ APREQ_DECLARE(apr_status_t) apreq_parse_query_string(apr_pool_t *pool,
 APREQ_DECLARE(apr_status_t) apreq_parse_request(apreq_request_t *req, 
                                                 apr_bucket_brigade *bb)
 {
-    apreq_cfg_t *cfg = req->cfg;
-
     if (req->parser == NULL)
         req->parser = apreq_parser(req->env,NULL);
     if (req->parser == NULL)
@@ -306,7 +293,7 @@ APREQ_DECLARE(apr_status_t) apreq_parse_request(apreq_request_t *req,
     if (req->body == NULL)
         req->body = apr_table_make(apreq_env_pool(req->env),APREQ_NELTS);
 
-    return apreq_run_parser(req->parser, req->cfg, req->body, bb);
+    return APREQ_RUN_PARSER(req->parser, req->env, req->body, bb);
 }
 
 
@@ -324,11 +311,9 @@ APREQ_DECLARE(apr_table_t *) apreq_uploads(apr_pool_t *pool,
                                            const apreq_request_t *req)
 {
     apr_table_t *t;
-    if (req->cfg->read_ahead) {
-        apr_status_t s;
-        do s = apreq_env_read(req->env, APR_BLOCK_READ, req->cfg->read_ahead);
-        while (s == APR_INCOMPLETE);
-    }
+    apr_status_t s;
+    do s = apreq_env_read(req->env, APR_BLOCK_READ, APREQ_READ_AHEAD);
+    while (s == APR_INCOMPLETE);
 
     if (req->body == NULL)
         return NULL;
@@ -351,74 +336,21 @@ static int upload_get(void *data, const char *key, const char *val)
         return 0; /* keep searching */
 }
 
+
 APREQ_DECLARE(apreq_param_t *) apreq_upload(const apreq_request_t *req,
                                             const char *key)
 {
     apreq_param_t *param = NULL;
-    if (req->cfg->read_ahead)
-        apreq_env_read(req->env, APR_BLOCK_READ, req->cfg->read_ahead);
-    if (req->body == NULL)
-        return NULL;
-    apr_table_do(upload_get, &param, req->body, key, NULL);
+    do {
+        apr_status_t s = apreq_env_read(req->env, APR_BLOCK_READ,
+                                        APREQ_READ_AHEAD);
+        if (req->body == NULL)
+            return NULL;
+        apr_table_do(upload_get, &param, req->body, key, NULL);
+
+        if (s != APR_INCOMPLETE)
+            break;
+    } while (param == NULL);
+
     return param;
-}
-
-APREQ_DECLARE(apr_status_t) 
-    apreq_request_config(apreq_request_t *req, 
-                         const char *attr, apr_size_t alen,
-                         const char *val, apr_size_t vlen)
-{
-    apreq_cfg_t *cfg = req->cfg;
-    apr_pool_t *p;
-
-    if (alen < 2)
-        return APR_BADARG;
-
-    if ( attr[0] ==  '-' || attr[0] == '$' ) {
-        ++attr;
-        --alen;
-    }
-
-    switch (apr_tolower(*attr)) {
-
-    case 'p': /* POST_MAX */
-        cfg->max_len = apreq_atoi64f(val);
-        break;
-
-    case 'd': /* DISABLE_UPLOADS */
-        while (!apr_isdigit(*val)) {
-            if (vlen == 0)
-                return APR_BADARG;
-            ++val;
-            --vlen;
-        }
-        cfg->disable_uploads = *val - '0';
-        break;
-
-    case 'f': /* FIELD_LIMIT */
-        cfg->max_fields = apreq_atoi64f(val);
-        break;
-
-    case 'b': /* BRIGADE_LIMIT */
-        cfg->max_brigade_len = apreq_atoi64f(val);
-        break;
-
-    case 'r': /* READ_AHEAD */
-        cfg->read_ahead = apreq_atoi64f(val);
-        break;
-
-    case 't': /* TEMP_DIR */
-        p = apreq_env_pool(req->env);
-        cfg->temp_dir = (vlen ? apr_pstrmemdup(p,val,vlen) : NULL);
-        break;
-
-    case 'u': /* UPLOAD_HOOK */
-        /* XXX not implemented yet */
-
-    default:
-        return APR_ENOTIMPL;
-
-    };
-
-    return APR_SUCCESS;
 }

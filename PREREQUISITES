@@ -18,6 +18,6 @@ Perl glue (Apache::Request) prerequisites
 Additional prerequisites for httpd-apreq-2 cvs builds
 
                       autoconf:  2.53
-                      automake:  1.6.3
-                       doxygen:  1.3
+                      automake:  1.4.0
+                       doxygen:  1.2
                        libtool:  1.4.2

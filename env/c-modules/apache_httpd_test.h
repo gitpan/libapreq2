@@ -1,13 +1,13 @@
 /* WARNING: this file is generated, do not edit
-01: /usr/lib/perl5/site_perl/5.8.0/i386-linux-thread-multi/Apache/TestConfig.pm:737
-02: /usr/lib/perl5/site_perl/5.8.0/i386-linux-thread-multi/Apache/TestConfig.pm:754
-03: /usr/lib/perl5/site_perl/5.8.0/i386-linux-thread-multi/Apache/TestConfigC.pm:315
-04: /usr/lib/perl5/site_perl/5.8.0/i386-linux-thread-multi/Apache/TestConfigC.pm:67
-05: /usr/lib/perl5/site_perl/5.8.0/i386-linux-thread-multi/Apache/TestRun.pm:407
-06: t/TEST:44
-07: /usr/lib/perl5/site_perl/5.8.0/i386-linux-thread-multi/Apache/TestRun.pm:586
-08: /usr/lib/perl5/site_perl/5.8.0/i386-linux-thread-multi/Apache/TestRun.pm:586
-09: t/TEST:30
+01: /home/joe/lib/perl5/site_perl/5.9.0/x86_64-linux-thread-multi-ld/Apache/TestConfig.pm:780
+02: /home/joe/lib/perl5/site_perl/5.9.0/x86_64-linux-thread-multi-ld/Apache/TestConfig.pm:798
+03: /home/joe/lib/perl5/site_perl/5.9.0/x86_64-linux-thread-multi-ld/Apache/TestConfigC.pm:426
+04: /home/joe/lib/perl5/site_perl/5.9.0/x86_64-linux-thread-multi-ld/Apache/TestConfigC.pm:95
+05: /home/joe/lib/perl5/site_perl/5.9.0/x86_64-linux-thread-multi-ld/Apache/TestRun.pm:489
+06: /home/joe/src/apache/httpd-apreq-2/env/t/TEST:44
+07: /home/joe/lib/perl5/site_perl/5.9.0/x86_64-linux-thread-multi-ld/Apache/TestRun.pm:699
+08: /home/joe/lib/perl5/site_perl/5.9.0/x86_64-linux-thread-multi-ld/Apache/TestRun.pm:699
+09: /home/joe/src/apache/httpd-apreq-2/env/t/TEST:30
  */
 #ifndef APACHE_HTTPD_TEST_H
 #define APACHE_HTTPD_TEST_H

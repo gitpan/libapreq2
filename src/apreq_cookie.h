@@ -1,56 +1,18 @@
-/* ====================================================================
- * The Apache Software License, Version 1.1
- *
- * Copyright (c) 2003 The Apache Software Foundation.  All rights
- * reserved.
- *
- * Redistribution and use in source and binary forms, with or without
- * modification, are permitted provided that the following conditions
- * are met:
- *
- * 1. Redistributions of source code must retain the above copyright
- *    notice, this list of conditions and the following disclaimer.
- *
- * 2. Redistributions in binary form must reproduce the above copyright
- *    notice, this list of conditions and the following disclaimer in
- *    the documentation and/or other materials provided with the
- *    distribution.
- *
- * 3. The end-user documentation included with the redistribution,
- *    if any, must include the following acknowledgment:
- *       "This product includes software developed by the
- *        Apache Software Foundation (http://www.apache.org/)."
- *    Alternately, this acknowledgment may appear in the software itself,
- *    if and wherever such third-party acknowledgments normally appear.
- *
- * 4. The names "Apache" and "Apache Software Foundation" must
- *    not be used to endorse or promote products derived from this
- *    software without prior written permission. For written
- *    permission, please contact apache@apache.org.
- *
- * 5. Products derived from this software may not be called "Apache",
- *    nor may "Apache" appear in their name, without prior written
- *    permission of the Apache Software Foundation.
- *
- * THIS SOFTWARE IS PROVIDED ``AS IS'' AND ANY EXPRESSED OR IMPLIED
- * WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES
- * OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
- * DISCLAIMED.  IN NO EVENT SHALL THE APACHE SOFTWARE FOUNDATION OR
- * ITS CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL,
- * SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT
- * LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF
- * USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND
- * ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY,
- * OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT
- * OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF
- * SUCH DAMAGE.
- * ====================================================================
- *
- * This software consists of voluntary contributions made by many
- * individuals on behalf of the Apache Software Foundation.  For more
- * information on the Apache Software Foundation, please see
- * <http://www.apache.org/>.
- */
+/*
+**  Copyright 2003-2004  The Apache Software Foundation
+**
+**  Licensed under the Apache License, Version 2.0 (the "License");
+**  you may not use this file except in compliance with the License.
+**  You may obtain a copy of the License at
+**
+**      http://www.apache.org/licenses/LICENSE-2.0
+**
+**  Unless required by applicable law or agreed to in writing, software
+**  distributed under the License is distributed on an "AS IS" BASIS,
+**  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+**  See the License for the specific language governing permissions and
+**  limitations under the License.
+*/
 
 #ifndef APREQ_COOKIE_H
 #define APREQ_COOKIE_H
@@ -80,10 +42,26 @@ typedef struct apreq_jar_t {
     void          *env;         /**< environment */
 } apreq_jar_t;
 
-typedef enum { NETSCAPE, RFC } apreq_cookie_version_t;
 
-#define APREQ_COOKIE_VERSION               NETSCAPE
-#define APREQ_COOKIE_LENGTH                4096
+/**
+ * Cookie Version.  libapreq does not distinguish between
+ * rfc2109 and its successor rfc2965; both are referred to
+ * as APREQ_COOKIE_VERSION_RFC.  Users can distinguish between
+ * them in their outgoing cookies by using apreq_cookie_bake()
+ * for sending rfc2109 cookies, or apreq_cookie_bake2() for rfc2965.
+ * The original Netscape cookie spec is still preferred for its
+ * greater portability, it is named APREQ_COOKIE_VERSION_NETSCAPE.
+ *
+ */
+typedef enum { APREQ_COOKIE_VERSION_NETSCAPE, 
+               APREQ_COOKIE_VERSION_RFC } apreq_cookie_version_t;
+
+
+/** Default version, used when creating a new cookie. See apreq_cookie_make().*/
+#define APREQ_COOKIE_VERSION_DEFAULT       APREQ_COOKIE_VERSION_NETSCAPE
+
+/** Maximum length of a single Set-Cookie(2) header */
+#define APREQ_COOKIE_MAX_LENGTH            4096
 
 /** cookie XXX ... */
 typedef struct apreq_cookie_t {
@@ -128,8 +106,10 @@ APREQ_DECLARE(apreq_cookie_t *)apreq_cookie(const apreq_jar_t *jar,
  * @param c The cookie to add.
  */
 
-APREQ_DECLARE(void) apreq_add_cookie(apreq_jar_t *jar, 
+APREQ_DECLARE(void) apreq_jar_add(apreq_jar_t *jar, 
                                      const apreq_cookie_t *c);
+
+#define apreq_add_cookie(j,c) apreq_jar_add(j,c)
 
 /**
  * Parse the incoming "Cookie:" headers into a cookie jar.
@@ -151,17 +131,18 @@ APREQ_DECLARE(apreq_jar_t *) apreq_jar(void *env, const char *hdr);
 
 /**
  * Returns a new cookie, made from the argument list.
- * The cookie is allocated from the ctx pool.
  *
- * @param ctx   The current context.
+ * @param pool  Pool which allocates the cookie.
  * @param name  The cookie's name.
  * @param nlen  Length of name.
  * @param value The cookie's value.
  * @param vlen  Length of value.
  */
-APREQ_DECLARE(apreq_cookie_t *) apreq_make_cookie(apr_pool_t *pool, 
+APREQ_DECLARE(apreq_cookie_t *) apreq_cookie_make(apr_pool_t *pool, 
                                   const char *name, const apr_size_t nlen, 
                                   const char *value, const apr_size_t vlen);
+
+#define apreq_make_cookie(p,n,nl,v,vl) apreq_cookie_make(p,n,nl,v,vl)
 
 /**
  * Sets the associated cookie attribute.
@@ -187,8 +168,9 @@ APREQ_DECLARE(apr_status_t)
  * @param c The cookie.
  * @param p The pool.
  */
-APREQ_DECLARE(char*) apreq_cookie_as_string(apr_pool_t *p,
-                                            const apreq_cookie_t *c);
+APREQ_DECLARE(char*) apreq_cookie_as_string(const apreq_cookie_t *c,
+                                            apr_pool_t *p);
+
 
 /**
  * Same functionality as apreq_cookie_as_string.  Stores the string
@@ -201,18 +183,21 @@ APREQ_DECLARE(char*) apreq_cookie_as_string(apr_pool_t *p,
  * @param len Size of buf's storage area. 
  */
 
-APREQ_DECLARE(int) apreq_serialize_cookie(char *buf, apr_size_t len,
-                                          const apreq_cookie_t *c);
+APREQ_DECLARE(int) apreq_cookie_serialize(const apreq_cookie_t *c,
+                                          char *buf, apr_size_t len);
+
+#define apreq_serialize_cookie(buf,len,c) apreq_cookie_serialize(c,buf,len)
 
 /**
- * Get/set the "expires" string.  For NETSCAPE cookies, this returns 
- * the date (properly formatted) when the cookie is to expire.
- * For RFC cookies, this function returns NULL.
+ * Set the Cookie's expiration date.
  * 
  * @param c The cookie.
- * @param time_str If NULL, return the current expiry date. Otherwise
- * replace with this value instead.  The time_str should be in a format
- * that apreq_atoi64t() can understand, namely /[+-]?\d+\s*[YMDhms]/.
+ * @param time_str If NULL, the Cookie's expiration date is unset,
+ * making it a session cookie.  This means no "expires" or "max-age" 
+ * attribute will appear in the cookie's serialized form. If time_str
+ * is not NULL, the expiration date will be reset to the offset (from now)
+ * represented by time_str.  The time_str should be in a format that 
+ * apreq_atoi64t() can understand, namely /[+-]?\d+\s*[YMDhms]/.
  */
 APREQ_DECLARE(void) apreq_cookie_expires(apreq_cookie_t *c, 
                                          const char *time_str);
@@ -235,6 +220,13 @@ APREQ_DECLARE(apr_status_t) apreq_cookie_bake(const apreq_cookie_t *c,
 APREQ_DECLARE(apr_status_t) apreq_cookie_bake2(const apreq_cookie_t *c,
                                                void *env);
 
+/**
+ * Looks for the presence of a "Cookie2" header to determine whether
+ * or not the current User-Agent supports rfc2965.
+ * @param env The current environment.
+ * @return APREQ_COOKIE_VERSION_RFC if rfc2965 is supported, 
+ *         APREQ_COOKIE_VERSION_NETSCAPE otherwise.
+ */
 APREQ_DECLARE(apreq_cookie_version_t) apreq_ua_cookie_version(void *env);
 
 /** @} */

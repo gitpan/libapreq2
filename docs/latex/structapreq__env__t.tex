@@ -1,0 +1,69 @@
+\section{apreq\_\-env\_\-t  Struct Reference}
+\label{structapreq__env__t}\index{apreq_env_t@{apreq\_\-env\_\-t}}
+{\tt \#include $<$apreq\_\-env.h$>$}
+
+\subsection*{Data Fields}
+\begin{CompactItemize}
+\item 
+\index{name@{name}!apreq_env_t@{apreq\_\-env\_\-t}}\index{apreq_env_t@{apreq\_\-env\_\-t}!name@{name}}
+const char $\ast$ {\bf name}\label{structapreq__env__t_m0}
+
+\item 
+\index{magic_number@{magic\_\-number}!apreq_env_t@{apreq\_\-env\_\-t}}\index{apreq_env_t@{apreq\_\-env\_\-t}!magic_number@{magic\_\-number}}
+{\bf apr\_\-uint32\_\-t} {\bf magic\_\-number}\label{structapreq__env__t_m1}
+
+\item 
+\index{log@{log}!apreq_env_t@{apreq\_\-env\_\-t}}\index{apreq_env_t@{apreq\_\-env\_\-t}!log@{log}}
+{\bf void}($\ast$ {\bf log} )(const char $\ast$, {\bf int}, {\bf int}, {\bf apr\_\-status\_\-t}, {\bf void} $\ast$, const char $\ast$, va\_\-list)\label{structapreq__env__t_m2}
+
+\item 
+\index{pool@{pool}!apreq_env_t@{apreq\_\-env\_\-t}}\index{apreq_env_t@{apreq\_\-env\_\-t}!pool@{pool}}
+{\bf apr\_\-pool\_\-t} $\ast$($\ast$ {\bf pool} )({\bf void} $\ast$)\label{structapreq__env__t_m3}
+
+\item 
+\index{jar@{jar}!apreq_env_t@{apreq\_\-env\_\-t}}\index{apreq_env_t@{apreq\_\-env\_\-t}!jar@{jar}}
+{\bf apreq\_\-jar\_\-t} $\ast$($\ast$ {\bf jar} )({\bf void} $\ast$, {\bf apreq\_\-jar\_\-t} $\ast$)\label{structapreq__env__t_m4}
+
+\item 
+\index{request@{request}!apreq_env_t@{apreq\_\-env\_\-t}}\index{apreq_env_t@{apreq\_\-env\_\-t}!request@{request}}
+{\bf apreq\_\-request\_\-t} $\ast$($\ast$ {\bf request} )({\bf void} $\ast$, {\bf apreq\_\-request\_\-t} $\ast$)\label{structapreq__env__t_m5}
+
+\item 
+\index{query_string@{query\_\-string}!apreq_env_t@{apreq\_\-env\_\-t}}\index{apreq_env_t@{apreq\_\-env\_\-t}!query_string@{query\_\-string}}
+const char $\ast$($\ast$ {\bf query\_\-string} )({\bf void} $\ast$)\label{structapreq__env__t_m6}
+
+\item 
+\index{header_in@{header\_\-in}!apreq_env_t@{apreq\_\-env\_\-t}}\index{apreq_env_t@{apreq\_\-env\_\-t}!header_in@{header\_\-in}}
+const char $\ast$($\ast$ {\bf header\_\-in} )({\bf void} $\ast$, const char $\ast$)\label{structapreq__env__t_m7}
+
+\item 
+\index{header_out@{header\_\-out}!apreq_env_t@{apreq\_\-env\_\-t}}\index{apreq_env_t@{apreq\_\-env\_\-t}!header_out@{header\_\-out}}
+{\bf apr\_\-status\_\-t}($\ast$ {\bf header\_\-out} )({\bf void} $\ast$, const char $\ast$, char $\ast$)\label{structapreq__env__t_m8}
+
+\item 
+\index{read@{read}!apreq_env_t@{apreq\_\-env\_\-t}}\index{apreq_env_t@{apreq\_\-env\_\-t}!read@{read}}
+{\bf apr\_\-status\_\-t}($\ast$ {\bf read} )({\bf void} $\ast$, {\bf apr\_\-read\_\-type\_\-e}, {\bf apr\_\-off\_\-t})\label{structapreq__env__t_m9}
+
+\item 
+\index{temp_dir@{temp\_\-dir}!apreq_env_t@{apreq\_\-env\_\-t}}\index{apreq_env_t@{apreq\_\-env\_\-t}!temp_dir@{temp\_\-dir}}
+const char $\ast$($\ast$ {\bf temp\_\-dir} )({\bf void} $\ast$, const char $\ast$)\label{structapreq__env__t_m10}
+
+\item 
+\index{max_body@{max\_\-body}!apreq_env_t@{apreq\_\-env\_\-t}}\index{apreq_env_t@{apreq\_\-env\_\-t}!max_body@{max\_\-body}}
+{\bf apr\_\-off\_\-t}($\ast$ {\bf max\_\-body} )({\bf void} $\ast$, {\bf apr\_\-off\_\-t})\label{structapreq__env__t_m11}
+
+\item 
+\index{max_brigade@{max\_\-brigade}!apreq_env_t@{apreq\_\-env\_\-t}}\index{apreq_env_t@{apreq\_\-env\_\-t}!max_brigade@{max\_\-brigade}}
+{\bf apr\_\-ssize\_\-t}($\ast$ {\bf max\_\-brigade} )({\bf void} $\ast$, {\bf apr\_\-ssize\_\-t})\label{structapreq__env__t_m12}
+
+\end{CompactItemize}
+
+
+\subsection{Detailed Description}
+The environment structure, which must be fully defined for libapreq2 to operate properly in a given environment. 
+
+
+
+The documentation for this struct was generated from the following file:\begin{CompactItemize}
+\item 
+{\bf apreq\_\-env.h}\end{CompactItemize}

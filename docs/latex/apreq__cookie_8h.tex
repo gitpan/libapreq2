@@ -1,0 +1,83 @@
+\section{apreq\_\-cookie.h File Reference}
+\label{apreq__cookie_8h}\index{apreq_cookie.h@{apreq\_\-cookie.h}}
+Cookies and Jars. 
+
+
+{\tt \#include \char`\"{}apreq.h\char`\"{}}\par
+{\tt \#include \char`\"{}apr\_\-tables.h\char`\"{}}\par
+\subsection*{Data Structures}
+\begin{CompactItemize}
+\item 
+struct {\bf apreq\_\-cookie\_\-t}
+\item 
+struct {\bf apreq\_\-jar\_\-t}
+\end{CompactItemize}
+\subsection*{Defines}
+\begin{CompactItemize}
+\item 
+\#define {\bf APREQ\_\-COOKIE\_\-VERSION}\ NETSCAPE\label{apreq__cookie_8h_a13}
+
+\item 
+\#define {\bf APREQ\_\-COOKIE\_\-LENGTH}\ 4096\label{apreq__cookie_8h_a14}
+
+\item 
+\#define {\bf apreq\_\-value\_\-to\_\-cookie}(ptr)
+\item 
+\#define {\bf apreq\_\-cookie\_\-name}(c)\ ((c) $\rightarrow$ v.name)\label{apreq__cookie_8h_a16}
+
+\item 
+\#define {\bf apreq\_\-cookie\_\-value}(c)\ ((c) $\rightarrow$ v.data)\label{apreq__cookie_8h_a17}
+
+\item 
+\#define {\bf apreq\_\-jar\_\-items}(j)\ {\bf apr\_\-table\_\-elts}(j $\rightarrow$ cookies) $\rightarrow$ nelts\label{apreq__cookie_8h_a18}
+
+\item 
+\#define {\bf apreq\_\-jar\_\-nelts}(j)\ {\bf apr\_\-table\_\-elts}(j $\rightarrow$ cookies) $\rightarrow$ nelts\label{apreq__cookie_8h_a19}
+
+\end{CompactItemize}
+\subsection*{Typedefs}
+\begin{CompactItemize}
+\item 
+typedef apreq\_\-jar\_\-t {\bf apreq\_\-jar\_\-t}
+\item 
+typedef apreq\_\-cookie\_\-t {\bf apreq\_\-cookie\_\-t}
+\end{CompactItemize}
+\subsection*{Enumerations}
+\begin{CompactItemize}
+\item 
+enum {\bf apreq\_\-cookie\_\-version\_\-t} \{ {\bf NETSCAPE}, 
+{\bf RFC}
+ \}
+\end{CompactItemize}
+\subsection*{Functions}
+\begin{CompactItemize}
+\item 
+{\bf apreq\_\-cookie\_\-t} $\ast$ {\bf apreq\_\-cookie} (const {\bf apreq\_\-jar\_\-t} $\ast$jar, const char $\ast$name)
+\item 
+void {\bf apreq\_\-add\_\-cookie} ({\bf apreq\_\-jar\_\-t} $\ast$jar, const {\bf apreq\_\-cookie\_\-t} $\ast$c)
+\item 
+{\bf apreq\_\-jar\_\-t} $\ast$ {\bf apreq\_\-jar} (void $\ast$env, const char $\ast$hdr)
+\item 
+{\bf apreq\_\-cookie\_\-t} $\ast$ {\bf apreq\_\-make\_\-cookie} ({\bf apr\_\-pool\_\-t} $\ast$pool, const char $\ast$name, const {\bf apr\_\-size\_\-t} nlen, const char $\ast$value, const {\bf apr\_\-size\_\-t} vlen)
+\item 
+{\bf apr\_\-status\_\-t} {\bf apreq\_\-cookie\_\-attr} ({\bf apr\_\-pool\_\-t} $\ast$p, {\bf apreq\_\-cookie\_\-t} $\ast$c, const char $\ast$attr, {\bf apr\_\-size\_\-t} alen, const char $\ast$val, {\bf apr\_\-size\_\-t} vlen)
+\item 
+char $\ast$ {\bf apreq\_\-cookie\_\-as\_\-string} ({\bf apr\_\-pool\_\-t} $\ast$p, const {\bf apreq\_\-cookie\_\-t} $\ast$c)
+\item 
+int {\bf apreq\_\-serialize\_\-cookie} (char $\ast$buf, {\bf apr\_\-size\_\-t} len, const {\bf apreq\_\-cookie\_\-t} $\ast$c)
+\item 
+void {\bf apreq\_\-cookie\_\-expires} ({\bf apreq\_\-cookie\_\-t} $\ast$c, const char $\ast$time\_\-str)
+\item 
+{\bf apr\_\-status\_\-t} {\bf apreq\_\-cookie\_\-bake} (const {\bf apreq\_\-cookie\_\-t} $\ast$c, void $\ast$env)
+\item 
+{\bf apr\_\-status\_\-t} {\bf apreq\_\-cookie\_\-bake2} (const {\bf apreq\_\-cookie\_\-t} $\ast$c, void $\ast$env)
+\item 
+apreq\_\-cookie\_\-version\_\-t {\bf apreq\_\-ua\_\-cookie\_\-version} (void $\ast$env)\label{apreq__cookie_8h_a21}
+
+\end{CompactItemize}
+
+
+\subsection{Detailed Description}
+Cookies and Jars.
+
+Cookie and Jar functions.

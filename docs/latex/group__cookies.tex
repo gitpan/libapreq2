@@ -1,0 +1,223 @@
+\section{Cookies (request and response)}
+\label{group__cookies}\index{Cookies (request and response)@{Cookies (request and response)}}
+\subsection*{Data Structures}
+\begin{CompactItemize}
+\item 
+struct {\bf apreq\_\-cookie\_\-t}
+\item 
+struct {\bf apreq\_\-jar\_\-t}
+\end{CompactItemize}
+\subsection*{Defines}
+\begin{CompactItemize}
+\item 
+\#define {\bf APREQ\_\-COOKIE\_\-VERSION}\ NETSCAPE\label{group__cookies_a13}
+
+\item 
+\#define {\bf APREQ\_\-COOKIE\_\-LENGTH}\ 4096\label{group__cookies_a14}
+
+\item 
+\#define {\bf apreq\_\-value\_\-to\_\-cookie}(ptr)
+\item 
+\#define {\bf apreq\_\-cookie\_\-name}(c)\ ((c) $\rightarrow$ v.name)\label{group__cookies_a16}
+
+\item 
+\#define {\bf apreq\_\-cookie\_\-value}(c)\ ((c) $\rightarrow$ v.data)\label{group__cookies_a17}
+
+\item 
+\#define {\bf apreq\_\-jar\_\-items}(j)\ {\bf apr\_\-table\_\-elts}(j $\rightarrow$ cookies) $\rightarrow$ nelts\label{group__cookies_a18}
+
+\item 
+\#define {\bf apreq\_\-jar\_\-nelts}(j)\ {\bf apr\_\-table\_\-elts}(j $\rightarrow$ cookies) $\rightarrow$ nelts\label{group__cookies_a19}
+
+\end{CompactItemize}
+\subsection*{Typedefs}
+\begin{CompactItemize}
+\item 
+typedef apreq\_\-jar\_\-t {\bf apreq\_\-jar\_\-t}
+\item 
+typedef apreq\_\-cookie\_\-t {\bf apreq\_\-cookie\_\-t}
+\end{CompactItemize}
+\subsection*{Enumerations}
+\begin{CompactItemize}
+\item 
+enum {\bf apreq\_\-cookie\_\-version\_\-t} \{ {\bf NETSCAPE}, 
+{\bf RFC}
+ \}
+\end{CompactItemize}
+\subsection*{Functions}
+\begin{CompactItemize}
+\item 
+{\bf apreq\_\-cookie\_\-t} $\ast$ {\bf apreq\_\-cookie} (const {\bf apreq\_\-jar\_\-t} $\ast$jar, const char $\ast$name)
+\item 
+void {\bf apreq\_\-add\_\-cookie} ({\bf apreq\_\-jar\_\-t} $\ast$jar, const {\bf apreq\_\-cookie\_\-t} $\ast$c)
+\item 
+{\bf apreq\_\-jar\_\-t} $\ast$ {\bf apreq\_\-jar} (void $\ast$env, const char $\ast$hdr)
+\item 
+{\bf apreq\_\-cookie\_\-t} $\ast$ {\bf apreq\_\-make\_\-cookie} ({\bf apr\_\-pool\_\-t} $\ast$p, const char $\ast$name, const {\bf apr\_\-size\_\-t} nlen, const char $\ast$value, const {\bf apr\_\-size\_\-t} vlen)
+\item 
+{\bf apr\_\-status\_\-t} {\bf apreq\_\-cookie\_\-attr} ({\bf apr\_\-pool\_\-t} $\ast$p, {\bf apreq\_\-cookie\_\-t} $\ast$c, const char $\ast$attr, {\bf apr\_\-size\_\-t} alen, const char $\ast$val, {\bf apr\_\-size\_\-t} vlen)
+\item 
+char $\ast$ {\bf apreq\_\-cookie\_\-as\_\-string} ({\bf apr\_\-pool\_\-t} $\ast$p, const {\bf apreq\_\-cookie\_\-t} $\ast$c)
+\item 
+int {\bf apreq\_\-serialize\_\-cookie} (char $\ast$buf, {\bf apr\_\-size\_\-t} len, const {\bf apreq\_\-cookie\_\-t} $\ast$c)
+\item 
+void {\bf apreq\_\-cookie\_\-expires} ({\bf apreq\_\-cookie\_\-t} $\ast$c, const char $\ast$time\_\-str)
+\item 
+{\bf apr\_\-status\_\-t} {\bf apreq\_\-cookie\_\-bake} (const {\bf apreq\_\-cookie\_\-t} $\ast$c, void $\ast$env)
+\item 
+{\bf apr\_\-status\_\-t} {\bf apreq\_\-cookie\_\-bake2} (const {\bf apreq\_\-cookie\_\-t} $\ast$c, void $\ast$env)
+\item 
+apreq\_\-cookie\_\-version\_\-t {\bf apreq\_\-ua\_\-cookie\_\-version} (void $\ast$env)\label{group__cookies_a12}
+
+\end{CompactItemize}
+
+
+\subsection{Define Documentation}
+\index{apreq_value_to_cookie@{apreq\_\-value\_\-to\_\-cookie}!cookies@{cookies}}\index{cookies@{cookies}!apreq_value_to_cookie@{apreq\_\-value\_\-to\_\-cookie}}\index{cookies@{cookies}!apreq_value_to_cookie@{apreq\_\-value\_\-to\_\-cookie}}
+\index{apreq_value_to_cookie@{apreq\_\-value\_\-to\_\-cookie}!cookies@{cookies}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}\#define apreq\_\-value\_\-to\_\-cookie(ptr)}\label{group__cookies_a15}
+
+
+{\bf Value:}
+
+\footnotesize\begin{verbatim}apreq_attr_to_type(apreq_cookie_t, \
+                                                      v, ptr)
+\end{verbatim}\normalsize 
+
+
+\subsection{Typedef Documentation}
+\index{apreq_cookie_t@{apreq\_\-cookie\_\-t}!cookies@{cookies}}\index{cookies@{cookies}!apreq_cookie_t@{apreq\_\-cookie\_\-t}}\index{cookies@{cookies}!apreq_cookie_t@{apreq\_\-cookie\_\-t}}
+\index{apreq_cookie_t@{apreq\_\-cookie\_\-t}!cookies@{cookies}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}typedef struct apreq\_\-cookie\_\-t  apreq\_\-cookie\_\-t}\label{group__cookies_a1}
+
+
+cookie XXX ... \index{apreq_jar_t@{apreq\_\-jar\_\-t}!cookies@{cookies}}\index{cookies@{cookies}!apreq_jar_t@{apreq\_\-jar\_\-t}}\index{cookies@{cookies}!apreq_jar_t@{apreq\_\-jar\_\-t}}
+\index{apreq_jar_t@{apreq\_\-jar\_\-t}!cookies@{cookies}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}typedef struct apreq\_\-jar\_\-t  apreq\_\-jar\_\-t}\label{group__cookies_a0}
+
+
+Cookie Jar 
+
+\subsection{Function Documentation}
+\index{apreq_add_cookie@{apreq\_\-add\_\-cookie}!cookies@{cookies}}\index{cookies@{cookies}!apreq_add_cookie@{apreq\_\-add\_\-cookie}}\index{cookies@{cookies}!apreq_add_cookie@{apreq\_\-add\_\-cookie}}
+\index{apreq_add_cookie@{apreq\_\-add\_\-cookie}!cookies@{cookies}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}void apreq\_\-add\_\-cookie ({\bf apreq\_\-jar\_\-t} $\ast$ {\em jar}, const {\bf apreq\_\-cookie\_\-t} $\ast$ {\em c})}\label{group__cookies_a3}
+
+
+Adds a cookie by pushing it to the bottom of the jar.
+
+\begin{Desc}
+\item[Parameters:]
+\begin{description}
+\item[{\em jar}]The cookie jar. \item[{\em c}]The cookie to add. \end{description}
+\end{Desc}
+\index{apreq_cookie@{apreq\_\-cookie}!cookies@{cookies}}\index{cookies@{cookies}!apreq_cookie@{apreq\_\-cookie}}\index{cookies@{cookies}!apreq_cookie@{apreq\_\-cookie}}
+\index{apreq_cookie@{apreq\_\-cookie}!cookies@{cookies}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}{\bf apreq\_\-cookie\_\-t}$\ast$ apreq\_\-cookie (const {\bf apreq\_\-jar\_\-t} $\ast$ {\em jar}, const char $\ast$ {\em name})}\label{group__cookies_a2}
+
+
+Fetches a cookie from the jar
+
+\begin{Desc}
+\item[Parameters:]
+\begin{description}
+\item[{\em jar}]The cookie jar. \item[{\em name}]The name of the desired cookie. \end{description}
+\end{Desc}
+\index{apreq_cookie_as_string@{apreq\_\-cookie\_\-as\_\-string}!cookies@{cookies}}\index{cookies@{cookies}!apreq_cookie_as_string@{apreq\_\-cookie\_\-as\_\-string}}\index{cookies@{cookies}!apreq_cookie_as_string@{apreq\_\-cookie\_\-as\_\-string}}
+\index{apreq_cookie_as_string@{apreq\_\-cookie\_\-as\_\-string}!cookies@{cookies}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}char$\ast$ apreq\_\-cookie\_\-as\_\-string ({\bf apr\_\-pool\_\-t} $\ast$ {\em p}, const {\bf apreq\_\-cookie\_\-t} $\ast$ {\em c})}\label{group__cookies_a7}
+
+
+Returns a string that represents the cookie as it would appear in a valid \char`\"{}Set-Cookie$\ast$\char`\"{} header.
+
+\begin{Desc}
+\item[Parameters:]
+\begin{description}
+\item[{\em c}]The cookie. \item[{\em p}]The pool. \end{description}
+\end{Desc}
+\index{apreq_cookie_attr@{apreq\_\-cookie\_\-attr}!cookies@{cookies}}\index{cookies@{cookies}!apreq_cookie_attr@{apreq\_\-cookie\_\-attr}}\index{cookies@{cookies}!apreq_cookie_attr@{apreq\_\-cookie\_\-attr}}
+\index{apreq_cookie_attr@{apreq\_\-cookie\_\-attr}!cookies@{cookies}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}{\bf apr\_\-status\_\-t} apreq\_\-cookie\_\-attr ({\bf apr\_\-pool\_\-t} $\ast$ {\em p}, {\bf apreq\_\-cookie\_\-t} $\ast$ {\em c}, const char $\ast$ {\em attr}, {\bf apr\_\-size\_\-t} {\em alen}, const char $\ast$ {\em val}, {\bf apr\_\-size\_\-t} {\em vlen})}\label{group__cookies_a6}
+
+
+Sets the associated cookie attribute. \begin{Desc}
+\item[Parameters:]
+\begin{description}
+\item[{\em p}]Pool for allocating the new attribute. \item[{\em c}]Cookie. \item[{\em attr}]Name of attribute- leading '-' or '\$' characters are ignored. \item[{\em alen}]Length of attr. \item[{\em val}]Value of new attribute. \item[{\em vlen}]Length of new attribute. \end{description}
+\end{Desc}
+\begin{Desc}
+\item[Remarks:]Ensures cookie version \& time are kept in sync. \end{Desc}
+\index{apreq_cookie_bake@{apreq\_\-cookie\_\-bake}!cookies@{cookies}}\index{cookies@{cookies}!apreq_cookie_bake@{apreq\_\-cookie\_\-bake}}\index{cookies@{cookies}!apreq_cookie_bake@{apreq\_\-cookie\_\-bake}}
+\index{apreq_cookie_bake@{apreq\_\-cookie\_\-bake}!cookies@{cookies}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}{\bf apr\_\-status\_\-t} apreq\_\-cookie\_\-bake (const {\bf apreq\_\-cookie\_\-t} $\ast$ {\em c}, void $\ast$ {\em env})}\label{group__cookies_a10}
+
+
+Add the cookie to the outgoing \char`\"{}Set-Cookie\char`\"{} headers.
+
+\begin{Desc}
+\item[Parameters:]
+\begin{description}
+\item[{\em c}]The cookie. \end{description}
+\end{Desc}
+\index{apreq_cookie_bake2@{apreq\_\-cookie\_\-bake2}!cookies@{cookies}}\index{cookies@{cookies}!apreq_cookie_bake2@{apreq\_\-cookie\_\-bake2}}\index{cookies@{cookies}!apreq_cookie_bake2@{apreq\_\-cookie\_\-bake2}}
+\index{apreq_cookie_bake2@{apreq\_\-cookie\_\-bake2}!cookies@{cookies}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}{\bf apr\_\-status\_\-t} apreq\_\-cookie\_\-bake2 (const {\bf apreq\_\-cookie\_\-t} $\ast$ {\em c}, void $\ast$ {\em env})}\label{group__cookies_a11}
+
+
+Add the cookie to the outgoing \char`\"{}Set-Cookie2\char`\"{} headers.
+
+\begin{Desc}
+\item[Parameters:]
+\begin{description}
+\item[{\em c}]The cookie. \end{description}
+\end{Desc}
+\index{apreq_cookie_expires@{apreq\_\-cookie\_\-expires}!cookies@{cookies}}\index{cookies@{cookies}!apreq_cookie_expires@{apreq\_\-cookie\_\-expires}}\index{cookies@{cookies}!apreq_cookie_expires@{apreq\_\-cookie\_\-expires}}
+\index{apreq_cookie_expires@{apreq\_\-cookie\_\-expires}!cookies@{cookies}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}void apreq\_\-cookie\_\-expires ({\bf apreq\_\-cookie\_\-t} $\ast$ {\em c}, const char $\ast$ {\em time\_\-str})}\label{group__cookies_a9}
+
+
+Get/set the \char`\"{}expires\char`\"{} string. For NETSCAPE cookies, this returns the date (properly formatted) when the cookie is to expire. For RFC cookies, this function returns NULL.
+
+\begin{Desc}
+\item[Parameters:]
+\begin{description}
+\item[{\em c}]The cookie. \item[{\em time\_\-str}]If NULL, return the current expiry date. Otherwise replace with this value instead. The time\_\-str should be in a format that {\bf apreq\_\-atoi64t()} can understand, namely /[+-]?+$\ast$[YMDhms]/. \end{description}
+\end{Desc}
+\index{apreq_jar@{apreq\_\-jar}!cookies@{cookies}}\index{cookies@{cookies}!apreq_jar@{apreq\_\-jar}}\index{cookies@{cookies}!apreq_jar@{apreq\_\-jar}}
+\index{apreq_jar@{apreq\_\-jar}!cookies@{cookies}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}{\bf apreq\_\-jar\_\-t}$\ast$ apreq\_\-jar (void $\ast$ {\em env}, const char $\ast$ {\em hdr})}\label{group__cookies_a4}
+
+
+Parse the incoming \char`\"{}Cookie:\char`\"{} headers into a cookie jar.
+
+\begin{Desc}
+\item[Parameters:]
+\begin{description}
+\item[{\em env}]The current environment. \item[{\em hdr}]String to parse as a HTTP-merged \char`\"{}Cookie\char`\"{} header. \end{description}
+\end{Desc}
+\begin{Desc}
+\item[Remarks:]\char`\"{}data = NULL\char`\"{} has special behavior. In this case, apreq\_\-jar(env,NULL) will attempt to fetch a cached object from the environment via apreq\_\-env\_\-jar. Failing that, it will replace \char`\"{}hdr\char`\"{} with the result of apreq\_\-env\_\-cookie(env), parse that, and store the resulting object back within the environment. This maneuver is designed to mimimize parsing work, since generating the cookie jar is relatively expensive. \end{Desc}
+\index{apreq_make_cookie@{apreq\_\-make\_\-cookie}!cookies@{cookies}}\index{cookies@{cookies}!apreq_make_cookie@{apreq\_\-make\_\-cookie}}\index{cookies@{cookies}!apreq_make_cookie@{apreq\_\-make\_\-cookie}}
+\index{apreq_make_cookie@{apreq\_\-make\_\-cookie}!cookies@{cookies}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}{\bf apreq\_\-cookie\_\-t}$\ast$ apreq\_\-make\_\-cookie ({\bf apr\_\-pool\_\-t} $\ast$ {\em pool}, const char $\ast$ {\em name}, const {\bf apr\_\-size\_\-t} {\em nlen}, const char $\ast$ {\em value}, const {\bf apr\_\-size\_\-t} {\em vlen})}\label{group__cookies_a5}
+
+
+Returns a new cookie, made from the argument list. The cookie is allocated from the ctx pool.
+
+\begin{Desc}
+\item[Parameters:]
+\begin{description}
+\item[{\em ctx}]The current context. \item[{\em name}]The cookie's name. \item[{\em nlen}]Length of name. \item[{\em value}]The cookie's value. \item[{\em vlen}]Length of value. \end{description}
+\end{Desc}
+\index{apreq_serialize_cookie@{apreq\_\-serialize\_\-cookie}!cookies@{cookies}}\index{cookies@{cookies}!apreq_serialize_cookie@{apreq\_\-serialize\_\-cookie}}\index{cookies@{cookies}!apreq_serialize_cookie@{apreq\_\-serialize\_\-cookie}}
+\index{apreq_serialize_cookie@{apreq\_\-serialize\_\-cookie}!cookies@{cookies}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}int apreq\_\-serialize\_\-cookie (char $\ast$ {\em buf}, {\bf apr\_\-size\_\-t} {\em len}, const {\bf apreq\_\-cookie\_\-t} $\ast$ {\em c})}\label{group__cookies_a8}
+
+
+Same functionality as apreq\_\-cookie\_\-as\_\-string. Stores the string representation in buf, using up to len bytes in buf as storage. The return value has the same semantics as that of apr\_\-snprintf, including the special behavior for a \char`\"{}len = 0\char`\"{} argument.
+
+\begin{Desc}
+\item[Parameters:]
+\begin{description}
+\item[{\em c}]The cookie. \item[{\em buf}]Storage location for the result. \item[{\em len}]Size of buf's storage area. \end{description}
+\end{Desc}

@@ -1,0 +1,18 @@
+##########  APREQ types  ##########
+const apr_size_t | UV
+apr_size_t | UV
+struct SV  | SV
+
+#data structure stuff
+struct apr_pool_t           | APR::Pool
+struct apr_array_header_t   | APR::ArrayHeader
+struct apr_table_t          | APR::Table
+struct apr_bucket_brigade   | APR::Brigade
+#apr_table_entry_t           | APR::TableEntry
+#struct apr_hash_t           | APR::Hash
+#apr_hash_index_t            | APR::HashIndex
+
+struct apreq_param_t        | Apache::Upload
+struct apreq_request_t      | Apache::Request           | T_APREQ_REQUEST
+struct apreq_jar_t          | Apache::Cookie::Jar       | T_APREQ_JAR
+struct apreq_cookie_t       | Apache::Cookie

@@ -1,0 +1,200 @@
+\section{Request params}
+\label{group__params}\index{Request params@{Request params}}
+\subsection*{Data Structures}
+\begin{CompactItemize}
+\item 
+struct {\bf apreq\_\-param\_\-t}
+\item 
+struct {\bf apreq\_\-request\_\-t}
+\end{CompactItemize}
+\subsection*{Defines}
+\begin{CompactItemize}
+\item 
+\#define {\bf apreq\_\-value\_\-to\_\-param}(ptr)\ apreq\_\-attr\_\-to\_\-type({\bf apreq\_\-param\_\-t}, v, ptr)
+\item 
+\#define {\bf apreq\_\-param\_\-name}(p)\ ((p) $\rightarrow$ v.name)\label{group__params_a14}
+
+\item 
+\#define {\bf apreq\_\-param\_\-value}(p)\ ((p) $\rightarrow$ v.data)\label{group__params_a15}
+
+\item 
+\#define {\bf apreq\_\-param\_\-info}(p)\ ((p) $\rightarrow$ info)\label{group__params_a16}
+
+\item 
+\#define {\bf apreq\_\-param\_\-status}(p)\ ((p) $\rightarrow$ v.status)\label{group__params_a17}
+
+\item 
+\#define {\bf apreq\_\-param\_\-brigade}(p)\ ((p) $\rightarrow$ bb ? apreq\_\-copy\_\-brigade((p) $\rightarrow$ bb) : NULL)\label{group__params_a18}
+
+\item 
+\#define {\bf apreq\_\-params\_\-as\_\-string}(req, key, pool, mode)\ apreq\_\-join(pool, \char`\"{}, \char`\"{}, apreq\_\-params(req,pool,key), mode)
+\end{CompactItemize}
+\subsection*{Typedefs}
+\begin{CompactItemize}
+\item 
+typedef apreq\_\-param\_\-t {\bf apreq\_\-param\_\-t}
+\item 
+typedef apreq\_\-request\_\-t {\bf apreq\_\-request\_\-t}
+\end{CompactItemize}
+\subsection*{Functions}
+\begin{CompactItemize}
+\item 
+{\bf apreq\_\-param\_\-t} $\ast$ {\bf apreq\_\-make\_\-param} ({\bf apr\_\-pool\_\-t} $\ast$p, const char $\ast$name, const {\bf apr\_\-size\_\-t} nlen, const char $\ast$val, const {\bf apr\_\-size\_\-t} vlen)
+\item 
+{\bf apreq\_\-request\_\-t} $\ast$ {\bf apreq\_\-request} (void $\ast$env, const char $\ast$qs)
+\item 
+{\bf apreq\_\-param\_\-t} $\ast$ {\bf apreq\_\-param} (const {\bf apreq\_\-request\_\-t} $\ast$req, const char $\ast$name)
+\item 
+{\bf apr\_\-table\_\-t} $\ast$ {\bf apreq\_\-params} ({\bf apr\_\-pool\_\-t} $\ast$pool, const {\bf apreq\_\-request\_\-t} $\ast$req)
+\item 
+{\bf apreq\_\-param\_\-t} $\ast$ {\bf apreq\_\-decode\_\-param} ({\bf apr\_\-pool\_\-t} $\ast$pool, const char $\ast$word, const {\bf apr\_\-size\_\-t} nlen, const {\bf apr\_\-size\_\-t} vlen)
+\item 
+char $\ast$ {\bf apreq\_\-encode\_\-param} ({\bf apr\_\-pool\_\-t} $\ast$pool, const {\bf apreq\_\-param\_\-t} $\ast$param)
+\item 
+{\bf apr\_\-status\_\-t} {\bf apreq\_\-parse\_\-query\_\-string} ({\bf apr\_\-pool\_\-t} $\ast$pool, {\bf apr\_\-table\_\-t} $\ast$t, const char $\ast$qs)
+\item 
+{\bf apr\_\-status\_\-t} {\bf apreq\_\-parse\_\-request} ({\bf apreq\_\-request\_\-t} $\ast$req, {\bf apr\_\-bucket\_\-brigade} $\ast$bb)
+\item 
+{\bf apr\_\-table\_\-t} $\ast$ {\bf apreq\_\-uploads} ({\bf apr\_\-pool\_\-t} $\ast$pool, const {\bf apreq\_\-request\_\-t} $\ast$req)
+\item 
+{\bf apreq\_\-param\_\-t} $\ast$ {\bf apreq\_\-upload} (const {\bf apreq\_\-request\_\-t} $\ast$req, const char $\ast$key)
+\item 
+{\bf apr\_\-status\_\-t} {\bf apreq\_\-request\_\-config} ({\bf apreq\_\-request\_\-t} $\ast$req, const char $\ast$attr, {\bf apr\_\-size\_\-t} alen, const char $\ast$val, {\bf apr\_\-size\_\-t} vlen)\label{group__params_a12}
+
+\end{CompactItemize}
+
+
+\subsection{Define Documentation}
+\index{apreq_params_as_string@{apreq\_\-params\_\-as\_\-string}!params@{params}}\index{params@{params}!apreq_params_as_string@{apreq\_\-params\_\-as\_\-string}}\index{params@{params}!apreq_params_as_string@{apreq\_\-params\_\-as\_\-string}}
+\index{apreq_params_as_string@{apreq\_\-params\_\-as\_\-string}!params@{params}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}\#define apreq\_\-params\_\-as\_\-string(req, key, pool, mode)\ apreq\_\-join(pool, \char`\"{}, \char`\"{}, apreq\_\-params(req,pool,key), mode)}\label{group__params_a19}
+
+
+Returns a \char`\"{}, \char`\"{} -separated string containing all parameters for the requested key, NULL if none found. The key is case-insensitive. \begin{Desc}
+\item[Parameters:]
+\begin{description}
+\item[{\em req}]The current {\bf apreq\_\-request\_\-t} object. \item[{\em key}]Nul-terminated search key. Returns the first table value if NULL. \end{description}
+\end{Desc}
+\begin{Desc}
+\item[Remarks:]Also parses the request as necessary. \end{Desc}
+\index{apreq_value_to_param@{apreq\_\-value\_\-to\_\-param}!params@{params}}\index{params@{params}!apreq_value_to_param@{apreq\_\-value\_\-to\_\-param}}\index{params@{params}!apreq_value_to_param@{apreq\_\-value\_\-to\_\-param}}
+\index{apreq_value_to_param@{apreq\_\-value\_\-to\_\-param}!params@{params}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}\#define apreq\_\-value\_\-to\_\-param(ptr)\ apreq\_\-attr\_\-to\_\-type({\bf apreq\_\-param\_\-t}, v, ptr)}\label{group__params_a13}
+
+
+accessor macros 
+
+\subsection{Typedef Documentation}
+\index{apreq_param_t@{apreq\_\-param\_\-t}!params@{params}}\index{params@{params}!apreq_param_t@{apreq\_\-param\_\-t}}\index{params@{params}!apreq_param_t@{apreq\_\-param\_\-t}}
+\index{apreq_param_t@{apreq\_\-param\_\-t}!params@{params}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}typedef struct apreq\_\-param\_\-t  apreq\_\-param\_\-t}\label{group__params_a0}
+
+
+Common data structure for params and file uploads \index{apreq_request_t@{apreq\_\-request\_\-t}!params@{params}}\index{params@{params}!apreq_request_t@{apreq\_\-request\_\-t}}\index{params@{params}!apreq_request_t@{apreq\_\-request\_\-t}}
+\index{apreq_request_t@{apreq\_\-request\_\-t}!params@{params}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}typedef struct apreq\_\-request\_\-t  apreq\_\-request\_\-t}\label{group__params_a1}
+
+
+Structure which manages the request data. 
+
+\subsection{Function Documentation}
+\index{apreq_decode_param@{apreq\_\-decode\_\-param}!params@{params}}\index{params@{params}!apreq_decode_param@{apreq\_\-decode\_\-param}}\index{params@{params}!apreq_decode_param@{apreq\_\-decode\_\-param}}
+\index{apreq_decode_param@{apreq\_\-decode\_\-param}!params@{params}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}{\bf apreq\_\-param\_\-t}$\ast$ apreq\_\-decode\_\-param ({\bf apr\_\-pool\_\-t} $\ast$ {\em pool}, const char $\ast$ {\em word}, const {\bf apr\_\-size\_\-t} {\em nlen}, const {\bf apr\_\-size\_\-t} {\em vlen})}\label{group__params_a6}
+
+
+Url-decodes a name=value pair into a param. \begin{Desc}
+\item[Parameters:]
+\begin{description}
+\item[{\em pool}]Pool from which the param is allocated. \item[{\em word}]Start of the name=value pair. \item[{\em nlen}]Length of urlencoded name. \item[{\em vlen}]Length of urlencoded value. \end{description}
+\end{Desc}
+\begin{Desc}
+\item[Remarks:]Unless vlen == 0, this function assumes there is exactly one character ('=') which separates the pair. \end{Desc}
+\index{apreq_encode_param@{apreq\_\-encode\_\-param}!params@{params}}\index{params@{params}!apreq_encode_param@{apreq\_\-encode\_\-param}}\index{params@{params}!apreq_encode_param@{apreq\_\-encode\_\-param}}
+\index{apreq_encode_param@{apreq\_\-encode\_\-param}!params@{params}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}char$\ast$ apreq\_\-encode\_\-param ({\bf apr\_\-pool\_\-t} $\ast$ {\em pool}, const {\bf apreq\_\-param\_\-t} $\ast$ {\em param})}\label{group__params_a7}
+
+
+Url-encodes the param into a name-value pair. \index{apreq_make_param@{apreq\_\-make\_\-param}!params@{params}}\index{params@{params}!apreq_make_param@{apreq\_\-make\_\-param}}\index{params@{params}!apreq_make_param@{apreq\_\-make\_\-param}}
+\index{apreq_make_param@{apreq\_\-make\_\-param}!params@{params}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}{\bf apreq\_\-param\_\-t}$\ast$ apreq\_\-make\_\-param ({\bf apr\_\-pool\_\-t} $\ast$ {\em p}, const char $\ast$ {\em name}, const {\bf apr\_\-size\_\-t} {\em nlen}, const char $\ast$ {\em val}, const {\bf apr\_\-size\_\-t} {\em vlen})}\label{group__params_a2}
+
+
+creates a param from name/value information \index{apreq_param@{apreq\_\-param}!params@{params}}\index{params@{params}!apreq_param@{apreq\_\-param}}\index{params@{params}!apreq_param@{apreq\_\-param}}
+\index{apreq_param@{apreq\_\-param}!params@{params}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}{\bf apreq\_\-param\_\-t}$\ast$ apreq\_\-param (const {\bf apreq\_\-request\_\-t} $\ast$ {\em req}, const char $\ast$ {\em name})}\label{group__params_a4}
+
+
+Returns the first parameter value for the requested key, NULL if none found. The key is case-insensitive. \begin{Desc}
+\item[Parameters:]
+\begin{description}
+\item[{\em req}]The current {\bf apreq\_\-request\_\-t} object. \item[{\em key}]Nul-terminated search key. Returns the first table value if NULL. \end{description}
+\end{Desc}
+\begin{Desc}
+\item[Remarks:]Also parses the request as necessary. \end{Desc}
+\index{apreq_params@{apreq\_\-params}!params@{params}}\index{params@{params}!apreq_params@{apreq\_\-params}}\index{params@{params}!apreq_params@{apreq\_\-params}}
+\index{apreq_params@{apreq\_\-params}!params@{params}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}{\bf apr\_\-table\_\-t}$\ast$ apreq\_\-params ({\bf apr\_\-pool\_\-t} $\ast$ {\em p}, const {\bf apreq\_\-request\_\-t} $\ast$ {\em req})}\label{group__params_a5}
+
+
+Returns all parameters for the requested key, NULL if none found. The key is case-insensitive. \begin{Desc}
+\item[Parameters:]
+\begin{description}
+\item[{\em req}]The current {\bf apreq\_\-request\_\-t} object. \item[{\em key}]Nul-terminated search key. Returns the first table value if NULL. \end{description}
+\end{Desc}
+\begin{Desc}
+\item[Remarks:]Also parses the request as necessary. \end{Desc}
+\index{apreq_parse_query_string@{apreq\_\-parse\_\-query\_\-string}!params@{params}}\index{params@{params}!apreq_parse_query_string@{apreq\_\-parse\_\-query\_\-string}}\index{params@{params}!apreq_parse_query_string@{apreq\_\-parse\_\-query\_\-string}}
+\index{apreq_parse_query_string@{apreq\_\-parse\_\-query\_\-string}!params@{params}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}{\bf apr\_\-status\_\-t} apreq\_\-parse\_\-query\_\-string ({\bf apr\_\-pool\_\-t} $\ast$ {\em pool}, {\bf apr\_\-table\_\-t} $\ast$ {\em t}, const char $\ast$ {\em qs})}\label{group__params_a8}
+
+
+Parse a url-encoded string into a param table. \begin{Desc}
+\item[Parameters:]
+\begin{description}
+\item[{\em pool}]pool used to allocate the param data. \item[{\em table}]table to which the params are added. \item[{\em qs}]Query string to url-decode. \end{description}
+\end{Desc}
+\begin{Desc}
+\item[Remarks:]This function uses [\&;] as the set of tokens to delineate words, and will treat a word w/o '=' as a name-value pair with value-length = 0. \end{Desc}
+\index{apreq_parse_request@{apreq\_\-parse\_\-request}!params@{params}}\index{params@{params}!apreq_parse_request@{apreq\_\-parse\_\-request}}\index{params@{params}!apreq_parse_request@{apreq\_\-parse\_\-request}}
+\index{apreq_parse_request@{apreq\_\-parse\_\-request}!params@{params}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}{\bf apr\_\-status\_\-t} apreq\_\-parse\_\-request ({\bf apreq\_\-request\_\-t} $\ast$ {\em req}, {\bf apr\_\-bucket\_\-brigade} $\ast$ {\em bb})}\label{group__params_a9}
+
+
+Parse a brigade as incoming POST data. \begin{Desc}
+\item[Parameters:]
+\begin{description}
+\item[{\em req}]Current request. \item[{\em bb}]Brigade to parse. See remarks below. \end{description}
+\end{Desc}
+\begin{Desc}
+\item[Returns:]APR\_\-INCOMPLETE if the parse is incomplete, APR\_\-SUCCESS if the parser is finished (saw eos), unrecoverable error value otherwise.\end{Desc}
+\begin{Desc}
+\item[Remarks:]Polymorphic buckets (file, pipe, socket, etc.) will generate new buckets during parsing, which may cause problems with the configuration checks. To be on the safe side, the caller should avoid placing such buckets in the passed brigade. \end{Desc}
+\index{apreq_request@{apreq\_\-request}!params@{params}}\index{params@{params}!apreq_request@{apreq\_\-request}}\index{params@{params}!apreq_request@{apreq\_\-request}}
+\index{apreq_request@{apreq\_\-request}!params@{params}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}{\bf apreq\_\-request\_\-t}$\ast$ apreq\_\-request (void $\ast$ {\em env}, const char $\ast$ {\em qs})}\label{group__params_a3}
+
+
+default parser configuration
+
+$<$ limit on POST data size
+
+$<$ limit on brigade size
+
+$<$ maximum number of form fields
+
+$<$ maximum amount of prefetch data \index{apreq_upload@{apreq\_\-upload}!params@{params}}\index{params@{params}!apreq_upload@{apreq\_\-upload}}\index{params@{params}!apreq_upload@{apreq\_\-upload}}
+\index{apreq_upload@{apreq\_\-upload}!params@{params}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}{\bf apreq\_\-param\_\-t}$\ast$ apreq\_\-upload (const {\bf apreq\_\-request\_\-t} $\ast$ {\em req}, const char $\ast$ {\em key})}\label{group__params_a11}
+
+
+Returns the first param in req-$>$body which has both param-$>$v.name matching key and param-$>$bb != NULL. \index{apreq_uploads@{apreq\_\-uploads}!params@{params}}\index{params@{params}!apreq_uploads@{apreq\_\-uploads}}\index{params@{params}!apreq_uploads@{apreq\_\-uploads}}
+\index{apreq_uploads@{apreq\_\-uploads}!params@{params}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}{\bf apr\_\-table\_\-t}$\ast$ apreq\_\-uploads ({\bf apr\_\-pool\_\-t} $\ast$ {\em pool}, const {\bf apreq\_\-request\_\-t} $\ast$ {\em req})}\label{group__params_a10}
+
+
+Returns a table of all params in req-$>$body with non-NULL bucket brigades. \begin{Desc}
+\item[Parameters:]
+\begin{description}
+\item[{\em pool}]Pool which allocates the table struct. \item[{\em req}]Current request. \end{description}
+\end{Desc}

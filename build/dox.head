@@ -1,0 +1,9 @@
+<html>
+<head>
+  <title>$projectname: $title</title>
+  <link href="doxygen.css" rel="stylesheet" type="text/css">
+</head>
+
+<body>
+<img src="http://httpd.apache.org/images/apache_sub.gif" width="500" height="62" alt="Apache">
+

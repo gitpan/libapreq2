@@ -1,0 +1,62 @@
+use strict;
+use warnings FATAL => 'all';
+use Apache2;
+use APR;
+use APR::Table;
+
+package Apache::Cookie::Jar;
+push our(@ISA), __PACKAGE__ -> env;
+
+package Apache::Cookie::Table;
+use base 'APR::Table';
+
+
+package Apache::Cookie;
+use Devel::Peek;
+
+sub jar {
+    my $self = shift;
+    return Apache::Cookie::Jar->new(@_);
+}
+
+sub new {
+    my ($class, $env, %attrs) = @_;
+    my $name  = delete $attrs{name};
+    my $value = delete $attrs{value};
+    $name     = delete $attrs{-name}  unless defined $name;
+    $value    = delete $attrs{-value} unless defined $value;
+    return unless defined $name and defined $value;
+
+    my $cookie = $class->make($env, $name, $class->freeze($value));
+    $cookie->set_attr(%attrs);
+    return $cookie;
+}
+
+sub fetch {
+    my $self = shift;
+    my $jar = $self->jar(@_);
+    return wantarray ? %{scalar $jar->cookie} : $jar->cookie;
+}
+
+sub freeze {
+    my ($class, $value) = @_;
+    return encode($value) if not ref $value;
+    return $value->freeze if UNIVERSAL::can($value,"freeze");
+    if (UNIVERSAL::isa($value,"ARRAY")) {
+        return join '&', map encode($_), @$value;
+    }
+    elsif (UNIVERSAL::isa($value,"HASH")) {
+        return join '&', map encode($_), %$value;
+    }
+    else {
+        die "Can't freeze '$value'";
+    }
+}
+
+sub thaw {
+    my $self = shift;
+    my @rv = map decode($_), split /&/, $self->raw_value;
+    return wantarray ? @rv : $rv[0];
+}
+
+sub value { shift->thaw }

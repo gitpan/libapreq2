@@ -1,0 +1,119 @@
+\section{apreq\_\-env.h File Reference}
+\label{apreq__env_8h}\index{apreq_env.h@{apreq\_\-env.h}}
+Logging and environment (module) declarations. 
+
+
+{\tt \#include \char`\"{}apreq\_\-params.h\char`\"{}}\par
+{\tt \#include \char`\"{}apreq\_\-cookie.h\char`\"{}}\par
+{\tt \#include \char`\"{}apreq\_\-parsers.h\char`\"{}}\par
+\subsection*{Data Structures}
+\begin{CompactItemize}
+\item 
+struct {\bf apreq\_\-env\_\-t}
+\end{CompactItemize}
+\subsection*{Defines}
+\begin{CompactItemize}
+\item 
+\#define {\bf APREQ\_\-LOG\_\-EMERG}\ 0\label{apreq__env_8h_a0}
+
+\item 
+\#define {\bf APREQ\_\-LOG\_\-ALERT}\ 1\label{apreq__env_8h_a1}
+
+\item 
+\#define {\bf APREQ\_\-LOG\_\-CRIT}\ 2\label{apreq__env_8h_a2}
+
+\item 
+\#define {\bf APREQ\_\-LOG\_\-ERR}\ 3\label{apreq__env_8h_a3}
+
+\item 
+\#define {\bf APREQ\_\-LOG\_\-WARNING}\ 4\label{apreq__env_8h_a4}
+
+\item 
+\#define {\bf APREQ\_\-LOG\_\-NOTICE}\ 5\label{apreq__env_8h_a5}
+
+\item 
+\#define {\bf APREQ\_\-LOG\_\-INFO}\ 6\label{apreq__env_8h_a6}
+
+\item 
+\#define {\bf APREQ\_\-LOG\_\-DEBUG}\ 7\label{apreq__env_8h_a7}
+
+\item 
+\#define {\bf APREQ\_\-LOG\_\-LEVELMASK}\ 7\label{apreq__env_8h_a8}
+
+\item 
+\#define {\bf APREQ\_\-LOG\_\-MARK}\ \_\-\_\-FILE\_\-\_\- , \_\-\_\-LINE\_\-\_\-\label{apreq__env_8h_a9}
+
+\item 
+\#define {\bf APREQ\_\-DEBUG}\ APREQ\_\-LOG\_\-MARK, APREQ\_\-LOG\_\-DEBUG,\label{apreq__env_8h_a10}
+
+\item 
+\#define {\bf APREQ\_\-WARN}\ APREQ\_\-LOG\_\-MARK, APREQ\_\-LOG\_\-WARNING,\label{apreq__env_8h_a11}
+
+\item 
+\#define {\bf APREQ\_\-ERROR}\ APREQ\_\-LOG\_\-MARK, APREQ\_\-LOG\_\-ERR,\label{apreq__env_8h_a12}
+
+\item 
+\#define {\bf apreq\_\-env\_\-content\_\-type}(env)\ apreq\_\-env\_\-header\_\-in(env, \char`\"{}Content-Type\char`\"{})\label{apreq__env_8h_a10}
+
+\item 
+\#define {\bf apreq\_\-env\_\-cookie}(env)\ apreq\_\-env\_\-header\_\-in(env, \char`\"{}Cookie\char`\"{})\label{apreq__env_8h_a11}
+
+\item 
+\#define {\bf apreq\_\-env\_\-cookie2}(env)\ apreq\_\-env\_\-header\_\-in(env, \char`\"{}Cookie2\char`\"{})\label{apreq__env_8h_a12}
+
+\item 
+\#define {\bf apreq\_\-env\_\-set\_\-cookie}(e, s)\ apreq\_\-env\_\-header\_\-out(e,\char`\"{}Set-Cookie\char`\"{},s)\label{apreq__env_8h_a13}
+
+\item 
+\#define {\bf apreq\_\-env\_\-set\_\-cookie2}(e, s)\ apreq\_\-env\_\-header\_\-out(e,\char`\"{}Set-Cookie2\char`\"{},s)\label{apreq__env_8h_a14}
+
+\item 
+\#define {\bf APREQ\_\-ENV\_\-MODULE}(pre, name, mmn)
+\item 
+\#define {\bf apreq\_\-env\_\-name}\ (apreq\_\-env\_\-module(NULL) $\rightarrow$ name)\label{apreq__env_8h_a16}
+
+\item 
+\#define {\bf apreq\_\-env\_\-magic\_\-number}\ (apreq\_\-env\_\-module(NULL) $\rightarrow$ magic\_\-number)\label{apreq__env_8h_a17}
+
+\end{CompactItemize}
+\subsection*{Typedefs}
+\begin{CompactItemize}
+\item 
+typedef apreq\_\-env\_\-t {\bf apreq\_\-env\_\-t}\label{apreq__env_8h_a0}
+
+\end{CompactItemize}
+\subsection*{Functions}
+\begin{CompactItemize}
+\item 
+void {\bf apreq\_\-log} (const char $\ast$file, int line, int level, {\bf apr\_\-status\_\-t} status, void $\ast$env, const char $\ast$fmt,...)\label{apreq__env_8h_a22}
+
+\item 
+{\bf apr\_\-pool\_\-t} $\ast$ {\bf apreq\_\-env\_\-pool} (void $\ast$env)\label{apreq__env_8h_a23}
+
+\item 
+{\bf apreq\_\-jar\_\-t} $\ast$ {\bf apreq\_\-env\_\-jar} (void $\ast$env, {\bf apreq\_\-jar\_\-t} $\ast$jar)\label{apreq__env_8h_a24}
+
+\item 
+{\bf apreq\_\-request\_\-t} $\ast$ {\bf apreq\_\-env\_\-request} (void $\ast$env, {\bf apreq\_\-request\_\-t} $\ast$req)\label{apreq__env_8h_a25}
+
+\item 
+const char $\ast$ {\bf apreq\_\-env\_\-query\_\-string} (void $\ast$env)\label{apreq__env_8h_a26}
+
+\item 
+const char $\ast$ {\bf apreq\_\-env\_\-header\_\-in} (void $\ast$env, const char $\ast$name)\label{apreq__env_8h_a27}
+
+\item 
+{\bf apr\_\-status\_\-t} {\bf apreq\_\-env\_\-header\_\-out} (void $\ast$env, const char $\ast$name, char $\ast$val)\label{apreq__env_8h_a28}
+
+\item 
+{\bf apr\_\-status\_\-t} {\bf apreq\_\-env\_\-read} (void $\ast$env, {\bf apr\_\-read\_\-type\_\-e} block, {\bf apr\_\-off\_\-t} bytes)\label{apreq__env_8h_a29}
+
+\item 
+const apreq\_\-env\_\-t $\ast$ {\bf apreq\_\-env\_\-module} (const apreq\_\-env\_\-t $\ast$mod)\label{apreq__env_8h_a30}
+
+\end{CompactItemize}
+
+
+\subsection{Detailed Description}
+Logging and environment (module) declarations.
+

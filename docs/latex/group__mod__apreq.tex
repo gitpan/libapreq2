@@ -1,0 +1,29 @@
+\section{Apache-2 Filter Module}
+\label{group__mod__apreq}\index{Apache-2 Filter Module@{Apache-2 Filter Module}}
+{\bf mod\_\-apreq.c}: Apache-2 filter module 
+\subsection*{Defines}
+\begin{CompactItemize}
+\item 
+\#define {\bf APREQ\_\-MODULE\_\-NAME}\ \char`\"{}APACHE2\char`\"{}\label{group__mod__apreq_a16}
+
+\item 
+\#define {\bf APREQ\_\-MODULE\_\-MAGIC\_\-NUMBER}\ 20031107\label{group__mod__apreq_a17}
+
+\end{CompactItemize}
+
+
+\subsection{Detailed Description}
+{\bf mod\_\-apreq.c}: Apache-2 filter module
+
+{\bf mod\_\-apreq.c} provides an input filter for using libapreq2 (and allow its parsed data structures to be shared) within the Apache-2 webserver. Using it, libapreq2 works properly in every phase of the HTTP request, from translation handlers to output filters, and even for subrequests / internal redirects.
+
+After installing mod\_\-apreq, be sure your webserver's httpd.conf activates it on startup with a Load\-Module directive: \small\begin{alltt}{\tt }\end{alltt}\normalsize 
+
+
+\small\begin{alltt}{\tt      LoadModule modules/mod_apreq.so}\end{alltt}\normalsize 
+
+
+\small\begin{alltt}{\tt  }\end{alltt}\normalsize 
+ Normally the installation process triggered by '\% make install' will make the necessary changes to httpd.conf for you.
+
+XXX describe normal operation, effects of apreq\_\-config\_\-t settings, etc.

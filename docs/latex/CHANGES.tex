@@ -1,0 +1,126 @@
+\subsection{Changes with libapreq2-2.01-dev}\label{v2_01_dev}
+\begin{itemize}
+\item November 7, 2003 - build system [joes]\end{itemize}
+
+
+Skip Apache::Test tests in env/ when Apache::Test is unavailable. This allows the C API to be build and installed without requiring Apache::Test (it is still a requirement for compiling the perl glue).
+
+\begin{itemize}
+\item November 7, 2003 - C API {\bf mod\_\-apreq.c} [joes]\end{itemize}
+
+
+Parser errors were creeping into the return value of apreq\_\-filter, which breaks the \char`\"{}transparent tee\char`\"{} paradigm. This caused bogus \char`\"{}400 Bad Request\char`\"{} responses (first reported by Vladimir Dudo) to occur when libapreq2 was used by an output filter during a GET request (handled by apache2's default handler). The test suite has been updated accordingly.
+
+\begin{itemize}
+\item October 26, 2003 - C API [joes]\end{itemize}
+
+
+Incorporate libapreq\_\-cgi into libapreq2 as the default environment, and add apreq\_\-env\_\-t and initializer {\bf apreq\_\-env\_\-module()} to manage the environment at runtime (determining the environment at load-time was problematic on non-ELF systems).\subsection{Changes with libapreq2-2.00-dev}\label{v2_0_0}
+\begin{itemize}
+\item October 24, 2003 - C API: libapreq\_\-cgi.c [randyk, joes]\end{itemize}
+
+
+CGI environment defined by env/libapreq\_\-cgi.c is functional (with tests added to env/t). This library may soon be incorporated directly into libapreq2 as a default enviroment.
+
+\begin{itemize}
+\item October 23, 2003 - C API: {\bf mod\_\-apreq.c} [joes]\end{itemize}
+
+
+Added ctx-$>$saw\_\-eos to ensure we don't read from upstream filters after receiving an eos bucket. Otherwise it was possible for two eos buckets to appear when a prefetch read is involved, which breaks other modules like mod\_\-proxy. This bug was uncovered by Philippe Chiasson. mod\_\-apreq's apreq\_\-env\_\-majic\_\-number bumped to reflect the added fixes.
+
+\begin{itemize}
+\item October 17, 2003 - configure: --enable-perl-glue [joes]\end{itemize}
+
+
+The --enable-perl-glue option integrates the perl glue into the normal Unix build cycle. It is disabled by default, but is silently reenabled if the user configures the source tree via Makefile.PL.
+
+\begin{itemize}
+\item October 14, 2003 - C API [joes]\end{itemize}
+
+
+Added {\bf apreq\_\-header\_\-attribute()} and fixed mfd parser to allow \char`\"{}charset\char`\"{} attribute to appear in the Content-Type header. Sven Geisler points out that Opera 7.20 does generate such headers.
+
+\begin{itemize}
+\item October 14, 2003 - C API [joes]\end{itemize}
+
+
+Added versioning API following {\tt http://apr.apache.org/versioning.html} apreq\_\-env renamed apreq\_\-env\_\-name, and apreq\_\-env\_\-magic\_\-number added to provide versioning for environments (modules). The header files are now installed to \char`\"{}include/apreq2\char`\"{}, and the library is renamed \char`\"{}libapreq2\char`\"{}. Also added an apreq2-config script based on apu-config.
+
+\begin{itemize}
+\item October 8, 2003 - configure: static {\bf mod\_\-apreq.c} [Bojan Smojver, joes]\end{itemize}
+
+
+Add --with-apache2-src configure option, along with --with-apr-config and --with-apu-config, and provide support for compiling mod\_\-apreq into httpd as a static apache module.
+
+\begin{itemize}
+\item October 1, 2003 - C API: {\bf mod\_\-apreq.c} [joes]\end{itemize}
+
+
+Support for internal redirects added to the mod\_\-apreq filter. This ensures any POST data prefetched in the main request gets passed along to the subrequest handler(s).
+
+\begin{itemize}
+\item July 18, 2003 - C bugfix: apreq\_\-decode [Graham Clark]\end{itemize}
+
+
+If the source and destination strings are represented by the same pointer - e.g. if called as apreq\_\-unescape(s) - string s is modified incorrectly in general. Patch includes new unit test.
+
+\begin{itemize}
+\item July 16, 2003 - Perl API [joes]\end{itemize}
+
+
+Added \$req-$>$parse, \$req-$>$status, \& \char`\"{}preparse\char`\"{} logic to \$req-$>$param \& \$req-$>$upload.
+
+\begin{itemize}
+\item July 16, 2003 - C API [joes]\end{itemize}
+
+
+Added \char`\"{}preparse\char`\"{} logic to apreq\_\-params \& apreq\_\-uploads to bring behavior in line with libapreq-1.x.
+
+\begin{itemize}
+\item July 15, 2003 - C API [joes]\end{itemize}
+
+
+Dropped param-$>$charset. Make apreq\_\-brigade\_\-concat public, so mod\_\-apreq can use it for its ctx-$>$spool brigade.
+
+\begin{itemize}
+\item July 14, 2003 - Documentation [joes]\end{itemize}
+
+
+Updated Cookie\_\-pod to reflect API changes over v1.X.
+
+\begin{itemize}
+\item June 30, 2003 - Documentation [joes]\end{itemize}
+
+
+Added doxygen links to Apache::Request and Apache::Cookie perl docs.
+
+\begin{itemize}
+\item June 30, 2003 - C API [joes]\end{itemize}
+
+
+Added apreq\_\-copy\_\-brigade(bb) to {\bf apreq.h}.
+
+\begin{itemize}
+\item June 27, 2003 - C API [joes]\end{itemize}
+
+
+The new filter-based design required a complete departure from libapreq-1.X codebase. libapreq-2 is based solely on APR, and to be fully functional, requires a supporting environment similar to Apache-2. A person wishing to port libapreq-2 to a new environment needs to provide definitions for the declarations in {\bf apreq\_\-env.h}.
+
+\begin{itemize}
+\item June 27, 2003 - Perl API [joes]\end{itemize}
+
+
+Aggregates are always collected into an APR::Table-based package. New table packages: Apache::Cookie::Table, Apache::Request::Table, and Apache::Upload::Table.
+
+\begin{itemize}
+\item June 27, 2003 - Perl API [joes]\end{itemize}
+
+
+Apache::Cookie-$>$fetch now requires an \char`\"{}environment\char`\"{} argument (\$r). Its return value is blessed into the Apache::Cookie::Jar class.
+
+\begin{itemize}
+\item June 27, 2003 - Perl API [joes]\end{itemize}
+
+
+Two new request lookup functions:\begin{enumerate}
+\item \$req-$>$args - param lookup using only the query string\item \$req-$>$body - param lookup using only the POST data\end{enumerate}

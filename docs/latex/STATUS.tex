@@ -1,0 +1,72 @@
+2.01-dev tagged and rolled for release on November 10, 2003
+
+Contributors looking for a mission:
+
+\begin{itemize}
+\item just do an egrep on \char`\"{}TODO\char`\"{} or \char`\"{}XXX\char`\"{} and see what's there\end{itemize}
+
+
+CURRENT RELEASE NOTES:
+
+\begin{itemize}
+\item This is a developer release, indicated by the \char`\"{}-dev\char`\"{} suffix on the version string. We believe the core interfaces to be stable, but some portions of the API may still need significant modification. Thus, binary/source compatibility may be broken from one developer release to the next. In particular the version numbering rules specified at\end{itemize}
+
+
+{\tt http://apr.apache.org/versioning.html}
+
+do not apply to developer releases.
+
+RELEASE SHOWSTOPPERS:
+
+CURRENT VOTES:
+
+TODO:
+
+\begin{itemize}
+\item Get env/ (Apache::Test) tests to work for --with-apache2-src option.\end{itemize}
+
+
+\begin{itemize}
+\item Bring Perl documentation up to speed.\end{itemize}
+
+
+\begin{itemize}
+\item Write parser/hook API documentation.\end{itemize}
+
+
+\begin{itemize}
+\item Add XForms logic to the mfd parser.\end{itemize}
+
+
+\begin{itemize}
+\item symbol exports files:\begin{enumerate}
+\item aix needs .exp files\end{enumerate}
+\end{itemize}
+
+
+OPEN ISSUES:
+
+\begin{itemize}
+\item Should we bundle an apr-based \char`\"{}application/xml\char`\"{} parser? If so, how should we parse the xml data into an apr\_\-table?\end{itemize}
+
+
+\begin{itemize}
+\item How should the Perl API work in a CGI context? Will users need to preload an \char`\"{}CGI environment\char`\"{} module before loading Request.so or Cookie.so?\end{itemize}
+
+
+\begin{itemize}
+\item Figure out how to bundle a CPAN release.\end{itemize}
+
+
+BUGS:
+
+XXX
+
+WISH LIST:
+
+\begin{itemize}
+\item I [joes] wish folks would contribute some glue code for one of these:\end{itemize}
+
+
+\begin{itemize}
+\item php,\item Rivet,\item mod\_\-dtcl,\item mod\_\-python,\item mod\_\-jk,\item tomcat,\item mod\_\-ruby,\item mod\_\-parrot.\end{itemize}

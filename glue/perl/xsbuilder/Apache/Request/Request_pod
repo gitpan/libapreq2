@@ -1,0 +1,250 @@
+=head1 NAME
+
+Apache::Request - Methods for dealing with client request data
+
+=head1 SYNOPSIS
+
+    use Apache::Request;
+    my $req = Apache::Request->new($r);
+
+=head1 DESCRIPTION
+
+I<Apache::Request> adds methods for parsing B<GET> requests and B<POST> 
+requests where I<Content-type> is one of I<application/x-www-form-urlencoded> or 
+I<multipart/form-data>.
+
+=head1 Apache::Request METHODS
+
+The interface is designed to mimic CGI.pm 's routines for parsing
+query parameters. The main differences are 
+
+=over 4
+
+=item * C<Apache::Request::new> takes an environment-specific
+object as (second) argument.
+
+=item * The query parameters are stored as Apache::Table objects,
+and are therefore parsed using case-insensitive keys.
+
+=item * The query string is always parsed, even for POST requests.
+
+=back
+
+=head2 new  
+
+creates a new I<Apache::Request> object with an environment object $r:
+
+    my $req = Apache::Request->new($r);
+
+With mod_perl2, the environment object must be an I<Apache::RequestRec>
+object.  All methods from the environment class are inherited.
+
+The following attributes are optional:
+
+=over 4
+
+=item POST_MAX
+
+Limit the size of POST data (in bytes).
+
+=item DISABLE_UPLOADS
+
+Disable file uploads.
+
+=item TEMP_DIR
+
+Sets the directory where upload files are spooled.  On a *nix-like
+that supports link(2), the TEMP_DIR should be located on the same
+file system as the final destination file:
+
+ my $req = Apache::Request->new($r, TEMP_DIR => "/home/httpd/tmp");
+ my $upload = $req->upload('file');
+ $upload->link("/home/user/myfile") || warn "link failed: $!";
+
+=item HOOK_DATA [TODO]
+
+Extra configuration info passed to an upload hook.
+See the description for the next item, I<UPLOAD_HOOK>.
+
+=item UPLOAD_HOOK [TODO]
+
+Sets up a callback to run whenever file upload data is read. This
+can be used to provide an upload progress meter during file uploads.
+Apache will automatically continue writing the original data to
+$upload->fh after the hook exits.
+
+ my $transparent_hook = sub {
+   my ($upload, $buf, $len, $hook_data) = @_;
+   warn "$hook_data: got $len bytes for " . $upload->name;
+ };
+
+ my $apr = Apache::Request->new($r, 
+                                HOOK_DATA => "Note",
+                                UPLOAD_HOOK => $transparent_hook,
+                               );
+
+=back
+
+=head2 param
+
+Get or set (TODO) the request parameters (using case-insensitive keys) by
+mimicing the OO interface of C<CGI::param>.
+
+    # similar to CGI.pm
+
+    my $value = $req->param('foo');
+    my @values = $req->param('foo');
+    my @params = $req->param;
+
+    # the following differ slightly from CGI.pm
+
+    # assigns multiple values to 'foo'
+    $req->param('foo' => [qw(one two three)]); # TODO
+
+    # returns ref to underlying apache table object
+    my $table = $req->param; # identical to $apr->parms - see below
+
+=head2 parms, params
+
+Get the full parameter table of the I<Apache::Request> object.
+
+   # returns ref to Apache::Request::Table object provided by $apache_table
+   my $table = $req->parms;
+
+An optional name parameter can be passed to return the parameter
+associated with the given name:
+
+   my $param = $req->parms($name);
+
+=head2 args
+
+Returns an I<Apache::Request::Table> object containing the query-string 
+parameters of the I<Apache::Request> object.
+
+   my $args = $req->args;
+
+An optional name parameter can be passed to return the query string
+parameter associated with the given name:
+
+   my $arg = $req->args($name);
+
+=head2 body
+
+Returns an I<Apache::Request::Table> object containing the POST data 
+parameters of the I<Apache::Request> object.
+
+   my $body = $req->body;
+
+An optional name parameter can be passed to return the POST data
+parameter associated with the given name:
+
+   my $param = $req->body($name);
+
+
+=head2 upload
+
+With no arguments, this returns an I<Apache::Upload::Table> object in 
+scalar context, or the names of all I<Apache::Upload> objects in
+list context.
+
+An optional name parameter can be passed to return the I<Apache::Upload>
+object associated with the given name:
+
+    my $upload = $apr->upload($name);
+
+=head1 SUBCLASSING Apache::Request
+
+If the instances of your subclass are hash references then you can actually
+inherit from Apache::Request as long as the Apache::Request object is stored in
+an attribute called "r" or "_r". (The Apache::Request class effectively does the
+delegation for you automagically, as long as it knows where to find the
+Apache::Request object to delegate to.)  For example:
+
+	package MySubClass;
+	use Apache::Request;
+	our @ISA = qw(Apache::Request);
+	sub new {
+		my($class, @args) = @_;
+		return bless { r => Apache::Request->new(@args) }, $class;
+	}
+
+=head1 Apache::Upload METHODS
+
+=head2 name
+
+The name of the filefield parameter:
+
+    my $name = $upload->name;
+
+=head2 filename
+
+The filename of the uploaded file:
+
+    my $filename = $upload->filename;
+
+=head2 bb [replaces fh]
+
+The APR::Brigade containing the contents of the uploaded file.
+
+=head2 size
+
+The size of the file in bytes:
+
+    my $size = $upload->size;
+
+=head2 info
+
+The additional header information for the uploaded file.
+Returns a hash reference tied to the I<Apache::Table> class.
+An optional I<key> argument can be passed to return the value of 
+a given header rather than a hash reference.  Examples:
+
+    my $info = $upload->info;
+    while (my($key, $val) = each %$info) {
+	...
+    }
+
+    my $val = $upload->info("Content-type");
+
+=head2 type [TODO]
+
+Returns the I<Content-Type> for the given I<Apache::Upload> object:
+
+    my $type = $upload->type;
+    #same as
+    my $type = $upload->info("Content-Type");
+
+=head2 tempname [XXX- Does this mesh with brigade API?]
+
+Provides the name of the spool file. This method is reserved for
+debugging purposes, and is possibly subject to change in a future
+version of Apache::Request.
+
+=head2 link
+
+To avoid recopying the upload's internal tempfile brigade on a 
+*nix-like system, I<link> will create a hard link to it:
+
+  my $upload = $apr->upload('file');
+  $upload->link("/path/to/newfile") or
+      die sprintf "link from '%s' failed: $!", $upload->tempname;
+
+Typically the new name must lie on the same file system as the
+brigade's tempfile. Check your system's link(2) manpage for details.
+
+=head1 SEE ALSO
+
+APR::Table(3)
+
+=head1 CREDITS
+
+This interface is based on the original pure Perl version by Lincoln Stein.
+
+=head1 AUTHORS
+
+Doug MacEachern, Joe Schaefer, Steve Hay.
+
+=head1 MISSING DOCS
+
+$req->config, Apache::Request::Table, Apache::Upload::Table.
+

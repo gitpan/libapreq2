@@ -1,0 +1,101 @@
+\section{apreq\_\-version.h File Reference}
+\label{apreq__version_8h}\index{apreq_version.h@{apreq\_\-version.h}}
+Versioning API for libapreq. 
+
+
+{\tt \#include \char`\"{}apreq.h\char`\"{}}\par
+{\tt \#include \char`\"{}apr\_\-version.h\char`\"{}}\par
+\subsection*{Defines}
+\begin{CompactItemize}
+\item 
+\#define {\bf APREQ\_\-MAJOR\_\-VERSION}\ 2
+\item 
+\#define {\bf APREQ\_\-MINOR\_\-VERSION}\ 0
+\item 
+\#define {\bf APREQ\_\-PATCH\_\-VERSION}\ 1
+\item 
+\#define {\bf APREQ\_\-IS\_\-DEV\_\-VERSION}
+\item 
+\#define {\bf APREQ\_\-VERSION\_\-STRING}
+\item 
+\#define {\bf APREQ\_\-IS\_\-DEV\_\-STRING}\ \char`\"{}-dev\char`\"{}
+\end{CompactItemize}
+\subsection*{Functions}
+\begin{CompactItemize}
+\item 
+void {\bf apreq\_\-version} ({\bf apr\_\-version\_\-t} $\ast$pvsn)
+\item 
+const char $\ast$ {\bf apreq\_\-version\_\-string} (void)
+\end{CompactItemize}
+
+
+\subsection{Detailed Description}
+Versioning API for libapreq.
+
+There are several different mechanisms for accessing the version. There is a string form, and a set of numbers; in addition, there are constants which can be compiled into your application, and you can query the library being used for its actual version.
+
+Note that it is possible for an application to detect that it has been compiled against a different version of libapreq by use of the compile-time constants and the use of the run-time query function.
+
+libapreq version numbering follows the guidelines specified in:
+
+{\tt http://apr.apache.org/versioning.html}
+
+\subsection{Define Documentation}
+\index{APREQ_IS_DEV_STRING@{APREQ\_\-IS\_\-DEV\_\-STRING}!apreq_version.h@{apreq\_\-version.h}}\index{apreq_version.h@{apreq\_\-version.h}!APREQ_IS_DEV_STRING@{APREQ\_\-IS\_\-DEV\_\-STRING}}\index{apreq_version.h@{apreq\_\-version.h}!APREQ_IS_DEV_STRING@{APREQ\_\-IS\_\-DEV\_\-STRING}}
+\index{APREQ_IS_DEV_STRING@{APREQ\_\-IS\_\-DEV\_\-STRING}!apreq_version.h@{apreq\_\-version.h}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}\#define APREQ\_\-IS\_\-DEV\_\-STRING\ \char`\"{}-dev\char`\"{}}\label{apreq__version_8h_a5}
+
+
+Internal: string form of the \char`\"{}is dev\char`\"{} flag \index{APREQ_IS_DEV_VERSION@{APREQ\_\-IS\_\-DEV\_\-VERSION}!apreq_version.h@{apreq\_\-version.h}}\index{apreq_version.h@{apreq\_\-version.h}!APREQ_IS_DEV_VERSION@{APREQ\_\-IS\_\-DEV\_\-VERSION}}\index{apreq_version.h@{apreq\_\-version.h}!APREQ_IS_DEV_VERSION@{APREQ\_\-IS\_\-DEV\_\-VERSION}}
+\index{APREQ_IS_DEV_VERSION@{APREQ\_\-IS\_\-DEV\_\-VERSION}!apreq_version.h@{apreq\_\-version.h}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}\#define APREQ\_\-IS\_\-DEV\_\-VERSION}\label{apreq__version_8h_a3}
+
+
+This symbol is defined for internal, \char`\"{}development\char`\"{} copies of libapreq. This symbol will be \#undef'd for releases. \index{APREQ_MAJOR_VERSION@{APREQ\_\-MAJOR\_\-VERSION}!apreq_version.h@{apreq\_\-version.h}}\index{apreq_version.h@{apreq\_\-version.h}!APREQ_MAJOR_VERSION@{APREQ\_\-MAJOR\_\-VERSION}}\index{apreq_version.h@{apreq\_\-version.h}!APREQ_MAJOR_VERSION@{APREQ\_\-MAJOR\_\-VERSION}}
+\index{APREQ_MAJOR_VERSION@{APREQ\_\-MAJOR\_\-VERSION}!apreq_version.h@{apreq\_\-version.h}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}\#define APREQ\_\-MAJOR\_\-VERSION\ 2}\label{apreq__version_8h_a0}
+
+
+major version Major API changes that could cause compatibility problems for older programs such as structure size changes. No binary compatibility is possible across a change in the major version. \index{APREQ_MINOR_VERSION@{APREQ\_\-MINOR\_\-VERSION}!apreq_version.h@{apreq\_\-version.h}}\index{apreq_version.h@{apreq\_\-version.h}!APREQ_MINOR_VERSION@{APREQ\_\-MINOR\_\-VERSION}}\index{apreq_version.h@{apreq\_\-version.h}!APREQ_MINOR_VERSION@{APREQ\_\-MINOR\_\-VERSION}}
+\index{APREQ_MINOR_VERSION@{APREQ\_\-MINOR\_\-VERSION}!apreq_version.h@{apreq\_\-version.h}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}\#define APREQ\_\-MINOR\_\-VERSION\ 0}\label{apreq__version_8h_a1}
+
+
+Minor API changes that do not cause binary compatibility problems. Should be reset to 0 when upgrading APREQ\_\-MAJOR\_\-VERSION \index{APREQ_PATCH_VERSION@{APREQ\_\-PATCH\_\-VERSION}!apreq_version.h@{apreq\_\-version.h}}\index{apreq_version.h@{apreq\_\-version.h}!APREQ_PATCH_VERSION@{APREQ\_\-PATCH\_\-VERSION}}\index{apreq_version.h@{apreq\_\-version.h}!APREQ_PATCH_VERSION@{APREQ\_\-PATCH\_\-VERSION}}
+\index{APREQ_PATCH_VERSION@{APREQ\_\-PATCH\_\-VERSION}!apreq_version.h@{apreq\_\-version.h}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}\#define APREQ\_\-PATCH\_\-VERSION\ 1}\label{apreq__version_8h_a2}
+
+
+patch level \index{APREQ_VERSION_STRING@{APREQ\_\-VERSION\_\-STRING}!apreq_version.h@{apreq\_\-version.h}}\index{apreq_version.h@{apreq\_\-version.h}!APREQ_VERSION_STRING@{APREQ\_\-VERSION\_\-STRING}}\index{apreq_version.h@{apreq\_\-version.h}!APREQ_VERSION_STRING@{APREQ\_\-VERSION\_\-STRING}}
+\index{APREQ_VERSION_STRING@{APREQ\_\-VERSION\_\-STRING}!apreq_version.h@{apreq\_\-version.h}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}\#define APREQ\_\-VERSION\_\-STRING}\label{apreq__version_8h_a4}
+
+
+{\bf Value:}
+
+\footnotesize\begin{verbatim}APR_STRINGIFY(APREQ_MAJOR_VERSION) "." \
+     APR_STRINGIFY(APREQ_MINOR_VERSION) "." \
+     APR_STRINGIFY(APREQ_PATCH_VERSION) \
+     APREQ_IS_DEV_STRING
+\end{verbatim}\normalsize 
+The formatted string of libapreq's version 
+
+\subsection{Function Documentation}
+\index{apreq_version@{apreq\_\-version}!apreq_version.h@{apreq\_\-version.h}}\index{apreq_version.h@{apreq\_\-version.h}!apreq_version@{apreq\_\-version}}\index{apreq_version.h@{apreq\_\-version.h}!apreq_version@{apreq\_\-version}}
+\index{apreq_version@{apreq\_\-version}!apreq_version.h@{apreq\_\-version.h}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}void apreq\_\-version ({\bf apr\_\-version\_\-t} $\ast$ {\em pvsn})}\label{apreq__version_8h_a6}
+
+
+Return libapreq's version information information in a numeric form.
+
+\begin{Desc}
+\item[Parameters:]
+\begin{description}
+\item[{\em pvsn}]Pointer to a version structure for returning the version information. \end{description}
+\end{Desc}
+\index{apreq_version_string@{apreq\_\-version\_\-string}!apreq_version.h@{apreq\_\-version.h}}\index{apreq_version.h@{apreq\_\-version.h}!apreq_version_string@{apreq\_\-version\_\-string}}\index{apreq_version.h@{apreq\_\-version.h}!apreq_version_string@{apreq\_\-version\_\-string}}
+\index{apreq_version_string@{apreq\_\-version\_\-string}!apreq_version.h@{apreq\_\-version.h}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}const char$\ast$ apreq\_\-version\_\-string (void)}\label{apreq__version_8h_a7}
+
+
+Return libapreq's version information as a string. 

@@ -3,20 +3,21 @@ package TestApReq::request;
 use strict;
 use warnings FATAL => 'all';
 
-use Apache::RequestRec;
-use Apache::RequestIO;
-use Apache::Request ();
-use Apache::Connection;
-use Apache::Upload;
+use Apache2::RequestRec;
+use Apache2::RequestIO;
+use Apache2::Request ();
+use Apache2::Connection;
+use Apache2::Upload;
 use APR::Pool;
+use APR::Bucket;
 use APR::PerlIO;
-use Apache::ServerUtil;
+use Apache2::ServerUtil;
 use File::Spec;
 
 my $data;
 
 sub hook {
-    my ($upload, $buffer, $len, $hook_data) = @_;
+    my ($upload, $buffer, $len) = @_;
     warn "$upload saw EOS" and return unless defined $buffer;
 
     die "BAD UPLOAD ARGS" unless length $buffer == $len;
@@ -27,23 +28,18 @@ sub hook {
 sub handler {
     my $r = shift;
     my $temp_dir =
-        File::Spec->catfile(Apache::ServerUtil::server_root, 'logs'); 
-    my $req = Apache::Request->new($r, POST_MAX => 1_000_000,
-                                       TEMP_DIR => $temp_dir);
-
+        File::Spec->catfile(Apache2::ServerUtil::server_root, 'logs'); 
+    my $req = Apache2::Request->new($r);#, POST_MAX => 1_000_000,
+                                        #TEMP_DIR => $temp_dir);
+    $req->temp_dir($temp_dir);
+    $req->read_limit(1_000_000);
     $req->content_type('text/plain');
 
-    my $test  = $req->args('test');
+    my $test  = $req->APR::Request::args('test');
     my $method = $r->method;
 
     if ($test eq 'param') {
-        my $table = $req->args();
-        $table->add("new_arg" => "new");
-        die "Can't find new_arg" unless $table->{new_arg} eq "new";
-        $table->{new_arg} = 1;
-        die "Can't find newer arg" unless $table->get("new_arg") == 1;
-        delete $table->{new_arg};
-        die "New arg still exists after deletion" if exists $table->{new_arg};
+        my $table = $req->APR::Request::args();
         my $value = $req->param('value');
         $req->print($value);
     }
@@ -120,15 +116,16 @@ sub handler {
         $r->print(<$io>);
     }
     elsif ($test eq 'bad') {
-        eval {my $q = $req->args('query')};
-        if (ref $@ eq "Apache::Request::Error") {
+        require APR::Request::Error;
+        eval {my $q = $req->APR::Request::args('query')};
+        if (ref $@ && $@->isa("APR::Request::Error")) {
             $req->upload("HTTPUPLOAD")->slurp(my $data);
             $req->print($data);
         }
     }
     elsif ($test eq 'hook') {
         $data = "";
-        $req->config(UPLOAD_HOOK => \&hook);
+        $req->upload_hook(\&hook);
         $req->parse;
         $r->print($data);
     }
@@ -139,15 +136,14 @@ sub handler {
         $r->print($upload->type);
     }
     elsif ($test eq 'disable_uploads') {
-        $req->config(DISABLE_UPLOADS => 1);
+        require APR::Request::Error;
+        $req->disable_uploads(1);
         eval {my $upload = $req->upload('HTTPUPLOAD')};
-        if (ref $@ eq "Apache::Request::Error") {
-            my $args = $@->{_r}->args('test'); # checks _r is an object ref
-            my $upload = $@->upload('HTTPUPLOAD'); # no exception this time!
+        if (ref $@ eq "APR::Request::Error") {
+            my $args = $@->{_r}->APR::Request::args('test'); # checks _r is an object ref
+            my $upload = $@->body('HTTPUPLOAD'); # no exception this time!
             die "args test failed" unless $args eq $test;
-            $args = $@->args;
-            $args->add("foo" => "bar1");
-            $args->add("foo" => "bar2");
+            $args = $@->APR::Request::args;
             my $test_string = "";
 
             # MAGIC ITERATOR TESTS
@@ -175,7 +171,7 @@ sub handler {
             }
 
 
-            $@->print("ok");
+            $req->print("ok");
         }
     }
 

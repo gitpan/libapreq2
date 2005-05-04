@@ -1,4 +1,4 @@
-#!/usr/bin/perl
+#!/home/joe/perl/5.8.x/bin/perl
 
 %subst = ( "apr.tag", "", "apu.tag", "");
 $quiet   = 0;

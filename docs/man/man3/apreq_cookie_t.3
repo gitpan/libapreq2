@@ -1,4 +1,4 @@
-.TH "apreq_cookie_t" 3 "30 Aug 2004" "Version 2.04-dev" "libapreq2" \" -*- nroff -*-
+.TH "apreq_cookie_t" 3 "4 May 2005" "Version 2.05-dev" "libapreq2" \" -*- nroff -*-
 .ad l
 .nh
 .SH NAME
@@ -14,9 +14,6 @@ apreq_cookie_t \- Cookie type, supporting both Netscape and RFC cookie specifica
 
 .in +1c
 .ti -1c
-.RI "\fBapreq_cookie_version_t\fP \fBversion\fP"
-.br
-.ti -1c
 .RI "char * \fBpath\fP"
 .br
 .ti -1c
@@ -24,9 +21,6 @@ apreq_cookie_t \- Cookie type, supporting both Netscape and RFC cookie specifica
 .br
 .ti -1c
 .RI "char * \fBport\fP"
-.br
-.ti -1c
-.RI "unsigned \fBsecure\fP"
 .br
 .ti -1c
 .RI "char * \fBcomment\fP"
@@ -38,7 +32,10 @@ apreq_cookie_t \- Cookie type, supporting both Netscape and RFC cookie specifica
 .RI "\fBapr_time_t\fP \fBmax_age\fP"
 .br
 .ti -1c
-.RI "\fBapreq_value_t\fP \fBv\fP"
+.RI "unsigned \fBflags\fP"
+.br
+.ti -1c
+.RI "const \fBapreq_value_t\fP \fBv\fP"
 .br
 .in -1c
 .SH "Detailed Description"
@@ -56,6 +53,9 @@ RFC cookies may place an URL here
 .SS "char* \fBapreq_cookie_t::domain\fP"
 .PP
 Restricts server domain 
+.SS "unsigned \fBapreq_cookie_t::flags\fP"
+.PP
+charsets, taint marks, app-specific bits 
 .SS "\fBapr_time_t\fP \fBapreq_cookie_t::max_age\fP"
 .PP
 total duration of cookie: -1 == session 
@@ -65,15 +65,9 @@ Restricts url path
 .SS "char* \fBapreq_cookie_t::port\fP"
 .PP
 Restricts server port 
-.SS "unsigned \fBapreq_cookie_t::secure\fP"
-.PP
-Notify browser of 'https' requirement 
-.SS "\fBapreq_value_t\fP \fBapreq_cookie_t::v\fP"
+.SS "const \fBapreq_value_t\fP \fBapreq_cookie_t::v\fP"
 .PP
 'raw' cookie value 
-.SS "\fBapreq_cookie_version_t\fP \fBapreq_cookie_t::version\fP"
-.PP
-RFC or Netscape compliant cookie 
 
 .SH "Author"
 .PP 

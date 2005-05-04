@@ -1,5 +1,13 @@
+#   The following is a trick to get CPAN clients to follow prerequisites:
+#
+#    PREREQ_PM
+#
+
+# --- MakeMaker post_initialize section:
+
+
 AUTOMAKE_OPTIONS = foreign
-SUBDIRS = src env glue t
+SUBDIRS = . include library module glue
 EXTRA_DIST = LICENSE NOTICE README INSTALL CHANGES FAQ.pod MANIFEST.SKIP Makefile.PL buildconf build win32 docs
 APU_SRCDIR=`@APU_CONFIG@ --srcdir`
 APR_SRCDIR=`@APR_CONFIG@ --srcdir`
@@ -7,7 +15,7 @@ APU_DOX = (cd $(APU_SRCDIR); cat docs/doxygen.conf - | doxygen -)
 APR_DOX = (cd $(APR_SRCDIR); cat docs/doxygen.conf - | doxygen -)
 SED_BODY_TAG= s(^[\S\s]+<body.+|</body>[\S\s]+$$)()gi, s(href="/Apache(?:/\w+)*/([^/]+).html")(href="group__apreq__xs__\L$$1.html")g
 EUM=ExtUtils::Manifest
-POD_DIR=glue/perl/docs
+POD_DIR=glue/perl/lib/Apache2
 bin_SCRIPTS = apreq2-config
 CLEANFILES = $(bin_SCRIPTS)
 
@@ -17,7 +25,7 @@ else
 PERL_TEST = 
 endif
 
-release: reconfig docs_clean docs pod2test distdir
+release: reconfig docs_clean docs distdir
 	@PERL@ build/version_check.pl > $(distdir)/PREREQUISITES
 	@PERL@ build/version_check.pl -version=@PACKAGE_VERSION@ > $(distdir)/META.yml
 	echo MANIFEST > $(distdir)/MANIFEST
@@ -35,7 +43,7 @@ release_test:
 	@echo "$(distdir).tar.gz is kosher."
 
 reconfig:
-	./buildconf
+	./buildconf --with-automake=automake-1.6 --with-aclocal=aclocal-1.6
 	./config.nice
 
 docs_clean:
@@ -50,10 +58,10 @@ docs_install: docs
 	$(mkinstalldirs) $(DESTDIR)$(pkgdatadir)
 	cp -a docs $(DESTDIR)$(pkgdatadir)
 
-%.html: $(POD_DIR)/%.pod Makefile.am 
+%.html: $(POD_DIR)/%.pm Makefile.am 
 	pod2html < $< | perl -0777 -pe '$(SED_BODY_TAG)' > $@
 
-pod2html :: Request.html Cookie.html Upload.html Table.html Error.html FAQ.html
+pod2html :: Request.html Cookie.html Upload.html FAQ.html
 
 FAQ.html: Makefile.am FAQ.pod
 	pod2html < FAQ.pod | perl -0777 -pe '$(SED_BODY_TAG)' > FAQ.html
@@ -78,13 +86,13 @@ docs/apr.tag:
 	-mkdir docs
 	echo GENERATE_TAGFILE=`pwd`/docs/apr.tag | $(APR_DOX)
 
-test: lib_test env_test $(PERL_TEST)
+test: all library_test module_test $(PERL_TEST)
 
-env_test:
-	cd env; $(MAKE) test
+module_test:
+	cd module; $(MAKE) test
 
-lib_test: check
-	t/testall -v
+library_test:
+	cd library; $(MAKE) test
 
 perl_install:
 	cd glue/perl; $(MAKE) install

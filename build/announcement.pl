@@ -16,7 +16,7 @@ sub slurp {
     return wantarray ? split /\n/, $buf : $buf;
 }
 
-my $MAIL_FROM = '<' . (split /[:@]/, slurp "CVS/Root")[2] . '@apache.org>';
+my $MAIL_FROM = shift;
 my $RCPT_TO = join ",\n      ", map "<$_>" ,
     qw(
          announce@httpd.apache.org
@@ -47,7 +47,7 @@ The Apache Software Foundation and The Apache HTTP Server Project
 are pleased to announce the $PACKAGE_VERSION release of libapreq2.  This
 Announcement notes significant changes introduced by this release.
 
-The package $PACKAGE_NAME is released under the Apache License
+libapreq2-$PACKAGE_VERSION is released under the Apache License
 version $LICENSE_VERSION.  It is now available through the ASF mirrors
 
       http://httpd.apache.org/apreq/download.cgi
@@ -64,15 +64,15 @@ $mail_header
 
 $preamble
 libapreq2 is an APR-based shared library used for parsing HTTP cookies,
-query-strings and POST data.  The package $PACKAGE_NAME provides
+query-strings and POST data.  This package provides
 
     1) version $LIBRARY_VERSION of the libapreq2 library,
 
-    2) mod_apreq, a filter module necessary for using libapreq2
+    2) mod_apreq2, a filter module necessary for using libapreq2
        within the Apache HTTP Server,
 
-    3) the Apache::Request, Apache::Cookie, and Apache::Upload
-       perl modules for using libapreq2 with modperl-2.
+    3) the Apache2::Request, Apache2::Cookie, and Apache2::Upload
+       perl modules for using libapreq2 with mod_perl2.
 
 ========================================================================
 

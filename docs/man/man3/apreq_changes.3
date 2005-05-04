@@ -1,9 +1,309 @@
-.TH "apreq_changes" 3 "30 Aug 2004" "Version 2.04-dev" "libapreq2" \" -*- nroff -*-
+.TH "apreq_changes" 3 "4 May 2005" "Version 2.05-dev" "libapreq2" \" -*- nroff -*-
 .ad l
 .nh
 .SH NAME
 apreq_changes \- CHANGES
-List of major changes.
+.SH "Changes with libapreq2-2.05-dev (released May 5, 2005)"
+.PP
+.IP "\(bu" 2
+Win32 build [Randy Kobes] Have top-level 'nmake', 'nmake test', and 'nmake install' targets, respectively, also include building, testing, and installing the corresponding perl glue targets.
+.PP
+.PP
+.IP "\(bu" 2
+C API [geoff] Minimum httpd version is now 2.0.48, which includes the official apr 0.9.4 release.
+.PP
+.PP
+.IP "\(bu" 2
+C API [Max Kellermann] Fix apreq_quote.
+.PP
+.PP
+.IP "\(bu" 2
+Perl API [joes] Remove Apache2::Request::args. WARNING: through inheritance, args() now maps to Apache2::RequestRec::args. Folks that want the pre-2.05-dev behavior need to invoke APR::Request::args by name.
+.PP
+.PP
+.IP "\(bu" 2
+C API [joes, Max Kellermann] Add apreq_initialize, apreq_pre_initialize and apreq_post_initialize. These are not thread-safe operations, so applications need to ensure they are invoked (in the correct sequence) prior to using any apreq2 modules.
+.PP
+.PP
+.IP "\(bu" 2
+C, Perl API [joes] Add pool, bucket_alloc to \fBapreq_handle_t\fP.
+.PP
+.PP
+.IP "\(bu" 2
+Perl API [joes] Drop $data argument from UPLOAD_HOOK, and also drop HOOK_DATA option. Perl folks should use a closure instead of passing in context data.
+.PP
+.PP
+.IP "\(bu" 2
+Perl API [joes] Move bake, bake2 to Apache2::Cookie, now requiring an extra $r argument. Also ''-operator is mapped to as_string() for Apache2::Cookie; but APR::Request::Cookie maps it to value().
+.PP
+.PP
+.IP "\(bu" 2
+C API [joes] Remove header_in & header_out from \fBapreq_module_t\fP. Remove \fBapreq_ua_cookie_version()\fP and apreq_cookie_bake*(). Remove cookie2 argument to \fBapreq_handle_custom()\fP.
+.PP
+.PP
+.IP "\(bu" 2
+C API [joes] s/APREQ/APREQ2/g in webserver configuration directives.
+.PP
+.PP
+.IP "\(bu" 2
+C API [Igor Shevchenko, Philip Gollucci] Fix segfault in mfd parser caused by parts w/ empty param names.
+.PP
+.PP
+.IP "\(bu" 2
+C API [joes] Add \fBapreq_cp1252_to_utf8()\fP.
+.PP
+.PP
+.IP "\(bu" 2
+C, Perl API [joes] Add charset support for params and couple the SvUTF8 flag to the param's taint flag.
+.PP
+.PP
+.IP "\(bu" 2
+C API [joes] Replace v->size with v->nlen + v->dlen. Added supporting apreq_value_table_add().
+.PP
+.PP
+.IP "\(bu" 2
+C API [joes] Remove apreq_cookie_attr().
+.PP
+.PP
+.IP "\(bu" 2
+C API [joes]
+.IP "  \(bu" 4
+Add \fBapreq_error.h\fP, \fBapreq_module.h\fP.
+.IP "  \(bu" 4
+Rename apreq_run* and apreq_make* funcs to conform with apreq_$obj_$meth scheme.
+.IP "  \(bu" 4
+Replace c->version & c->secure with flags.
+.IP "  \(bu" 4
+Parsers are assumed to be working with external data, so the cookies & params they produce are marked tainted.
+.PP
+
+.PP
+.PP
+.IP "\(bu" 2
+C API [joes] \fBapreq_parse_cookie_header()\fP failed to parse RFC Cookie headers which contained no space chars after the '$Version=1' preamble.
+.PP
+.PP
+.IP "\(bu" 2
+C API [joes] Reorganize around include/, library/, and module/ dirs.
+.PP
+.PP
+.IP "\(bu" 2
+C Tests [joes] Replace CuTest-based tests with custom TAP-compliant framework.
+.PP
+.PP
+.IP "\(bu" 2
+C API [Max Kellermann] Continue the API improvements:
+.PP
+.PP
+.IP "\(bu" 2
+Convert APREQ_RUN_PARSER and APREQ_RUN_HOOK to inline, and downcase them.
+.IP "\(bu" 2
+Remove apreq_memmem.
+.IP "\(bu" 2
+Convert apreq_(un)escape to inline.
+.IP "\(bu" 2
+apreq_escape does not create an apreq_value_t*.
+.IP "\(bu" 2
+Initialize default_parsers explicitly to NULL.
+.IP "\(bu" 2
+Convert APREQ_BRIGADE_COPY to inline, and downcase it.
+.IP "\(bu" 2
+Lowercase APREQ_BRIGADE_SETASIDE, APREQ_BRIGADE_COPY.
+.IP "\(bu" 2
+Convert apreq_cookie_name and apreq_cookie_value macros to inline.
+.IP "\(bu" 2
+Convert apreq_param_name, apreq_param_value, apreq_param_info, and apreq_param_brigade to inline.
+.PP
+.PP
+.IP "\(bu" 2
+C API [joes] Widespread API refactorization to remove apreq_jar_t and apreq_request_t:
+.PP
+.PP
+.IP "\(bu" 2
+Header includes reorganized; apreq_parsers.h added (back again).
+.IP "\(bu" 2
+Replaced apreq_jar_t and apreq_request_t with single apreq_env_handle_t.
+.IP "\(bu" 2
+Added const qualifier to 'v' attribute of \fBapreq_cookie_t\fP and \fBapreq_param_t\fP.
+.IP "\(bu" 2
+Use union type-puns to drop const qualifiers inside the new apreq_value_to_cookie and apreq_value_to_param implementations (gcc generates same object code as the macro versions did).
+.IP "\(bu" 2
+Moved 'flags' attribute from \fBapreq_value_t\fP to \fBapreq_cookie_t\fP and \fBapreq_param_t\fP.
+.IP "\(bu" 2
+Remove env argument from hooks and parsers.
+.IP "\(bu" 2
+Reduce apreq_env_module to minimal set of operations.
+.IP "\(bu" 2
+Replace apreq_log calls with apreq-specific error codes.
+.IP "\(bu" 2
+Hooks are called on each body param now, not just during file uploads.
+.IP "\(bu" 2
+Tie the cgi handle to its creator pool.
+.PP
+.PP
+Detailed changes by header file:
+.PP
+[\fBapreq.h\fP]
+.IP "\(bu" 2
+Remove flags from \fBapreq_value_t\fP.
+.IP "\(bu" 2
+Remove const qualifier from apreq_value_t's 'name' attribute.
+.IP "\(bu" 2
+Remove apreq_value_merge* and apreq_value_copy*.
+.IP "\(bu" 2
+Remove apreq_char_to_value, apreq_strtoval, and apreq_strlen.
+.IP "\(bu" 2
+Move apreq_enctype to apreq_env.h.
+.IP "\(bu" 2
+Move apreq_env_handle_t struct definition to apreq_env.h
+.IP "\(bu" 2
+Change signature of apreq_decode.
+.IP "\(bu" 2
+Move apreq_brigade_concat here, changed its signature and improved it alot.
+.IP "\(bu" 2
+Remove apreq_brigade_spoolfile.
+.IP "\(bu" 2
+Dropped APREQ_*_ENCTYPE, renamed some APREQ_$foo defaults APREQ_DEFAULT_$foo.
+.IP "\(bu" 2
+Added APREQ_ERROR_*.
+.PP
+.PP
+[\fBapreq_cookie.h\fP]
+.IP "\(bu" 2
+Remove apreq_env.h include.
+.IP "\(bu" 2
+Remove apreq_jar_t.
+.IP "\(bu" 2
+Add 'flags' to \fBapreq_cookie_t\fP, add const qualifier to its 'v' attr.
+.IP "\(bu" 2
+Remove apreq_jar* functions.
+.IP "\(bu" 2
+Add apreq_parse_cookie_header.
+.IP "\(bu" 2
+Move apreq_cookie, apreq_cookie_bake(2), and apreq_ua_cookie_version to apreq_env.h.
+.PP
+.PP
+[apreq_params.h]
+.IP "\(bu" 2
+Remove apreq_env.h include.
+.IP "\(bu" 2
+Remove apreq_request_t.
+.IP "\(bu" 2
+Add 'flags' to \fBapreq_param_t\fP, and const qualifier to its 'v' attr.
+.IP "\(bu" 2
+Rename 'bb' attribute 'upload' in \fBapreq_param_t\fP.
+.IP "\(bu" 2
+Remove apreq_request* functions.
+.IP "\(bu" 2
+Remove apreq_parse_request.
+.IP "\(bu" 2
+Changed apreq_decode_param signature.
+.IP "\(bu" 2
+Replace env argument with apr_table_t in apreq_params_as_array, apreq_params_as_string,
+.IP "\(bu" 2
+Move remaining apreq_param* to apreq_env.h.
+.IP "\(bu" 2
+Move parser and hook sections to apreq_parsers.h.
+.IP "\(bu" 2
+Change apreq_upload(s) old apreq_request_t arg to apr_table_t.
+.PP
+.PP
+[apreq_parsers.h]
+.IP "\(bu" 2
+Acquire the hook and parser sections of original apreq_params.h.
+.IP "\(bu" 2
+Remove env argument from APREQ_PARSER_ARGS and APREQ_HOOK_ARGS
+.IP "\(bu" 2
+Augment \fBapreq_hook_t\fP and \fBapreq_parser_t\fP to replace missing env features.
+.IP "\(bu" 2
+Change apreq_make_parser and apreq_make_hook signatures.
+.IP "\(bu" 2
+Rename apreq_add_hook to apreq_parser_add_hook, returning apr_status_t.
+.IP "\(bu" 2
+Change apreq_parser signature.
+.PP
+.PP
+[apreq_env.h]
+.IP "\(bu" 2
+Remove read, log, pool, bucket_alloc, request, jar, and query_string methods.
+.IP "\(bu" 2
+Include apreq_parsers.h.
+.IP "\(bu" 2
+Reorganize apreq_env_module_t to provide hook, parser, jar, args, & body table ops.
+.IP "\(bu" 2
+Rename max_brigade to 'brigade_limit', max_body to 'read_limit'.
+.IP "\(bu" 2
+Change related module sigs, including temp_dir, to get/set methods.
+.IP "\(bu" 2
+Add parser and read_limit args to apreq_env_make_custom_handle.
+.IP "\(bu" 2
+Drop 'name' arg and APREQ_ENV_MODULE =~ s/_ENV//.
+.IP "\(bu" 2
+s/apreq_env_make/apreq_handle/ in the handle constructor names.
+.PP
+.PP
+[mod_apreq.c, apreq_env_apache2.h]
+.IP "\(bu" 2
+Changed APREQ_Max* configs to APREQ_BrigadeLimit and APREQ_ReadLimit.
+.IP "\(bu" 2
+Handle constructor renamed apreq_handle_apache2.
+.PP
+.PP
+.IP "\(bu" 2
+C API [joes] Make our 'libtool current interface' number depend on apr's major number. This allows libapreq2 to be installed into a system-wide location while avoiding ABI conflicts arising from our apr-based interfaces.
+.PP
+.PP
+.IP "\(bu" 2
+C API [Max Kellermann] Introduce apreq_env_handle_t to replace the void *env usage. Also added apreq_env_custom for making private handles, and new apreq_env_apache2.h to let mod_apreq export apreq_env_make_apache2.
+.PP
+.PP
+.IP "\(bu" 2
+C API [Max Kellermann] Rename apreq_env_t to apreq_env_module_t, to prepare for a new thread-safe apreq_env API.
+.PP
+.PP
+.IP "\(bu" 2
+C API [Max Kellermann] mod_apreq must check the return value of apreq_brigade_concat to avoid a RAM-consuming infinite loop. A bad APREQ_TempDir setting can cause this situation.
+.PP
+.PP
+.IP "\(bu" 2
+C API [joes] Provide workaround for chunked trailers bug in ap_http_filter.
+.PP
+.PP
+.IP "\(bu" 2
+C, Perl API [joes] Several upload-related bugfixes: 1) apreq_upload and apreq_uploads did not search the full body table, 2) $upload->slurp and $io->read did not autovivify the resultant string.
+.PP
+.PP
+.IP "\(bu" 2
+C API [joes] Add 'flags' attribute to \fBapreq_value_t\fP, planning for charset support. This is an ABI change, starting with libapreq2.so.2.0.24.
+.PP
+.PP
+.IP "\(bu" 2
+C API [joes] Add apreq_env_bucket_alloc() to get an allocator directly from the environment instead of creating them from a pool. This is an ABI change, starting with libapreq2.so.2.0.23.
+.PP
+.PP
+.IP "\(bu" 2
+Build system [joes] Add --with-apache2-httpd option so users can override apxs's notion of where the httpd executable is. XSBuilder's header parser runs from buildconf now instead of configure, so we will include those tables in the release tarball. buildconf gets an additional --with-perl option for running the xsbuilder.pl parsing script. The XS generation code in xsbuilder.pl has moved to glue/perl/Makefile.PL.
+.PP
+.PP
+.IP "\(bu" 2
+Perl API [joes] Allow ctors for Apache::Cookie, Apache::Cookie::Jar and \fBApache\fP:::Request to accept Apache::Request objects (instead of requiring an Apache::RequestRec object). This thread details the bug http://thread.gmane.org/gmane.comp.apache.mod-perl/15727
+.PP
+.PP
+.IP "\(bu" 2
+C API [Bojan Smojver] Bake cookies with err_headers_out so they are sent on non-2xx server responses (ie. a 304 redirect). Also ensure that headers are copied with apr_table_add instead of apr_table_addn. Since \fBapreq_cookie_bake()\fP allocates from the stack, the Set-Cookie headers would occasionally get mangled without this patch.
+.PP
+.PP
+.IP "\(bu" 2
+C API [joes] Add \fBapreq_register_parser()\fP, which allows users to add their own parsers to \fBapreq_parser()\fP's recognized MIME types.
+.PP
+.PP
+.IP "\(bu" 2
+C API [joes] Support 'multipart/mixed' file uploads. Support XForms' 'multipart/related' enctype.
+.PP
+.PP
+.IP "\(bu" 2
+C API [joes] Add apreq_hook_apr_xml_parser(), which is a simple wrapper hook around APR's expat-based apr_xml_parser. Add a generic parser apreq_parse_generic() to parse arbitrary enctypes using the hook API.
+.PP
 .SH "Changes with libapreq2-2.04-dev (released August 30, 2004)"
 .PP
 .IP "\(bu" 2
@@ -11,7 +311,7 @@ Perl API [joes] Add TAINT checks, marking all parsed data as tainted.
 .PP
 .PP
 .IP "\(bu" 2
-C API [joes] Add body_status attribute to \fBapreq_request_t\fP, to allow the both environment and the parser to report any errors encountered.
+C API [joes] Add body_status attribute to apreq_request_t, to allow the both environment and the parser to report any errors encountered.
 .PP
 .PP
 .IP "\(bu" 2
@@ -63,7 +363,7 @@ Perl API [joes] Added $jar->status, $req->args_status and $req->body_status to r
 .PP
 .PP
 .IP "\(bu" 2
-C API [joes] Dropped status attribute of \fBapreq_value_t\fP. Added status field to \fBapreq_jar_t\fP and added args_status field to \fBapreq_request_t\fP. Parsers also must return their public status code when a NULL brigade is passed. apreq_hook_disable_uploads() is also added. This is an ABI change affecting all versions of libapreq2 prior to 2.0.12.
+C API [joes] Dropped status attribute of \fBapreq_value_t\fP. Added status field to apreq_jar_t and added args_status field to apreq_request_t. Parsers also must return their public status code when a NULL brigade is passed. apreq_hook_disable_uploads() is also added. This is an ABI change affecting all versions of libapreq2 prior to 2.0.12.
 .PP
 .PP
 .IP "\(bu" 2
@@ -120,7 +420,7 @@ Perl test suite t/TEST.PL must run parent class' pre_configure to get the config
 .PP
 .PP
 .IP "\(bu" 2
-C API [joes] apreq_brigade_concat() wasn't supplying the final EOS bucket to large brigades (>256K), which somtimes caused the prefetch loop in \fBmod_apreq.c\fP's apreq_filter() to hang.
+C API [joes] \fBapreq_brigade_concat()\fP wasn't supplying the final EOS bucket to large brigades (>256K), which somtimes caused the prefetch loop in mod_apreq.c's apreq_filter() to hang.
 .PP
 .PP
 .IP "\(bu" 2
@@ -128,7 +428,7 @@ Documentation [joes] CHANGES file reformatted, removing dates & other clutter as
 .PP
 .PP
 .IP "\(bu" 2
-C API [joes] Rewrote cgi_read() in \fBapreq_env.c\fP and reworked \fBmod_apreq.c\fP to enforce \fBapreq_env_max_body()\fP settings.
+C API [joes] Rewrote cgi_read() in apreq_env.c and reworked mod_apreq.c to enforce apreq_env_max_body() settings.
 .PP
 .PP
 .IP "\(bu" 2
@@ -136,7 +436,7 @@ C API [joes] Fixed bug in url_parser code- missing context brigade was needed to
 .PP
 .PP
 .IP "\(bu" 2
-C API [joes] API modifications: removed struct apreq_cfg_t, adding new apreq_env hooks max_body, max_brigade_len, and temp_dir. Folded apreq_parsers.h into \fBapreq_params.h\fP and modified the arguments to apreq_run_parser() and apreq_run_hook(). Renamed apreq_parser_t's content_type as enctype and apreq_copy_brigade() as apreq_brigade_copy(). These changes make libapreq2.so.2.0.5 incompatible with earlier versions.
+C API [joes] API modifications: removed struct apreq_cfg_t, adding new apreq_env hooks max_body, max_brigade_len, and temp_dir. Folded apreq_parsers.h into apreq_params.h and modified the arguments to apreq_run_parser() and apreq_run_hook(). Renamed apreq_parser_t's content_type as enctype and apreq_copy_brigade() as \fBapreq_brigade_copy()\fP. These changes make libapreq2.so.2.0.5 incompatible with earlier versions.
 .PP
 .PP
 .IP "\(bu" 2
@@ -162,11 +462,11 @@ build system [joes] Skip Apache::Test tests in env/ when Apache::Test is unavail
 .PP
 .PP
 .IP "\(bu" 2
-C API \fBmod_apreq.c\fP [joes] Parser errors were creeping into the return value of apreq_filter, which breaks the 'transparent tee' paradigm. This caused bogus '400 Bad Request' responses (first reported by Vladimir Dudo) to occur when libapreq2 was used by an output filter during a GET request (handled by apache2's default handler). The test suite has been updated accordingly.
+C API mod_apreq.c [joes] Parser errors were creeping into the return value of apreq_filter, which breaks the 'transparent tee' paradigm. This caused bogus '400 Bad Request' responses (first reported by Vladimir Dudo) to occur when libapreq2 was used by an output filter during a GET request (handled by apache2's default handler). The test suite has been updated accordingly.
 .PP
 .PP
 .IP "\(bu" 2
-C API [joes] Incorporate libapreq_cgi into libapreq2 as the default environment, and add \fBapreq_env_t\fP and initializer \fBapreq_env_module()\fP to manage the environment at runtime (determining the environment at load-time was problematic on non-ELF systems).
+C API [joes] Incorporate libapreq_cgi into libapreq2 as the default environment, and add apreq_env_t and initializer apreq_env_module() to manage the environment at runtime (determining the environment at load-time was problematic on non-ELF systems).
 .PP
 .SH "Changes with libapreq2-2.00-dev (Oct 25, 2003)"
 .PP
@@ -175,7 +475,7 @@ C API: libapreq_cgi.c [randyk, joes] CGI environment defined by env/libapreq_cgi
 .PP
 .PP
 .IP "\(bu" 2
-C API: \fBmod_apreq.c\fP [joes] Added ctx->saw_eos to ensure we don't read from upstream filters after receiving an eos bucket. Otherwise it was possible for two eos buckets to appear when a prefetch read is involved, which breaks other modules like mod_proxy. This bug was uncovered by Philippe Chiasson. mod_apreq's apreq_env_majic_number bumped to reflect the added fixes.
+C API: mod_apreq.c [joes] Added ctx->saw_eos to ensure we don't read from upstream filters after receiving an eos bucket. Otherwise it was possible for two eos buckets to appear when a prefetch read is involved, which breaks other modules like mod_proxy. This bug was uncovered by Philippe Chiasson. mod_apreq's apreq_env_majic_number bumped to reflect the added fixes.
 .PP
 .PP
 .IP "\(bu" 2
@@ -191,11 +491,11 @@ C API [joes] Added versioning API following http://apr.apache.org/versioning.htm
 .PP
 .PP
 .IP "\(bu" 2
-configure: static \fBmod_apreq.c\fP [Bojan Smojver, joes] Add --with-apache2-src configure option, along with --with-apr-config and --with-apu-config, and provide support for compiling mod_apreq into httpd as a static apache module.
+configure: static mod_apreq.c [Bojan Smojver, joes] Add --with-apache2-src configure option, along with --with-apr-config and --with-apu-config, and provide support for compiling mod_apreq into httpd as a static apache module.
 .PP
 .PP
 .IP "\(bu" 2
-C API: \fBmod_apreq.c\fP [joes] Support for internal redirects added to the mod_apreq filter. This ensures any POST data prefetched in the main request gets passed along to the subrequest handler(s).
+C API: mod_apreq.c [joes] Support for internal redirects added to the mod_apreq filter. This ensures any POST data prefetched in the main request gets passed along to the subrequest handler(s).
 .PP
 .PP
 .IP "\(bu" 2
@@ -227,7 +527,7 @@ C API [joes] Added apreq_copy_brigade(bb) to \fBapreq.h\fP.
 .PP
 .PP
 .IP "\(bu" 2
-C API [joes] The new filter-based design required a complete departure from libapreq-1.X codebase. libapreq-2 is based solely on APR, and to be fully functional, requires a supporting environment similar to Apache-2. A person wishing to port libapreq-2 to a new environment needs to provide definitions for the declarations in \fBapreq_env.h\fP.
+C API [joes] The new filter-based design required a complete departure from libapreq-1.X codebase. libapreq-2 is based solely on APR, and to be fully functional, requires a supporting environment similar to Apache-2. A person wishing to port libapreq-2 to a new environment needs to provide definitions for the declarations in apreq_env.h.
 .PP
 .PP
 .IP "\(bu" 2

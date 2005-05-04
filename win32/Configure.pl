@@ -32,7 +32,9 @@ my $doxygen = which('doxygen');
 my $doxysearch = which('doxysearch');
 my $cfg = $debug ? 'Debug' : 'Release';
 
-check_depends();
+my @tests = qw(cookie parsers params version);
+my @test_files = map {catfile('library', 't', "$_.t")} @tests;
+generate_tests($apreq_home, \@tests);
 
 my %apr_libs;
 my %map = (apr => 'libapr.lib', apu => 'libaprutil.lib');
@@ -50,9 +52,19 @@ foreach (qw(apr apu)) {
     }
 }
 
+my $version_check = catfile $apreq_home, 'build', 'version_check.pl';
+my $cmd = join ' ', ($^X, $version_check, 'perl_prereqs');
+chomp(my $prereq_string = qx{$cmd});
+
 open(my $make, '>Makefile') or die qq{Cannot open Makefile: $!};
 print $make <<"END";
 # Microsoft Developer Studio Generated NMAKE File.
+#   The following is a trick to get CPAN clients to follow prerequisites:
+#
+#    $prereq_string
+#
+
+# --- MakeMaker post_initialize section:
 
 APREQ_HOME=$apreq_home
 APR_LIB=$apr_libs{apr}
@@ -62,6 +74,7 @@ APACHE=$apache
 PERL=$^X
 RM_F=\$(PERL) -MExtUtils::Command -e rm_f
 DOXYGEN_CONF=\$(APREQ_HOME)\\build\\doxygen.conf.win32
+TEST_FILES = @test_files
 
 END
 
@@ -74,14 +87,14 @@ unless ($apxs) {
 }
 
 my $test = << 'END';
-TEST: $(LIBAPREQ) $(MOD)
-	$(MAKE) /nologo /f $(CFG_HOME)\$(TESTALL).mak CFG="$(TESTALL) - Win32 $(CFG)" APACHE="$(APACHE)" APREQ_HOME="$(APREQ_HOME)" APR_LIB="$(APR_LIB)" APU_LIB="$(APU_LIB)"
-        set PATH=%PATH%;$(APACHE)\bin;$(APREQ_HOME)\win32\libs
-        cd $(LIBDIR) && $(TESTALL).exe -v
-        cd $(APREQ_HOME)
+TEST : TEST_APREQ2 PERL_TEST
+
+TEST_APREQ2: $(LIBAPREQ) $(MOD)
+	$(MAKE) /nologo /f $(CFG_HOME)\$(APREQ2_TEST).mak CFG="$(APREQ2_TEST) - Win32 $(CFG)" APACHE="$(APACHE)" APREQ_HOME="$(APREQ_HOME)" APR_LIB="$(APR_LIB)" APU_LIB="$(APU_LIB)"
+        set PATH=$(APREQ_HOME)\win32\libs;$(APACHE)\bin;$(PATH)
+        $(PERL) "-MExtUtils::Command::MM" "-e" "test_harness()" $(TEST_FILES)
+	cd $(APREQ_HOME)
 	$(MAKE) /nologo /f $(CFG_HOME)\$(CGITEST).mak CFG="$(CGITEST) - Win32 $(CFG)" APACHE="$(APACHE)" APREQ_HOME="$(APREQ_HOME)" APR_LIB="$(APR_LIB)" APU_LIB="$(APU_LIB)"
-        if not exist "$(APREQ_ENV)\t\cgi-bin" mkdir "$(APREQ_ENV)\t\cgi-bin"
-        copy $(LIBDIR)\test_cgi.exe $(APREQ_ENV)\t\cgi-bin\test_cgi.exe
         cd $(APREQ_HOME)
 END
 
@@ -89,8 +102,8 @@ my $clean = << 'END';
 CLEAN:
         cd $(LIBDIR)
         $(RM_F) *.pch *.exe *.exp *.lib *.pdb *.ilk *.idb *.so *.dll *.obj
-        cd $(APREQ_ENV)
-        $(PERL) t\TEST.PL -clean
+        cd $(TDIR)
+        $(RM_F) *.pch *.exe *.exp *.lib *.pdb *.ilk *.idb *.so *.dll *.obj
         cd $(APREQ_HOME)
 !IF EXIST("$(PERLGLUE)\Makefile")
         cd $(PERLGLUE)
@@ -101,12 +114,12 @@ END
 
 if ($apxs) {
     $test .= << "END";
-        cd \$(APREQ_ENV)
+        cd \$(APREQ_MODULE)
         \$(PERL) t\\TEST.PL -apxs $apxs
         cd \$(APREQ_HOME)
 END
     $clean .= << 'END';
-        cd $(APREQ_ENV)
+        cd $(APREQ_MODULE)
         $(PERL) t\TEST.PL -clean
         cd $(APREQ_HOME)
 END
@@ -155,14 +168,10 @@ print << "END";
 A Makefile has been generated in $apreq_home.
 You can now run
 
-  nmake               - builds the libapreq2 library
+  nmake               - builds the libapreq2 library and perl glue
   nmake test          - runs the supplied tests
-  nmake mod_apreq     - builds mod_apreq
-  nmake clean         - clean
-  nmake install       - install the C libraries
-  nmake perl_glue     - build the perl glue
-  nmake perl_test     - test the perl glue
-  nmake perl_install  - install the perl glue
+  nmake install       - install the C libraries and perl glue modules
+  nmake clean         - remove intermediate files
   nmake help          - list the nmake targets
 END
     if ($doxygen) {
@@ -316,27 +325,18 @@ END
     close $def;
 }
 
-sub check_depends {
-    my $rep = $] < 5.008 ? 
-        'http://theoryx5.uwinnipeg.ca/ppmpackages' :
-            'http://theoryx5.uwinnipeg.ca/ppms';
-    eval {require Apache2;};
-    for my $mod (qw(ExtUtils::XSBuilder Apache::Test)) {
-        eval "require $mod";
-        if ($@) {
-            if ($] < 5.008 and $mod eq 'ExtUtils::XSBuilder') {
-                warn "Perl 5.8 or higher is required for the Perl glue\n";
-                next;
-            }
-            print "I could not find $mod. ";
-            my $ans = prompt('Would you like to install it?', 'yes');
-            next unless $ans =~ /^y/i;
-            (my $ppd = $mod) =~ s!(\w+)::(\w+)!$1-$2.ppd!;
-            my @args = ('ppm', 'install', "$rep/$ppd");
-            system(@args) == 0
-                or warn "system @args failed: $?";
-        }
-    }
+sub generate_tests {
+  my ($top, $test_files) = @_;
+  my $t = catdir $top, 'library', 't';
+  foreach my $test(@$test_files) {
+    my $file = catfile $t, $test;
+    open my $fh, '>', "$file.t" || die "Cannot open $file.t: $!";
+    print $fh <<"EOT";
+#!$^X
+exec '$file';
+EOT
+    close $fh;
+  }
 }
 
 sub fetch_apxs {
@@ -389,9 +389,9 @@ END
 __DATA__
 
 LIBAPREQ=libapreq2
-TESTALL=testall
+APREQ2_TEST=apreq2_test
 CGITEST=test_cgi
-MOD=mod_apreq
+MOD=mod_apreq2
 
 !IF "$(CFG)" != "Release" && "$(CFG)" != "Debug"
 !MESSAGE Invalid configuration "$(CFG)" specified.
@@ -424,9 +424,12 @@ CFG_HOME=$(APREQ_HOME)\win32
 LIBDIR=$(CFG_HOME)\libs
 PERLGLUE=$(APREQ_HOME)\glue\perl
 APACHE_LIB=$(APACHE)\lib
-APREQ_ENV=$(APREQ_HOME)\env
+TDIR=$(APREQ_HOME)\library\t
+APREQ_MODULE=$(APREQ_HOME)\module
 
-ALL : "$(LIBAPREQ)"
+ALL : MAKE_ALL
+
+MAKE_ALL : $(LIBAPREQ) $(MOD) PERL_GLUE
 
 $(LIBAPREQ):
 	$(MAKE) /nologo /f $(CFG_HOME)\$(LIBAPREQ).mak CFG="$(LIBAPREQ) - Win32 $(CFG)" APACHE="$(APACHE)" APREQ_HOME="$(APREQ_HOME)" APR_LIB="$(APR_LIB)" APU_LIB="$(APU_LIB)"
@@ -445,18 +448,13 @@ PERL_TEST: $(MOD)
 !IF !EXIST("$(PERLGLUE)\Makefile")
 	$(PERL) Makefile.PL
 !ENDIF
+        set PATH=$(APREQ_HOME)\win32\libs;$(APACHE)\bin;$(PATH)
         $(MAKE) /nologo test
         cd $(APREQ_HOME)
 
-PERL_INSTALL: $(MOD)
-        cd $(PERLGLUE)
-!IF !EXIST("$(PERLGLUE)\Makefile")
-	$(PERL) Makefile.PL
-!ENDIF
-        $(MAKE) /nologo install
-        cd $(APREQ_HOME)
-
-INSTALL: $(LIBAPREQ)
+INSTALL : INSTALL_LIBAPREQ2 PERL_INSTALL
+ 
+INSTALL_LIBAPREQ2: $(LIBAPREQ)
         cd $(LIBDIR)
 !IF EXIST("$(LIBDIR)\$(MOD).so")
 	copy "$(MOD).so" "$(APACHE)\modules\$(MOD).so"
@@ -468,6 +466,14 @@ INSTALL: $(LIBAPREQ)
 !IF EXIST("$(LIBDIR)\$(LIBAPREQ).dll")
         copy "$(LIBAPREQ).dll" "$(APACHE)\bin\$(LIBAPREQ).dll"
 !ENDIF
+        cd $(APREQ_HOME)
+
+PERL_INSTALL: $(MOD)
+        cd $(PERLGLUE)
+!IF !EXIST("$(PERLGLUE)\Makefile")
+	$(PERL) Makefile.PL
+!ENDIF
+        $(MAKE) /nologo install
         cd $(APREQ_HOME)
 
 HELP:

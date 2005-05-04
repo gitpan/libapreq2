@@ -1,4 +1,4 @@
-.TH "apreq_install" 3 "30 Aug 2004" "Version 2.04-dev" "libapreq2" \" -*- nroff -*-
+.TH "apreq_install" 3 "4 May 2005" "Version 2.05-dev" "libapreq2" \" -*- nroff -*-
 .ad l
 .nh
 .SH NAME
@@ -8,7 +8,7 @@ apreq_install \- INSTALL
 PREREQUISITES:
 
 Please see the PREREQUISITES file.  If you are building httpd-apreq-2 
-directly from cvs, you can generate the list of prerequisites:
+directly from svn, you can generate the list of prerequisites:
 
             % perl build/version_check.pl
 
@@ -33,7 +33,7 @@ Apache::Cookie modules):
   (optional)% make test
             % make install
 
-Developers and other folks using httpd-apreq-2 directly from cvs need to
+Developers and other folks using httpd-apreq-2 directly from svn need to
 execute "./buildconf" prior to running "./configure".
 
 
@@ -64,6 +64,32 @@ Win32 build:
   C:\httpd-apreq-2> nmake mod_apreq
   C:\httpd-apreq-2> nmake perl_glue
   C:\httpd-apreq-2> nmake perl_test
+
+SVN (Subversion) ACCESS
+
+Development of httpd-apreq-2 can be followed through the svn repository:
+
+  $ svn checkout http://svn.apache.org/repos/asf/httpd/apreq/trunk/ httpd-apreq-2
+
+Developers with commit access must use the https protocol instead;
+note that, if you are compiling svn from sources, you must
+supply the configure script with the appropriate switch to
+enable ssl.
+
+Subversion sources, and binaries for some platforms, may be obtained
+through the home page:
+
+     http://subversion.tigris.org/
+
+Documentation on using svn is available at
+
+     http://svnbook.red-bean.com/
+
+In particular,
+
+     http://svnbook.red-bean.com/en/1.0/apa.html
+
+contains a guide for users familiar with cvs.
 
 
 

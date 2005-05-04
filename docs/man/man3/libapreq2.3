@@ -1,8 +1,8 @@
-.TH "Apache Request Library" 3 "30 Aug 2004" "Version 2.04-dev" "libapreq2" \" -*- nroff -*-
+.TH "Apache Request Library" 3 "4 May 2005" "Version 2.05-dev" "libapreq2" \" -*- nroff -*-
 .ad l
 .nh
 .SH NAME
-Apache Request Library \- libapreq2 Version 2.0.20  
+Apache Request Library \- libapreq2 Version 2.1.0  
 
 .PP
 .SS "Files"
@@ -11,7 +11,7 @@ Apache Request Library \- libapreq2 Version 2.0.20
 .ti -1c
 .RI "file \fBapreq.h\fP"
 .br
-.RI "\fICommon functions, structures and macros. \fP"
+.RI "\fIMain header file... \fP"
 .PP
 .in +1c
 
@@ -23,16 +23,37 @@ Apache Request Library \- libapreq2 Version 2.0.20
 .in +1c
 
 .ti -1c
-.RI "file \fBapreq_env.h\fP"
+.RI "file \fBapreq_error.h\fP"
 .br
-.RI "\fILogging and environment (module) declarations. \fP"
+.RI "\fIError status codes. \fP"
 .PP
 .in +1c
 
 .ti -1c
-.RI "file \fBapreq_params.h\fP"
+.RI "file \fBapreq_module.h\fP"
+.br
+.RI "\fIModule API. \fP"
+.PP
+.in +1c
+
+.ti -1c
+.RI "file \fBapreq_param.h\fP"
 .br
 .RI "\fIRequest parsing and parameter API. \fP"
+.PP
+.in +1c
+
+.ti -1c
+.RI "file \fBapreq_parser.h\fP"
+.br
+.RI "\fIRequest body parser API. \fP"
+.PP
+.in +1c
+
+.ti -1c
+.RI "file \fBapreq_util.h\fP"
+.br
+.RI "\fIUtility functions for apreq. \fP"
 .PP
 .in +1c
 
@@ -45,7 +66,7 @@ Apache Request Library \- libapreq2 Version 2.0.20
 .in -1c
 .SH "Detailed Description"
 .PP 
-libapreq2 Version 2.0.20 
+libapreq2 Version 2.1.0 
 .PP
 libapreq2 is a shared library based on the \fBApache\fP Portable Runtime libraries libapr and libaprutil. 
 .PP

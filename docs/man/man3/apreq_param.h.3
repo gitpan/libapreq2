@@ -1,4 +1,4 @@
-.TH "include/apreq_param.h" 3 "4 May 2005" "Version 2.05-dev" "libapreq2" \" -*- nroff -*-
+.TH "include/apreq_param.h" 3 "19 Jul 2005" "Version 2.06-dev" "libapreq2" \" -*- nroff -*-
 .ad l
 .nh
 .SH NAME
@@ -11,6 +11,13 @@ include/apreq_param.h \- Request parsing and parameter API.
 \fC#include 'apr_buckets.h'\fP
 .br
 
+.SS "Data Structures"
+
+.in +1c
+.ti -1c
+.RI "struct \fBapreq_param_t\fP"
+.br
+.in -1c
 .SS "Typedefs"
 
 .in +1c
@@ -108,7 +115,7 @@ APR_SUCCESS + apreq_charset_t (<=APREQ_CHARSET_UTF8) on success.
 .PP
 \fBRemarks:\fP
 .RS 4
-Unless vlen == 0, this function assumes there is exactly one character ('=') which separates the pair. 
+Unless vlen == 0, this function assumes there is exactly one character ('=') which separates the pair.
 .RE
 .PP
 
@@ -125,7 +132,7 @@ Url-encodes the param into a name-value pair.
 .PP
 \fBReturns:\fP
 .RS 4
-name-value pair representing the param. 
+name-value pair representing the param.
 .RE
 .PP
 
@@ -166,7 +173,7 @@ an array of apreq_param_t* (pointers)
 .PP
 \fBRemarks:\fP
 .RS 4
-Also parses the request if necessary. 
+Also parses the request if necessary.
 .RE
 .PP
 
@@ -192,7 +199,7 @@ the joined string or NULL on error
 .PP
 \fBRemarks:\fP
 .RS 4
-Also parses the request if necessary. 
+Also parses the request if necessary.
 .RE
 .PP
 
@@ -216,7 +223,7 @@ APR_SUCCESS if successful, error otherwise.
 .PP
 \fBRemarks:\fP
 .RS 4
-This function uses [&;] as the set of tokens to delineate words, and will treat a word w/o '=' as a name-value pair with value-length = 0. 
+This function uses [&;] as the set of tokens to delineate words, and will treat a word w/o '=' as a name-value pair with value-length = 0.
 .RE
 .PP
 
@@ -238,7 +245,7 @@ Corresponding upload, NULL if none found.
 .PP
 \fBRemarks:\fP
 .RS 4
-Will parse the request as necessary. 
+Will parse the request as necessary.
 .RE
 .PP
 
@@ -260,7 +267,7 @@ Upload table.
 .PP
 \fBRemarks:\fP
 .RS 4
-Will parse the request if necessary. 
+Will parse the request if necessary.
 .RE
 .PP
 

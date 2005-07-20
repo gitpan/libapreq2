@@ -5,22 +5,19 @@ use APR::Request::Cookie;
 use APR::Request::Apache2;
 use APR::Request qw/encode decode/;
 use Apache2::RequestRec;
+use Apache2::RequestUtil;
 use overload '""' => sub { shift->as_string() }, fallback => 1;
 
 push our @ISA, "APR::Request::Cookie";
-our $VERSION = "2.05-dev";
+our $VERSION = "2.06-dev";
 
 sub new {
     my ($class, $r, %attrs) = @_;
-    my $name  = delete $attrs{name};
-    my $value = delete $attrs{value};
-    $name     = delete $attrs{-name}  unless defined $name;
-    $value    = delete $attrs{-value} unless defined $value;
+    my ($name)  = grep {defined} delete $attrs{name} , delete $attrs{-name};
+    my ($value) = grep {defined} delete $attrs{value}, delete $attrs{-value};
     return unless defined $name and defined $value;
 
-    my $cookie = $class->make($r->pool, $name,
-                              $class->freeze($value));
-
+    my $cookie = $class->make($r->pool, $name, $class->freeze($value));
     while(my ($k, $v) = each %attrs) {
         $k =~ s/^-//;
         $cookie->$k($v);
@@ -28,22 +25,23 @@ sub new {
     return $cookie;
 }
 
-
 sub fetch {
     my $class = shift;
     my $req = shift;
     unless (defined $req) {
         my $usage = 'Usage: Apache2::Cookie->fetch($r): missing argument $r';
-        $req = eval {Apache2->request} or die <<EOD;
-$usage: attempt to fetch global Apache->request failed: $@.
+        $req = eval {Apache2::RequestUtil->request} or die <<EOD;
+$usage: attempt to fetch global Apache2::RequestUtil->request failed: $@.
 EOD
     }
-    $req = APR::Request::Apache2->handle($req) unless $req->isa("APR::Request");
+    $req = APR::Request::Apache2->handle($req)
+        unless $req->isa("APR::Request");
+
     my $jar = $req->jar or return;
     $jar->cookie_class(__PACKAGE__);
+    return $jar->get(shift) if @_;
     return wantarray ? %$jar : $jar;
 }
-
 
 sub set_attr {
     my ($cookie, %attrs) = @_;
@@ -95,12 +93,8 @@ sub bake2 {
 package Apache2::Cookie::Jar;
 use APR::Request::Apache2;
 push our @ISA, qw/APR::Request::Apache2/;
-sub cookies { Apache2::Cookie->fetch(shift) }
+sub cookies { Apache2::Cookie->fetch(@_) }
 *Apache2::Cookie::Jar::status = *APR::Request::jar_status;
-
-my %old_args = (
-    value_class => "cookie_class",
-);
 
 sub new {
     my $class = shift;
@@ -108,7 +102,7 @@ sub new {
     my %attrs = @_;
     while (my ($k, $v) = each %attrs) {
         $k =~ s/^-//;
-        my $method = $old_args{lc($k)} || lc $k;
+        my $method = lc $k;
         $jar->$method($v);
     }
     return $jar;
@@ -186,36 +180,10 @@ accessing the incoming params and file uploads.
 
 =head2 new
 
-    Apache2::Cookie::Jar->new($env, %args)
+    Apache2::Cookie::Jar->new($env)
 
 Class method that retrieves the parsed cookie jar from the current 
-environment.  An optional VALUE_CLASS => $class argument instructs
-the jar to bless any returned cookies into $class instead
-of Apache2::Cookie.  This feature is meant to be useful in situations 
-where C<Apache2::Cookie::thaw()> is unable to correctly interpret an incoming
-cookie's serialization.  Users can simply override C<thaw> in an
-application-specific subclass and pass that subclass's name as the 
-VALUE_CLASS argument:
-
-=for example begin
-
-    {
-        package FOO;
-        @ISA= 'Apache2::Cookie';
-    }
-    my $jar = Apache2::Cookie::Jar->new($r, VALUE_CLASS => "FOO");
-    ok $jar->cookies("foo")->isa("FOO");
-    ok $jar->cookies->{bar}->isa("FOO");
-
-=for example end
-
-=for example_testing
-    ok $jar->isa("Apache2::Cookie::Jar");
-    $jar->cookies->do(sub { ok $_[1]->isa("FOO"); });
-    map { ok $_->isa("FOO") } values %{$jar->cookies};
-
-
-
+environment.
 
 =head2 cookies
 
@@ -270,25 +238,9 @@ C<cookies> will croak if the parser failed to successfully parse the
 =head2 status
 
     $jar->status()
-    $jar->status($set)
 
-Get or set the I<APR> status code of the cookie parser:
+Get the I<APR> status code of the cookie parser:
 APR_SUCCESS on success, error otherwise.
-
-=for example begin
-
-    $j->status(-1);
-    ok $j->status == -1;
-    eval { @cookies = $j->cookies("foo") };   # croaks
-    ok $@->isa("Apache2::Cookie::Jar::Error");
-    $j->status(0);
-
-=for example end
-
-=for example_testing
-    ok $j->status == 0,            '$j->status == 0';
-    @cookies = $j->cookies("foo");
-    ok @cookies == 2,              '@cookies == 2';
 
 
 

@@ -2,8 +2,8 @@
 use warnings;
 use strict;
 
-our($PACKAGE_NAME, $PACKAGE_TITLE, $PACKAGE_VERSION, $LIBRARY_VERSION);
-foreach (qw/PACKAGE_TITLE PACKAGE_NAME PACKAGE_VERSION LIBRARY_VERSION/) {
+our($PACKAGE_VERSION, $LIBRARY_VERSION);
+foreach (qw/PACKAGE_VERSION LIBRARY_VERSION/) {
     no strict 'refs';
     my $opt = lc;
     $opt =~ tr/_/-/;
@@ -32,7 +32,7 @@ $CPAN_DATA =~ /^has entered CPAN as(.+?)\nNo action is required/ms
     or die "Bad CPAN message:\n$CPAN_DATA";
 $CPAN_DATA = $1;
 
-my $TITLE = "$PACKAGE_TITLE Released";
+my $TITLE = "libapreq2-$PACKAGE_VERSION Released";
 
 my $mail_header = <<EOH;
 Subject: [ANNOUNCE] $TITLE
@@ -50,7 +50,6 @@ Announcement notes significant changes introduced by this release.
 libapreq2-$PACKAGE_VERSION is released under the Apache License
 version $LICENSE_VERSION.  It is now available through the ASF mirrors
 
-      http://httpd.apache.org/apreq/download.cgi
       http://httpd.apache.org/apreq/download.cgi
 
 and has entered the CPAN as $CPAN_DATA

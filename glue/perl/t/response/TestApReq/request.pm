@@ -17,11 +17,8 @@ use File::Spec;
 my $data;
 
 sub hook {
-    my ($upload, $buffer, $len) = @_;
+    my ($upload, $buffer) = @_;
     warn "$upload saw EOS" and return unless defined $buffer;
-
-    die "BAD UPLOAD ARGS" unless length $buffer == $len;
-    warn "$upload saw $buffer";
     $data .= $buffer;
 }
 
@@ -29,10 +26,10 @@ sub handler {
     my $r = shift;
     my $temp_dir =
         File::Spec->catfile(Apache2::ServerUtil::server_root, 'logs'); 
-    my $req = Apache2::Request->new($r);#, POST_MAX => 1_000_000,
-                                        #TEMP_DIR => $temp_dir);
-    $req->temp_dir($temp_dir);
-    $req->read_limit(1_000_000);
+    my $req = Apache2::Request->new($r, POST_MAX => 1_000_000,
+                                        TEMP_DIR => $temp_dir);
+#    $req->temp_dir($temp_dir);
+#    $req->read_limit(1_000_000);
     $req->content_type('text/plain');
 
     my $test  = $req->APR::Request::args('test');
@@ -116,7 +113,6 @@ sub handler {
         $r->print(<$io>);
     }
     elsif ($test eq 'bad') {
-        require APR::Request::Error;
         eval {my $q = $req->APR::Request::args('query')};
         if (ref $@ && $@->isa("APR::Request::Error")) {
             $req->upload("HTTPUPLOAD")->slurp(my $data);
@@ -136,7 +132,6 @@ sub handler {
         $r->print($upload->type);
     }
     elsif ($test eq 'disable_uploads') {
-        require APR::Request::Error;
         $req->disable_uploads(1);
         eval {my $upload = $req->upload('HTTPUPLOAD')};
         if (ref $@ eq "APR::Request::Error") {

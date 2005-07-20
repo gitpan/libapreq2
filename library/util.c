@@ -591,6 +591,15 @@ APREQ_DECLARE(apr_status_t) apreq_decode(char *d, apr_size_t *dlen,
     }
 
     rv = url_decode(d, dlen, &c, s, &slen);
+
+    if (rv == APR_INCOMPLETE && c == APREQ_CHARSET_UTF8) {
+        c = APREQ_CHARSET_LATIN1;
+        len += *dlen;
+        d += *dlen;
+        slen = end - (s + slen);
+        rv = url_decode(d, dlen, &c, d, &slen);
+    }
+
     *dlen += len;
 
     return rv + c;
@@ -620,13 +629,18 @@ APREQ_DECLARE(apr_status_t) apreq_decodev(char *d, apr_size_t *dlen,
         case APR_INCOMPLETE:
             d += len;
             *dlen += len;
+            slen = v[n].iov_len - slen;
 
-            if (++n == nelts)
-                return APR_INCOMPLETE + c;
-
-            len = v[n-1].iov_len - slen;
-            memcpy(d + len, v[n].iov_base, v[n].iov_len);
-            v[n].iov_len += len;
+            if (++n == nelts) {
+                if (c == APREQ_CHARSET_UTF8) {
+                    c = APREQ_CHARSET_LATIN1;
+                    status = url_decode(d, &len, &c, d, &slen);
+                    *dlen += len;
+                }
+                return status + c;
+            }
+            memcpy(d + slen, v[n].iov_base, v[n].iov_len);
+            v[n].iov_len += slen;
             v[n].iov_base = d;
             continue;
 
@@ -635,7 +649,8 @@ APREQ_DECLARE(apr_status_t) apreq_decodev(char *d, apr_size_t *dlen,
             return status;
         }
     }
-    return APR_SUCCESS + c;
+
+    return status + c;
 }
 
 
@@ -743,7 +758,7 @@ APREQ_DECLARE(char *) apreq_join(apr_pool_t *p,
                                  const apr_array_header_t *arr,
                                  apreq_join_t mode)
 {
-    apr_ssize_t len, slen;
+    apr_size_t len, slen;
     char *rv;
     const apreq_value_t **a = (const apreq_value_t **)arr->elts;
     char *d;
@@ -1077,7 +1092,7 @@ APREQ_DECLARE(apr_status_t)
             }
         }
 
-        if (strncasecmp(key, name, nlen) == 0) {
+        if (key >= hdr && strncasecmp(key, name, nlen) == 0) {
             *vlen = v - *val;
             if (key == hdr || ! is_2616_token(key[-1]))
                 return APR_SUCCESS;
@@ -1237,7 +1252,12 @@ APREQ_DECLARE(apr_status_t) apreq_brigade_concat(apr_pool_t *pool,
             e->start = last_out->start + FILE_BUCKET_LIMIT;
             wlen -= FILE_BUCKET_LIMIT - last_out->length;
             last_out->length = FILE_BUCKET_LIMIT;
+
+            /* Copying makes the bucket types exactly the
+             * opposite of what we need here.
+             */
             last_out->type = &apr_bucket_type_file;
+            e->type = &spool_bucket_type;
 
             APR_BRIGADE_INSERT_TAIL(out, e);
             last_out = e;

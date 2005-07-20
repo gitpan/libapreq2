@@ -4,6 +4,8 @@
     <name>apr_anylock.h</name>
     <path>/home/joe/src/apache/apr/apr-util/trunk/include/</path>
     <filename>apr__anylock_8h</filename>
+    <class kind="struct">apr_anylock_t</class>
+    <class kind="union">apr_anylock_t::apr_anylock_u_t</class>
     <member kind="define">
       <type>#define</type>
       <name>APR_ANYLOCK_LOCK</name>
@@ -84,6 +86,15 @@
     <name>apr_buckets.h</name>
     <path>/home/joe/src/apache/apr/apr-util/trunk/include/</path>
     <filename>apr__buckets_8h</filename>
+    <class kind="struct">apr_bucket_type_t</class>
+    <class kind="struct">apr_bucket</class>
+    <class kind="struct">apr_bucket_brigade</class>
+    <class kind="struct">apr_bucket_refcount</class>
+    <class kind="struct">apr_bucket_heap</class>
+    <class kind="struct">apr_bucket_pool</class>
+    <class kind="struct">apr_bucket_mmap</class>
+    <class kind="struct">apr_bucket_file</class>
+    <class kind="union">apr_bucket_structs</class>
     <member kind="define">
       <type>#define</type>
       <name>APR_BUCKET_BUFF_SIZE</name>
@@ -921,6 +932,7 @@
     <name>apr_dbm.h</name>
     <path>/home/joe/src/apache/apr/apr-util/trunk/include/</path>
     <filename>apr__dbm_8h</filename>
+    <class kind="struct">apr_datum_t</class>
     <member kind="define">
       <type>#define</type>
       <name>APR_DBM_READONLY</name>
@@ -1213,42 +1225,42 @@
     </member>
     <member kind="define">
       <type>#define</type>
-      <name>APR_HAS_NOVELL_LDAPSDK</name>
+      <name>APR_HAS_SOLARIS_LDAPSDK</name>
       <anchorfile>group___a_p_r___util___l_d_a_p.html</anchorfile>
       <anchor>ga2</anchor>
       <arglist></arglist>
     </member>
     <member kind="define">
       <type>#define</type>
-      <name>APR_HAS_OPENLDAP_LDAPSDK</name>
+      <name>APR_HAS_NOVELL_LDAPSDK</name>
       <anchorfile>group___a_p_r___util___l_d_a_p.html</anchorfile>
       <anchor>ga3</anchor>
       <arglist></arglist>
     </member>
     <member kind="define">
       <type>#define</type>
-      <name>APR_HAS_MICROSOFT_LDAPSDK</name>
+      <name>APR_HAS_MOZILLA_LDAPSDK</name>
       <anchorfile>group___a_p_r___util___l_d_a_p.html</anchorfile>
       <anchor>ga4</anchor>
       <arglist></arglist>
     </member>
     <member kind="define">
       <type>#define</type>
-      <name>APR_HAS_OTHER_LDAPSDK</name>
+      <name>APR_HAS_OPENLDAP_LDAPSDK</name>
       <anchorfile>group___a_p_r___util___l_d_a_p.html</anchorfile>
       <anchor>ga5</anchor>
       <arglist></arglist>
     </member>
     <member kind="define">
       <type>#define</type>
-      <name>APR_HAS_LDAP_SSL</name>
+      <name>APR_HAS_MICROSOFT_LDAPSDK</name>
       <anchorfile>group___a_p_r___util___l_d_a_p.html</anchorfile>
       <anchor>ga6</anchor>
       <arglist></arglist>
     </member>
     <member kind="define">
       <type>#define</type>
-      <name>APR_HAS_LDAP_URL_PARSE</name>
+      <name>APR_HAS_OTHER_LDAPSDK</name>
       <anchorfile>group___a_p_r___util___l_d_a_p.html</anchorfile>
       <anchor>ga7</anchor>
       <arglist></arglist>
@@ -1276,6 +1288,7 @@
     <path>/home/joe/src/apache/apr/apr-util/trunk/include/</path>
     <filename>apr__md4_8h</filename>
     <includes id="apr__xlate_8h" name="apr_xlate.h" local="yes" imported="no">apr_xlate.h</includes>
+    <class kind="struct">apr_md4_ctx_t</class>
     <member kind="define">
       <type>#define</type>
       <name>APR_MD4_DIGESTSIZE</name>
@@ -1331,6 +1344,7 @@
     <path>/home/joe/src/apache/apr/apr-util/trunk/include/</path>
     <filename>apr__md5_8h</filename>
     <includes id="apr__xlate_8h" name="apr_xlate.h" local="yes" imported="no">apr_xlate.h</includes>
+    <class kind="struct">apr_md5_ctx_t</class>
     <member kind="define">
       <type>#define</type>
       <name>APR_MD5_DIGESTSIZE</name>
@@ -1719,6 +1733,7 @@
     <name>apr_sdbm.h</name>
     <path>/home/joe/src/apache/apr/apr-util/trunk/include/</path>
     <filename>apr__sdbm_8h</filename>
+    <class kind="struct">apr_sdbm_datum_t</class>
     <member kind="define">
       <type>#define</type>
       <name>APR_SDBM_DIRFEXT</name>
@@ -1836,6 +1851,7 @@
     <name>apr_sha1.h</name>
     <path>/home/joe/src/apache/apr/apr-util/trunk/include/</path>
     <filename>apr__sha1_8h</filename>
+    <class kind="struct">apr_sha1_ctx_t</class>
     <member kind="define">
       <type>#define</type>
       <name>APR_SHA1_DIGESTSIZE</name>
@@ -1904,6 +1920,7 @@
     <name>apr_strmatch.h</name>
     <path>/home/joe/src/apache/apr/apr-util/trunk/include/</path>
     <filename>apr__strmatch_8h</filename>
+    <class kind="struct">apr_strmatch_pattern</class>
     <member kind="typedef">
       <type>apr_strmatch_pattern</type>
       <name>apr_strmatch_pattern</name>
@@ -1930,6 +1947,7 @@
     <name>apr_uri.h</name>
     <path>/home/joe/src/apache/apr/apr-util/trunk/include/</path>
     <filename>apr__uri_8h</filename>
+    <class kind="struct">apr_uri_t</class>
     <member kind="define">
       <type>#define</type>
       <name>APR_URI_FTP_DEFAULT_PORT</name>
@@ -2145,6 +2163,7 @@
     <name>apr_uuid.h</name>
     <path>/home/joe/src/apache/apr/apr-util/trunk/include/</path>
     <filename>apr__uuid_8h</filename>
+    <class kind="struct">apr_uuid_t</class>
     <member kind="define">
       <type>#define</type>
       <name>APR_UUID_FORMATTED_LENGTH</name>
@@ -2240,6 +2259,11 @@
     <path>/home/joe/src/apache/apr/apr-util/trunk/include/</path>
     <filename>apr__xml_8h</filename>
     <namespace>Apache</namespace>
+    <class kind="struct">apr_text</class>
+    <class kind="struct">apr_text_header</class>
+    <class kind="struct">apr_xml_attr</class>
+    <class kind="struct">apr_xml_elem</class>
+    <class kind="struct">apr_xml_doc</class>
     <member kind="define">
       <type>#define</type>
       <name>APR_XML_NS_DAV_ID</name>
@@ -2464,30 +2488,51 @@
     </member>
     <member kind="define">
       <type>#define</type>
-      <name>APU_VERSION_STRING</name>
+      <name>APU_IS_DEV_STRING</name>
       <anchorfile>apu__version_8h.html</anchorfile>
       <anchor>a4</anchor>
       <arglist></arglist>
     </member>
     <member kind="define">
       <type>#define</type>
-      <name>APU_IS_DEV_STRING</name>
+      <name>APU_STRINGIFY</name>
       <anchorfile>apu__version_8h.html</anchorfile>
       <anchor>a5</anchor>
+      <arglist>(n)</arglist>
+    </member>
+    <member kind="define">
+      <type>#define</type>
+      <name>APU_STRINGIFY_HELPER</name>
+      <anchorfile>apu__version_8h.html</anchorfile>
+      <anchor>a6</anchor>
+      <arglist>(n)</arglist>
+    </member>
+    <member kind="define">
+      <type>#define</type>
+      <name>APU_VERSION_STRING</name>
+      <anchorfile>apu__version_8h.html</anchorfile>
+      <anchor>a7</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="define">
+      <type>#define</type>
+      <name>APU_VERSION_STRING_CSV</name>
+      <anchorfile>apu__version_8h.html</anchorfile>
+      <anchor>a8</anchor>
       <arglist></arglist>
     </member>
     <member kind="function">
       <type>void</type>
       <name>apu_version</name>
       <anchorfile>apu__version_8h.html</anchorfile>
-      <anchor>a6</anchor>
+      <anchor>a9</anchor>
       <arglist>(apr_version_t *pvsn)</arglist>
     </member>
     <member kind="function">
       <type>const char *</type>
       <name>apu_version_string</name>
       <anchorfile>apu__version_8h.html</anchorfile>
-      <anchor>a7</anchor>
+      <anchor>a10</anchor>
       <arglist>(void)</arglist>
     </member>
   </compound>
@@ -2840,7 +2885,7 @@
       <arglist></arglist>
     </member>
     <member kind="variable">
-      <type>enum apr_bucket_type_t::@2</type>
+      <type>enum apr_bucket_type_t::@0</type>
       <name>is_metadata</name>
       <anchorfile>structapr__bucket__type__t.html</anchorfile>
       <anchor>o2</anchor>
@@ -4652,42 +4697,42 @@
     </member>
     <member kind="define">
       <type>#define</type>
-      <name>APR_HAS_NOVELL_LDAPSDK</name>
+      <name>APR_HAS_SOLARIS_LDAPSDK</name>
       <anchorfile>group___a_p_r___util___l_d_a_p.html</anchorfile>
       <anchor>ga2</anchor>
       <arglist></arglist>
     </member>
     <member kind="define">
       <type>#define</type>
-      <name>APR_HAS_OPENLDAP_LDAPSDK</name>
+      <name>APR_HAS_NOVELL_LDAPSDK</name>
       <anchorfile>group___a_p_r___util___l_d_a_p.html</anchorfile>
       <anchor>ga3</anchor>
       <arglist></arglist>
     </member>
     <member kind="define">
       <type>#define</type>
-      <name>APR_HAS_MICROSOFT_LDAPSDK</name>
+      <name>APR_HAS_MOZILLA_LDAPSDK</name>
       <anchorfile>group___a_p_r___util___l_d_a_p.html</anchorfile>
       <anchor>ga4</anchor>
       <arglist></arglist>
     </member>
     <member kind="define">
       <type>#define</type>
-      <name>APR_HAS_OTHER_LDAPSDK</name>
+      <name>APR_HAS_OPENLDAP_LDAPSDK</name>
       <anchorfile>group___a_p_r___util___l_d_a_p.html</anchorfile>
       <anchor>ga5</anchor>
       <arglist></arglist>
     </member>
     <member kind="define">
       <type>#define</type>
-      <name>APR_HAS_LDAP_SSL</name>
+      <name>APR_HAS_MICROSOFT_LDAPSDK</name>
       <anchorfile>group___a_p_r___util___l_d_a_p.html</anchorfile>
       <anchor>ga6</anchor>
       <arglist></arglist>
     </member>
     <member kind="define">
       <type>#define</type>
-      <name>APR_HAS_LDAP_URL_PARSE</name>
+      <name>APR_HAS_OTHER_LDAPSDK</name>
       <anchorfile>group___a_p_r___util___l_d_a_p.html</anchorfile>
       <anchor>ga7</anchor>
       <arglist></arglist>
@@ -5868,23 +5913,51 @@
     </member>
     <member kind="define">
       <type>#define</type>
-      <name>APU_HAVE_APR_ICONV</name>
+      <name>APU_HAVE_PGSQL</name>
       <anchorfile>group___a_p_r___util.html</anchorfile>
       <anchor>ga8</anchor>
       <arglist></arglist>
     </member>
     <member kind="define">
       <type>#define</type>
-      <name>APU_HAVE_ICONV</name>
+      <name>APU_HAVE_MYSQL</name>
       <anchorfile>group___a_p_r___util.html</anchorfile>
       <anchor>ga9</anchor>
       <arglist></arglist>
     </member>
     <member kind="define">
       <type>#define</type>
-      <name>APR_HAS_XLATE</name>
+      <name>APU_HAVE_SQLITE3</name>
       <anchorfile>group___a_p_r___util.html</anchorfile>
       <anchor>ga10</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="define">
+      <type>#define</type>
+      <name>APU_HAVE_SQLITE2</name>
+      <anchorfile>group___a_p_r___util.html</anchorfile>
+      <anchor>ga11</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="define">
+      <type>#define</type>
+      <name>APU_HAVE_APR_ICONV</name>
+      <anchorfile>group___a_p_r___util.html</anchorfile>
+      <anchor>ga12</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="define">
+      <type>#define</type>
+      <name>APU_HAVE_ICONV</name>
+      <anchorfile>group___a_p_r___util.html</anchorfile>
+      <anchor>ga13</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="define">
+      <type>#define</type>
+      <name>APR_HAS_XLATE</name>
+      <anchorfile>group___a_p_r___util.html</anchorfile>
+      <anchor>ga14</anchor>
       <arglist></arglist>
     </member>
   </compound>

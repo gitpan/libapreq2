@@ -1,5 +1,3 @@
-use APR::Request::Error;
-
 sub import {
     my $class = shift;
     return unless @_;
@@ -17,3 +15,6 @@ sub param_status {
     return $req->args_status || $req->body_status if wantarray;
     return ($req->args_status, $req->body_status);
 }
+
+package APR::Request::Custom;
+our @ISA = qw/APR::Request/;

@@ -713,177 +713,184 @@
     </member>
     <member kind="define">
       <type>#define</type>
-      <name>APR_FILES_AS_SOCKETS</name>
+      <name>APR_PROCATTR_USER_SET_REQUIRES_PASSWORD</name>
       <anchorfile>group__apr__platform.html</anchorfile>
       <anchor>ga112</anchor>
       <arglist></arglist>
     </member>
     <member kind="define">
       <type>#define</type>
-      <name>APR_CHARSET_EBCDIC</name>
+      <name>APR_FILES_AS_SOCKETS</name>
       <anchorfile>group__apr__platform.html</anchorfile>
       <anchor>ga113</anchor>
       <arglist></arglist>
     </member>
     <member kind="define">
       <type>#define</type>
-      <name>APR_TCP_NOPUSH_FLAG</name>
+      <name>APR_CHARSET_EBCDIC</name>
       <anchorfile>group__apr__platform.html</anchorfile>
       <anchor>ga114</anchor>
       <arglist></arglist>
     </member>
     <member kind="define">
       <type>#define</type>
-      <name>APR_TCP_NODELAY_INHERITED</name>
+      <name>APR_TCP_NOPUSH_FLAG</name>
       <anchorfile>group__apr__platform.html</anchorfile>
       <anchor>ga115</anchor>
       <arglist></arglist>
     </member>
     <member kind="define">
       <type>#define</type>
-      <name>APR_O_NONBLOCK_INHERITED</name>
+      <name>APR_TCP_NODELAY_INHERITED</name>
       <anchorfile>group__apr__platform.html</anchorfile>
       <anchor>ga116</anchor>
       <arglist></arglist>
     </member>
     <member kind="define">
       <type>#define</type>
-      <name>APR_SIZEOF_VOIDP</name>
+      <name>APR_O_NONBLOCK_INHERITED</name>
       <anchorfile>group__apr__platform.html</anchorfile>
       <anchor>ga117</anchor>
       <arglist></arglist>
     </member>
     <member kind="define">
       <type>#define</type>
-      <name>APR_IS_BIGENDIAN</name>
+      <name>APR_SIZEOF_VOIDP</name>
       <anchorfile>group__apr__platform.html</anchorfile>
       <anchor>ga118</anchor>
       <arglist></arglist>
     </member>
     <member kind="define">
       <type>#define</type>
-      <name>APR_INT64_C</name>
+      <name>APR_IS_BIGENDIAN</name>
       <anchorfile>group__apr__platform.html</anchorfile>
       <anchor>ga119</anchor>
-      <arglist>(val)</arglist>
+      <arglist></arglist>
     </member>
     <member kind="define">
       <type>#define</type>
-      <name>APR_UINT64_C</name>
+      <name>APR_INT64_C</name>
       <anchorfile>group__apr__platform.html</anchorfile>
       <anchor>ga120</anchor>
       <arglist>(val)</arglist>
     </member>
     <member kind="define">
       <type>#define</type>
-      <name>APR_THREAD_FUNC</name>
+      <name>APR_UINT64_C</name>
       <anchorfile>group__apr__platform.html</anchorfile>
       <anchor>ga121</anchor>
+      <arglist>(val)</arglist>
+    </member>
+    <member kind="define">
+      <type>#define</type>
+      <name>APR_THREAD_FUNC</name>
+      <anchorfile>group__apr__platform.html</anchorfile>
+      <anchor>ga122</anchor>
       <arglist></arglist>
     </member>
     <member kind="define">
       <type>#define</type>
       <name>APR_DECLARE</name>
       <anchorfile>group__apr__platform.html</anchorfile>
-      <anchor>ga122</anchor>
+      <anchor>ga123</anchor>
       <arglist>(type)</arglist>
     </member>
     <member kind="define">
       <type>#define</type>
       <name>APR_DECLARE_NONSTD</name>
       <anchorfile>group__apr__platform.html</anchorfile>
-      <anchor>ga123</anchor>
+      <anchor>ga124</anchor>
       <arglist>(type)</arglist>
     </member>
     <member kind="define">
       <type>#define</type>
       <name>APR_DECLARE_DATA</name>
       <anchorfile>group__apr__platform.html</anchorfile>
-      <anchor>ga124</anchor>
+      <anchor>ga125</anchor>
       <arglist></arglist>
     </member>
     <member kind="define">
       <type>#define</type>
       <name>APR_SSIZE_T_FMT</name>
       <anchorfile>group__apr__platform.html</anchorfile>
-      <anchor>ga125</anchor>
+      <anchor>ga126</anchor>
       <arglist></arglist>
     </member>
     <member kind="define">
       <type>#define</type>
       <name>APR_SIZE_T_FMT</name>
       <anchorfile>group__apr__platform.html</anchorfile>
-      <anchor>ga126</anchor>
+      <anchor>ga127</anchor>
       <arglist></arglist>
     </member>
     <member kind="define">
       <type>#define</type>
       <name>APR_OFF_T_FMT</name>
       <anchorfile>group__apr__platform.html</anchorfile>
-      <anchor>ga127</anchor>
+      <anchor>ga128</anchor>
       <arglist></arglist>
     </member>
     <member kind="define">
       <type>#define</type>
       <name>APR_PID_T_FMT</name>
       <anchorfile>group__apr__platform.html</anchorfile>
-      <anchor>ga128</anchor>
+      <anchor>ga129</anchor>
       <arglist></arglist>
     </member>
     <member kind="define">
       <type>#define</type>
       <name>APR_INT64_T_FMT</name>
       <anchorfile>group__apr__platform.html</anchorfile>
-      <anchor>ga129</anchor>
+      <anchor>ga130</anchor>
       <arglist></arglist>
     </member>
     <member kind="define">
       <type>#define</type>
       <name>APR_UINT64_T_FMT</name>
       <anchorfile>group__apr__platform.html</anchorfile>
-      <anchor>ga130</anchor>
+      <anchor>ga131</anchor>
       <arglist></arglist>
     </member>
     <member kind="define">
       <type>#define</type>
       <name>APR_UINT64_T_HEX_FMT</name>
       <anchorfile>group__apr__platform.html</anchorfile>
-      <anchor>ga131</anchor>
+      <anchor>ga132</anchor>
       <arglist></arglist>
     </member>
     <member kind="define">
       <type>#define</type>
       <name>APR_PROC_MUTEX_IS_GLOBAL</name>
       <anchorfile>group__apr__platform.html</anchorfile>
-      <anchor>ga132</anchor>
+      <anchor>ga133</anchor>
       <arglist></arglist>
     </member>
     <member kind="define">
       <type>#define</type>
       <name>APR_EOL_STR</name>
       <anchorfile>group__apr__platform.html</anchorfile>
-      <anchor>ga133</anchor>
+      <anchor>ga134</anchor>
       <arglist></arglist>
     </member>
     <member kind="define">
       <type>#define</type>
       <name>apr_wait_t</name>
       <anchorfile>group__apr__platform.html</anchorfile>
-      <anchor>ga134</anchor>
+      <anchor>ga135</anchor>
       <arglist></arglist>
     </member>
     <member kind="define">
       <type>#define</type>
       <name>WEXITSTATUS</name>
       <anchorfile>group__apr__platform.html</anchorfile>
-      <anchor>ga135</anchor>
+      <anchor>ga136</anchor>
       <arglist>(status)</arglist>
     </member>
     <member kind="define">
       <type>#define</type>
       <name>WTERMSIG</name>
       <anchorfile>group__apr__platform.html</anchorfile>
-      <anchor>ga136</anchor>
+      <anchor>ga137</anchor>
       <arglist>(status)</arglist>
     </member>
     <member kind="typedef">
@@ -973,6 +980,7 @@
     <includes id="apr__want_8h" name="apr_want.h" local="yes" imported="no">apr_want.h</includes>
     <includes id="apr__pools_8h" name="apr_pools.h" local="yes" imported="no">apr_pools.h</includes>
     <includes id="apr__thread__mutex_8h" name="apr_thread_mutex.h" local="yes" imported="no">apr_thread_mutex.h</includes>
+    <class kind="struct">apr_memnode_t</class>
     <member kind="define">
       <type>#define</type>
       <name>APR_WANT_MEMFUNC</name>
@@ -2370,6 +2378,7 @@
     <includes id="apr__tables_8h" name="apr_tables.h" local="yes" imported="no">apr_tables.h</includes>
     <includes id="apr__time_8h" name="apr_time.h" local="yes" imported="no">apr_time.h</includes>
     <includes id="apr__errno_8h" name="apr_errno.h" local="yes" imported="no">apr_errno.h</includes>
+    <class kind="struct">apr_finfo_t</class>
     <member kind="define">
       <type>#define</type>
       <name>APR_FPROT_USETID</name>
@@ -3839,6 +3848,8 @@
     <path>/home/joe/src/apache/apr/apr/trunk/include/</path>
     <filename>apr__getopt_8h</filename>
     <includes id="apr__pools_8h" name="apr_pools.h" local="yes" imported="no">apr_pools.h</includes>
+    <class kind="struct">apr_getopt_t</class>
+    <class kind="struct">apr_getopt_option_t</class>
     <member kind="typedef">
       <type>void(</type>
       <name>apr_getopt_err_fn_t</name>
@@ -4097,6 +4108,7 @@
     <filename>apr__lib_8h</filename>
     <includes id="apr_8h" name="apr.h" local="yes" imported="no">apr.h</includes>
     <includes id="apr__errno_8h" name="apr_errno.h" local="yes" imported="no">apr_errno.h</includes>
+    <class kind="struct">apr_vformatter_buff_t</class>
     <member kind="define">
       <type>#define</type>
       <name>HUGE_STRING_LEN</name>
@@ -4247,6 +4259,7 @@
     <includes id="apr__errno_8h" name="apr_errno.h" local="yes" imported="no">apr_errno.h</includes>
     <includes id="apr__ring_8h" name="apr_ring.h" local="yes" imported="no">apr_ring.h</includes>
     <includes id="apr__file__io_8h" name="apr_file_io.h" local="yes" imported="no">apr_file_io.h</includes>
+    <class kind="struct">apr_mmap_t</class>
     <member kind="define">
       <type>#define</type>
       <name>APR_MMAP_READ</name>
@@ -4327,6 +4340,8 @@
     <includes id="apr__file__io_8h" name="apr_file_io.h" local="yes" imported="no">apr_file_io.h</includes>
     <includes id="apr__errno_8h" name="apr_errno.h" local="yes" imported="no">apr_errno.h</includes>
     <includes id="apr__inherit_8h" name="apr_inherit.h" local="yes" imported="no">apr_inherit.h</includes>
+    <class kind="struct">apr_sockaddr_t</class>
+    <class kind="struct">apr_hdtr_t</class>
     <member kind="define">
       <type>#define</type>
       <name>APR_MAX_SECS_TO_LINGER</name>
@@ -4888,6 +4903,8 @@
     <includes id="apr__inherit_8h" name="apr_inherit.h" local="yes" imported="no">apr_inherit.h</includes>
     <includes id="apr__file__io_8h" name="apr_file_io.h" local="yes" imported="no">apr_file_io.h</includes>
     <includes id="apr__network__io_8h" name="apr_network_io.h" local="yes" imported="no">apr_network_io.h</includes>
+    <class kind="union">apr_descriptor</class>
+    <class kind="struct">apr_pollfd_t</class>
     <member kind="define">
       <type>#define</type>
       <name>APR_POLLIN</name>
@@ -5317,6 +5334,8 @@
     <includes id="apr__time_8h" name="apr_time.h" local="yes" imported="no">apr_time.h</includes>
     <includes id="apr__dso_8h" name="apr_dso.h" local="yes" imported="no">apr_dso.h</includes>
     <includes id="apr__shm_8h" name="apr_shm.h" local="yes" imported="no">apr_shm.h</includes>
+    <class kind="struct">apr_os_proc_mutex_t</class>
+    <class kind="struct">apr_os_sock_info_t</class>
     <member kind="define">
       <type>#define</type>
       <name>apr_os_global_mutex_t</name>
@@ -6238,6 +6257,8 @@
     <filename>apr__tables_8h</filename>
     <includes id="apr_8h" name="apr.h" local="yes" imported="no">apr.h</includes>
     <includes id="apr__pools_8h" name="apr_pools.h" local="yes" imported="no">apr_pools.h</includes>
+    <class kind="struct">apr_array_header_t</class>
+    <class kind="struct">apr_table_entry_t</class>
     <member kind="define">
       <type>#define</type>
       <name>APR_OVERLAP_TABLES_SET</name>
@@ -6622,6 +6643,7 @@
     <includes id="apr__file__io_8h" name="apr_file_io.h" local="yes" imported="no">apr_file_io.h</includes>
     <includes id="apr__pools_8h" name="apr_pools.h" local="yes" imported="no">apr_pools.h</includes>
     <includes id="apr__errno_8h" name="apr_errno.h" local="yes" imported="no">apr_errno.h</includes>
+    <class kind="struct">apr_proc_t</class>
     <member kind="define">
       <type>#define</type>
       <name>APR_PROC_CHECK_EXIT</name>
@@ -7342,6 +7364,7 @@
     <includes id="apr_8h" name="apr.h" local="yes" imported="no">apr.h</includes>
     <includes id="apr__pools_8h" name="apr_pools.h" local="yes" imported="no">apr_pools.h</includes>
     <includes id="apr__errno_8h" name="apr_errno.h" local="yes" imported="no">apr_errno.h</includes>
+    <class kind="struct">apr_time_exp_t</class>
     <member kind="define">
       <type>#define</type>
       <name>APR_TIME_C</name>
@@ -7629,6 +7652,7 @@
     <path>/home/joe/src/apache/apr/apr/trunk/include/</path>
     <filename>apr__version_8h</filename>
     <includes id="apr_8h" name="apr.h" local="yes" imported="no">apr.h</includes>
+    <class kind="struct">apr_version_t</class>
     <member kind="define">
       <type>#define</type>
       <name>APR_MAJOR_VERSION</name>
@@ -9294,177 +9318,184 @@
     </member>
     <member kind="define">
       <type>#define</type>
-      <name>APR_FILES_AS_SOCKETS</name>
+      <name>APR_PROCATTR_USER_SET_REQUIRES_PASSWORD</name>
       <anchorfile>group__apr__platform.html</anchorfile>
       <anchor>ga112</anchor>
       <arglist></arglist>
     </member>
     <member kind="define">
       <type>#define</type>
-      <name>APR_CHARSET_EBCDIC</name>
+      <name>APR_FILES_AS_SOCKETS</name>
       <anchorfile>group__apr__platform.html</anchorfile>
       <anchor>ga113</anchor>
       <arglist></arglist>
     </member>
     <member kind="define">
       <type>#define</type>
-      <name>APR_TCP_NOPUSH_FLAG</name>
+      <name>APR_CHARSET_EBCDIC</name>
       <anchorfile>group__apr__platform.html</anchorfile>
       <anchor>ga114</anchor>
       <arglist></arglist>
     </member>
     <member kind="define">
       <type>#define</type>
-      <name>APR_TCP_NODELAY_INHERITED</name>
+      <name>APR_TCP_NOPUSH_FLAG</name>
       <anchorfile>group__apr__platform.html</anchorfile>
       <anchor>ga115</anchor>
       <arglist></arglist>
     </member>
     <member kind="define">
       <type>#define</type>
-      <name>APR_O_NONBLOCK_INHERITED</name>
+      <name>APR_TCP_NODELAY_INHERITED</name>
       <anchorfile>group__apr__platform.html</anchorfile>
       <anchor>ga116</anchor>
       <arglist></arglist>
     </member>
     <member kind="define">
       <type>#define</type>
-      <name>APR_SIZEOF_VOIDP</name>
+      <name>APR_O_NONBLOCK_INHERITED</name>
       <anchorfile>group__apr__platform.html</anchorfile>
       <anchor>ga117</anchor>
       <arglist></arglist>
     </member>
     <member kind="define">
       <type>#define</type>
-      <name>APR_IS_BIGENDIAN</name>
+      <name>APR_SIZEOF_VOIDP</name>
       <anchorfile>group__apr__platform.html</anchorfile>
       <anchor>ga118</anchor>
       <arglist></arglist>
     </member>
     <member kind="define">
       <type>#define</type>
-      <name>APR_INT64_C</name>
+      <name>APR_IS_BIGENDIAN</name>
       <anchorfile>group__apr__platform.html</anchorfile>
       <anchor>ga119</anchor>
-      <arglist>(val)</arglist>
+      <arglist></arglist>
     </member>
     <member kind="define">
       <type>#define</type>
-      <name>APR_UINT64_C</name>
+      <name>APR_INT64_C</name>
       <anchorfile>group__apr__platform.html</anchorfile>
       <anchor>ga120</anchor>
       <arglist>(val)</arglist>
     </member>
     <member kind="define">
       <type>#define</type>
-      <name>APR_THREAD_FUNC</name>
+      <name>APR_UINT64_C</name>
       <anchorfile>group__apr__platform.html</anchorfile>
       <anchor>ga121</anchor>
+      <arglist>(val)</arglist>
+    </member>
+    <member kind="define">
+      <type>#define</type>
+      <name>APR_THREAD_FUNC</name>
+      <anchorfile>group__apr__platform.html</anchorfile>
+      <anchor>ga122</anchor>
       <arglist></arglist>
     </member>
     <member kind="define">
       <type>#define</type>
       <name>APR_DECLARE</name>
       <anchorfile>group__apr__platform.html</anchorfile>
-      <anchor>ga122</anchor>
+      <anchor>ga123</anchor>
       <arglist>(type)</arglist>
     </member>
     <member kind="define">
       <type>#define</type>
       <name>APR_DECLARE_NONSTD</name>
       <anchorfile>group__apr__platform.html</anchorfile>
-      <anchor>ga123</anchor>
+      <anchor>ga124</anchor>
       <arglist>(type)</arglist>
     </member>
     <member kind="define">
       <type>#define</type>
       <name>APR_DECLARE_DATA</name>
       <anchorfile>group__apr__platform.html</anchorfile>
-      <anchor>ga124</anchor>
+      <anchor>ga125</anchor>
       <arglist></arglist>
     </member>
     <member kind="define">
       <type>#define</type>
       <name>APR_SSIZE_T_FMT</name>
       <anchorfile>group__apr__platform.html</anchorfile>
-      <anchor>ga125</anchor>
+      <anchor>ga126</anchor>
       <arglist></arglist>
     </member>
     <member kind="define">
       <type>#define</type>
       <name>APR_SIZE_T_FMT</name>
       <anchorfile>group__apr__platform.html</anchorfile>
-      <anchor>ga126</anchor>
+      <anchor>ga127</anchor>
       <arglist></arglist>
     </member>
     <member kind="define">
       <type>#define</type>
       <name>APR_OFF_T_FMT</name>
       <anchorfile>group__apr__platform.html</anchorfile>
-      <anchor>ga127</anchor>
+      <anchor>ga128</anchor>
       <arglist></arglist>
     </member>
     <member kind="define">
       <type>#define</type>
       <name>APR_PID_T_FMT</name>
       <anchorfile>group__apr__platform.html</anchorfile>
-      <anchor>ga128</anchor>
+      <anchor>ga129</anchor>
       <arglist></arglist>
     </member>
     <member kind="define">
       <type>#define</type>
       <name>APR_INT64_T_FMT</name>
       <anchorfile>group__apr__platform.html</anchorfile>
-      <anchor>ga129</anchor>
+      <anchor>ga130</anchor>
       <arglist></arglist>
     </member>
     <member kind="define">
       <type>#define</type>
       <name>APR_UINT64_T_FMT</name>
       <anchorfile>group__apr__platform.html</anchorfile>
-      <anchor>ga130</anchor>
+      <anchor>ga131</anchor>
       <arglist></arglist>
     </member>
     <member kind="define">
       <type>#define</type>
       <name>APR_UINT64_T_HEX_FMT</name>
       <anchorfile>group__apr__platform.html</anchorfile>
-      <anchor>ga131</anchor>
+      <anchor>ga132</anchor>
       <arglist></arglist>
     </member>
     <member kind="define">
       <type>#define</type>
       <name>APR_PROC_MUTEX_IS_GLOBAL</name>
       <anchorfile>group__apr__platform.html</anchorfile>
-      <anchor>ga132</anchor>
+      <anchor>ga133</anchor>
       <arglist></arglist>
     </member>
     <member kind="define">
       <type>#define</type>
       <name>APR_EOL_STR</name>
       <anchorfile>group__apr__platform.html</anchorfile>
-      <anchor>ga133</anchor>
+      <anchor>ga134</anchor>
       <arglist></arglist>
     </member>
     <member kind="define">
       <type>#define</type>
       <name>apr_wait_t</name>
       <anchorfile>group__apr__platform.html</anchorfile>
-      <anchor>ga134</anchor>
+      <anchor>ga135</anchor>
       <arglist></arglist>
     </member>
     <member kind="define">
       <type>#define</type>
       <name>WEXITSTATUS</name>
       <anchorfile>group__apr__platform.html</anchorfile>
-      <anchor>ga135</anchor>
+      <anchor>ga136</anchor>
       <arglist>(status)</arglist>
     </member>
     <member kind="define">
       <type>#define</type>
       <name>WTERMSIG</name>
       <anchorfile>group__apr__platform.html</anchorfile>
-      <anchor>ga136</anchor>
+      <anchor>ga137</anchor>
       <arglist>(status)</arglist>
     </member>
     <member kind="typedef">

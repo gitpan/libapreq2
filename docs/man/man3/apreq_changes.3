@@ -1,8 +1,46 @@
-.TH "apreq_changes" 3 "4 May 2005" "Version 2.05-dev" "libapreq2" \" -*- nroff -*-
+.TH "apreq_changes" 3 "19 Jul 2005" "Version 2.06-dev" "libapreq2" \" -*- nroff -*-
 .ad l
 .nh
 .SH NAME
 apreq_changes \- CHANGES
+! brief List of major changes.
+.SH "Changes with libapreq2-2.06 (released July 20, 2005)"
+.PP
+.IP "\(bu" 2
+C API [Marc Gràcia, joes] Fix apreq_decode(v) when iso-latin-1 chars appear at the end of an encoded string.
+.PP
+.PP
+.IP "\(bu" 2
+Perl API [Philip M. Gollucci] Fix 'Attempt to free temp prematurely' error in apreq_xs_croak().
+.PP
+.PP
+.IP "\(bu" 2
+C API [Philip M. Gollucci] Add mod_apreq2 to httpd's server tokens.
+.PP
+.PP
+.IP "\(bu" 2
+Perl API [joes] Drop support for $req->env(), which also died with 2.05-dev.
+.PP
+.PP
+.IP "\(bu" 2
+Perl API [joes] Support for table set/add/delete methods is formally withdrawn. Technically this feature died with the module API refactoring in 2.05-dev.
+.PP
+.PP
+.IP "\(bu" 2
+C API [max] Right-hand limit of \fBapreq_brigade_move()\fP is declared as 'excluding', but \fBAPR_RING_UNSPLICE()\fP wants an 'including' right-hand limit. Fixed this by passing the previous bucket.
+.PP
+.PP
+.IP "\(bu" 2
+Perl API [joes] Drop support for Apache2::Request::new's HOOK_DATA. UPLOAD_HOOK now takes only two arguments: ($upload, $data).
+.PP
+.PP
+.IP "\(bu" 2
+Perl API [joes] Drop support for Apache2::Cookie::Jar::new's VALUE_CLASS. 2.05-dev broke that API, and it's not worth trying to fix. People who need that should use APR::Request::Cookie::Table's cookie_class() API instead.
+.PP
+.PP
+.IP "\(bu" 2
+Perl API [joes] Fix cookie domain/path munging in Apache2::Cookie::new().
+.PP
 .SH "Changes with libapreq2-2.05-dev (released May 5, 2005)"
 .PP
 .IP "\(bu" 2
@@ -38,7 +76,7 @@ Perl API [joes] Move bake, bake2 to Apache2::Cookie, now requiring an extra $r a
 .PP
 .PP
 .IP "\(bu" 2
-C API [joes] Remove header_in & header_out from \fBapreq_module_t\fP. Remove \fBapreq_ua_cookie_version()\fP and apreq_cookie_bake*(). Remove cookie2 argument to \fBapreq_handle_custom()\fP.
+C API [joes] Remove header_in & header_out from \fBapreq_module_t\fP. Remove apreq_ua_cookie_version() and apreq_cookie_bake*(). Remove cookie2 argument to \fBapreq_handle_custom()\fP.
 .PP
 .PP
 .IP "\(bu" 2
@@ -286,11 +324,11 @@ Build system [joes] Add --with-apache2-httpd option so users can override apxs's
 .PP
 .PP
 .IP "\(bu" 2
-Perl API [joes] Allow ctors for Apache::Cookie, Apache::Cookie::Jar and \fBApache\fP:::Request to accept Apache::Request objects (instead of requiring an Apache::RequestRec object). This thread details the bug http://thread.gmane.org/gmane.comp.apache.mod-perl/15727
+Perl API [joes] Allow ctors for Apache::Cookie, Apache::Cookie::Jar and \fBApache\fP:Request to accept Apache::Request objects (instead of requiring an Apache::RequestRec object). This thread details the bug http://thread.gmane.org/gmane.comp.apache.mod-perl/15727
 .PP
 .PP
 .IP "\(bu" 2
-C API [Bojan Smojver] Bake cookies with err_headers_out so they are sent on non-2xx server responses (ie. a 304 redirect). Also ensure that headers are copied with apr_table_add instead of apr_table_addn. Since \fBapreq_cookie_bake()\fP allocates from the stack, the Set-Cookie headers would occasionally get mangled without this patch.
+C API [Bojan Smojver] Bake cookies with err_headers_out so they are sent on non-2xx server responses (ie. a 304 redirect). Also ensure that headers are copied with apr_table_add instead of apr_table_addn. Since apreq_cookie_bake() allocates from the stack, the Set-Cookie headers would occasionally get mangled without this patch.
 .PP
 .PP
 .IP "\(bu" 2
@@ -363,8 +401,10 @@ Perl API [joes] Added $jar->status, $req->args_status and $req->body_status to r
 .PP
 .PP
 .IP "\(bu" 2
-C API [joes] Dropped status attribute of \fBapreq_value_t\fP. Added status field to apreq_jar_t and added args_status field to apreq_request_t. Parsers also must return their public status code when a NULL brigade is passed. apreq_hook_disable_uploads() is also added. This is an ABI change affecting all versions of libapreq2 prior to 2.0.12.
+C API [joes] Dropped status attribute of \fBapreq_value_t\fP. Added status field to apreq_jar_t and added args_status field to apreq_request_t. Parsers also must return their public status code when a NULL brigade is passed. apreq_hook_disable_uploads() is also added.
 .PP
+.PP
+This is an ABI change affecting all versions of libapreq2 prior to 2.0.12.
 .PP
 .IP "\(bu" 2
 Perl API [joes] $upload->info returns a proper APR::Table object now. Also implemented $upload->size, $upload->fh, and $upload->type.

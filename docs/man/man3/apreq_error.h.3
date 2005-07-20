@@ -1,8 +1,10 @@
-.TH "include/apreq_error.h" 3 "4 May 2005" "Version 2.05-dev" "libapreq2" \" -*- nroff -*-
+.TH "include/apreq_error.h" 3 "19 Jul 2005" "Version 2.06-dev" "libapreq2" \" -*- nroff -*-
 .ad l
 .nh
 .SH NAME
-include/apreq_error.h \- Error status codes. 
+include/apreq_error.h \- Error status codes.
+.PP
+Define the APREQ_ error codes. 
 .SH SYNOPSIS
 .br
 .PP
@@ -81,9 +83,11 @@ include/apreq_error.h \- Error status codes.
 .in -1c
 .SH "Detailed Description"
 .PP 
-Error status codes. 
-
+Error status codes.
+.PP
 Define the APREQ_ error codes. 
+
+
 .SH "Define Documentation"
 .PP 
 .SS "#define APREQ_ERROR_BADATTR   (APREQ_ERROR_BADDATA  +  3)"
@@ -144,7 +148,7 @@ Below configured minimum limit.
 .PP 
 .SS "char* apreq_strerror (\fBapr_status_t\fP s, char * buf, \fBapr_size_t\fP bufsize)"
 .PP
-apreq's wrapper around \fBapr_strerror()\fP; recognizes APREQ_ERROR_* status codes. 
+apreq's wrapper around \fBapr_strerror()\fP; recognizes APREQ_ERROR_* status codes.
 .SH "Author"
 .PP 
 Generated automatically by Doxygen for libapreq2 from the source code.

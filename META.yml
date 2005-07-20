@@ -1,29 +1,34 @@
 --- #YAML:1.0 (see http://module-build.sourceforge.net/META-spec.html)
 name: libapreq2
-version: 2.05-dev
+version: 2.06-dev
 license: open_source
 installdirs: site
 distribution_type: module
 dynamic_config: 1
 provides:
   Apache2::Request:
-    version: 2.05-dev
+    version: 2.06-dev
   Apache2::Cookie:
-    version: 2.05-dev
+    version: 2.06-dev
   Apache2::Upload:
-    version: 2.05-dev
+    version: 2.06-dev
   APR::Request:
-    version: 2.05-dev
+    version: 2.06-dev
   APR::Request::Apache2:
-    version: 2.05-dev
+    version: 2.06-dev
   APR::Request::CGI:
-    version: 2.05-dev
+    version: 2.06-dev
   APR::Request::Error:
-    version: 2.05-dev
+    version: 2.06-dev
   APR::Request::Cookie:
-    version: 2.05-dev
+    version: 2.06-dev
   APR::Request::Param:
-    version: 2.05-dev
+    version: 2.06-dev
+no_index:
+  directory:
+    - glue/perl/xsbuilder/tables/APR/Request
+    - glue/perl/t/response/TestAPI
+    - glue/perl/t/response/TestApReq
 generated_by: build/version_check.pl
 requires:
   mod_perl: 1.999022

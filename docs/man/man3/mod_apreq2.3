@@ -1,10 +1,20 @@
-.TH "Apache 2.X Filter Module" 3 "4 May 2005" "Version 2.05-dev" "libapreq2" \" -*- nroff -*-
+.TH "Apache 2.X Filter Module" 3 "19 Jul 2005" "Version 2.06-dev" "libapreq2" \" -*- nroff -*-
 .ad l
 .nh
 .SH NAME
 Apache 2.X Filter Module \- mod_apreq2 - DSO that ties libapreq2 to \fBApache\fP HTTPD 2.X.  
 
 .PP
+.SS "Defines"
+
+.in +1c
+.ti -1c
+.RI "#define \fBAPREQ_FILTER_NAME\fP   'apreq2'"
+.br
+.ti -1c
+.RI "#define \fBAPREQ_APACHE2_MMN\fP   20050712"
+.br
+.in -1c
 .SS "Functions"
 
 .in +1c
@@ -47,7 +57,7 @@ This is especially true when a content handler uses libapreq2 to parse some of t
 .PP
 .SS "Server Configuration Directives"
 .PP
-Directive Context DefaultDescription  APREQ2_ReadLimit directory #APREQ_DEFAULT_READ_LIMIT  Maximum number of bytes mod_apreq2 will send off to libapreq2 for parsing. mod_apreq2 will log this event and subsequently remove itself from the filter chain.   APREQ2_BrigadeLimit directory #APREQ_DEFAULT_BRIGADE_LIMIT Maximum number of bytes mod_apreq2 will let accumulate within the heap-buckets in a brigade. Excess data will be spooled to an appended file bucket.   APREQ2_TempDir directory NULL Sets the location of the temporary directory apreq will use to spool overflow brigade data (based on the APREQ2_BrigadeLimit setting). If left unset, libapreq2 will select a platform-specific location via \fBapr_temp_dir_get()\fP.   Per-directory commands for mod_apreq2
+Directive Context DefaultDescription  APREQ2_ReadLimit directory APREQ_DEFAULT_READ_LIMIT  Maximum number of bytes mod_apreq2 will send off to libapreq2 for parsing. mod_apreq2 will log this event and subsequently remove itself from the filter chain.   APREQ2_BrigadeLimit directory APREQ_DEFAULT_BRIGADE_LIMIT Maximum number of bytes mod_apreq2 will let accumulate within the heap-buckets in a brigade. Excess data will be spooled to an appended file bucket.   APREQ2_TempDir directory NULL Sets the location of the temporary directory apreq will use to spool overflow brigade data (based on the APREQ2_BrigadeLimit setting). If left unset, libapreq2 will select a platform-specific location via \fBapr_temp_dir_get()\fP.   Per-directory commands for mod_apreq2
 .PP
 .SS "Implementation Details"
 .PP
@@ -61,9 +71,9 @@ Directive Context DefaultDescription  APREQ2_ReadLimit directory #APREQ_DEFAULT_
  
 .fi
 .PP
- 
+
 .SH "Function Documentation"
 .PP 
 .SS "\fBapreq_handle_t\fP* apreq_handle_apache2 (request_rec * r)"
 .PP
-Create an apreq handle which communicates with an \fBApache\fP 2.X request_rec. 
+Create an apreq handle which communicates with an \fBApache\fP 2.X request_rec.

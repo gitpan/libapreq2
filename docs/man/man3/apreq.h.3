@@ -1,8 +1,10 @@
-.TH "include/apreq.h" 3 "4 May 2005" "Version 2.05-dev" "libapreq2" \" -*- nroff -*-
+.TH "include/apreq.h" 3 "19 Jul 2005" "Version 2.06-dev" "libapreq2" \" -*- nroff -*-
 .ad l
 .nh
 .SH NAME
-include/apreq.h \- Main header file... 
+include/apreq.h \- Main header file...
+.PP
+Define the generic APREQ_ macros and common data structures. 
 .SH SYNOPSIS
 .br
 .PP
@@ -11,6 +13,14 @@ include/apreq.h \- Main header file...
 \fC#include <stddef.h>\fP
 .br
 
+.SS "Data Structures"
+
+.in +1c
+.ti -1c
+.RI "struct \fBapreq_value_t\fP"
+.br
+.RI "\fIlibapreq's pre-extensible string type \fP"
+.in -1c
 .SS "Defines"
 
 .in +1c
@@ -117,9 +127,11 @@ include/apreq.h \- Main header file...
 .in -1c
 .SH "Detailed Description"
 .PP 
-Main header file... 
-
+Main header file...
+.PP
 Define the generic APREQ_ macros and common data structures. 
+
+
 .SH "Define Documentation"
 .PP 
 .SS "#define APREQ_FLAGS_SET(f, name, value)"
@@ -139,7 +151,7 @@ Character encodings.
 .PP
 Expiration date format 
 .PP
-\fBEnumeration values: \fP
+\fBEnumerator: \fP
 .in +1c
 .TP
 \fB\fIAPREQ_EXPIRES_HTTP \fP\fP
@@ -151,7 +163,7 @@ Use format consistent with Netscape's Cookie Spec
 .PP
 Join type 
 .PP
-\fBEnumeration values: \fP
+\fBEnumerator: \fP
 .in +1c
 .TP
 \fB\fIAPREQ_JOIN_AS_IS \fP\fP
@@ -169,7 +181,7 @@ Quote the strings, backslashing existing quote marks.
 .PP
 Match type 
 .PP
-\fBEnumeration values: \fP
+\fBEnumerator: \fP
 .in +1c
 .TP
 \fB\fIAPREQ_MATCH_FULL \fP\fP
@@ -190,7 +202,7 @@ Initialize libapreq2. Applications (except apache modules using mod_apreq) shoul
 .PP
 \fBRemarks:\fP
 .RS 4
-after you detroy the pool, you have to call this function again with a new pool if you still plan to use libapreq2 
+after you detroy the pool, you have to call this function again with a new pool if you still plan to use libapreq2
 .RE
 .PP
 
@@ -200,7 +212,7 @@ Post-initialize libapreq2. Applications (except apache modules using mod_apreq2)
 .PP
 \fBParameters:\fP
 .RS 4
-\fIpool\fP the same pool that was used in \fBapreq_pre_initialize()\fP. 
+\fIpool\fP the same pool that was used in \fBapreq_pre_initialize()\fP.
 .RE
 .PP
 
@@ -215,7 +227,7 @@ Pre-initialize libapreq2. Applications (except apache modules using mod_apreq2) 
 .PP
 \fBRemarks:\fP
 .RS 4
-after you detroyed the pool, you have to call this function again with a new pool if you still plan to use libapreq2 
+after you detroyed the pool, you have to call this function again with a new pool if you still plan to use libapreq2
 .RE
 .PP
 

@@ -23,7 +23,6 @@
 
 struct custom_handle {
     struct apreq_handle_t        handle;
-    const char                  *cookie_header;
 
     apr_table_t                 *jar, *args, *body;
     apr_status_t                 jar_status,
@@ -250,24 +249,27 @@ static apr_status_t custom_temp_dir_set(apreq_handle_t *handle,
 }
 
 
-static APREQ_MODULE(custom, 20050425);
+static APREQ_MODULE(custom, 20050516);
 
-APREQ_DECLARE(apreq_handle_t*) apreq_handle_custom(apr_pool_t *pool,
-                                                       const char *query_string,
-                                                       const char *cookie,
-                                                       apreq_parser_t *parser,
-                                                       apr_uint64_t read_limit,
-                                                       apr_bucket_brigade *in)
+APREQ_DECLARE(apreq_handle_t *)apreq_handle_custom(apr_pool_t *pool,
+                                                   const char *query_string,
+                                                   const char *cookie,
+                                                   apreq_parser_t *parser,
+                                                   apr_uint64_t read_limit,
+                                                   apr_bucket_brigade *in)
 {
     struct custom_handle *req;
     req = apr_palloc(pool, sizeof(*req));
     req->handle.module = &custom_module;
     req->handle.pool = pool;
     req->handle.bucket_alloc = in->bucket_alloc;
-    req->cookie_header = cookie;
     req->read_limit = read_limit;
     req->parser = parser;
-    req->in = in;
+    req->in = apr_brigade_create(pool, in->bucket_alloc);
+    req->tmpbb = apr_brigade_create(pool, in->bucket_alloc);
+    req->body = apr_table_make(pool, APREQ_DEFAULT_NELTS);
+    req->body_status = APR_INCOMPLETE;
+    APR_BRIGADE_CONCAT(req->in, in);
 
     if (cookie != NULL) {
         req->jar = apr_table_make(pool, APREQ_DEFAULT_NELTS);
@@ -290,14 +292,9 @@ APREQ_DECLARE(apreq_handle_t*) apreq_handle_custom(apr_pool_t *pool,
         req->args_status = APREQ_ERROR_NODATA;
     }
 
-    if (in != NULL) {
-        req->tmpbb = apr_brigade_create(pool, in->bucket_alloc);
-        req->body = apr_table_make(pool, APREQ_DEFAULT_NELTS);
-        req->body_status = APR_INCOMPLETE;
-    }
-    else {
-        req->body = NULL;
-        req->body_status = APREQ_ERROR_NODATA;
+    if (!APR_BUCKET_IS_EOS(APR_BRIGADE_LAST(req->in))) {
+        apr_bucket *eos = apr_bucket_eos_create(in->bucket_alloc);
+        APR_BRIGADE_INSERT_TAIL(req->in, eos);
     }
 
     return &req->handle;

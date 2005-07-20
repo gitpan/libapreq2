@@ -1,4 +1,4 @@
-.TH "include/apreq_module.h" 3 "4 May 2005" "Version 2.05-dev" "libapreq2" \" -*- nroff -*-
+.TH "include/apreq_module.h" 3 "19 Jul 2005" "Version 2.06-dev" "libapreq2" \" -*- nroff -*-
 .ad l
 .nh
 .SH NAME
@@ -13,6 +13,17 @@ include/apreq_module.h \- Module API.
 \fC#include 'apreq_error.h'\fP
 .br
 
+.SS "Data Structures"
+
+.in +1c
+.ti -1c
+.RI "struct \fBapreq_handle_t\fP"
+.br
+.ti -1c
+.RI "struct \fBapreq_module_t\fP"
+.br
+.RI "\fIVtable describing the necessary environment functions. \fP"
+.in -1c
 .SS "Defines"
 
 .in +1c
@@ -92,15 +103,6 @@ include/apreq_module.h \- Module API.
 .RI "\fBapreq_handle_t\fP * \fBapreq_handle_custom\fP (\fBapr_pool_t\fP *pool, const char *query_string, const char *cookie, \fBapreq_parser_t\fP *parser, \fBapr_uint64_t\fP read_limit, \fBapr_bucket_brigade\fP *in)"
 .br
 .ti -1c
-.RI "\fBapr_status_t\fP \fBapreq_cookie_bake\fP (const \fBapreq_cookie_t\fP *c, \fBapreq_handle_t\fP *req)"
-.br
-.ti -1c
-.RI "\fBapr_status_t\fP \fBapreq_cookie_bake2\fP (const \fBapreq_cookie_t\fP *c, \fBapreq_handle_t\fP *req)"
-.br
-.ti -1c
-.RI "unsigned \fBapreq_ua_cookie_version\fP (\fBapreq_handle_t\fP *req)"
-.br
-.ti -1c
 .RI "\fBapreq_param_t\fP * \fBapreq_param\fP (\fBapreq_handle_t\fP *req, const char *key)"
 .br
 .ti -1c
@@ -108,9 +110,6 @@ include/apreq_module.h \- Module API.
 .br
 .ti -1c
 .RI "\fBapr_table_t\fP * \fBapreq_cookies\fP (\fBapreq_handle_t\fP *req, \fBapr_pool_t\fP *p)"
-.br
-.ti -1c
-.RI "static \fBAPR_INLINE\fP \fBapr_status_t\fP \fBapreq_parse\fP (\fBapreq_handle_t\fP *req)"
 .br
 .in -1c
 .SH "Detailed Description"
@@ -128,12 +127,12 @@ Find the first cookie with the specified name. The match is case-insensitive.
 .RS 4
 \fIreq\fP request handle. 
 .br
-\fIkey\fP desired cookie name
+\fIname\fP desired cookie name
 .RE
 .PP
 \fBReturns:\fP
 .RS 4
-The first matching parameter (with args searched first) or NULL. 
+The first matching parameter (with args searched first) or NULL.
 .RE
 .PP
 
@@ -158,7 +157,7 @@ Convenience macro for defining a module by mapping a function prefix to an assoc
 .RS 4
 \fIpre\fP Prefix to define new environment. All attributes of the apreq_env_module_t struct are defined with this as their prefix. The generated struct is named by appending '_module' to the prefix. 
 .br
-\fImmn\fP Magic number (i.e. version number) of this environment. 
+\fImmn\fP Magic number (i.e. version number) of this environment.
 .RE
 .PP
 
@@ -166,7 +165,7 @@ Convenience macro for defining a module by mapping a function prefix to an assoc
 .PP 
 .SS "typedef struct \fBapreq_handle_t\fP  \fBapreq_handle_t\fP"
 .PP
-An apreq handle associated with a module. The structure may have variable size, because the module may append its own data structures after it. 
+An apreq handle associated with a module. The structure may have variable size, because the module may append its own data structures after it.
 .SH "Function Documentation"
 .PP 
 .SS "static \fBAPR_INLINE\fP \fBapr_status_t\fP apreq_args (\fBapreq_handle_t\fP * req, const \fBapr_table_t\fP ** t)\fC [static]\fP"
@@ -182,7 +181,7 @@ Expose the parsed 'query string' associated to this handle.
 .PP
 \fBReturns:\fP
 .RS 4
-APR_SUCCESS or a module-specific error status code. 
+APR_SUCCESS or a module-specific error status code.
 .RE
 .PP
 
@@ -199,7 +198,7 @@ Fetch the first query string param with the given name.
 .PP
 \fBReturns:\fP
 .RS 4
-First matching param, or NULL if none match. 
+First matching param, or NULL if none match.
 .RE
 .PP
 
@@ -216,7 +215,7 @@ Expose the parsed 'request body' associated to this handle.
 .PP
 \fBReturns:\fP
 .RS 4
-APR_SUCCESS or a module-specific error status code. 
+APR_SUCCESS or a module-specific error status code.
 .RE
 .PP
 
@@ -233,7 +232,7 @@ Fetch the first body param with the given name.
 .PP
 \fBReturns:\fP
 .RS 4
-First matching param, or NULL if none match. 
+First matching param, or NULL if none match.
 .RE
 .PP
 
@@ -250,7 +249,7 @@ Get the active brigade limit.
 .PP
 \fBReturns:\fP
 .RS 4
-APR_SUCCESS or a module-specific error, which may leave bytes undefined. 
+APR_SUCCESS or a module-specific error, which may leave bytes undefined.
 .RE
 .PP
 
@@ -267,41 +266,7 @@ Set the active brigade limit.
 .PP
 \fBReturns:\fP
 .RS 4
-APR_SUCCESS or module-specific error. 
-.RE
-.PP
-
-.SS "\fBapr_status_t\fP apreq_cookie_bake (const \fBapreq_cookie_t\fP * c, \fBapreq_handle_t\fP * req)"
-.PP
-Add the cookie to the outgoing 'Set-Cookie' headers.
-.PP
-\fBParameters:\fP
-.RS 4
-\fIc\fP The cookie. 
-.br
-\fIreq\fP The request handle which set the outgoing header.
-.RE
-.PP
-\fBReturns:\fP
-.RS 4
-APR_SUCCESS or error. 
-.RE
-.PP
-
-.SS "\fBapr_status_t\fP apreq_cookie_bake2 (const \fBapreq_cookie_t\fP * c, \fBapreq_handle_t\fP * req)"
-.PP
-Add the cookie to the outgoing 'Set-Cookie2' headers.
-.PP
-\fBParameters:\fP
-.RS 4
-\fIc\fP cookie 
-.br
-\fIreq\fP request handle
-.RE
-.PP
-\fBReturns:\fP
-.RS 4
-APR_SUCCESS or error. 
+APR_SUCCESS or module-specific error.
 .RE
 .PP
 
@@ -313,7 +278,7 @@ Returns a table containing all request cookies.
 .RS 4
 \fIreq\fP the apreq request handle 
 .br
-\fIp\fP Allocates the returned table. 
+\fIp\fP Allocates the returned table.
 .RE
 .PP
 
@@ -333,7 +298,7 @@ New handle; can only be NULL if the pool allocation failed.
 .PP
 \fBRemarks:\fP
 .RS 4
-The handle gets cached in the pool's userdata, so subsequent calls will retrieve the original cached handle. 
+The handle gets cached in the pool's userdata, so subsequent calls will retrieve the original cached handle.
 .RE
 .PP
 
@@ -358,7 +323,7 @@ Create a custom apreq handle which knows only some static values. Useful if you 
 .PP
 \fBReturns:\fP
 .RS 4
-new handle; can only be NULL if the pool allocation failed. 
+new handle; can only be NULL if the pool allocation failed.
 .RE
 .PP
 
@@ -375,7 +340,7 @@ Add a parser hook for this request.
 .PP
 \fBReturns:\fP
 .RS 4
-APR_SUCCESS or module-specific error. 
+APR_SUCCESS or module-specific error.
 .RE
 .PP
 
@@ -392,7 +357,7 @@ Expose the parsed 'cookie' header associated to this handle.
 .PP
 \fBReturns:\fP
 .RS 4
-APR_SUCCESS or a module-specific error status code. 
+APR_SUCCESS or a module-specific error status code.
 .RE
 .PP
 
@@ -409,7 +374,7 @@ Fetch the first cookie with the given name.
 .PP
 \fBReturns:\fP
 .RS 4
-First matching cookie, or NULL if none match. 
+First matching cookie, or NULL if none match.
 .RE
 .PP
 
@@ -424,7 +389,7 @@ Defines the module-specific status codes which are commonly considered to be non
 .PP
 \fBReturns:\fP
 .RS 4
-1 if s is fatal, 0 otherwise. 
+1 if s is fatal, 0 otherwise.
 .RE
 .PP
 
@@ -441,7 +406,7 @@ Find the first query string parameter or body parameter with the specified name.
 .PP
 \fBReturns:\fP
 .RS 4
-The first matching parameter (with args searched first) or NULL. 
+The first matching parameter (with args searched first) or NULL.
 .RE
 .PP
 
@@ -458,22 +423,7 @@ Returns a table containing key-value pairs for the full request (args + body).
 .PP
 \fBReturns:\fP
 .RS 4
-table representing all available params; is never NULL. 
-.RE
-.PP
-
-.SS "static \fBAPR_INLINE\fP \fBapr_status_t\fP apreq_parse (\fBapreq_handle_t\fP * req)\fC [static]\fP"
-.PP
-Force a complete parse of everything.
-.PP
-\fBParameters:\fP
-.RS 4
-\fIreq\fP The request handle
-.RE
-.PP
-\fBReturns:\fP
-.RS 4
-APR_SUCCESS on an error-free parse of the request data. Any other status code indicates a potential problem somewhere. 
+table representing all available params; is never NULL.
 .RE
 .PP
 
@@ -490,7 +440,7 @@ Fetch the active body parser.
 .PP
 \fBReturns:\fP
 .RS 4
-APR_SUCCESS or module-specific error. 
+APR_SUCCESS or module-specific error.
 .RE
 .PP
 
@@ -507,7 +457,7 @@ Set the body parser for this request.
 .PP
 \fBReturns:\fP
 .RS 4
-APR_SUCCESS or module-specific error. 
+APR_SUCCESS or module-specific error.
 .RE
 .PP
 
@@ -524,7 +474,7 @@ Get the active read limit.
 .PP
 \fBReturns:\fP
 .RS 4
-APR_SUCCESS or a module-specific error, which may leave bytes undefined. 
+APR_SUCCESS or a module-specific error, which may leave bytes undefined.
 .RE
 .PP
 
@@ -541,7 +491,7 @@ Set the active read limit.
 .PP
 \fBReturns:\fP
 .RS 4
-APR_SUCCESS or a module-specific error. 
+APR_SUCCESS or a module-specific error.
 .RE
 .PP
 
@@ -558,7 +508,7 @@ Get the active temp directory.
 .PP
 \fBReturns:\fP
 .RS 4
-APR_SUCCESS implies path is valid, but may also be NULL. Any other return value is module-specific, and may leave path undefined. 
+APR_SUCCESS implies path is valid, but may also be NULL. Any other return value is module-specific, and may leave path undefined.
 .RE
 .PP
 
@@ -575,22 +525,7 @@ Set the active temp directory.
 .PP
 \fBReturns:\fP
 .RS 4
-APR_SUCCESS or a module-specific error . 
-.RE
-.PP
-
-.SS "unsigned apreq_ua_cookie_version (\fBapreq_handle_t\fP * req)"
-.PP
-Looks for the presence of a 'Cookie2' header to determine whether or not the current User-Agent responsible for this request supports rfc2965.
-.PP
-\fBParameters:\fP
-.RS 4
-\fIreq\fP the apreq request handle
-.RE
-.PP
-\fBReturns:\fP
-.RS 4
-::APREQ_COOKIE_VERSION_RFC if rfc2965 is supported by the user-agent, ::APREQ_COOKIE_VERSION_NETSCAPE otherwise. 
+APR_SUCCESS or a module-specific error .
 .RE
 .PP
 

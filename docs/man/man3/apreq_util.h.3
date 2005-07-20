@@ -1,4 +1,4 @@
-.TH "include/apreq_util.h" 3 "4 May 2005" "Version 2.05-dev" "libapreq2" \" -*- nroff -*-
+.TH "include/apreq_util.h" 3 "19 Jul 2005" "Version 2.06-dev" "libapreq2" \" -*- nroff -*-
 .ad l
 .nh
 .SH NAME
@@ -90,7 +90,7 @@ substring search functions
 .IP "\(bu" 2
 simple encoders & decoders for urlencoded strings
 .IP "\(bu" 2
-simple time, date, & file-size converters 
+simple time, date, & file-size converters
 .PP
 
 .SH "Function Documentation"
@@ -185,7 +185,7 @@ Error status code from an unsuccessful \fBapr_bucket_copy()\fP.
 .PP
 \fBRemarks:\fP
 .RS 4
-s == d produces Undefined Behavior. 
+s == d produces Undefined Behavior.
 .RE
 .PP
 
@@ -211,7 +211,7 @@ Error status code from either an unsuccessful \fBapr_bucket_read()\fP, or a fail
 .PP
 \fBRemarks:\fP
 .RS 4
-In the future, this function may do something intelligent with file buckets. 
+In the future, this function may do something intelligent with file buckets.
 .RE
 .PP
 
@@ -230,7 +230,7 @@ Move the front of a brigade.
 .PP
 \fBRemarks:\fP
 .RS 4
-This moves all buckets when e == \fBAPR_BRIGADE_SENTINEL(s)\fP. 
+This moves all buckets when e == \fBAPR_BRIGADE_SENTINEL(s)\fP.
 .RE
 .PP
 
@@ -249,7 +249,7 @@ Set aside all buckets in the brigade.
 .RS 4
 APR_SUCCESS. 
 .PP
-Error status code from an unsuccessful \fBapr_bucket_setaside()\fP. 
+Error status code from an unsuccessful \fBapr_bucket_setaside()\fP.
 .RE
 .PP
 
@@ -264,7 +264,7 @@ Determines the spool file used by the brigade. Returns NULL if the brigade is no
 .PP
 \fBReturns:\fP
 .RS 4
-the spool file, or NULL. 
+the spool file, or NULL.
 .RE
 .PP
 
@@ -283,7 +283,7 @@ Convert a string from cp1252 to utf8. Caller must ensure it is large enough to h
 .PP
 \fBReturns:\fP
 .RS 4
-length of utf8-encoded string in dest; does not exceed 3 * slen. 
+length of utf8-encoded string in dest; does not exceed 3 * slen.
 .RE
 .PP
 
@@ -313,7 +313,7 @@ APR_INCOMPLETE + apreq_charset_t (<=APREQ_CHARSET_UTF8) if the string ends in th
 .PP
 \fBRemarks:\fP
 .RS 4
-In the non-success case, dlen will be set to include the last succesfully decoded value. This function decodes %uXXXX into a utf8 (wide) character, following ECMA-262 (the Javascript spec) Section B.2.1. 
+In the non-success case, dlen will be set to include the last succesfully decoded value. This function decodes %uXXXX into a utf8 (wide) character, following ECMA-262 (the Javascript spec) Section B.2.1.
 .RE
 .PP
 
@@ -343,7 +343,7 @@ APR_INCOMPLETE + apreq_charset_t (<=APREQ_CHARSET_UTF8) if the iovec ends in the
 .PP
 \fBRemarks:\fP
 .RS 4
-In the non-APR_SUCCESS case, dlen will be set to include the last succesfully decoded value. This function decodes %uXXXX into a utf8 (wide) character, following ECMA-262 (the Javascript spec) Section B.2.1. 
+In the non-APR_SUCCESS case, dlen will be set to include the last succesfully decoded value. This function decodes %uXXXX into a utf8 (wide) character, following ECMA-262 (the Javascript spec) Section B.2.1.
 .RE
 .PP
 
@@ -362,7 +362,7 @@ Url-encodes a string.
 .PP
 \fBReturns:\fP
 .RS 4
-length of url-encoded string in dest; does not exceed 3 * slen. 
+length of url-encoded string in dest; does not exceed 3 * slen.
 .RE
 .PP
 
@@ -386,7 +386,7 @@ The url-encoded string.
 .PP
 \fBRemarks:\fP
 .RS 4
-Use this function insead of apreq_encode if its caller might otherwise overflow dest. 
+Use this function insead of apreq_encode if its caller might otherwise overflow dest.
 .RE
 .PP
 
@@ -407,7 +407,7 @@ Makes a temporary file.
 .RS 4
 APR_SUCCESS. 
 .PP
-Error status code from unsuccessful \fBapr_filepath_merge()\fP, or a failed \fBapr_file_mktemp()\fP. 
+Error status code from unsuccessful \fBapr_filepath_merge()\fP, or a failed \fBapr_file_mktemp()\fP.
 .RE
 .PP
 
@@ -434,7 +434,7 @@ APR_SUCCESS.
 .PP
 \fBAPREQ_ERROR_NOATTR\fP if the attribute is not found. 
 .PP
-\fBAPREQ_ERROR_BADSEQ\fP if an unpaired quote mark was detected. 
+\fBAPREQ_ERROR_BADSEQ\fP if an unpaired quote mark was detected.
 .RE
 .PP
 
@@ -457,7 +457,7 @@ Returns offset of match string's location, or -1 if no match is found.
 .PP
 \fBReturns:\fP
 .RS 4
-Offset of match string, or -1 if no match is found. 
+Offset of match string, or -1 if no match is found.
 .RE
 .PP
 
@@ -478,7 +478,7 @@ Join an array of values. The result is an empty string if there are no values.
 .PP
 \fBReturns:\fP
 .RS 4
-Joined string, or NULL on error 
+Joined string, or NULL on error
 .RE
 .PP
 
@@ -499,7 +499,7 @@ Places a quoted copy of src into dest. Embedded quotes are escaped with a backsl
 .PP
 \fBReturns:\fP
 .RS 4
-length of quoted copy in dest. 
+length of quoted copy in dest.
 .RE
 .PP
 
@@ -520,7 +520,7 @@ Same as \fBapreq_quote()\fP except when src begins and ends in quote marks. In t
 .PP
 \fBReturns:\fP
 .RS 4
-length of quoted copy in dest. 
+length of quoted copy in dest.
 .RE
 .PP
 
@@ -535,7 +535,7 @@ An \fIin-situ\fP url-decoder.
 .PP
 \fBReturns:\fP
 .RS 4
-Length of decoded string, or < 0 on error. 
+Length of decoded string, or < 0 on error.
 .RE
 .PP
 

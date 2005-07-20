@@ -9,6 +9,7 @@
     <name>apreq.h</name>
     <path>/home/joe/src/apache/httpd/apreq/trunk/include/</path>
     <filename>apreq_8h</filename>
+    <class kind="struct">apreq_value_t</class>
     <member kind="define">
       <type>#define</type>
       <name>APREQ_DECLARE</name>
@@ -250,6 +251,7 @@
     <path>/home/joe/src/apache/httpd/apreq/trunk/include/</path>
     <filename>apreq__cookie_8h</filename>
     <includes id="apreq_8h" name="apreq.h" local="yes" imported="no">apreq.h</includes>
+    <class kind="struct">apreq_cookie_t</class>
     <member kind="define">
       <type>#define</type>
       <name>APREQ_COOKIE_MAX_LENGTH</name>
@@ -516,6 +518,8 @@
     <includes id="apreq__cookie_8h" name="apreq_cookie.h" local="yes" imported="no">apreq_cookie.h</includes>
     <includes id="apreq__parser_8h" name="apreq_parser.h" local="yes" imported="no">apreq_parser.h</includes>
     <includes id="apreq__error_8h" name="apreq_error.h" local="yes" imported="no">apreq_error.h</includes>
+    <class kind="struct">apreq_handle_t</class>
+    <class kind="struct">apreq_module_t</class>
     <member kind="define">
       <type>#define</type>
       <name>APREQ_MODULE</name>
@@ -671,53 +675,25 @@
       <arglist>(apr_pool_t *pool, const char *query_string, const char *cookie, apreq_parser_t *parser, apr_uint64_t read_limit, apr_bucket_brigade *in)</arglist>
     </member>
     <member kind="function">
-      <type>apr_status_t</type>
-      <name>apreq_cookie_bake</name>
-      <anchorfile>apreq__module_8h.html</anchorfile>
-      <anchor>a22</anchor>
-      <arglist>(const apreq_cookie_t *c, apreq_handle_t *req)</arglist>
-    </member>
-    <member kind="function">
-      <type>apr_status_t</type>
-      <name>apreq_cookie_bake2</name>
-      <anchorfile>apreq__module_8h.html</anchorfile>
-      <anchor>a23</anchor>
-      <arglist>(const apreq_cookie_t *c, apreq_handle_t *req)</arglist>
-    </member>
-    <member kind="function">
-      <type>unsigned</type>
-      <name>apreq_ua_cookie_version</name>
-      <anchorfile>apreq__module_8h.html</anchorfile>
-      <anchor>a24</anchor>
-      <arglist>(apreq_handle_t *req)</arglist>
-    </member>
-    <member kind="function">
       <type>apreq_param_t *</type>
       <name>apreq_param</name>
       <anchorfile>apreq__module_8h.html</anchorfile>
-      <anchor>a25</anchor>
+      <anchor>a22</anchor>
       <arglist>(apreq_handle_t *req, const char *key)</arglist>
     </member>
     <member kind="function">
       <type>apr_table_t *</type>
       <name>apreq_params</name>
       <anchorfile>apreq__module_8h.html</anchorfile>
-      <anchor>a26</anchor>
+      <anchor>a23</anchor>
       <arglist>(apreq_handle_t *req, apr_pool_t *p)</arglist>
     </member>
     <member kind="function">
       <type>apr_table_t *</type>
       <name>apreq_cookies</name>
       <anchorfile>apreq__module_8h.html</anchorfile>
-      <anchor>a27</anchor>
+      <anchor>a24</anchor>
       <arglist>(apreq_handle_t *req, apr_pool_t *p)</arglist>
-    </member>
-    <member kind="function" static="yes">
-      <type>static APR_INLINE apr_status_t</type>
-      <name>apreq_parse</name>
-      <anchorfile>apreq__module_8h.html</anchorfile>
-      <anchor>a28</anchor>
-      <arglist>(apreq_handle_t *req)</arglist>
     </member>
   </compound>
   <compound kind="file">
@@ -725,6 +701,7 @@
     <path>/home/joe/src/apache/httpd/apreq/trunk/include/</path>
     <filename>apreq__param_8h</filename>
     <includes id="apreq_8h" name="apreq.h" local="yes" imported="no">apreq.h</includes>
+    <class kind="struct">apreq_param_t</class>
     <member kind="typedef">
       <type>apreq_param_t</type>
       <name>apreq_param_t</name>
@@ -836,6 +813,8 @@
     <path>/home/joe/src/apache/httpd/apreq/trunk/include/</path>
     <filename>apreq__parser_8h</filename>
     <includes id="apreq__param_8h" name="apreq_param.h" local="yes" imported="no">apreq_param.h</includes>
+    <class kind="struct">apreq_hook_t</class>
+    <class kind="struct">apreq_parser_t</class>
     <member kind="define">
       <type>#define</type>
       <name>APREQ_PARSER_ARGS</name>
@@ -1580,6 +1559,7 @@
     <docanchor file="apreq_changes">v2_03_dev</docanchor>
     <docanchor file="apreq_changes">v2_04_dev</docanchor>
     <docanchor file="apreq_changes">v2_05_dev</docanchor>
+    <docanchor file="apreq_changes">v2_06</docanchor>
   </compound>
   <compound kind="page">
     <name>apreq_status</name>
@@ -1639,6 +1619,12 @@
     <subgroup>apreq_xs_request</subgroup>
     <subgroup>apreq_xs_upload</subgroup>
     <subgroup>apreq_xs_cookie</subgroup>
+    <subgroup>apreq_xs_apr_request</subgroup>
+    <subgroup>apreq_xs_apr_request_cookie</subgroup>
+    <subgroup>apreq_xs_apr_request_param</subgroup>
+    <subgroup>apreq_xs_apr_request_error</subgroup>
+    <subgroup>apreq_xs_apr_request_cgi</subgroup>
+    <subgroup>apreq_xs_apr_request_apache2</subgroup>
   </compound>
   <compound kind="group">
     <name>apreq_xs_request</name>
@@ -1656,9 +1642,53 @@
     <filename>group__apreq__xs__cookie.html</filename>
   </compound>
   <compound kind="group">
+    <name>apreq_xs_apr_request</name>
+    <title>APR::Request</title>
+    <filename>group__apreq__xs__apr__request.html</filename>
+  </compound>
+  <compound kind="group">
+    <name>apreq_xs_apr_request_cookie</name>
+    <title>APR::Request::Cookie</title>
+    <filename>group__apreq__xs__apr__request__cookie.html</filename>
+  </compound>
+  <compound kind="group">
+    <name>apreq_xs_apr_request_param</name>
+    <title>APR::Request::Param</title>
+    <filename>group__apreq__xs__apr__request__param.html</filename>
+  </compound>
+  <compound kind="group">
+    <name>apreq_xs_apr_request_error</name>
+    <title>APR::Request::Error</title>
+    <filename>group__apreq__xs__apr__request__error.html</filename>
+  </compound>
+  <compound kind="group">
+    <name>apreq_xs_apr_request_cgi</name>
+    <title>APR::Request::CGI</title>
+    <filename>group__apreq__xs__apr__request__cgi.html</filename>
+  </compound>
+  <compound kind="group">
+    <name>apreq_xs_apr_request_apache2</name>
+    <title>APR::Request::Apache2</title>
+    <filename>group__apreq__xs__apr__request__apache2.html</filename>
+  </compound>
+  <compound kind="group">
     <name>mod_apreq2</name>
     <title>Apache 2.X Filter Module</title>
     <filename>group__mod__apreq2.html</filename>
+    <member kind="define">
+      <type>#define</type>
+      <name>APREQ_FILTER_NAME</name>
+      <anchorfile>group__mod__apreq2.html</anchorfile>
+      <anchor>ga1</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="define">
+      <type>#define</type>
+      <name>APREQ_APACHE2_MMN</name>
+      <anchorfile>group__mod__apreq2.html</anchorfile>
+      <anchor>ga2</anchor>
+      <arglist></arglist>
+    </member>
     <member kind="function">
       <type>apreq_handle_t *</type>
       <name>apreq_handle_apache2</name>

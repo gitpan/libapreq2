@@ -13,16 +13,16 @@
 !   v
 </apreq_param_t>
 
-<apreq_handle_t MODULE=APR::Request::Handle>
+<apreq_handle_t MODULE=APR::Request>
 ! module
 </apreq_handle_t>
 
 <apreq_cookie_t MODULE=APR::Request::Cookie>
-  path
-  domain
-  port
-  comment
-  commentURL
+!  path
+!  domain
+!  port
+!  comment
+!  commentURL
 ! max_age
 ! flags
 !  v

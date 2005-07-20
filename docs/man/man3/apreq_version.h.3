@@ -1,8 +1,10 @@
-.TH "include/apreq_version.h" 3 "4 May 2005" "Version 2.05-dev" "libapreq2" \" -*- nroff -*-
+.TH "include/apreq_version.h" 3 "19 Jul 2005" "Version 2.06-dev" "libapreq2" \" -*- nroff -*-
 .ad l
 .nh
 .SH NAME
-include/apreq_version.h \- Versioning API for libapreq. 
+include/apreq_version.h \- Versioning API for libapreq
+.PP
+There are several different mechanisms for accessing the version. There is a string form, and a set of numbers; in addition, there are constants which can be compiled into your application, and you can query the library being used for its actual version. 
 .SH SYNOPSIS
 .br
 .PP
@@ -21,7 +23,7 @@ include/apreq_version.h \- Versioning API for libapreq.
 .RI "#define \fBAPREQ_MINOR_VERSION\fP   1"
 .br
 .ti -1c
-.RI "#define \fBAPREQ_PATCH_VERSION\fP   0"
+.RI "#define \fBAPREQ_PATCH_VERSION\fP   3"
 .br
 .ti -1c
 .RI "#define \fBAPREQ_IS_DEV_VERSION\fP"
@@ -45,15 +47,15 @@ include/apreq_version.h \- Versioning API for libapreq.
 .in -1c
 .SH "Detailed Description"
 .PP 
-Versioning API for libapreq. 
-
-There are several different mechanisms for accessing the version. There is a string form, and a set of numbers; in addition, there are constants which can be compiled into your application, and you can query the library being used for its actual version.
+Versioning API for libapreq
 .PP
+There are several different mechanisms for accessing the version. There is a string form, and a set of numbers; in addition, there are constants which can be compiled into your application, and you can query the library being used for its actual version. 
+
 Note that it is possible for an application to detect that it has been compiled against a different version of libapreq by use of the compile-time constants and the use of the run-time query function.
 .PP
 libapreq version numbering follows the guidelines specified in:
 .PP
-http://apr.apache.org/versioning.html 
+http://apr.apache.org/versioning.html
 .SH "Define Documentation"
 .PP 
 .SS "#define APREQ_IS_DEV_STRING   '-dev'"
@@ -61,14 +63,14 @@ http://apr.apache.org/versioning.html
 Internal: string form of the 'is dev' flag 
 .SS "#define APREQ_IS_DEV_VERSION"
 .PP
-This symbol is defined for internal, 'development' copies of libapreq. This symbol will be #undef'd for releases. 
+This symbol is defined for internal, 'development' copies of libapreq. This symbol will be undef'd for releases.
 .SS "#define APREQ_MAJOR_VERSION   2"
 .PP
-major version Major API changes that could cause compatibility problems for older programs such as structure size changes. No binary compatibility is possible across a change in the major version. 
+major version Major API changes that could cause compatibility problems for older programs such as structure size changes. No binary compatibility is possible across a change in the major version.
 .SS "#define APREQ_MINOR_VERSION   1"
 .PP
-Minor API changes that do not cause binary compatibility problems. Should be reset to 0 when upgrading APREQ_MAJOR_VERSION 
-.SS "#define APREQ_PATCH_VERSION   0"
+Minor API changes that do not cause binary compatibility problems. Should be reset to 0 when upgrading APREQ_MAJOR_VERSION
+.SS "#define APREQ_PATCH_VERSION   3"
 .PP
 patch level 
 .SS "#define APREQ_VERSION_STRING"
@@ -90,7 +92,7 @@ Return libapreq's version information information in a numeric form.
 .PP
 \fBParameters:\fP
 .RS 4
-\fIpvsn\fP Pointer to a version structure for returning the version information. 
+\fIpvsn\fP Pointer to a version structure for returning the version information.
 .RE
 .PP
 

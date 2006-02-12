@@ -18,15 +18,4 @@ sub new {
 }
 
 sub freeze { return $_[1] }
-sub thaw {
-    my $obj = shift;
-    return shift if @_;
-    return "$obj";
-}
-
-package APR::Request::Cookie::Table;
-
-sub EXISTS {
-    my ($t, $key) = @_;
-    return defined $t->FETCH($key);
-}
+sub thaw { return shift->value }

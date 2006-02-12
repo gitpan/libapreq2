@@ -4,7 +4,7 @@ cookie.o: cookie.c \
   /usr/include/sys/types.h /usr/include/features.h \
   /usr/include/sys/cdefs.h /usr/include/gnu/stubs.h \
   /usr/include/bits/types.h /usr/include/bits/wordsize.h \
-  /usr/lib/gcc/x86_64-linux-gnu/4.0.1/include/stddef.h \
+  /usr/lib/gcc/x86_64-linux-gnu/4.0.3/include/stddef.h \
   /usr/include/bits/typesizes.h /usr/include/time.h /usr/include/endian.h \
   /usr/include/bits/endian.h /usr/include/sys/select.h \
   /usr/include/bits/select.h /usr/include/bits/sigset.h \
@@ -12,13 +12,14 @@ cookie.o: cookie.c \
   /usr/include/bits/pthreadtypes.h /usr/include/sys/socket.h \
   /usr/include/sys/uio.h /usr/include/bits/uio.h \
   /usr/include/bits/socket.h \
-  /usr/lib/gcc/x86_64-linux-gnu/4.0.1/include/limits.h \
-  /usr/lib/gcc/x86_64-linux-gnu/4.0.1/include/syslimits.h \
+  /usr/lib/gcc/x86_64-linux-gnu/4.0.3/include/limits.h \
+  /usr/lib/gcc/x86_64-linux-gnu/4.0.3/include/syslimits.h \
   /usr/include/limits.h /usr/include/bits/posix1_lim.h \
   /usr/include/bits/local_lim.h /usr/include/linux/limits.h \
   /usr/include/bits/posix2_lim.h /usr/include/bits/xopen_lim.h \
   /usr/include/bits/stdio_lim.h /usr/include/bits/sockaddr.h \
-  /usr/include/asm/socket.h /usr/include/asm/sockios.h \
+  /usr/include/asm/socket.h /usr/include/asm-x86_64/socket.h \
+  /usr/include/asm/sockios.h /usr/include/asm-x86_64/sockios.h \
   /usr/include/stdint.h /usr/include/bits/wchar.h /usr/include/sys/wait.h \
   /usr/include/signal.h /usr/include/bits/signum.h \
   /usr/include/bits/siginfo.h /usr/include/bits/sigaction.h \
@@ -27,91 +28,46 @@ cookie.o: cookie.c \
   /usr/include/sys/resource.h /usr/include/bits/resource.h \
   /usr/include/bits/waitflags.h /usr/include/bits/waitstatus.h \
   /home/joe/httpd/trunk/worker/include/apr-1/apr_errno.h \
-  /home/joe/httpd/trunk/worker/include/apr-1/apr.h /usr/include/errno.h \
-  /usr/include/bits/errno.h /usr/include/linux/errno.h \
-  /usr/include/asm/errno.h /usr/include/asm-generic/errno.h \
+  /usr/include/errno.h /usr/include/bits/errno.h \
+  /usr/include/linux/errno.h /usr/include/asm/errno.h \
+  /usr/include/asm-x86_64/errno.h /usr/include/asm-generic/errno.h \
   /usr/include/asm-generic/errno-base.h \
   /home/joe/httpd/trunk/worker/include/apr-1/apr_pools.h \
-  /home/joe/httpd/trunk/worker/include/apr-1/apr.h \
-  /home/joe/httpd/trunk/worker/include/apr-1/apr_errno.h \
   /home/joe/httpd/trunk/worker/include/apr-1/apr_general.h \
-  /home/joe/httpd/trunk/worker/include/apr-1/apr.h \
-  /home/joe/httpd/trunk/worker/include/apr-1/apr_pools.h \
-  /home/joe/httpd/trunk/worker/include/apr-1/apr_errno.h \
   /home/joe/httpd/trunk/worker/include/apr-1/apr_want.h \
-  /home/joe/httpd/trunk/worker/include/apr-1/apr.h /usr/include/string.h \
-  /usr/include/xlocale.h /usr/include/bits/string.h \
+  /usr/include/string.h /usr/include/xlocale.h /usr/include/bits/string.h \
   /usr/include/bits/string2.h /usr/include/stdlib.h \
   /home/joe/httpd/trunk/worker/include/apr-1/apr_allocator.h \
-  /home/joe/httpd/trunk/worker/include/apr-1/apr.h \
-  /home/joe/httpd/trunk/worker/include/apr-1/apr_errno.h \
-  /home/joe/httpd/trunk/worker/include/apr-1/apr_want.h \
-  /home/joe/httpd/trunk/worker/include/apr-1/apr.h \
-  /home/joe/httpd/trunk/worker/include/apr-1/apr_pools.h \
   /home/joe/httpd/trunk/worker/include/apr-1/apr_thread_mutex.h \
-  /home/joe/httpd/trunk/worker/include/apr-1/apr.h \
-  /home/joe/httpd/trunk/worker/include/apr-1/apr_errno.h \
-  /home/joe/httpd/trunk/worker/include/apr-1/apr_pools.h \
-  /home/joe/httpd/trunk/worker/include/apr-1/apr_want.h \
-  /home/joe/httpd/trunk/worker/include/apr-1/apr.h \
-  /usr/lib/gcc/x86_64-linux-gnu/4.0.1/include/stdarg.h \
+  /usr/lib/gcc/x86_64-linux-gnu/4.0.3/include/stdarg.h \
   ../../include/apreq_cookie.h ../../include/apreq.h \
   /home/joe/httpd/trunk/worker/include/apr-1/apr_tables.h \
-  /home/joe/httpd/trunk/worker/include/apr-1/apr.h \
-  /home/joe/httpd/trunk/worker/include/apr-1/apr_pools.h \
   /home/joe/httpd/trunk/worker/include/apr-1/apr_time.h \
-  /home/joe/httpd/trunk/worker/include/apr-1/apr.h \
-  /home/joe/httpd/trunk/worker/include/apr-1/apr_pools.h \
+  ../../include/apreq_error.h \
   /home/joe/httpd/trunk/worker/include/apr-1/apr_errno.h \
-  ../../include/apreq_error.h ../../include/apreq.h \
   ../../include/apreq_module.h ../../include/apreq_cookie.h \
   ../../include/apreq_parser.h ../../include/apreq_param.h \
-  ../../include/apreq.h \
   /home/joe/httpd/trunk/worker/include/apr-1/apr_buckets.h \
   /home/joe/httpd/trunk/worker/include/apr-1/apu.h \
   /home/joe/httpd/trunk/worker/include/apr-1/apr_network_io.h \
-  /home/joe/httpd/trunk/worker/include/apr-1/apr.h \
-  /home/joe/httpd/trunk/worker/include/apr-1/apr_pools.h \
   /home/joe/httpd/trunk/worker/include/apr-1/apr_file_io.h \
-  /home/joe/httpd/trunk/worker/include/apr-1/apr.h \
-  /home/joe/httpd/trunk/worker/include/apr-1/apr_pools.h \
   /home/joe/httpd/trunk/worker/include/apr-1/apr_time.h \
-  /home/joe/httpd/trunk/worker/include/apr-1/apr_errno.h \
   /home/joe/httpd/trunk/worker/include/apr-1/apr_file_info.h \
-  /home/joe/httpd/trunk/worker/include/apr-1/apr.h \
   /home/joe/httpd/trunk/worker/include/apr-1/apr_user.h \
-  /home/joe/httpd/trunk/worker/include/apr-1/apr.h \
-  /home/joe/httpd/trunk/worker/include/apr-1/apr_errno.h \
-  /home/joe/httpd/trunk/worker/include/apr-1/apr_pools.h \
-  /home/joe/httpd/trunk/worker/include/apr-1/apr_pools.h \
   /home/joe/httpd/trunk/worker/include/apr-1/apr_tables.h \
-  /home/joe/httpd/trunk/worker/include/apr-1/apr_time.h \
-  /home/joe/httpd/trunk/worker/include/apr-1/apr_errno.h \
   /home/joe/httpd/trunk/worker/include/apr-1/apr_inherit.h \
-  /home/joe/httpd/trunk/worker/include/apr-1/apr_want.h \
-  /home/joe/httpd/trunk/worker/include/apr-1/apr.h /usr/include/stdio.h \
-  /usr/include/libio.h /usr/include/_G_config.h /usr/include/wchar.h \
-  /usr/include/gconv.h /usr/include/bits/sys_errlist.h \
-  /usr/include/bits/stdio.h \
-  /home/joe/httpd/trunk/worker/include/apr-1/apr_errno.h \
-  /home/joe/httpd/trunk/worker/include/apr-1/apr_inherit.h \
+  /usr/include/stdio.h /usr/include/libio.h /usr/include/_G_config.h \
+  /usr/include/wchar.h /usr/include/gconv.h \
+  /usr/include/bits/sys_errlist.h /usr/include/bits/stdio.h \
   /usr/include/netinet/in.h /usr/include/bits/in.h \
   /usr/include/bits/byteswap.h \
-  /home/joe/httpd/trunk/worker/include/apr-1/apr_file_io.h \
-  /home/joe/httpd/trunk/worker/include/apr-1/apr_general.h \
   /home/joe/httpd/trunk/worker/include/apr-1/apr_mmap.h \
-  /home/joe/httpd/trunk/worker/include/apr-1/apr.h \
-  /home/joe/httpd/trunk/worker/include/apr-1/apr_pools.h \
-  /home/joe/httpd/trunk/worker/include/apr-1/apr_errno.h \
   /home/joe/httpd/trunk/worker/include/apr-1/apr_ring.h \
-  /home/joe/httpd/trunk/worker/include/apr-1/apr_general.h \
-  /home/joe/httpd/trunk/worker/include/apr-1/apr_file_io.h \
-  /home/joe/httpd/trunk/worker/include/apr-1/apr_errno.h \
-  /home/joe/httpd/trunk/worker/include/apr-1/apr_ring.h \
-  /home/joe/httpd/trunk/worker/include/apr-1/apr.h \
   ../../include/apreq_error.h ../../include/apreq_util.h \
-  ../../include/apreq.h at.h /usr/include/alloca.h /usr/include/setjmp.h \
-  /usr/include/bits/setjmp.h
+  /home/joe/httpd/trunk/worker/include/apr-1/apr_file_io.h at.h \
+  /home/joe/httpd/trunk/worker/include/apr-1/apr.h \
+  /home/joe/httpd/trunk/worker/include/apr-1/apr_file_io.h \
+  /usr/include/alloca.h /usr/include/setjmp.h /usr/include/bits/setjmp.h
 
 /home/joe/httpd/trunk/worker/include/apr-1/apr_strings.h:
 
@@ -129,7 +85,7 @@ cookie.o: cookie.c \
 
 /usr/include/bits/wordsize.h:
 
-/usr/lib/gcc/x86_64-linux-gnu/4.0.1/include/stddef.h:
+/usr/lib/gcc/x86_64-linux-gnu/4.0.3/include/stddef.h:
 
 /usr/include/bits/typesizes.h:
 
@@ -159,9 +115,9 @@ cookie.o: cookie.c \
 
 /usr/include/bits/socket.h:
 
-/usr/lib/gcc/x86_64-linux-gnu/4.0.1/include/limits.h:
+/usr/lib/gcc/x86_64-linux-gnu/4.0.3/include/limits.h:
 
-/usr/lib/gcc/x86_64-linux-gnu/4.0.1/include/syslimits.h:
+/usr/lib/gcc/x86_64-linux-gnu/4.0.3/include/syslimits.h:
 
 /usr/include/limits.h:
 
@@ -181,7 +137,11 @@ cookie.o: cookie.c \
 
 /usr/include/asm/socket.h:
 
+/usr/include/asm-x86_64/socket.h:
+
 /usr/include/asm/sockios.h:
+
+/usr/include/asm-x86_64/sockios.h:
 
 /usr/include/stdint.h:
 
@@ -215,8 +175,6 @@ cookie.o: cookie.c \
 
 /home/joe/httpd/trunk/worker/include/apr-1/apr_errno.h:
 
-/home/joe/httpd/trunk/worker/include/apr-1/apr.h:
-
 /usr/include/errno.h:
 
 /usr/include/bits/errno.h:
@@ -225,27 +183,17 @@ cookie.o: cookie.c \
 
 /usr/include/asm/errno.h:
 
+/usr/include/asm-x86_64/errno.h:
+
 /usr/include/asm-generic/errno.h:
 
 /usr/include/asm-generic/errno-base.h:
 
 /home/joe/httpd/trunk/worker/include/apr-1/apr_pools.h:
 
-/home/joe/httpd/trunk/worker/include/apr-1/apr.h:
-
-/home/joe/httpd/trunk/worker/include/apr-1/apr_errno.h:
-
 /home/joe/httpd/trunk/worker/include/apr-1/apr_general.h:
 
-/home/joe/httpd/trunk/worker/include/apr-1/apr.h:
-
-/home/joe/httpd/trunk/worker/include/apr-1/apr_pools.h:
-
-/home/joe/httpd/trunk/worker/include/apr-1/apr_errno.h:
-
 /home/joe/httpd/trunk/worker/include/apr-1/apr_want.h:
-
-/home/joe/httpd/trunk/worker/include/apr-1/apr.h:
 
 /usr/include/string.h:
 
@@ -259,29 +207,9 @@ cookie.o: cookie.c \
 
 /home/joe/httpd/trunk/worker/include/apr-1/apr_allocator.h:
 
-/home/joe/httpd/trunk/worker/include/apr-1/apr.h:
-
-/home/joe/httpd/trunk/worker/include/apr-1/apr_errno.h:
-
-/home/joe/httpd/trunk/worker/include/apr-1/apr_want.h:
-
-/home/joe/httpd/trunk/worker/include/apr-1/apr.h:
-
-/home/joe/httpd/trunk/worker/include/apr-1/apr_pools.h:
-
 /home/joe/httpd/trunk/worker/include/apr-1/apr_thread_mutex.h:
 
-/home/joe/httpd/trunk/worker/include/apr-1/apr.h:
-
-/home/joe/httpd/trunk/worker/include/apr-1/apr_errno.h:
-
-/home/joe/httpd/trunk/worker/include/apr-1/apr_pools.h:
-
-/home/joe/httpd/trunk/worker/include/apr-1/apr_want.h:
-
-/home/joe/httpd/trunk/worker/include/apr-1/apr.h:
-
-/usr/lib/gcc/x86_64-linux-gnu/4.0.1/include/stdarg.h:
+/usr/lib/gcc/x86_64-linux-gnu/4.0.3/include/stdarg.h:
 
 ../../include/apreq_cookie.h:
 
@@ -289,21 +217,11 @@ cookie.o: cookie.c \
 
 /home/joe/httpd/trunk/worker/include/apr-1/apr_tables.h:
 
-/home/joe/httpd/trunk/worker/include/apr-1/apr.h:
-
-/home/joe/httpd/trunk/worker/include/apr-1/apr_pools.h:
-
 /home/joe/httpd/trunk/worker/include/apr-1/apr_time.h:
-
-/home/joe/httpd/trunk/worker/include/apr-1/apr.h:
-
-/home/joe/httpd/trunk/worker/include/apr-1/apr_pools.h:
-
-/home/joe/httpd/trunk/worker/include/apr-1/apr_errno.h:
 
 ../../include/apreq_error.h:
 
-../../include/apreq.h:
+/home/joe/httpd/trunk/worker/include/apr-1/apr_errno.h:
 
 ../../include/apreq_module.h:
 
@@ -313,53 +231,23 @@ cookie.o: cookie.c \
 
 ../../include/apreq_param.h:
 
-../../include/apreq.h:
-
 /home/joe/httpd/trunk/worker/include/apr-1/apr_buckets.h:
 
 /home/joe/httpd/trunk/worker/include/apr-1/apu.h:
 
 /home/joe/httpd/trunk/worker/include/apr-1/apr_network_io.h:
 
-/home/joe/httpd/trunk/worker/include/apr-1/apr.h:
-
-/home/joe/httpd/trunk/worker/include/apr-1/apr_pools.h:
-
 /home/joe/httpd/trunk/worker/include/apr-1/apr_file_io.h:
 
-/home/joe/httpd/trunk/worker/include/apr-1/apr.h:
-
-/home/joe/httpd/trunk/worker/include/apr-1/apr_pools.h:
-
 /home/joe/httpd/trunk/worker/include/apr-1/apr_time.h:
-
-/home/joe/httpd/trunk/worker/include/apr-1/apr_errno.h:
 
 /home/joe/httpd/trunk/worker/include/apr-1/apr_file_info.h:
 
-/home/joe/httpd/trunk/worker/include/apr-1/apr.h:
-
 /home/joe/httpd/trunk/worker/include/apr-1/apr_user.h:
-
-/home/joe/httpd/trunk/worker/include/apr-1/apr.h:
-
-/home/joe/httpd/trunk/worker/include/apr-1/apr_errno.h:
-
-/home/joe/httpd/trunk/worker/include/apr-1/apr_pools.h:
-
-/home/joe/httpd/trunk/worker/include/apr-1/apr_pools.h:
 
 /home/joe/httpd/trunk/worker/include/apr-1/apr_tables.h:
 
-/home/joe/httpd/trunk/worker/include/apr-1/apr_time.h:
-
-/home/joe/httpd/trunk/worker/include/apr-1/apr_errno.h:
-
 /home/joe/httpd/trunk/worker/include/apr-1/apr_inherit.h:
-
-/home/joe/httpd/trunk/worker/include/apr-1/apr_want.h:
-
-/home/joe/httpd/trunk/worker/include/apr-1/apr.h:
 
 /usr/include/stdio.h:
 
@@ -375,47 +263,27 @@ cookie.o: cookie.c \
 
 /usr/include/bits/stdio.h:
 
-/home/joe/httpd/trunk/worker/include/apr-1/apr_errno.h:
-
-/home/joe/httpd/trunk/worker/include/apr-1/apr_inherit.h:
-
 /usr/include/netinet/in.h:
 
 /usr/include/bits/in.h:
 
 /usr/include/bits/byteswap.h:
 
-/home/joe/httpd/trunk/worker/include/apr-1/apr_file_io.h:
-
-/home/joe/httpd/trunk/worker/include/apr-1/apr_general.h:
-
 /home/joe/httpd/trunk/worker/include/apr-1/apr_mmap.h:
 
-/home/joe/httpd/trunk/worker/include/apr-1/apr.h:
-
-/home/joe/httpd/trunk/worker/include/apr-1/apr_pools.h:
-
-/home/joe/httpd/trunk/worker/include/apr-1/apr_errno.h:
-
 /home/joe/httpd/trunk/worker/include/apr-1/apr_ring.h:
-
-/home/joe/httpd/trunk/worker/include/apr-1/apr_general.h:
-
-/home/joe/httpd/trunk/worker/include/apr-1/apr_file_io.h:
-
-/home/joe/httpd/trunk/worker/include/apr-1/apr_errno.h:
-
-/home/joe/httpd/trunk/worker/include/apr-1/apr_ring.h:
-
-/home/joe/httpd/trunk/worker/include/apr-1/apr.h:
 
 ../../include/apreq_error.h:
 
 ../../include/apreq_util.h:
 
-../../include/apreq.h:
+/home/joe/httpd/trunk/worker/include/apr-1/apr_file_io.h:
 
 at.h:
+
+/home/joe/httpd/trunk/worker/include/apr-1/apr.h:
+
+/home/joe/httpd/trunk/worker/include/apr-1/apr_file_io.h:
 
 /usr/include/alloca.h:
 

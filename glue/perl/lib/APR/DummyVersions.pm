@@ -6,31 +6,31 @@
 # 
 
 package APR::Request;
-$APR::Request::VERSION          = 2.06-dev;
+$APR::Request::VERSION          = 2.07;
 
 package APR::Request::Apache2;
-$APR::Request::Apache2::VERSION = 2.06-dev;
+$APR::Request::Apache2::VERSION = 2.07;
 
 package APR::Request::CGI;
-$APR::Request::CGI::VERSION     = 2.06-dev;
+$APR::Request::CGI::VERSION     = 2.07;
 
 package APR::Request::Error;
-$APR::Request::Error::VERSION   = 2.06-dev;
+$APR::Request::Error::VERSION   = 2.07;
 
 package APR::Request::Cookie;
-$APR::Request::Cookie::VERSION  = 2.06-dev;
+$APR::Request::Cookie::VERSION  = 2.07;
 
 package APR::Request::Param;
-$APR::Request::Param::VERSION   = 2.06-dev;
+$APR::Request::Param::VERSION   = 2.07;
 
 package Apache2::Request;
-$Apache2::Request::VERSION      = 2.06-dev;
+$Apache2::Request::VERSION      = 2.07;
 
 package Apache2::Cookie;
-$Apache2::Cookie::VERSION       = 2.06-dev;
+$Apache2::Cookie::VERSION       = 2.07;
 
 package Apache2::Upload;
-$Apache2::Upload::VERSION       = 2.06-dev;
+$Apache2::Upload::VERSION       = 2.07;
 
 
 1;

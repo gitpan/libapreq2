@@ -1,6 +1,6 @@
 /** @page apreq_status STATUS
 
-     2.06-dev released on July 20, 2005
+    2.07 released on February 12, 2006
 
 Contributors looking for a mission:
 
@@ -11,9 +11,6 @@ CURRENT RELEASE NOTES:
 
 
 RELEASE SHOWSTOPPERS:
-
-    - The api docs are currently incorrect.
-    - The perl docs are missing Test::Inline tests.
 
 
 CURRENT VOTES:
@@ -31,13 +28,17 @@ CURRENT VOTES:
              0:
             -1:
 
+    - Drop ExtUtils::XSBuilder as the C API is fairly
+      stable now.  The header parsing + xs generation stuff may be too 
+      difficult for the community to maintain over ordinary .xs files.
+
+            +1: pgollucci
 
 TODO:
 
-    - Sadly, the PAUSE indexer still doesn't speak META.yml.  We need
-      to find a way to get the APR::Request* packages indexed (with 
-      proper version numbers), and prevent the indexer from inspecting 
-      the supporting modules in */t, and glue/perl/xsbuilder/tables.
+    - Get static builds working again.
+
+    - Implement (some of) RFC 2184 in the multipart parser.
 
     - Dump automake, preferably replacing that with more stuff from
       httpd/apr's build system.
@@ -53,20 +54,10 @@ TODO:
       and glue subdirs.  The libtool workaround (for OSX IIRC) 
       that copies module/.libs to module/t is especially bogus.
 
-    - Drop ExtUtils::XSBuilder as the C API is fairly
-      stable now.  The header parsing + xs generation stuff may be too 
-      difficult for the community to maintain over ordinary .xs files.
-
     - Round out the unit tests in library/t.  Ideally each
       API function should have its own tests, and each possible
       error status should be both tested & documented.  Also
       upgrade these tests to use the Apache::Test framework.
-
-    - Add a "memory_limit" setting to apreq_parser_t and apreq_module_t, 
-      which will control how much pool allocation the parser may use.
-
-    - Add a "header_limit" setting to control outgoing header size
-      (mainly for baking cookies) instead of using a compiled-in limit.
 
     - in glue/perl/t/apreq/cgi.t on Win32, printing to the error log
       hangs if the strings involved are about 10000 in size.
@@ -94,14 +85,6 @@ OPEN ISSUES:
 
     - Should we bundle an apr-based "application/xml" parser?  
       If so, how should we parse the xml data into an apr_table?
-
-    - Determine whether or not it's good for the perl glue to ever set 
-      the SvUTF8 flag on a param.  The current code ties this action to the 
-      apreq_param_is_tainted flag.
-
-    - Should we let hooks interrupt parsers via APREQ_ERROR_INTERRUPT?
-      That'd need a delete_hook method to make interrupts a useful
-      way of tuning parser behavior.
 
 
 BUGS:

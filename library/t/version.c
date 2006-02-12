@@ -1,5 +1,5 @@
 /*
-**  Copyright 2003-2005  The Apache Software Foundation
+**  Copyright 2003-2006  The Apache Software Foundation
 **
 **  Licensed under the Apache License, Version 2.0 (the "License");
 **  you may not use this file except in compliance with the License.
@@ -52,7 +52,7 @@ int main(int argc, char *argv[])
 
     apr_pool_create(&p, NULL);
 
-    AT = at_create(p, 0, at_report_stdout_make(p)); 
+    AT = at_create(p, 0, at_report_stdout_make(p));
 
     for (i = 0; i < sizeof(test_list) / sizeof(at_test_t);  ++i)
         plan += test_list[i].plan;

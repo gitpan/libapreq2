@@ -1,5 +1,5 @@
 /*
-**  Copyright 2003-2005  The Apache Software Foundation
+**  Copyright 2003-2006  The Apache Software Foundation
 **
 **  Licensed under the Apache License, Version 2.0 (the "License");
 **  you may not use this file except in compliance with the License.
@@ -33,7 +33,7 @@
  * mod_apreq2 provides the "APREQ2" input filter for using libapreq2
  * (and allow its parsed data structures to be shared) within
  * the Apache 2.X webserver.  Using it, libapreq2 works properly
- * in every phase of the HTTP request, from translation handlers 
+ * in every phase of the HTTP request, from translation handlers
  * to output filters, and even for subrequests / internal redirects.
  *
  * <hr>
@@ -48,40 +48,40 @@
  *
  * @code
  *
- *     LoadModule    modules/mod_apreq2.so
+ *     LoadModule apreq_module    modules/mod_apreq2.so
  *
  * @endcode
  *
- * The mod_apreq2 filter is named "APREQ2", and may be used in Apache's
+ * The mod_apreq2 filter is named "apreq2", and may be used in Apache's
  * input filter directives, e.g.
  * @code
  *
- *     AddInputFilter APREQ2         # or
- *     SetInputFilter APREQ2
+ *     AddInputFilter apreq2         # or
+ *     SetInputFilter apreq2
  *
  * @endcode
  *
  * However, this is not required because libapreq2 will add the filter (only)
  * if it's necessary.  You just need to ensure that your module invokes
- * apreq_handle_apache2() <em>before the content handler ultimately reads 
+ * apreq_handle_apache2() <em>before the content handler ultimately reads
  * from the input filter chain</em>.  It is important to realize that no
- * matter how the input filters are initially arranged, the APREQ2 filter 
+ * matter how the input filters are initially arranged, the APREQ2 filter
  * will attempt to reposition itself to be the last input filter to read the
  * data.
  *
  * If you want to use other input filters to transform the incoming HTTP
  * request data, is important to register those filters with Apache
- * as having type AP_FTYPE_CONTENT_SET or AP_FTYPE_RESOURCE.  Due to the 
- * limitations of Apache's current input filter design, types higher than 
+ * as having type AP_FTYPE_CONTENT_SET or AP_FTYPE_RESOURCE.  Due to the
+ * limitations of Apache's current input filter design, types higher than
  * AP_FTYPE_CONTENT_SET may not work properly whenever the apreq filter is
  * active.
  *
- * This is especially true when a content handler uses libapreq2 to parse 
+ * This is especially true when a content handler uses libapreq2 to parse
  * some of the post data before doing an internal redirect.  Any input
  * filter subsequently added to the redirected request will bypass the
  * original apreq filter (and therefore lose access to some of the original
  * post data), unless its type is less than the type of the apreq filter
- * (currently AP_FTYPE_PROTOCOL-1). 
+ * (currently AP_FTYPE_PROTOCOL-1).
  *
  *
  * <H2>Server Configuration Directives</H2>
@@ -99,7 +99,7 @@
  *     <TD> #APREQ_DEFAULT_READ_LIMIT </TD>
  *     <TD> Maximum number of bytes mod_apreq2 will send off to libapreq2
  *          for parsing. mod_apreq2 will log this event and subsequently
- *          remove itself from the filter chain. 
+ *          remove itself from the filter chain.
  *     </TD>
  *   </TR>
  *   <TR>
@@ -107,7 +107,7 @@
  *     <TD>directory</TD>
  *     <TD>#APREQ_DEFAULT_BRIGADE_LIMIT</TD>
  *     <TD> Maximum number of bytes mod_apreq2 will let accumulate
- *          within the heap-buckets in a brigade.  Excess data will be 
+ *          within the heap-buckets in a brigade.  Excess data will be
  *          spooled to an appended file bucket.
  *     </TD>
  *   </TR>
@@ -118,7 +118,7 @@
  *     <TD> Sets the location of the temporary directory apreq will use to spool
  *          overflow brigade data (based on the APREQ2_BrigadeLimit setting).
  *          If left unset, libapreq2 will select a platform-specific location
- *          via apr_temp_dir_get(). 
+ *          via apr_temp_dir_get().
  *     </TD>
  *  </TR>
  * </TABLE>
@@ -139,8 +139,25 @@
  */
 APREQ_DECLARE(apreq_handle_t *) apreq_handle_apache2(request_rec *r);
 
+/**
+ * The mod_apreq2 filter is named "apreq2", and may be used in Apache's
+ * input filter directives, e.g.
+ * @code
+ *
+ *     AddInputFilter apreq2         # or
+ *     SetInputFilter apreq2
+ * @endcode
+ * See above
+ */
 #define APREQ_FILTER_NAME "apreq2"
-#define APREQ_APACHE2_MMN 20050712
+
+/**
+ * The Apache2 Module Magic Number for use in the Apache 2.x module structures
+ * This gets bumped if changes in th4e API will break third party applications
+ * using this apache2 module
+ * @see APREQ_MODULE
+ */
+#define APREQ_APACHE2_MMN 20051231
 
 /** @} */
 

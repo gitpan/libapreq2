@@ -1,4 +1,4 @@
-.TH "include/apreq.h" 3 "19 Jul 2005" "Version 2.06-dev" "libapreq2" \" -*- nroff -*-
+.TH "include/apreq.h" 3 "11 Feb 2006" "Version 2.07" "libapreq2" \" -*- nroff -*-
 .ad l
 .nh
 .SH NAME
@@ -85,14 +85,6 @@ Define the generic APREQ_ macros and common data structures.
 .RI "#define \fBapreq_attr_to_type\fP(T, A, P)   ( (T*) ((char*)(P)-offsetof(T,A)) )"
 .br
 .in -1c
-.SS "Typedefs"
-
-.in +1c
-.ti -1c
-.RI "typedef \fBapreq_value_t\fP \fBapreq_value_t\fP"
-.br
-.RI "\fIlibapreq's pre-extensible string type \fP"
-.in -1c
 .SS "Enumerations"
 
 .in +1c
@@ -134,6 +126,171 @@ Define the generic APREQ_ macros and common data structures.
 
 .SH "Define Documentation"
 .PP 
+.SS "#define apreq_attr_to_type(T, A, P)   ( (T*) ((char*)(P)-offsetof(T,A)) )"
+.PP
+\fBParameters:\fP
+.RS 4
+\fIT\fP type 
+.br
+\fIA\fP attribute 
+.br
+\fIP\fP XXX 
+.RE
+.PP
+
+.SS "#define APREQ_CHARSET_BIT   0"
+.PP
+Charset Bit 
+.PP
+\fBSee also:\fP
+.RS 4
+\fBAPREQ_FLAGS_OFF\fP
+.PP
+\fBAPREQ_FLAGS_ON\fP 
+.PP
+\fBAPREQ_FLAGS_GET\fP
+.PP
+\fBAPREQ_FLAGS_SET\fP 
+.RE
+.PP
+
+.SS "#define APREQ_CHARSET_MASK   255"
+.PP
+Charset Mask 
+.PP
+\fBSee also:\fP
+.RS 4
+\fBAPREQ_FLAGS_OFF\fP
+.PP
+\fBAPREQ_FLAGS_ON\fP 
+.PP
+\fBAPREQ_FLAGS_GET\fP
+.PP
+\fBAPREQ_FLAGS_SET\fP 
+.RE
+.PP
+
+.SS "#define APREQ_COOKIE_SECURE_BIT   13"
+.PP
+Cookie's Secure Bit 
+.PP
+\fBSee also:\fP
+.RS 4
+\fBAPREQ_FLAGS_OFF\fP
+.PP
+\fBAPREQ_FLAGS_ON\fP 
+.PP
+\fBAPREQ_FLAGS_GET\fP
+.PP
+\fBAPREQ_FLAGS_SET\fP 
+.RE
+.PP
+
+.SS "#define APREQ_COOKIE_SECURE_MASK   1"
+.PP
+Cookie's Secure Mask 
+.PP
+\fBSee also:\fP
+.RS 4
+\fBAPREQ_FLAGS_OFF\fP
+.PP
+\fBAPREQ_FLAGS_ON\fP 
+.PP
+\fBAPREQ_FLAGS_GET\fP
+.PP
+\fBAPREQ_FLAGS_SET\fP 
+.RE
+.PP
+
+.SS "#define APREQ_COOKIE_VERSION_BIT   11"
+.PP
+Cookier Version Bit 
+.PP
+\fBSee also:\fP
+.RS 4
+\fBAPREQ_FLAGS_OFF\fP
+.PP
+\fBAPREQ_FLAGS_ON\fP 
+.PP
+\fBAPREQ_FLAGS_GET\fP
+.PP
+\fBAPREQ_FLAGS_SET\fP 
+.RE
+.PP
+
+.SS "#define APREQ_COOKIE_VERSION_MASK   3"
+.PP
+Cookie Version Mask 
+.PP
+\fBSee also:\fP
+.RS 4
+\fBAPREQ_FLAGS_OFF\fP
+.PP
+\fBAPREQ_FLAGS_ON\fP 
+.PP
+\fBAPREQ_FLAGS_GET\fP
+.PP
+\fBAPREQ_FLAGS_SET\fP 
+.RE
+.PP
+
+.SS "#define APREQ_DECLARE(d)   \fBAPR_DECLARE\fP(d)"
+.PP
+\fBAPREQ_DECLARE(rettype)\fP apeq_func(args) 
+.PP
+\fBExamples: \fP
+.in +1c
+\fB/home/joe/src/apache/httpd/apreq/trunk/include/apreq.h\fP.
+.SS "#define APREQ_DECLARE_DATA"
+.PP
+extern APREQ_DECLARE_DATA type apr_variable;
+.br
+ APREQ_DECLARE_DATA type apr_variable = value; 
+.SS "#define APREQ_DECLARE_NONSTD(d)   \fBAPR_DECLARE_NONSTD\fP(d)"
+.PP
+APEQ_DECLARE_NONSTD(rettype) apr_func(args, ...); 
+.SS "#define APREQ_DEFAULT_BRIGADE_LIMIT   (256 * 1024)"
+.PP
+Maximum number of bytes mod_apreq2 will let accumulate within the heap-buckets in a brigade. Excess data will be spooled to an appended file bucket 
+.PP
+\fBSee also:\fP
+.RS 4
+ap_set_brigade_read_limit 
+.RE
+.PP
+
+.SS "#define APREQ_DEFAULT_NELTS   8"
+.PP
+Number of elements in the initial apr_table 
+.PP
+\fBSee also:\fP
+.RS 4
+\fBapr_table_make\fP 
+.RE
+.PP
+
+.SS "#define APREQ_DEFAULT_READ_BLOCK_SIZE   (64  * 1024)"
+.PP
+Read chucks of data in 64k blocks from the request 
+.SS "#define APREQ_DEFAULT_READ_LIMIT   (64 * 1024 * 1024)"
+.PP
+Maximum number of bytes mod_apreq2 will send off to libapreq2 for parsing. mod_apreq2 will log this event and subsequently remove itself from the filter chain. 
+.PP
+\fBSee also:\fP
+.RS 4
+ap_set_read_limit 
+.RE
+.PP
+
+.SS "#define APREQ_FLAGS_GET(f, name)   (((f) >> name##_BIT) & name##_MASK)"
+.PP
+Get specified bit f in bitfiled name 
+.SS "#define APREQ_FLAGS_OFF(f, name)   ((f) &= ~(name##_MASK << name##_BIT))"
+.PP
+Check to see if specified bit f is off in bitfiled name 
+.SS "#define APREQ_FLAGS_ON(f, name)   ((f) |=  (name##_MASK << name##_BIT))"
+.PP
+Check to see if specified bit f is on in bitfiled name 
 .SS "#define APREQ_FLAGS_SET(f, name, value)"
 .PP
 \fBValue:\fP
@@ -142,6 +299,39 @@ Define the generic APREQ_ macros and common data structures.
 ((f) = (((f) & ~(name##_MASK << name##_BIT))        \
             | ((name##_MASK & (value)) << name##_BIT)))
 .fi
+Set specified bit f in bitfiled name to value Note the below BIT/Mask defines are used sans the _BIT, _MASK because of the this define's ##_MASK, ##_BIT usage. Each come in a pair 
+.SS "#define APREQ_TAINTED_BIT   8"
+.PP
+Tainted Bit 
+.PP
+\fBSee also:\fP
+.RS 4
+\fBAPREQ_FLAGS_OFF\fP
+.PP
+\fBAPREQ_FLAGS_ON\fP 
+.PP
+\fBAPREQ_FLAGS_GET\fP
+.PP
+\fBAPREQ_FLAGS_SET\fP 
+.RE
+.PP
+
+.SS "#define APREQ_TAINTED_MASK   1"
+.PP
+Tainted Mask 
+.PP
+\fBSee also:\fP
+.RS 4
+\fBAPREQ_FLAGS_OFF\fP
+.PP
+\fBAPREQ_FLAGS_ON\fP 
+.PP
+\fBAPREQ_FLAGS_GET\fP
+.PP
+\fBAPREQ_FLAGS_SET\fP 
+.RE
+.PP
+
 .SH "Enumeration Type Documentation"
 .PP 
 .SS "enum \fBapreq_charset_t\fP"
@@ -202,20 +392,28 @@ Initialize libapreq2. Applications (except apache modules using mod_apreq) shoul
 .PP
 \fBRemarks:\fP
 .RS 4
-after you detroy the pool, you have to call this function again with a new pool if you still plan to use libapreq2
+after you detroy the pool, you have to call this function again with a new pool if you still plan to use libapreq2 
 .RE
 .PP
 
+.PP
+\fBExamples: \fP
+.in +1c
+\fB/home/joe/src/apache/httpd/apreq/trunk/include/apreq.h\fP.
 .SS "\fBapr_status_t\fP apreq_post_initialize (\fBapr_pool_t\fP * pool)"
 .PP
 Post-initialize libapreq2. Applications (except apache modules using mod_apreq2) should this exactly once before they use any libapreq2 modules for parsing.
 .PP
 \fBParameters:\fP
 .RS 4
-\fIpool\fP the same pool that was used in \fBapreq_pre_initialize()\fP.
+\fIpool\fP the same pool that was used in \fBapreq_pre_initialize()\fP. 
 .RE
 .PP
 
+.PP
+\fBExamples: \fP
+.in +1c
+\fB/home/joe/src/apache/httpd/apreq/trunk/include/apreq.h\fP.
 .SS "\fBapr_status_t\fP apreq_pre_initialize (\fBapr_pool_t\fP * pool)"
 .PP
 Pre-initialize libapreq2. Applications (except apache modules using mod_apreq2) should call this exactly once before they register custom parsers with libapreq2. mod_apreq2 does this automatically during the post-config phase, so modules that need call apreq_register_parser should create a post-config hook using APR_HOOK_MIDDLE.
@@ -227,10 +425,42 @@ Pre-initialize libapreq2. Applications (except apache modules using mod_apreq2) 
 .PP
 \fBRemarks:\fP
 .RS 4
-after you detroyed the pool, you have to call this function again with a new pool if you still plan to use libapreq2
+after you detroyed the pool, you have to call this function again with a new pool if you still plan to use libapreq2 
 .RE
 .PP
 
+.PP
+\fBExamples: \fP
+.in +1c
+\fB/home/joe/src/apache/httpd/apreq/trunk/include/apreq.h\fP.
+.SS "static \fBAPR_INLINE\fP void apreq_value_table_add (const \fBapreq_value_t\fP * v, \fBapr_table_t\fP * t)\fC [static]\fP"
+.PP
+Adds the specified \fBapreq_value_t\fP to the apr_table_t.
+.PP
+\fBParameters:\fP
+.RS 4
+\fIv\fP value to add 
+.br
+\fIt\fP add v to this table
+.RE
+.PP
+\fBReturns:\fP
+.RS 4
+void
+.RE
+.PP
+@ see apr_table_t
+.PP
+\fBSee also:\fP
+.RS 4
+apr_value_t 
+.RE
+.PP
+
+.PP
+\fBExamples: \fP
+.in +1c
+\fB/home/joe/src/apache/httpd/apreq/trunk/include/apreq.h\fP.
 .SH "Author"
 .PP 
 Generated automatically by Doxygen for libapreq2 from the source code.

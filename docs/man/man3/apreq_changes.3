@@ -1,10 +1,75 @@
-.TH "apreq_changes" 3 "19 Jul 2005" "Version 2.06-dev" "libapreq2" \" -*- nroff -*-
+.TH "apreq_changes" 3 "11 Feb 2006" "Version 2.07" "libapreq2" \" -*- nroff -*-
 .ad l
 .nh
 .SH NAME
 apreq_changes \- CHANGES
 ! brief List of major changes.
-.SH "Changes with libapreq2-2.06 (released July 20, 2005)"
+.SH "Changes with libapreq2-2.07 (released February 12, 2006)"
+.PP
+.IP "\(bu" 2
+C API [joes] SECURITY: CVE-2006-0042 (cve.mitre.org) Eliminate potential quadratic behavior in apreq_parse_headers() and apreq_parse_urlencoded().
+.PP
+.PP
+.IP "\(bu" 2
+Perl API [Philip M. Gollucci] Fix Apache2::Cookie->cookies() to comply with its documentation
+.PP
+.PP
+.IP "\(bu" 2
+C API [Philip M. Gollucci] Use the APREQ_DEFAULT_READ_LIMIT constant for the read_limit
+.PP
+.PP
+.IP "\(bu" 2
+C API [Ville Skyttä, Dirk Nehring] Add explicit cast in \fBapreq_escape()\fP/apreq_util.h to keep C++ compilers happy.
+.PP
+.PP
+.IP "\(bu" 2
+C API [joes] Protect against arbitrary recursion depth in apreq_parse_multipart() by adding a reasonable compile-time MAX_LEVEL limit.
+.PP
+.PP
+.IP "\(bu" 2
+C API [joes] Clean up end-of-file parsing for apreq_parse_multipart(), conforming to rfc-2046 § 5.1.1.
+.PP
+.PP
+.IP "\(bu" 2
+Perl API [joes] Move APR::Request::Param::Table and APR::Request::Cookie::Table packages to APR::Request module.
+.PP
+.PP
+.IP "\(bu" 2
+Perl XS [Steve Hay] Fix compile problems on Win32 without PERL_IMPLICIT_SYS related to link being an unresolved symbol.
+.PP
+.PP
+.IP "\(bu" 2
+Perl API [joes] APR::Request::Cookie::thaw() isn't a class method.
+.PP
+.PP
+.IP "\(bu" 2
+C API [joes] Fix off-by-one bug in the continuation-lines portion of the header parser.
+.PP
+.PP
+.IP "\(bu" 2
+Perl API [joes] Move APR::Request::upload to APR::Request, where it belongs.
+.PP
+.PP
+.IP "\(bu" 2
+Perl XS [Nikolay Ananiev] Use MP_STATIC declarations to allow Cygwin builds.
+.PP
+.PP
+.IP "\(bu" 2
+Perl API [joes] encode()/decode() were busted with zero-length args. This caused Apache2::Cookie::new() to segfault on cookie value of ''.
+.PP
+.PP
+.IP "\(bu" 2
+C API [joes] Add \fBapreq_charset_divine()\fP and eliminate charset offset from return value of apreq_decode(v).
+.PP
+.PP
+.IP "\(bu" 2
+C API [joes] Improve the cp1252-charset heuristics for apreq_decode(v).
+.PP
+.PP
+.IP "\(bu" 2
+C API [Ralph Mattes] Add explicit casts for apreq_param_charset_* to keep c++ compilers happy.
+.PP
+.SH "Changes with libapreq2-2.06-dev (released July 20, 2005)"
 .PP
 .IP "\(bu" 2
 C API [Marc Gràcia, joes] Fix apreq_decode(v) when iso-latin-1 chars appear at the end of an encoded string.
@@ -96,7 +161,7 @@ C, Perl API [joes] Add charset support for params and couple the SvUTF8 flag to 
 .PP
 .PP
 .IP "\(bu" 2
-C API [joes] Replace v->size with v->nlen + v->dlen. Added supporting apreq_value_table_add().
+C API [joes] Replace v->size with v->nlen + v->dlen. Added supporting \fBapreq_value_table_add()\fP.
 .PP
 .PP
 .IP "\(bu" 2

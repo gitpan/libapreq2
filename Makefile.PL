@@ -19,7 +19,7 @@ my %opts;
 undef @opts{qw(with-apache2-apxs with-apache1-apxs with-apache2-src
                with-perl with-apache2-httpd
                with-apr-config with-apu-config apxs
-               with-expat)};
+               with-expat with-mm-opts)};
 undef @opts{qw(with-apache2)} if (WIN32);
 
 my @flags = qw/enable-maintainer-mode enable-perl-glue disable-perl-glue/;
@@ -46,6 +46,10 @@ $opts .= "--debug " if (WIN32 and $args{debug});
 delete @args{@flags};
 $args{"with-apache2-apxs"} = delete $args{apxs}
     if exists $args{apxs} and not exists $args{"with-apache2-apxs"};
+$args{"with-apache2-apxs"} ||= eval {
+    require Apache2::Build;
+    Apache2::Build->build_config->{MP_APXS};
+};
 
 $args{"with-perl-opts"} = "@ARGV" if @ARGV;
 
@@ -55,12 +59,20 @@ if (WIN32) {
         my @candidates = qw(with-apache2-apxs with-apache2-httpd
                             with-apr-config with-apu-config);
         foreach my $opt(@candidates) {
-            next unless $args{$opt};
-            (my $d = File::Basename::dirname($args{$opt})) =~ s{(\\|/)bin}{};
-            if (-d $d) {
-                delete $args{$opt};
-                $args{'with-apache2'} = $d;
+            my $c = delete $args{$opt};
+            next unless $c;
+            (my $dir = File::Basename::dirname($c)) =~ s{(\\|/)bin}{};
+            if (-d $dir) {
+                $args{'with-apache2'} = $dir;
                 last;
+            }
+        }
+        unless ($args{'with-apache2'}) {
+            my $mp_ap_prefix = eval {
+                Apache2::Build->build_config->{MP_AP_PREFIX};
+            };
+            if ($mp_ap_prefix and -d $mp_ap_prefix) {
+                $args{'with-apache2'} = $mp_ap_prefix;
             }
         }
     }

@@ -2,7 +2,69 @@
 //! brief List of major changes.
 
 
-@section v2_06 Changes with libapreq2-2.06 (released July 20, 2005)
+@section v2_07 Changes with libapreq2-2.07 (released February 12, 2006)
+
+
+- C API [joes]
+  SECURITY: CVE-2006-0042 (cve.mitre.org)
+  Eliminate potential quadratic behavior in apreq_parse_headers() and
+  apreq_parse_urlencoded().
+
+- Perl API [Philip M. Gollucci]
+  Fix Apache2::Cookie->cookies() to comply with its documentation
+
+- C API [Philip M. Gollucci]
+  Use the APREQ_DEFAULT_READ_LIMIT constant for the read_limit
+
+- C API [Ville Skyttä, Dirk Nehring]
+  Add explicit cast in apreq_escape()/apreq_util.h to keep
+  C++ compilers happy.
+
+- C API [joes]
+  Protect against arbitrary recursion depth in apreq_parse_multipart()
+  by adding a reasonable compile-time MAX_LEVEL limit.
+
+- C API [joes]
+  Clean up end-of-file parsing for apreq_parse_multipart(), 
+  conforming to rfc-2046 § 5.1.1.
+
+- Perl API [joes]
+  Move APR::Request::Param::Table and APR::Request::Cookie::Table
+  packages to APR::Request module.
+
+- Perl XS [Steve Hay]
+  Fix compile problems on Win32 without PERL_IMPLICIT_SYS
+  related to link being an unresolved symbol.
+
+- Perl API [joes]
+  APR::Request::Cookie::thaw() isn't a class method.
+
+- C API [joes]
+  Fix off-by-one bug in the continuation-lines portion of the
+  header parser.
+
+- Perl API [joes]
+  Move APR::Request::upload to APR::Request, where it belongs.
+
+- Perl XS [Nikolay Ananiev]
+  Use MP_STATIC declarations to allow Cygwin builds.
+
+- Perl API [joes]
+  encode()/decode() were busted with zero-length args.  This caused
+  Apache2::Cookie::new() to segfault on cookie value of "".
+
+- C API [joes]
+  Add apreq_charset_divine() and eliminate charset offset from return
+  value of apreq_decode(v).
+
+- C API [joes]
+  Improve the cp1252-charset heuristics for apreq_decode(v).
+
+- C API [Ralph Mattes]
+  Add explicit casts for apreq_param_charset_* to keep c++ compilers happy.
+
+
+@section v2_06_dev Changes with libapreq2-2.06-dev (released July 20, 2005)
 
 
 - C API [Marc Gràcia, joes]

@@ -1,4 +1,4 @@
-.TH "include/apreq_param.h" 3 "19 Jul 2005" "Version 2.06-dev" "libapreq2" \" -*- nroff -*-
+.TH "include/apreq_param.h" 3 "11 Feb 2006" "Version 2.07" "libapreq2" \" -*- nroff -*-
 .ad l
 .nh
 .SH NAME
@@ -18,13 +18,6 @@ include/apreq_param.h \- Request parsing and parameter API.
 .RI "struct \fBapreq_param_t\fP"
 .br
 .in -1c
-.SS "Typedefs"
-
-.in +1c
-.ti -1c
-.RI "typedef \fBapreq_param_t\fP \fBapreq_param_t\fP"
-.br
-.in -1c
 .SS "Functions"
 
 .in +1c
@@ -38,16 +31,16 @@ include/apreq_param.h \- Request parsing and parameter API.
 .RI "static \fBAPR_INLINE\fP void \fBapreq_param_tainted_off\fP (\fBapreq_param_t\fP *p)"
 .br
 .ti -1c
-.RI "static \fBAPR_INLINE\fP \fBapreq_charset_t\fP \fBapreq_param_charset_set\fP (\fBapreq_param_t\fP *p, unsigned char c)"
+.RI "static \fBAPR_INLINE\fP \fBapreq_charset_t\fP \fBapreq_param_charset_set\fP (\fBapreq_param_t\fP *p, \fBapreq_charset_t\fP c)"
 .br
 .ti -1c
 .RI "static \fBAPR_INLINE\fP \fBapreq_charset_t\fP \fBapreq_param_charset_get\fP (\fBapreq_param_t\fP *p)"
 .br
 .ti -1c
-.RI "static \fBAPR_INLINE\fP \fBapreq_param_t\fP * \fBapreq_value_to_param\fP (const char *val)"
+.RI "static \fBAPR_INLINE\fP \fBapreq_param_t\fP * \fBapreq_value_to_param\fP (const char *\fBval\fP)"
 .br
 .ti -1c
-.RI "\fBapreq_param_t\fP * \fBapreq_param_make\fP (\fBapr_pool_t\fP *p, const char *name, const \fBapr_size_t\fP nlen, const char *val, const \fBapr_size_t\fP vlen)"
+.RI "\fBapreq_param_t\fP * \fBapreq_param_make\fP (\fBapr_pool_t\fP *p, const char *name, const \fBapr_size_t\fP nlen, const char *\fBval\fP, const \fBapr_size_t\fP vlen)"
 .br
 .ti -1c
 .RI "\fBapr_status_t\fP \fBapreq_param_decode\fP (\fBapreq_param_t\fP **param, \fBapr_pool_t\fP *pool, const char *word, \fBapr_size_t\fP nlen, \fBapr_size_t\fP vlen)"
@@ -76,17 +69,12 @@ include/apreq_param.h \- Request parsing and parameter API.
 Request parsing and parameter API. 
 
 
-.SH "Typedef Documentation"
-.PP 
-.SS "typedef struct \fBapreq_param_t\fP  \fBapreq_param_t\fP"
-.PP
-Common data structure for params and file uploads 
 .SH "Function Documentation"
 .PP 
 .SS "static \fBAPR_INLINE\fP \fBapreq_charset_t\fP apreq_param_charset_get (\fBapreq_param_t\fP * p)\fC [static]\fP"
 .PP
 Gets the character encoding for this parameter. 
-.SS "static \fBAPR_INLINE\fP \fBapreq_charset_t\fP apreq_param_charset_set (\fBapreq_param_t\fP * p, unsigned char c)\fC [static]\fP"
+.SS "static \fBAPR_INLINE\fP \fBapreq_charset_t\fP apreq_param_charset_set (\fBapreq_param_t\fP * p, \fBapreq_charset_t\fP c)\fC [static]\fP"
 .PP
 Sets the character encoding for this parameter. 
 .SS "\fBapr_status_t\fP apreq_param_decode (\fBapreq_param_t\fP ** param, \fBapr_pool_t\fP * pool, const char * word, \fBapr_size_t\fP nlen, \fBapr_size_t\fP vlen)"
@@ -115,7 +103,7 @@ APR_SUCCESS + apreq_charset_t (<=APREQ_CHARSET_UTF8) on success.
 .PP
 \fBRemarks:\fP
 .RS 4
-Unless vlen == 0, this function assumes there is exactly one character ('=') which separates the pair.
+Unless vlen == 0, this function assumes there is exactly one character ('=') which separates the pair. 
 .RE
 .PP
 
@@ -132,7 +120,7 @@ Url-encodes the param into a name-value pair.
 .PP
 \fBReturns:\fP
 .RS 4
-name-value pair representing the param.
+name-value pair representing the param. 
 .RE
 .PP
 
@@ -173,7 +161,7 @@ an array of apreq_param_t* (pointers)
 .PP
 \fBRemarks:\fP
 .RS 4
-Also parses the request if necessary.
+Also parses the request if necessary. 
 .RE
 .PP
 
@@ -199,7 +187,7 @@ the joined string or NULL on error
 .PP
 \fBRemarks:\fP
 .RS 4
-Also parses the request if necessary.
+Also parses the request if necessary. 
 .RE
 .PP
 
@@ -223,7 +211,7 @@ APR_SUCCESS if successful, error otherwise.
 .PP
 \fBRemarks:\fP
 .RS 4
-This function uses [&;] as the set of tokens to delineate words, and will treat a word w/o '=' as a name-value pair with value-length = 0.
+This function uses [&;] as the set of tokens to delineate words, and will treat a word w/o '=' as a name-value pair with value-length = 0. 
 .RE
 .PP
 
@@ -245,7 +233,7 @@ Corresponding upload, NULL if none found.
 .PP
 \fBRemarks:\fP
 .RS 4
-Will parse the request as necessary.
+Will parse the request as necessary. 
 .RE
 .PP
 
@@ -267,7 +255,7 @@ Upload table.
 .PP
 \fBRemarks:\fP
 .RS 4
-Will parse the request if necessary.
+Will parse the request if necessary. 
 .RE
 .PP
 

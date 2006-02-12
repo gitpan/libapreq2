@@ -1,3 +1,15 @@
+/* On Win32 without PERL_IMPLICIT_SYS, PerlLIO_link is #defined as
+ * link, which in turn is #defined as win32_link, but mp2's 
+ * modperl_perl_unembed.h #undefs link, leaving link as an unresolved 
+ * symbol when linking Param.dll.
+ */
+#ifdef WIN32
+#ifndef PERL_IMPLICIT_SYS
+#undef PerlLIO_link
+#define PerlLIO_link(oldname, newname) win32_link(oldname, newname)
+#endif
+#endif
+
 MODULE = APR::Request::Param      PACKAGE = APR::Request::Param
 
 SV *
@@ -127,49 +139,6 @@ make(class, pool, name, val)
     RETVAL
 
 
-MODULE = APR::Request::Param PACKAGE = APR::Request::Param::Table
-
-SV *
-param_class(t, subclass=&PL_sv_undef)
-    APR::Request::Param::Table t
-    SV *subclass
-
-  PREINIT:
-    SV *obj = apreq_xs_sv2object(aTHX_ ST(0), PARAM_TABLE_CLASS, 't');
-    MAGIC *mg = mg_find(obj, PERL_MAGIC_ext);
-    char *curclass = mg->mg_ptr;
-
-  CODE:
-
-    if (items == 2) {
-        if (!SvOK(subclass)) {
-            mg->mg_ptr = NULL;
-            mg->mg_len = 0;
-        }
-        else if (!sv_derived_from(subclass, PARAM_CLASS)) {
-            Perl_croak(aTHX_ "Usage: "
-                              PARAM_TABLE_CLASS "::param_class($table, $class): "
-                             "class %s is not derived from " PARAM_CLASS, 
-                              SvPV_nolen(subclass));
-        }
-        else {
-            STRLEN len;
-            mg->mg_ptr = savepv(SvPV(subclass, len));
-            mg->mg_len = len;
-            
-        }
-        if (curclass != NULL)
-            Safefree(curclass);
-
-        XSRETURN(1);
-    }
-
-    RETVAL = (curclass == NULL) ? &PL_sv_undef : newSVpv(curclass, 0);
-
-  OUTPUT:
-    RETVAL
-
-
 MODULE = APR::Request::Param PACKAGE = APR::Request::Param
 
 SV *
@@ -264,7 +233,7 @@ upload_size(param)
     if (s != APR_SUCCESS)
         Perl_croak(aTHX_ "$param->upload_size(): can't get upload length");
 
-    RETVAL = len;    
+    RETVAL = len;
 
   OUTPUT:
     RETVAL
@@ -282,13 +251,13 @@ upload_type(param)
     ct = apr_table_get(param->info, "Content-Type");
     if (ct == NULL)
         Perl_croak(aTHX_ "$param->upload_type: can't find Content-Type header");
-    
+
     if ((sc = strchr(ct, ';')))
         len = sc - ct;
     else
         len = strlen(ct);
 
-    RETVAL = newSVpvn(ct, len);    
+    RETVAL = newSVpvn(ct, len);
     if (apreq_param_is_tainted(param))
         SvTAINTED_on(RETVAL);
 
@@ -314,7 +283,7 @@ upload_tempname(param, req=apreq_xs_sv2handle(aTHX_ ST(0)))
         s = apreq_temp_dir_get(req, &path);
         if (s != APR_SUCCESS)
             Perl_croak(aTHX_ "$param->upload_tempname($req): can't get temp_dir");
-        s = apreq_brigade_concat(param->upload->p, path, 0, 
+        s = apreq_brigade_concat(param->upload->p, path, 0,
                                  param->upload, param->upload);
         if (s != APR_SUCCESS)
             Perl_croak(aTHX_ "$param->upload_tempname($req): can't make spool bucket");

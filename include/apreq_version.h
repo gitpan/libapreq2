@@ -1,5 +1,5 @@
 /*
-**  Copyright 2003-2005  The Apache Software Foundation
+**  Copyright 2003-2006  The Apache Software Foundation
 **
 **  Licensed under the Apache License, Version 2.0 (the "License");
 **  you may not use this file except in compliance with the License.
@@ -44,30 +44,30 @@ extern "C" {
  */
 
 /* The numeric compile-time version constants. These constants are the
- * authoritative version numbers for libapreq. 
+ * authoritative version numbers for libapreq.
  */
 
-/** major version 
+/** major version
  * Major API changes that could cause compatibility problems for older
  * programs such as structure size changes.  No binary compatibility is
  * possible across a change in the major version.
  */
 #define APREQ_MAJOR_VERSION       2
 
-/** 
+/**
  * Minor API changes that do not cause binary compatibility problems.
  * Should be reset to 0 when upgrading APREQ_MAJOR_VERSION
  */
-#define APREQ_MINOR_VERSION       1
+#define APREQ_MINOR_VERSION       5
 
 /** patch level */
-#define APREQ_PATCH_VERSION       3
+#define APREQ_PATCH_VERSION       7
 
-/** 
+/**
  *  This symbol is defined for internal, "development" copies of libapreq.
- *  This symbol will be #undef'd for releases. 
+ *  This symbol will be \#undef'd for releases.
  */
-#define APREQ_IS_DEV_VERSION
+#undef APREQ_IS_DEV_VERSION
 
 
 /** The formatted string of libapreq's version */

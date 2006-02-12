@@ -1,5 +1,5 @@
 /*
-**  Copyright 2003-2005  The Apache Software Foundation
+**  Copyright 2003-2006  The Apache Software Foundation
 **
 **  Licensed under the Apache License, Version 2.0 (the "License");
 **  you may not use this file except in compliance with the License.
@@ -35,30 +35,32 @@
         return APR_INCOMPLETE;                     \
 } while (0);
 
-
+/* maximum recursion level in the mfd parser */
+#define MAX_LEVEL 8
 
 struct mfd_ctx {
     apr_table_t                 *info;
     apr_bucket_brigade          *in;
     apr_bucket_brigade          *bb;
     apreq_parser_t              *hdr_parser;
-    apreq_parser_t              *mix_parser;
+    apreq_parser_t              *next_parser;
     const apr_strmatch_pattern  *pattern;
     char                        *bdry;
     enum {
-        MFD_INIT,  
-        MFD_NEXTLINE, 
+        MFD_INIT,
+        MFD_NEXTLINE,
         MFD_HEADER,
         MFD_POST_HEADER,
-        MFD_PARAM, 
+        MFD_PARAM,
         MFD_UPLOAD,
         MFD_MIXED,
         MFD_COMPLETE,
-        MFD_ERROR 
+        MFD_ERROR
     }                            status;
     apr_bucket                  *eos;
-    char                        *param_name;
+    const char                  *param_name;
     apreq_param_t               *upload;
+    unsigned                    level;
 };
 
 
@@ -155,7 +157,7 @@ static apr_status_t split_on_bdry(apr_bucket_brigade *out,
             continue;
         }
         else if (off > 0) {
-            /* prior (partial) strncmp failed, 
+            /* prior (partial) strncmp failed,
              * so we can move previous buckets across
              * and retest buf against the full bdry.
              */
@@ -173,7 +175,7 @@ static apr_status_t split_on_bdry(apr_bucket_brigade *out,
             if (match != NULL)
                 idx = match - buf;
             else {
-                idx = apreq_index(buf + len-blen, blen, bdry, blen, 
+                idx = apreq_index(buf + len-blen, blen, bdry, blen,
                                   APREQ_MATCH_PARTIAL);
                 if (idx >= 0)
                     idx += len-blen;
@@ -182,7 +184,7 @@ static apr_status_t split_on_bdry(apr_bucket_brigade *out,
         else
             idx = apreq_index(buf, len, bdry, blen, APREQ_MATCH_PARTIAL);
 
-        /* Theoretically idx should never be 0 here, because we 
+        /* Theoretically idx should never be 0 here, because we
          * already tested the front of the brigade for a potential match.
          * However, it doesn't hurt to allow for the possibility,
          * since this will just start the whole loop over again.
@@ -204,14 +206,15 @@ struct mfd_ctx * create_multipart_context(const char *content_type,
                                           apr_pool_t *pool,
                                           apr_bucket_alloc_t *ba,
                                           apr_size_t brigade_limit,
-                                          const char *temp_dir)
+                                          const char *temp_dir,
+                                          unsigned level)
 
 {
     apr_status_t s;
     apr_size_t blen;
     struct mfd_ctx *ctx = apr_palloc(pool, sizeof *ctx);
     char *ct = apr_pstrdup(pool, content_type);
- 
+
     ct = strchr(ct, ';');
     if (ct == NULL)
         return NULL; /* missing semicolon */
@@ -232,15 +235,18 @@ struct mfd_ctx * create_multipart_context(const char *content_type,
 
     ctx->status = MFD_INIT;
     ctx->pattern = apr_strmatch_precompile(pool, ctx->bdry, 1);
-    ctx->hdr_parser = apreq_parser_make(pool, ba, "", apreq_parse_headers,
-                                        brigade_limit, temp_dir, NULL, NULL);
+    ctx->hdr_parser = apreq_parser_make(pool, ba, "",
+                                        apreq_parse_headers,
+                                        brigade_limit,
+                                        temp_dir, NULL, NULL);
     ctx->info = NULL;
     ctx->bb = apr_brigade_create(pool, ba);
     ctx->in = apr_brigade_create(pool, ba);
     ctx->eos = apr_bucket_eos_create(ba);
-    ctx->mix_parser = NULL;
+    ctx->next_parser = NULL;
     ctx->param_name = NULL;
     ctx->upload = NULL;
+    ctx->level = level;
 
     return ctx;
 }
@@ -254,19 +260,13 @@ APREQ_DECLARE_PARSER(apreq_parse_multipart)
 
     if (ctx == NULL) {
         ctx = create_multipart_context(parser->content_type,
-                                       pool, ba, 
+                                       pool, ba,
                                        parser->brigade_limit,
-                                       parser->temp_dir);
+                                       parser->temp_dir, 1);
         if (ctx == NULL)
             return APREQ_ERROR_GENERAL;
 
 
-        ctx->mix_parser = apreq_parser_make(pool, ba, "", 
-                                            apreq_parse_multipart,
-                                            parser->brigade_limit,
-                                            parser->temp_dir,
-                                            parser->hook,
-                                            NULL);
         parser->ctx = ctx;
     }
 
@@ -295,19 +295,26 @@ APREQ_DECLARE_PARSER(apreq_parse_multipart)
     case MFD_NEXTLINE:
         {
             s = split_on_bdry(ctx->bb, ctx->in, NULL, CRLF);
+            if (s == APR_EOF) {
+                ctx->status = MFD_COMPLETE;
+                return APR_SUCCESS;
+            }
             if (s != APR_SUCCESS) {
                 apreq_brigade_setaside(ctx->in, pool);
                 apreq_brigade_setaside(ctx->bb, pool);
                 return s;
             }
             if (!APR_BRIGADE_EMPTY(ctx->bb)) {
-                /* ctx->bb probably contains "--", but we'll stop here
-                 *  without bothering to check, and just
-                 * return any postamble text to caller.
-                 */
-                APR_BRIGADE_CONCAT(bb, ctx->in);
-                ctx->status = MFD_COMPLETE;
-                return APR_SUCCESS;
+                char *line;
+                apr_size_t len;
+                apr_brigade_pflatten(ctx->bb, &line, &len, pool);
+
+                if (len >= 2 && strncmp(line, "--", 2) == 0) {
+                    APR_BRIGADE_CONCAT(bb, ctx->in);
+                    ctx->status = MFD_COMPLETE;
+                    return APR_SUCCESS;
+                }
+                apr_brigade_cleanup(ctx->bb);
             }
 
             ctx->status = MFD_HEADER;
@@ -319,7 +326,7 @@ APREQ_DECLARE_PARSER(apreq_parse_multipart)
         {
             if (ctx->info == NULL) {
                 ctx->info = apr_table_make(pool, APREQ_DEFAULT_NELTS);
-                /* flush out old header parser internal structs for reuse */
+                /* flush out header parser internal structs for reuse */
                 ctx->hdr_parser->ctx = NULL;
             }
             s = apreq_parser_run(ctx->hdr_parser, ctx->info, ctx->in);
@@ -339,21 +346,21 @@ APREQ_DECLARE_PARSER(apreq_parse_multipart)
 
     case MFD_POST_HEADER:
         {
-            /* Must handle special case of missing CRLF (mainly
-               coming from empty file uploads). See RFC2065 S5.1.1:
+            /*  Must handle special case of missing CRLF (mainly
+             *  coming from empty file uploads). See RFC2065 S5.1.1:
+             *
+             *    body-part = MIME-part-header [CRLF *OCTET]
+             *
+             *  So the CRLF we already matched in MFD_HEADER may have been
+             *  part of the boundary string! Both Konqueror (v??) and
+             *  Mozilla-0.97 are known to emit such blocks.
+             *
+             *  Here we first check for this condition with
+             *  brigade_start_string, and prefix the brigade with
+             *  an additional CRLF bucket if necessary.
+             */
 
-                 body-part = MIME-part-header [CRLF *OCTET]
-
-               So the CRLF we already matched in MFD_HEADER may have been 
-               part of the boundary string! Both Konqueror (v??) and 
-               Mozilla-0.97 are known to emit such blocks.
-
-               Here we first check for this condition with 
-               brigade_start_string, and prefix the brigade with
-               an additional CRLF bucket if necessary.
-            */
-
-            const char *cd, *name, *filename;
+            const char *cd, *ct, *name, *filename;
             apr_size_t nlen, flen;
             apr_bucket *e;
 
@@ -367,7 +374,7 @@ APREQ_DECLARE_PARSER(apreq_parse_multipart)
                 /* part has no body- return CRLF to front */
                 e = apr_bucket_immortal_create(CRLF, 2,
                                                 ctx->bb->bucket_alloc);
-                APR_BRIGADE_INSERT_HEAD(ctx->in,e);
+                APR_BRIGADE_INSERT_HEAD(ctx->in, e);
                 break;
 
             default:
@@ -376,103 +383,135 @@ APREQ_DECLARE_PARSER(apreq_parse_multipart)
 
             cd = apr_table_get(ctx->info, "Content-Disposition");
 
-            if (cd != NULL) {
+            /*  First check to see if must descend into a new multipart
+             *  block.  If we do, create a new parser and pass control
+             *  to it.
+             */
 
-                if (ctx->mix_parser != NULL) {
-                    /* multipart/form-data */
+            ct = apr_table_get(ctx->info, "Content-Type");
 
-                    s = apreq_header_attribute(cd, "name", 4, &name, &nlen);
-                    if (s != APR_SUCCESS) {
-                        ctx->status = MFD_ERROR;
-                        return APREQ_ERROR_GENERAL;
-                    }
+            if (ct != NULL && strncmp(ct, "multipart/", 10) == 0) {
+                struct mfd_ctx *next_ctx;
 
-                    s = apreq_header_attribute(cd, "filename", 
-                                               8, &filename, &flen);
-                    if (s != APR_SUCCESS) {
-                        const char *ct = apr_table_get(ctx->info, 
-                                                       "Content-Type");
-                        if (ct != NULL 
-                            && strncmp(ct, "multipart/mixed", 15) == 0)
-                        {
-                            struct mfd_ctx *mix_ctx;
-                            mix_ctx = create_multipart_context(ct, pool, ba,
-                                                               parser->brigade_limit,
-                                                               parser->temp_dir);
-                            if (mix_ctx == NULL) {
-                                ctx->status = MFD_ERROR;
-                                return APREQ_ERROR_GENERAL;
-                            }
-                            mix_ctx->param_name = apr_pstrmemdup(pool,
-                                                                 name, nlen);
-                            ctx->mix_parser->ctx = mix_ctx;
-                            ctx->status = MFD_MIXED;
-                            goto mfd_parse_brigade;
-                        }
-                        ctx->param_name = apr_pstrmemdup(pool, name, nlen);
-                        ctx->status = MFD_PARAM;
+                if (ctx->level >= MAX_LEVEL) {
+                    ctx->status = MFD_ERROR;
+                    goto mfd_parse_brigade;
+                }
+
+                next_ctx = create_multipart_context(ct, pool, ba,
+                                                    parser->brigade_limit,
+                                                    parser->temp_dir,
+                                                    ctx->level + 1);
+
+                next_ctx->param_name = "";
+
+                if (cd != NULL) {
+                    s = apreq_header_attribute(cd, "name", 4,
+                                               &name, &nlen);
+                    if (s == APR_SUCCESS) {
+                        next_ctx->param_name
+                            = apr_pstrmemdup(pool, name, nlen);
                     }
                     else {
-                        apreq_param_t *param;
-
-                        param = apreq_param_make(pool, name, nlen, 
-                                                 filename, flen);
-                        apreq_param_tainted_on(param);
-                        param->info = ctx->info;
-                        param->upload = apr_brigade_create(pool, 
-                                                       ctx->bb->bucket_alloc);
-                        ctx->upload = param;
-                        ctx->status = MFD_UPLOAD;
-                        goto mfd_parse_brigade;
-
+                        const char *cid = apr_table_get(ctx->info,
+                                                        "Content-ID");
+                        if (cid != NULL)
+                            next_ctx->param_name = apr_pstrdup(pool, cid);
                     }
+
+                }
+
+                ctx->next_parser = apreq_parser_make(pool, ba, ct,
+                                                     apreq_parse_multipart,
+                                                     parser->brigade_limit,
+                                                     parser->temp_dir,
+                                                     parser->hook,
+                                                     next_ctx);
+                ctx->status = MFD_MIXED;
+                goto mfd_parse_brigade;
+
+            }
+
+            /* Look for a normal form-data part. */
+
+            if (cd != NULL && strncmp(cd, "form-data", 9) == 0) {
+                s = apreq_header_attribute(cd, "name", 4, &name, &nlen);
+                if (s != APR_SUCCESS) {
+                    ctx->status = MFD_ERROR;
+                    goto mfd_parse_brigade;
+                }
+
+                s = apreq_header_attribute(cd, "filename",
+                                           8, &filename, &flen);
+                if (s == APR_SUCCESS) {
+                    apreq_param_t *param;
+
+                    param = apreq_param_make(pool, name, nlen,
+                                             filename, flen);
+                    apreq_param_tainted_on(param);
+                    param->info = ctx->info;
+                    param->upload
+                        = apr_brigade_create(pool, ctx->bb->bucket_alloc);
+                    ctx->upload = param;
+                    ctx->status = MFD_UPLOAD;
+                    goto mfd_parse_brigade;
                 }
                 else {
-                    /* multipart/mixed */
-                    s = apreq_header_attribute(cd, "filename", 
-                                               8, &filename, &flen);
-                    if (s != APR_SUCCESS) {
-                        ctx->status = MFD_PARAM;
-                    }
-                    else {
-                        apreq_param_t *param;
-                        name = ctx->param_name;
-                        nlen = strlen(name);
-                        param = apreq_param_make(pool, name, nlen, 
-                                                 filename, flen);
-                        apreq_param_tainted_on(param);
-                        param->info = ctx->info;
-                        param->upload = apr_brigade_create(pool, 
-                                                       ctx->bb->bucket_alloc);
-                        ctx->upload = param;
-                        ctx->status = MFD_UPLOAD;
-                        goto mfd_parse_brigade;
-                    }
+                    ctx->param_name = apr_pstrmemdup(pool, name, nlen);
+                    ctx->status = MFD_PARAM;
+                    /* fall thru */
                 }
             }
-            else {
-                /* multipart/related */
+
+            /* else check for a file part in a multipart section */
+            else if (cd != NULL && strncmp(cd, "file", 4) == 0) {
                 apreq_param_t *param;
-                cd = apr_table_get(ctx->info, "Content-ID");
-                if (cd == NULL) {
+
+                s = apreq_header_attribute(cd, "filename",
+                                           8, &filename, &flen);
+                if (s != APR_SUCCESS || ctx->param_name == NULL) {
                     ctx->status = MFD_ERROR;
-                    return APREQ_ERROR_GENERAL;
+                    goto mfd_parse_brigade;
                 }
-                name = cd;
+                name = ctx->param_name;
                 nlen = strlen(name);
-                filename = "";
-                flen = 0;
-                param = apreq_param_make(pool, name, nlen, 
+                param = apreq_param_make(pool, name, nlen,
                                          filename, flen);
                 apreq_param_tainted_on(param);
                 param->info = ctx->info;
-                param->upload = apr_brigade_create(pool, 
-                                               ctx->bb->bucket_alloc);
+                param->upload = apr_brigade_create(pool,
+                                                   ctx->bb->bucket_alloc);
                 ctx->upload = param;
                 ctx->status = MFD_UPLOAD;
                 goto mfd_parse_brigade;
             }
 
+            /* otherwise look for Content-ID in multipart/mixed case */
+            else {
+                const char *cid = apr_table_get(ctx->info, "Content-ID");
+                apreq_param_t *param;
+
+                if (cid != NULL) {
+                    name = cid;
+                    nlen = strlen(name);
+                }
+                else {
+                    name = "";
+                    nlen = 0;
+                }
+
+                filename = "";
+                flen = 0;
+                param = apreq_param_make(pool, name, nlen,
+                                         filename, flen);
+                apreq_param_tainted_on(param);
+                param->info = ctx->info;
+                param->upload = apr_brigade_create(pool,
+                                               ctx->bb->bucket_alloc);
+                ctx->upload = param;
+                ctx->status = MFD_UPLOAD;
+                goto mfd_parse_brigade;
+            }
         }
         /* fall through */
 
@@ -482,7 +521,7 @@ APREQ_DECLARE_PARSER(apreq_parse_multipart)
             apreq_value_t *v;
             apr_size_t len;
             apr_off_t off;
-            
+
             s = split_on_bdry(ctx->bb, ctx->in, ctx->pattern, ctx->bdry);
 
             switch (s) {
@@ -499,8 +538,9 @@ APREQ_DECLARE_PARSER(apreq_parse_multipart)
                     return s;
                 }
                 len = off;
-                param = apreq_param_make(pool, ctx->param_name, 
-                                         strlen(ctx->param_name), NULL, len);
+                param = apreq_param_make(pool, ctx->param_name,
+                                         strlen(ctx->param_name),
+                                         NULL, len);
                 apreq_param_tainted_on(param);
                 param->info = ctx->info;
 
@@ -516,6 +556,8 @@ APREQ_DECLARE_PARSER(apreq_parse_multipart)
                     }
                 }
 
+                apreq_param_charset_set(param,
+                                        apreq_charset_divine(v->data, len));
                 apreq_value_table_add(v, t);
                 ctx->status = MFD_NEXTLINE;
                 ctx->param_name = NULL;
@@ -548,7 +590,8 @@ APREQ_DECLARE_PARSER(apreq_parse_multipart)
                 }
                 apreq_brigade_setaside(ctx->bb, pool);
                 apreq_brigade_setaside(ctx->in, pool);
-                s = apreq_brigade_concat(pool, parser->temp_dir, parser->brigade_limit, 
+                s = apreq_brigade_concat(pool, parser->temp_dir,
+                                         parser->brigade_limit,
                                          param->upload, ctx->bb);
                 return (s == APR_SUCCESS) ? APR_INCOMPLETE : s;
 
@@ -564,7 +607,8 @@ APREQ_DECLARE_PARSER(apreq_parse_multipart)
                 }
                 apreq_value_table_add(&param->v, t);
                 apreq_brigade_setaside(ctx->bb, pool);
-                s = apreq_brigade_concat(pool, parser->temp_dir, parser->brigade_limit,
+                s = apreq_brigade_concat(pool, parser->temp_dir,
+                                         parser->brigade_limit,
                                          param->upload, ctx->bb);
 
                 if (s != APR_SUCCESS)
@@ -584,13 +628,14 @@ APREQ_DECLARE_PARSER(apreq_parse_multipart)
 
     case MFD_MIXED:
         {
-            s = apreq_parser_run(ctx->mix_parser, t, ctx->in);
+            s = apreq_parser_run(ctx->next_parser, t, ctx->in);
             switch (s) {
             case APR_SUCCESS:
                 ctx->status = MFD_INIT;
+                ctx->param_name = NULL;
                 goto mfd_parse_brigade;
             case APR_INCOMPLETE:
-                apr_brigade_cleanup(ctx->in);
+                APR_BRIGADE_CONCAT(bb, ctx->in);
                 return APR_INCOMPLETE;
             default:
                 ctx->status = MFD_ERROR;

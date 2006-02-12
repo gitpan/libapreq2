@@ -1,4 +1,4 @@
-.TH "Apache 2.X Filter Module" 3 "19 Jul 2005" "Version 2.06-dev" "libapreq2" \" -*- nroff -*-
+.TH "Apache 2.X Filter Module" 3 "11 Feb 2006" "Version 2.07" "libapreq2" \" -*- nroff -*-
 .ad l
 .nh
 .SH NAME
@@ -12,7 +12,7 @@ Apache 2.X Filter Module \- mod_apreq2 - DSO that ties libapreq2 to \fBApache\fP
 .RI "#define \fBAPREQ_FILTER_NAME\fP   'apreq2'"
 .br
 .ti -1c
-.RI "#define \fBAPREQ_APACHE2_MMN\fP   20050712"
+.RI "#define \fBAPREQ_APACHE2_MMN\fP   20051231"
 .br
 .in -1c
 .SS "Functions"
@@ -36,15 +36,15 @@ The installation process triggered by \fC% make install\fP \fIwill not modify yo
 .PP
 .PP
 .nf
-     LoadModule    modules/mod_apreq2.so
+     LoadModule apreq_module    modules/mod_apreq2.so
 .fi
 .PP
 .PP
-The mod_apreq2 filter is named 'APREQ2', and may be used in Apache's input filter directives, e.g. 
+The mod_apreq2 filter is named 'apreq2', and may be used in Apache's input filter directives, e.g. 
 .PP
 .nf
-     AddInputFilter APREQ2         # or
-     SetInputFilter APREQ2
+     AddInputFilter apreq2         # or
+     SetInputFilter apreq2
 
 .fi
 .PP
@@ -57,7 +57,7 @@ This is especially true when a content handler uses libapreq2 to parse some of t
 .PP
 .SS "Server Configuration Directives"
 .PP
-Directive Context DefaultDescription  APREQ2_ReadLimit directory APREQ_DEFAULT_READ_LIMIT  Maximum number of bytes mod_apreq2 will send off to libapreq2 for parsing. mod_apreq2 will log this event and subsequently remove itself from the filter chain.   APREQ2_BrigadeLimit directory APREQ_DEFAULT_BRIGADE_LIMIT Maximum number of bytes mod_apreq2 will let accumulate within the heap-buckets in a brigade. Excess data will be spooled to an appended file bucket.   APREQ2_TempDir directory NULL Sets the location of the temporary directory apreq will use to spool overflow brigade data (based on the APREQ2_BrigadeLimit setting). If left unset, libapreq2 will select a platform-specific location via \fBapr_temp_dir_get()\fP.   Per-directory commands for mod_apreq2
+Directive Context DefaultDescription  APREQ2_ReadLimit directory \fBAPREQ_DEFAULT_READ_LIMIT\fP  Maximum number of bytes mod_apreq2 will send off to libapreq2 for parsing. mod_apreq2 will log this event and subsequently remove itself from the filter chain.   APREQ2_BrigadeLimit directory \fBAPREQ_DEFAULT_BRIGADE_LIMIT\fP Maximum number of bytes mod_apreq2 will let accumulate within the heap-buckets in a brigade. Excess data will be spooled to an appended file bucket.   APREQ2_TempDir directory NULL Sets the location of the temporary directory apreq will use to spool overflow brigade data (based on the APREQ2_BrigadeLimit setting). If left unset, libapreq2 will select a platform-specific location via \fBapr_temp_dir_get()\fP.   Per-directory commands for mod_apreq2
 .PP
 .SS "Implementation Details"
 .PP
@@ -71,9 +71,32 @@ Directive Context DefaultDescription  APREQ2_ReadLimit directory APREQ_DEFAULT_R
  
 .fi
 .PP
+ 
+.SH "Define Documentation"
+.PP 
+.SS "#define APREQ_APACHE2_MMN   20051231"
+.PP
+The Apache2 Module Magic Number for use in the \fBApache\fP 2.x module structures This gets bumped if changes in th4e API will break third party applications using this apache2 module 
+.PP
+\fBSee also:\fP
+.RS 4
+\fBAPREQ_MODULE\fP 
+.RE
+.PP
 
+.SS "#define APREQ_FILTER_NAME   'apreq2'"
+.PP
+The mod_apreq2 filter is named 'apreq2', and may be used in Apache's input filter directives, e.g. 
+.PP
+.nf
+     AddInputFilter apreq2         # or
+     SetInputFilter apreq2
+
+.fi
+.PP
+ See above 
 .SH "Function Documentation"
 .PP 
 .SS "\fBapreq_handle_t\fP* apreq_handle_apache2 (request_rec * r)"
 .PP
-Create an apreq handle which communicates with an \fBApache\fP 2.X request_rec.
+Create an apreq handle which communicates with an \fBApache\fP 2.X request_rec. 

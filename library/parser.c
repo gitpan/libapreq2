@@ -1,5 +1,5 @@
 /*
-**  Copyright 2003-2005  The Apache Software Foundation
+**  Copyright 2003-2006  The Apache Software Foundation
 **
 **  Licensed under the Apache License, Version 2.0 (the "License");
 **  you may not use this file except in compliance with the License.
@@ -66,7 +66,7 @@ APREQ_DECLARE(apreq_hook_t *) apreq_hook_make(apr_pool_t *pool,
 
 
 /*XXX this may need to check the parser's state before modifying the hook list */
-APREQ_DECLARE(apr_status_t) apreq_parser_add_hook(apreq_parser_t *p, 
+APREQ_DECLARE(apr_status_t) apreq_parser_add_hook(apreq_parser_t *p,
                                                   apreq_hook_t *h)
 {
     apreq_hook_t *last = h;
@@ -224,7 +224,7 @@ APREQ_DECLARE_PARSER(apreq_parse_generic)
     if (ctx == NULL) {
         parser->ctx = ctx = apr_palloc(pool, sizeof *ctx);
         ctx->status = GEN_INCOMPLETE;
-        ctx->param = apreq_param_make(pool, 
+        ctx->param = apreq_param_make(pool,
                                       "_dummy_", strlen("_dummy_"), "", 0);
         ctx->param->upload = apr_brigade_create(pool, parser->bucket_alloc);
         ctx->param->info = apr_table_make(pool, APREQ_DEFAULT_NELTS);

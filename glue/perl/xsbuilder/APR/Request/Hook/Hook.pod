@@ -15,7 +15,8 @@ APR::Request::Hook - wrapper for libapreq2's hook API.
 =head1 DESCRIPTION
 
 
-This manpage documents the APR::Request::Hook package.
+This manpage version documents version 2.07
+of the APR::Request::Hook package.
 
 
 
@@ -27,8 +28,39 @@ APR::Request::Hook
 
 
 
-=head2 make
+=head2 disable_uploads
 
+    APR::Request::Hook->disable_uploads($pool)
+    APR::Request::Hook->disable_uploads($pool, $next)
+
+Hook which returns APREQ_ERROR_GENERAL 
+if a file upload field is detected. $pool
+is an APR::Pool object; $next (if present)
+is the next APR::Request::Hook in the chain.
+
+
+
+
+=head2 apr_xml_parser
+
+    APR::Request::Hook->apr_xml_parser($pool)
+    APR::Request::Hook->apr_xml_parser($pool, $next)
+
+Xml parser hook.  $pool is an APR::Pool object;
+$next (if present) is the next APR::Request::Hook
+in the chain.
+
+
+
+
+=head2 discard_brigade
+
+    APR::Request::Hook->discard_brigade($pool)
+    APR::Request::Hook->discard_brigade($pool, $next)
+
+Hook which discards the brigade it receives from the parser.
+$pool is an APR::Pool object; $next (if present) is the next
+APR::Request::Hook in the chain.
 
 
 
@@ -42,7 +74,7 @@ L<< APR::Request >>, L<< APR::Request::Parser >>
 
 =head1 COPYRIGHT
 
-  Copyright 2003-2005  The Apache Software Foundation
+  Copyright 2003-2006  The Apache Software Foundation
 
   Licensed under the Apache License, Version 2.0 (the "License");
   you may not use this file except in compliance with the License.

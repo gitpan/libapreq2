@@ -1,5 +1,5 @@
 /*
-**  Copyright 2003-2005  The Apache Software Foundation
+**  Copyright 2003-2006  The Apache Software Foundation
 **
 **  Licensed under the Apache License, Version 2.0 (the "License");
 **  you may not use this file except in compliance with the License.
@@ -22,9 +22,9 @@
 
 #ifdef  __cplusplus
  extern "C" {
-#endif 
+#endif
 
-/** 
+/**
  * apreq's wrapper around apr_strerror();
  * recognizes APREQ_ERROR_* status codes.
  */
@@ -40,6 +40,10 @@ apreq_strerror(apr_status_t s, char *buf, apr_size_t bufsize);
  */
 
 #ifndef APR_EBADARG
+/**
+ * Bad Arguments return value
+ * @see APR_BADARG
+ */
 #define APR_EBADARG                APR_BADARG   /* XXX: don't use APR_BADARG */
 #endif
 

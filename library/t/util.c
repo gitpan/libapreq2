@@ -1,5 +1,5 @@
 /*
-**  Copyright 2004-2005  The Apache Software Foundation
+**  Copyright 2004-2006  The Apache Software Foundation
 **
 **  Licensed under the Apache License, Version 2.0 (the "License");
 **  you may not use this file except in compliance with the License.
@@ -29,7 +29,7 @@ static void test_atoi64f(dAT)
     AT_int_eq(apreq_atoi64f("3.333"), 3);
     AT_int_eq(apreq_atoi64f("33k"), 33 * 1024);
     AT_int_eq(apreq_atoi64f(" +8M "), 8 * 1024 * 1024);
-    AT_ok(apreq_atoi64f("44GB") == (apr_int64_t)44 * 1024 * 1024 * 1024, 
+    AT_ok(apreq_atoi64f("44GB") == (apr_int64_t)44 * 1024 * 1024 * 1024,
           "44GB test");
     AT_ok(apreq_atoi64f("0xaBcDefg") == (apr_int64_t)11259375 * 1024 * 1024 * 1024,
           "hex test");
@@ -76,8 +76,8 @@ static void test_decode(dAT)
     char src1[] = "%C3%80%E3%82%a2"; /* A_GRAVE KATAKANA_A as utf8 */
     unsigned char expect[6];
 
-    AT_int_eq(apreq_decode((char *)expect, &elen, src1, sizeof(src1) -1), 
-              APR_SUCCESS + APREQ_CHARSET_UTF8);
+    AT_int_eq(apreq_decode((char *)expect, &elen, src1, sizeof(src1) -1),
+              APR_SUCCESS);
     AT_int_eq(elen, 5);
     AT_int_eq(expect[0], 0xC3);
     AT_int_eq(expect[1], 0x80);
@@ -85,6 +85,31 @@ static void test_decode(dAT)
     AT_int_eq(expect[3], 0x82);
     AT_int_eq(expect[4], 0xA2);
 }
+
+static void test_charset_divine(dAT)
+{
+    apr_size_t elen;
+    char src1[] = "%C3%80%E3%82%a2"; /* A_GRAVE KATAKANA_A as utf8 */
+    char src2[] = "pound%A3";/* latin-1 */
+    char src3[] = "euro%80";/* cp-1252 */
+    char expect[6];
+
+    AT_int_eq(apreq_decode(expect, &elen, src1, sizeof(src1) -1),
+              APR_SUCCESS);
+
+    AT_int_eq(apreq_charset_divine(expect, elen), APREQ_CHARSET_UTF8);
+
+    AT_int_eq(apreq_decode(expect, &elen, src2, sizeof(src2) -1),
+              APR_SUCCESS);
+
+    AT_int_eq(apreq_charset_divine(expect, elen), APREQ_CHARSET_LATIN1);
+    AT_int_eq(apreq_decode(expect, &elen, src3, sizeof(src3) -1),
+              APR_SUCCESS);
+
+    AT_int_eq(apreq_charset_divine(expect, elen), APREQ_CHARSET_CP1252);
+
+}
+
 
 static void test_decodev(dAT)
 {
@@ -107,7 +132,7 @@ static void test_decodev(dAT)
     apr_status_t status;
 
     status = apreq_decodev(dest, &dest_len, iovec1, 3);
-    AT_int_eq(status, APR_SUCCESS + APREQ_CHARSET_UTF8);
+    AT_int_eq(status, APR_SUCCESS);
     AT_int_eq(dest_len, sizeof(expect1) - 1);
     AT_mem_eq(dest, expect1, sizeof(expect1) - 1);
 
@@ -130,8 +155,8 @@ static void test_cp1252_to_utf8(dAT)
     unsigned char expect[16];
     apr_size_t slen;
 
-    AT_int_eq(apreq_decode((char *)src2, &slen, src1, sizeof(src1) -1), 
-              APR_SUCCESS + APREQ_CHARSET_UTF8);
+    AT_int_eq(apreq_decode((char *)src2, &slen, src1, sizeof(src1) -1),
+              APR_SUCCESS);
     AT_int_eq(apreq_cp1252_to_utf8((char *)expect, src2, 5),
               12);
 
@@ -143,7 +168,7 @@ static void test_cp1252_to_utf8(dAT)
     AT_int_eq(expect[2], 0xE0 | (0x20AC >> 12));
     AT_int_eq(expect[3], 0x80 | ((0x20AC >> 6) & 0x3F));
     AT_int_eq(expect[4], 0x80 | (0x20AC & 0x3F));
-    
+
     /* 0xE3 */
     AT_int_eq(expect[5], 0xC3);
     AT_int_eq(expect[6], 0xE3 - 0x40);
@@ -152,7 +177,7 @@ static void test_cp1252_to_utf8(dAT)
     AT_int_eq(expect[7], 0xE0 | (0x201A >> 12));
     AT_int_eq(expect[8], 0x80 | ((0x201A >> 6) & 0x3F));
     AT_int_eq(expect[9], 0x80 | (0x201A & 0x3F));
-    
+
 
     /* 0xA2 */
     AT_int_eq(expect[10], 0xC0 | (0xA2 >> 6));
@@ -280,6 +305,7 @@ int main(int argc, char *argv[])
         { dT(test_atoi64t, 9) },
         { dT(test_index, 6) },
         { dT(test_decode, 7) },
+        { dT(test_charset_divine, 6) },
         { dT(test_decodev, 6) },
         { dT(test_encode, 0) },
         { dT(test_cp1252_to_utf8, 14) },
@@ -297,7 +323,7 @@ int main(int argc, char *argv[])
 
     apr_pool_create(&p, NULL);
 
-    AT = at_create(p, 0, at_report_stdout_make(p)); 
+    AT = at_create(p, 0, at_report_stdout_make(p));
 
     for (i = 0; i < sizeof(test_list) / sizeof(at_test_t);  ++i)
         plan += test_list[i].plan;

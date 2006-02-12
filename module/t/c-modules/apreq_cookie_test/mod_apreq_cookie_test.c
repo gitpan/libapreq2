@@ -1,5 +1,5 @@
 /*
-**  Copyright 2003-2005  The Apache Software Foundation
+**  Copyright 2003-2006  The Apache Software Foundation
 **
 **  Licensed under the Apache License, Version 2.0 (the "License");
 **  you may not use this file except in compliance with the License.
@@ -57,7 +57,7 @@ static int apreq_cookie_test_handler(request_rec *r)
 
     req = apreq_handle_apache2(r);
 
-    ap_log_rerror(APLOG_MARK, APLOG_DEBUG, APR_SUCCESS, r, 
+    ap_log_rerror(APLOG_MARK, APLOG_DEBUG, APR_SUCCESS, r,
                   "starting cookie tests");
 
     apreq_args(req, &args);

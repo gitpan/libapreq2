@@ -1,5 +1,5 @@
 /*
-**  Copyright 2003-2005  The Apache Software Foundation
+**  Copyright 2003-2006  The Apache Software Foundation
 **
 **  Licensed under the Apache License, Version 2.0 (the "License");
 **  you may not use this file except in compliance with the License.
@@ -20,6 +20,9 @@
 #include "apr_strings.h"
 #include "apr_lib.h"
 #include <assert.h>
+
+#undef MAX
+#undef MIN
 #define MIN(a,b) ( (a) < (b) ? (a) : (b) )
 #define MAX(a,b) ( (a) > (b) ? (a) : (b) )
 
@@ -54,7 +57,7 @@ APREQ_DECLARE(apr_int64_t) apreq_atoi64f(const char *s)
 
 /* converts date offsets (e.g. "+3M") to seconds */
 
-APREQ_DECLARE(apr_int64_t) apreq_atoi64t(const char *s) 
+APREQ_DECLARE(apr_int64_t) apreq_atoi64t(const char *s)
 {
     apr_int64_t n = 0;
     char *p;
@@ -85,8 +88,8 @@ APREQ_DECLARE(apr_int64_t) apreq_atoi64t(const char *s)
 }
 
 
-APREQ_DECLARE(apr_ssize_t ) apreq_index(const char* hay, apr_size_t hlen, 
-                                        const char* ndl, apr_size_t nlen, 
+APREQ_DECLARE(apr_ssize_t ) apreq_index(const char* hay, apr_size_t hlen,
+                                        const char* ndl, apr_size_t nlen,
                                         const apreq_match_t type)
 {
     apr_size_t len = hlen;
@@ -132,9 +135,9 @@ static APR_INLINE unsigned char hex2_to_char(const char *what)
 }
 
 
-/* Unicode notes: "bmp" refers to the 16-bit 
- * Unicode Basic Multilingual Plane. Here we're 
- * restricting our unicode internals to 16-bit 
+/* Unicode notes: "bmp" refers to the 16-bit
+ * Unicode Basic Multilingual Plane. Here we're
+ * restricting our unicode internals to 16-bit
  * codepoints, to keep the code as simple as possible.
  * This should be sufficient for apreq itself, since
  * we really only need to validate RFC3986-encoded utf8.
@@ -194,7 +197,7 @@ APREQ_DECLARE(apr_size_t) apreq_cp1252_to_utf8(char *dest,
 
     while (s < end) {
         c = cp1252_to_bmp(*s++);
-        
+
         if (c < 0x80) {
             *d++ = c;
         }
@@ -214,62 +217,107 @@ APREQ_DECLARE(apr_size_t) apreq_cp1252_to_utf8(char *dest,
 
 
 /**
- * Valid utf8 bit patterns:
+ * Valid utf8 bit patterns: (true utf8 must satisfy a minimality condition)
  *
- * 0xxxxxxx
- * 110xxxxx 10xxxxxx 
- * 1110xxxx 10xxxxxx 10xxxxxx
- * 11110xxx 10xxxxxx 10xxxxxx 10xxxxxx
- * 111110xx 10xxxxxx 10xxxxxx 10xxxxxx 10xxxxxx
- * 1111110x 10xxxxxx 10xxxxxx 10xxxxxx 10xxxxxx 10xxxxxx
+ * 0aaaaaaa
+ * 110bbbba 10aaaaaa                        minimality mask: 0x1E
+ * 1110cccc 10cbbbba 10aaaaaa                                0x0F || 0x20
+ * 11110ddd 10ddcccc 10cbbbba 10aaaaaa                       0x07 || 0x30
+ * 111110ee 10eeeddd 10ddcccc 10cbbbba 10aaaaaa              0x03 || 0x38
+ * 1111110f 10ffffee 10eeeddd 10ddcccc 10cbbbba 10aaaaaa     0x01 || 0x3C
+ *
+ * Charset divination heuristics:
+ * 1) presume ascii; if not, then
+ * 2) presume utf8; if not, then
+ * 3) presume latin1; unless there are control chars, in which case
+ * 4) punt to cp1252.
+ *
+ * Note: in downgrading from 2 to 3, we need to be careful
+ * about earlier control characters presumed to be valid utf8.
  */
 
-static APR_INLINE unsigned is_89AB(const char c)
+APREQ_DECLARE(apreq_charset_t) apreq_charset_divine(const char *src,
+                                                    apr_size_t slen)
+
 {
+    apreq_charset_t rv = APREQ_CHARSET_ASCII;
+    register unsigned char trail = 0, saw_cntrl = 0, mask = 0;
+    register const unsigned char *s = (const unsigned char *)src;
+    const unsigned char *end = s + slen;
 
-    switch(c) {
-    case '8':
-    case '9':
-    case 'A':
-    case 'B':
-    case 'a':
-    case 'b':
-        return 1;
+    for (; s < end; ++s) {
+        if (trail) {
+            if ((*s & 0xC0) == 0x80 && (mask == 0 || (mask & *s))) {
+                mask = 0;
+                --trail;
+
+                if ((*s & 0xE0) == 0x80) {
+                    saw_cntrl = 1;
+                }
+            }
+            else {
+                trail = 0;
+                if (saw_cntrl)
+                    return APREQ_CHARSET_CP1252;
+                rv = APREQ_CHARSET_LATIN1;
+            }
+        }
+        else if (*s < 0x80) {
+            /* do nothing */
+        }
+        else if (*s < 0xA0) {
+            return APREQ_CHARSET_CP1252;
+        }
+        else if (*s < 0xC0) {
+            if (saw_cntrl)
+                return APREQ_CHARSET_CP1252;
+            rv = APREQ_CHARSET_LATIN1;
+        }
+        else if (rv == APREQ_CHARSET_LATIN1) {
+            /* do nothing */
+        }
+
+        /* utf8 cases */
+
+        else if (*s < 0xE0) {
+            if (*s & 0x1E) {
+                rv = APREQ_CHARSET_UTF8;
+                trail = 1;
+                mask = 0;
+            }
+            else if (saw_cntrl)
+                return APREQ_CHARSET_CP1252;
+            else
+                rv = APREQ_CHARSET_LATIN1;
+        }
+        else if (*s < 0xF0) {
+            mask = (*s & 0x0F) ? 0 : 0x20;
+            rv = APREQ_CHARSET_UTF8;
+            trail = 2;
+        }
+        else if (*s < 0xF8) {
+            mask = (*s & 0x07) ? 0 : 0x30;
+            rv = APREQ_CHARSET_UTF8;
+            trail = 3;
+        }
+        else if (*s < 0xFC) {
+            mask = (*s & 0x03) ? 0 : 0x38;
+            rv = APREQ_CHARSET_UTF8;
+            trail = 4;
+        }
+        else if (*s < 0xFE) {
+            mask = (*s & 0x01) ? 0 : 0x3C;
+            rv = APREQ_CHARSET_UTF8;
+            trail = 5;
+        }
+        else {
+            rv = APREQ_CHARSET_UTF8;
+        }
     }
-    return 0;
+
+    return trail ? saw_cntrl ?
+        APREQ_CHARSET_CP1252 : APREQ_CHARSET_LATIN1 : rv;
 }
-
-static APR_INLINE unsigned is_enc8(const char *word, unsigned char wlen)
-{
-
-    while (wlen-- > 0) {
-        if (word[0] == '%' && is_89AB(word[1]) && apr_isxdigit(word[2]))
-            word += 3;
-        else
-            return 0;
-    }
-    return 1;
-}
-
-static APR_INLINE apreq_charset_t fragment_charset(const char *word,
-                                                   const char *end)
-{
-    unsigned char flen = end - word;
-    unsigned char wlen = flen / 3;
-    if (!is_enc8(word, wlen))
-        return APREQ_CHARSET_LATIN1;
-
-    switch (flen % 3) {
-    case 2:
-        if (!is_89AB(*--end))
-            return APREQ_CHARSET_LATIN1;
-    case 1:
-        if (*--end != '%')
-            return APREQ_CHARSET_LATIN1;
-    }
-    return APREQ_CHARSET_UTF8;
-}
-
 
 
 static APR_INLINE apr_uint16_t hex4_to_bmp(const char *what) {
@@ -299,21 +347,7 @@ static APR_INLINE apr_uint16_t hex4_to_bmp(const char *what) {
 }
 
 
-/*
- * Charset divination heuristics:
- * 1) presume ascii; if not, then
- * 2) presume utf8; if not, then
- * 3) presume latin1; unless there are control chars, in which case
- * 4) punt to cp1252.
- *
- * Note: in downgrading from 2 to 3, we should to be careful
- * about earlier control characters presumed to be valid utf8.
- * However, we aren't being that careful with the current implementation.
- */
-
-
 static apr_status_t url_decode(char *dest, apr_size_t *dlen,
-                               apreq_charset_t *charset,
                                const char *src, apr_size_t *slen)
 {
     register const char *s = src;
@@ -331,190 +365,14 @@ static apr_status_t url_decode(char *dest, apr_size_t *dlen,
         case '%':
 	    if (s + 2 < end && apr_isxdigit(s[1]) && apr_isxdigit(s[2]))
             {
-                unsigned char c;
-		c = hex2_to_char(s + 1);
+                *d = hex2_to_char(s + 1);
                 s += 2;
-                if (c < 0x80 || *charset == APREQ_CHARSET_CP1252)
-                {
-                    *d = c;
-                }
-                else if (c < 0xA0) {
-                    /* these are ctrl chars in latin1 */
-                    *charset = APREQ_CHARSET_CP1252;
-                    *d = c;
-                }
-                else if (c < 0xC0) {
-                    *charset = APREQ_CHARSET_LATIN1;
-                    *d = c;
-                }
-                else if (*charset == APREQ_CHARSET_LATIN1) {
-                    *d = c;
-                }
-
-                /* utf8 cases */
-
-                else if (c < 0xE0) {
-                    /* 2-byte utf8 */
-                    if (s + 3 >= end) {
-                        *charset = fragment_charset(s+1, end);
-                        if (*charset == APREQ_CHARSET_UTF8) {
-                            s -= 2;
-                            *dlen = d - start;
-                            *slen = s - src;
-                            memmove(d, s, end - s);
-                            d[end - s] = 0;
-                            return APR_INCOMPLETE;
-                        }
-                        *d = c;
-                    }
-                    else if (is_enc8(s+1, 1)) {
-                        *charset = APREQ_CHARSET_UTF8;
-                        *d++ = c;
-                        *d   = hex2_to_char(s+2);
-                        s += 3;
-                    }
-                    else {
-                        *charset = APREQ_CHARSET_LATIN1;
-                        *d = c;
-                    }
-                }
-                else if (c < 0xF0) {
-                    /* 3-byte utf8 */
-                    if (s + 6 >= end) {
-                        *charset = fragment_charset(s+1, end);
-                        if (*charset == APREQ_CHARSET_UTF8) {
-                            s -= 2;
-                            *dlen = d - start;
-                            *slen = s - src;
-                            memmove(d, s, end - s);
-                            d[end - s] = 0;
-                            return APR_INCOMPLETE;
-                        }
-                        *d = c;
-                    }
-                    else if (is_enc8(s+1, 2)) {
-                        *charset = APREQ_CHARSET_UTF8;
-                        *d++ = c;
-                        *d++ = hex2_to_char(s+2);
-                        *d   = hex2_to_char(s+5);
-                        s += 6;
-                    }
-                    else {
-                        *charset = APREQ_CHARSET_LATIN1;
-                        *d = c;
-                    }
-
-                }
-                else if (c < 0xF8) {
-                    /* 4-byte utf8 */
-                    if (s + 9 >= end) {
-                        *charset = fragment_charset(s+1, end);
-                        if (*charset == APREQ_CHARSET_UTF8) {
-                            s -= 2;
-                            *dlen = d - start;
-                            *slen = s - src;
-                            memmove(d, s, end - s);
-                            d[end - s] = 0;
-                            return APR_INCOMPLETE;
-                        }
-                        *d = c;
-                    }
-                    else if (is_enc8(s+1, 3)) {
-                        *charset = APREQ_CHARSET_UTF8;
-                        *d++ = c;
-                        *d++ = hex2_to_char(s+2);
-                        *d++ = hex2_to_char(s+5);
-                        *d   = hex2_to_char(s+8);
-                        s += 9;
-                    }
-                    else {
-                        *charset = APREQ_CHARSET_LATIN1;
-                        *d = c;
-                    }
-
-                }
-                else if (c < 0xFC) {
-                    /* 5-byte utf8 */
-                    if (s + 12 >= end) {
-                        *charset = fragment_charset(s+1, end);
-                         if (*charset == APREQ_CHARSET_UTF8) {
-                             s -= 2;
-                             *dlen = d - start;
-                             *slen = s - src;
-                             memmove(d, s, end - s);
-                             d[end - s] = 0;
-                             return APR_INCOMPLETE;
-                         }
-                         *d = c;
-                    }
-                    else if (is_enc8(s+1, 4)) {
-                        *charset = APREQ_CHARSET_UTF8;
-                        *d++ = c;
-                        *d++ = hex2_to_char(s+2);
-                        *d++ = hex2_to_char(s+5);
-                        *d++ = hex2_to_char(s+8);
-                        *d   = hex2_to_char(s+11);
-                        s += 12;
-                    }
-                    else {
-                        *charset = APREQ_CHARSET_LATIN1;
-                        *d = c;
-                    }
-
-                }
-                else if (c < 0xFE) {
-                    /* 6-byte utf8 */
-                    if (s + 15 >= end) {
-                        *charset = fragment_charset(s+1, end);
-                        if (*charset == APREQ_CHARSET_UTF8) {
-                            s -= 2;
-                            *dlen = d - start;
-                            *slen = s - src;
-                            memmove(d, s, end - s);
-                            d[end - s] = 0;
-                            return APR_INCOMPLETE;
-                        }
-                        *d = c;
-                    }
-                    else if (is_enc8(s+1, 5)) {
-                        *charset = APREQ_CHARSET_UTF8;
-                        *d++ = c;
-                        *d++ = hex2_to_char(s+2);
-                        *d++ = hex2_to_char(s+5);
-                        *d++ = hex2_to_char(s+8);
-                        *d++ = hex2_to_char(s+11);
-                        *d   = hex2_to_char(s+14);
-                        s += 15;
-                    }
-                    else {
-                        *charset = APREQ_CHARSET_LATIN1;
-                        *d = c;
-                    }
-                }
-                else {
-                    /* (skipped) utf8 byte-order mark */
-                    *charset = APREQ_CHARSET_UTF8;
-                }
 	    }
             else if (s + 5 < end && (s[1] == 'u' || s[1] == 'U') &&
-                     apr_isxdigit(s[2]) && apr_isxdigit(s[3]) && 
+                     apr_isxdigit(s[2]) && apr_isxdigit(s[3]) &&
                      apr_isxdigit(s[4]) && apr_isxdigit(s[5]))
             {
                 apr_uint16_t c = hex4_to_bmp(s+2);
-
-                switch (*charset) {
-                case APREQ_CHARSET_ASCII:
-                    *charset = APREQ_CHARSET_UTF8;
-                case APREQ_CHARSET_UTF8:
-                    break;
-
-                default:
-                    *dlen = d - start;
-                    *slen = s - src;
-                    *d = 0;
-                    return APREQ_ERROR_BADSEQ;
-                }
-
 
                 if (c < 0x80) {
                     *d = c;
@@ -533,7 +391,7 @@ static apr_status_t url_decode(char *dest, apr_size_t *dlen,
 	    else {
                 *dlen = d - start;
                 *slen = s - src;
-                if (s + 5 < end 
+                if (s + 5 < end
                     || (s + 2 < end && !apr_isxdigit(s[2]))
                     || (s + 1 < end && !apr_isxdigit(s[1])
                         && s[1] != 'u' && s[1] != 'U'))
@@ -549,7 +407,7 @@ static apr_status_t url_decode(char *dest, apr_size_t *dlen,
             break;
 
         default:
-            if (s > 0) {
+            if (*s > 0) {
                 *d = *s;
             }
             else {
@@ -573,8 +431,6 @@ APREQ_DECLARE(apr_status_t) apreq_decode(char *d, apr_size_t *dlen,
 {
     apr_size_t len = 0;
     const char *end = s + slen;
-    apr_status_t rv;
-    apreq_charset_t c = APREQ_CHARSET_ASCII;
 
     if (s == (const char *)d) {     /* optimize for src = dest case */
         for ( ; d < end; ++d) {
@@ -590,26 +446,13 @@ APREQ_DECLARE(apr_status_t) apreq_decode(char *d, apr_size_t *dlen,
         slen -= len;
     }
 
-    rv = url_decode(d, dlen, &c, s, &slen);
-
-    if (rv == APR_INCOMPLETE && c == APREQ_CHARSET_UTF8) {
-        c = APREQ_CHARSET_LATIN1;
-        len += *dlen;
-        d += *dlen;
-        slen = end - (s + slen);
-        rv = url_decode(d, dlen, &c, d, &slen);
-    }
-
-    *dlen += len;
-
-    return rv + c;
+    return url_decode(d, dlen, s, &slen);
 }
 
 APREQ_DECLARE(apr_status_t) apreq_decodev(char *d, apr_size_t *dlen,
                                           struct iovec *v, int nelts)
 {
     apr_status_t status = APR_SUCCESS;
-    apreq_charset_t c = APREQ_CHARSET_ASCII;
     int n = 0;
 
     *dlen = 0;
@@ -618,7 +461,7 @@ APREQ_DECLARE(apr_status_t) apreq_decodev(char *d, apr_size_t *dlen,
         apr_size_t slen, len;
 
         slen = v[n].iov_len;
-        switch (status = url_decode(d,&len, &c, v[n].iov_base, &slen)) {
+        switch (status = url_decode(d, &len, v[n].iov_base, &slen)) {
 
         case APR_SUCCESS:
             d += len;
@@ -632,12 +475,7 @@ APREQ_DECLARE(apr_status_t) apreq_decodev(char *d, apr_size_t *dlen,
             slen = v[n].iov_len - slen;
 
             if (++n == nelts) {
-                if (c == APREQ_CHARSET_UTF8) {
-                    c = APREQ_CHARSET_LATIN1;
-                    status = url_decode(d, &len, &c, d, &slen);
-                    *dlen += len;
-                }
-                return status + c;
+                return status;
             }
             memcpy(d + slen, v[n].iov_base, v[n].iov_len);
             v[n].iov_len += slen;
@@ -650,20 +488,22 @@ APREQ_DECLARE(apr_status_t) apreq_decodev(char *d, apr_size_t *dlen,
         }
     }
 
-    return status + c;
+    return status;
 }
 
 
-APREQ_DECLARE(apr_size_t) apreq_encode(char *dest, const char *src, 
-                                       const apr_size_t slen) 
+APREQ_DECLARE(apr_size_t) apreq_encode(char *dest, const char *src,
+                                       const apr_size_t slen)
 {
     char *d = dest;
     const unsigned char *s = (const unsigned char *)src;
-    unsigned c;
+    unsigned char c;
 
     for ( ; s < (const unsigned char *)src + slen; ++s) {
         c = *s;
-        if ( apr_isalnum(c) || c == '-' || c == '.' || c == '_' || c == '~' )
+        if ( c < 0x80 && (apr_isalnum(c)
+                          || c == '-' || c == '.'
+                          || c == '_' || c == '~') )
             *d++ = c;
 
         else if ( c == ' ' )
@@ -703,11 +543,11 @@ static int is_quoted(const char *p, const apr_size_t len) {
     return 0;
 }
 
-APREQ_DECLARE(apr_size_t) apreq_quote_once(char *dest, const char *src, 
-                                           const apr_size_t slen) 
+APREQ_DECLARE(apr_size_t) apreq_quote_once(char *dest, const char *src,
+                                           const apr_size_t slen)
 {
     if (is_quoted(src, slen)) {
-        /* looks like src is already quoted */        
+        /* looks like src is already quoted */
         memcpy(dest, src, slen);
         dest[slen] = 0;
         return slen;
@@ -716,8 +556,8 @@ APREQ_DECLARE(apr_size_t) apreq_quote_once(char *dest, const char *src,
         return apreq_quote(dest, src, slen);
 }
 
-APREQ_DECLARE(apr_size_t) apreq_quote(char *dest, const char *src, 
-                                      const apr_size_t slen) 
+APREQ_DECLARE(apr_size_t) apreq_quote(char *dest, const char *src,
+                                      const apr_size_t slen)
 {
     char *d = dest;
     const char *s = src;
@@ -738,7 +578,7 @@ APREQ_DECLARE(apr_size_t) apreq_quote(char *dest, const char *src,
             s++;
             break;
 
-        case '\\': 
+        case '\\':
         case '"':
             *d++ = '\\';
 
@@ -753,8 +593,8 @@ APREQ_DECLARE(apr_size_t) apreq_quote(char *dest, const char *src,
     return d - dest;
 }
 
-APREQ_DECLARE(char *) apreq_join(apr_pool_t *p, 
-                                 const char *sep, 
+APREQ_DECLARE(char *) apreq_join(apr_pool_t *p,
+                                 const char *sep,
                                  const apr_array_header_t *arr,
                                  apreq_join_t mode)
 {
@@ -853,7 +693,7 @@ APREQ_DECLARE(char *) apreq_join(apr_pool_t *p,
 }
 
 APR_INLINE
-static apr_status_t apreq_fwritev(apr_file_t *f, struct iovec *v, 
+static apr_status_t apreq_fwritev(apr_file_t *f, struct iovec *v,
                                   int *nelts, apr_size_t *bytes_written)
 {
     apr_size_t len;
@@ -903,7 +743,7 @@ static apr_status_t apreq_fwritev(apr_file_t *f, struct iovec *v,
 }
 
 
-APREQ_DECLARE(apr_status_t) apreq_brigade_fwrite(apr_file_t *f, 
+APREQ_DECLARE(apr_status_t) apreq_brigade_fwrite(apr_file_t *f,
                                                  apr_off_t *wlen,
                                                  apr_bucket_brigade *bb)
 {
@@ -914,7 +754,7 @@ APREQ_DECLARE(apr_status_t) apreq_brigade_fwrite(apr_file_t *f,
     *wlen = 0;
 
     for (e = APR_BRIGADE_FIRST(bb); e != APR_BRIGADE_SENTINEL(bb);
-         e = APR_BUCKET_NEXT(e)) 
+         e = APR_BUCKET_NEXT(e))
     {
         apr_size_t len;
         if (n == APREQ_DEFAULT_NELTS) {
@@ -923,7 +763,7 @@ APREQ_DECLARE(apr_status_t) apreq_brigade_fwrite(apr_file_t *f,
                 return s;
             *wlen += len;
         }
-        s = apr_bucket_read(e, (const char **)&(v[n].iov_base), 
+        s = apr_bucket_read(e, (const char **)&(v[n].iov_base),
                             &len, APR_BLOCK_READ);
         if (s != APR_SUCCESS)
             return s;
@@ -956,15 +796,15 @@ static apr_status_t apreq_file_cleanup(void *d)
 /*
  * The reason we need the above cleanup is because on Windows, APR_DELONCLOSE
  * forces applications to open the file with FILE_SHARED_DELETE
- * set, which is, unfortunately, a property that is preserved 
- * across NTFS "hard" links.  This breaks apps that link() the temp 
- * file to a permanent location, and subsequently expect to open it 
+ * set, which is, unfortunately, a property that is preserved
+ * across NTFS "hard" links.  This breaks apps that link() the temp
+ * file to a permanent location, and subsequently expect to open it
  * before the original tempfile is closed+deleted. In fact, even
  * Apache::Upload does this, so it is a common enough event that the
  * apreq_file_cleanup workaround is necessary.
  */
 
-APREQ_DECLARE(apr_status_t) apreq_file_mktemp(apr_file_t **fp, 
+APREQ_DECLARE(apr_status_t) apreq_file_mktemp(apr_file_t **fp,
                                               apr_pool_t *pool,
                                               const char *path)
 {
@@ -982,11 +822,11 @@ APREQ_DECLARE(apr_status_t) apreq_file_mktemp(apr_file_t **fp,
 
     if (rc != APR_SUCCESS)
         return rc;
-    
+
     data = apr_palloc(pool, sizeof *data);
-    /* cleanups are LIFO, so this one will run just after 
+    /* cleanups are LIFO, so this one will run just after
        the cleanup set by mktemp */
-    apr_pool_cleanup_register(pool, data, 
+    apr_pool_cleanup_register(pool, data,
                               apreq_file_cleanup, apreq_file_cleanup);
 
     rc = apr_file_mktemp(fp, tmpl, /* NO APR_DELONCLOSE! see comment above */
@@ -1008,7 +848,7 @@ APREQ_DECLARE(apr_status_t) apreq_file_mktemp(apr_file_t **fp,
 /*
  * is_2616_token() is the verbatim definition from section 2.2
  * in the rfc itself.  We try to optimize it around the
- * expectation that the argument is not a token, which 
+ * expectation that the argument is not a token, which
  * should be the typical usage.
  */
 
@@ -1074,7 +914,7 @@ APREQ_DECLARE(apr_status_t)
             }
         }
         else {
-            *val = v; 
+            *val = v;
 
         look_for_terminator:
             switch (*v) {
@@ -1166,7 +1006,7 @@ APREQ_DECLARE(apr_file_t *)apreq_brigade_spoolfile(apr_bucket_brigade *bb)
 APREQ_DECLARE(apr_status_t) apreq_brigade_concat(apr_pool_t *pool,
                                                  const char *temp_dir,
                                                  apr_size_t heap_limit,
-                                                 apr_bucket_brigade *out, 
+                                                 apr_bucket_brigade *out,
                                                  apr_bucket_brigade *in)
 {
     apr_status_t s;
@@ -1198,7 +1038,7 @@ APREQ_DECLARE(apr_status_t) apreq_brigade_concat(apr_pool_t *pool,
             return APR_SUCCESS;
         }
     }
-    
+
     if (!BUCKET_IS_SPOOL(last_out)) {
 
         s = apreq_file_mktemp(&file, pool, temp_dir);
@@ -1210,7 +1050,7 @@ APREQ_DECLARE(apr_status_t) apreq_brigade_concat(apr_pool_t *pool,
         if (s != APR_SUCCESS)
             return s;
 
-        last_out = apr_bucket_file_create(file, wlen, 0, 
+        last_out = apr_bucket_file_create(file, wlen, 0,
                                           out->p, out->bucket_alloc);
         last_out->type = &spool_bucket_type;
         APR_BRIGADE_INSERT_TAIL(out, last_out);
@@ -1218,8 +1058,8 @@ APREQ_DECLARE(apr_status_t) apreq_brigade_concat(apr_pool_t *pool,
     }
     else {
         f = last_out->data;
-        /* Need to seek here, just in case our spool bucket 
-         * was read from between apreq_brigade_concat calls. 
+        /* Need to seek here, just in case our spool bucket
+         * was read from between apreq_brigade_concat calls.
          */
         wlen = last_out->start + last_out->length;
         s = apr_file_seek(f->fd, APR_SET, &wlen);
@@ -1239,7 +1079,7 @@ APREQ_DECLARE(apr_status_t) apreq_brigade_concat(apr_pool_t *pool,
 
     if (s == APR_SUCCESS) {
 
-        /* We have to deal with the possibility that the new 
+        /* We have to deal with the possibility that the new
          * data may be too large to be represented by a single
          * temp_file bucket.
          */

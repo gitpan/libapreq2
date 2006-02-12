@@ -1,5 +1,5 @@
 /*
-**  Copyright 2003-2005  The Apache Software Foundation
+**  Copyright 2003-2006  The Apache Software Foundation
 **
 **  Licensed under the Apache License, Version 2.0 (the "License");
 **  you may not use this file except in compliance with the License.
@@ -61,8 +61,9 @@ void apreq_param_tainted_off(apreq_param_t *p) {
 
 /** Sets the character encoding for this parameter. */
 static APR_INLINE
-apreq_charset_t apreq_param_charset_set(apreq_param_t *p, unsigned char c) {
-    unsigned char old = APREQ_FLAGS_GET(p->flags, APREQ_CHARSET);
+apreq_charset_t apreq_param_charset_set(apreq_param_t *p, apreq_charset_t c) {
+    apreq_charset_t old = (apreq_charset_t)
+        APREQ_FLAGS_GET(p->flags, APREQ_CHARSET);
     APREQ_FLAGS_SET(p->flags, APREQ_CHARSET, c);
     return old;
 }
@@ -70,7 +71,7 @@ apreq_charset_t apreq_param_charset_set(apreq_param_t *p, unsigned char c) {
 /** Gets the character encoding for this parameter. */
 static APR_INLINE
 apreq_charset_t apreq_param_charset_get(apreq_param_t *p) {
-    return APREQ_FLAGS_GET(p->flags, APREQ_CHARSET);
+    return (apreq_charset_t)APREQ_FLAGS_GET(p->flags, APREQ_CHARSET);
 }
 
 
@@ -108,7 +109,7 @@ APREQ_DECLARE(apreq_param_t *) apreq_param_make(apr_pool_t *p,
  *
  * @remarks     Unless vlen == 0, this function assumes there is
  *              exactly one character ('=') which separates the pair.
- *            
+ *
  */
 APREQ_DECLARE(apr_status_t) apreq_param_decode(apreq_param_t **param,
                                                apr_pool_t *pool,
@@ -186,7 +187,7 @@ APREQ_DECLARE(const apr_table_t *) apreq_uploads(const apr_table_t *body,
                                                  apr_pool_t *pool);
 
 /**
- * Returns the first param in req->body which has both param->v.name 
+ * Returns the first param in req->body which has both param->v.name
  * matching key (case insensitive) and param->upload != NULL.
  * @param body parameter table returned by apreq_body() or apreq_params()
  * @param name Parameter name. key == NULL returns first upload.

@@ -8,7 +8,9 @@ use Cwd;
 require File::Basename;
 
 my $cwd = getcwd();
-my $location = "/TestApReq__upload";
+
+my $module = 'TestApReq::upload';
+my $location = Apache::TestRequest::module2url($module);
 
 my %types = (perl => 'application/octet-stream',
              httpd => 'application/octet-stream',
@@ -39,7 +41,7 @@ foreach my $file( map {File::Spec->catfile($cwd, 't', $_)} @names) {
     my $basename = File::Basename::basename($file);
 
     for my $method ( @methods) {
-        my $result = UPLOAD_BODY("$location?method=$method;has_md5=$has_md5", 
+        my $result = UPLOAD_BODY("$location?method=$method;has_md5=$has_md5",
                                  filename => $file);
         my $expected = <<END;
 

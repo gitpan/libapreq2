@@ -101,6 +101,7 @@ INSTALL_STRIP_PROGRAM = @INSTALL_STRIP_PROGRAM@
 LIBTOOL = @LIBTOOL@
 LN_S = @LN_S@
 MAINT = @MAINT@
+MM_OPTS = @MM_OPTS@
 OBJDUMP = @OBJDUMP@
 PACKAGE = @PACKAGE@
 PERL = @PERL@
@@ -252,7 +253,7 @@ perl_config:
 	cd perl; @PERL@ ../../build/xsbuilder.pl run
 
 perl/Makefile: perl/xsbuilder perl/Makefile.PL
-	cd perl; @PERL@ Makefile.PL -apxs @APACHE2_APXS@ @PERL_OPTS@
+	cd perl; @PERL@ @PERL_OPTS@ Makefile.PL -apxs @APACHE2_APXS@ @MM_OPTS@
 
 perl_glue: perl/Makefile
 	cd perl; $(MAKE)

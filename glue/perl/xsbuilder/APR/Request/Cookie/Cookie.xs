@@ -82,7 +82,7 @@ version(obj, val=0)
     RETVAL = apreq_cookie_version(obj);
     if (items == 2)
         apreq_cookie_version_set(obj, val);
- 
+
   OUTPUT:
     RETVAL
 
@@ -261,47 +261,6 @@ as_string(c)
     RETVAL = newSVpvn(rv, len);
     if (apreq_cookie_is_tainted(c))
         SvTAINTED_on(RETVAL);
-
-  OUTPUT:
-    RETVAL
-
-MODULE = APR::Request::Cookie PACKAGE = APR::Request::Cookie::Table
-
-SV *
-cookie_class(t, subclass=&PL_sv_undef)
-    APR::Request::Cookie::Table t
-    SV *subclass
-
-  PREINIT:
-    SV *obj = apreq_xs_sv2object(aTHX_ ST(0), COOKIE_TABLE_CLASS, 't');
-    MAGIC *mg = mg_find(obj, PERL_MAGIC_ext);
-    char *curclass = mg->mg_ptr;
-
-  CODE:
-
-    if (items == 2) {
-        if (!SvOK(subclass)) {
-            mg->mg_ptr = NULL;
-            mg->mg_len = 0;
-        }
-        else if (!sv_derived_from(subclass, COOKIE_CLASS)) {
-            Perl_croak(aTHX_ "Usage: " 
-                             COOKIE_TABLE_CLASS "::cookie_class($table, $class): "
-                             "class %s is not derived from " COOKIE_CLASS, 
-                             SvPV_nolen(subclass));
-        }
-        else {
-            STRLEN len;
-            mg->mg_ptr = savepv(SvPV(subclass, len));
-            mg->mg_len = len;
-        }
-        if (curclass != NULL)
-            Safefree(curclass);
-
-        XSRETURN(1);
-    }
-
-    RETVAL = (curclass == NULL) ? &PL_sv_undef : newSVpv(curclass, 0);
 
   OUTPUT:
     RETVAL

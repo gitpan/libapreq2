@@ -9,7 +9,7 @@ use Apache2::RequestUtil;
 use overload '""' => sub { shift->as_string() }, fallback => 1;
 
 push our @ISA, "APR::Request::Cookie";
-our $VERSION = "2.06-dev";
+our $VERSION = "2.07";
 
 sub new {
     my ($class, $r, %attrs) = @_;
@@ -93,7 +93,11 @@ sub bake2 {
 package Apache2::Cookie::Jar;
 use APR::Request::Apache2;
 push our @ISA, qw/APR::Request::Apache2/;
-sub cookies { Apache2::Cookie->fetch(@_) }
+sub cookies {
+    return Apache2::Cookie->fetch(@_) if @_ == 2;
+    my $cookies = Apache2::Cookie->fetch(@_);
+    return wantarray ? keys %$cookies : $cookies;
+}
 *Apache2::Cookie::Jar::status = *APR::Request::jar_status;
 
 sub new {
@@ -120,7 +124,7 @@ Apache2::Cookie, Apache2::Cookie::Jar - HTTP Cookies Class
     use Apache2::Cookie;
     use APR::Pool;
     # use $r instead of $p here, so doc examples reflect mp2 env, not CGI/test env
-    $r = APR::Pool->new; 
+    $r = APR::Pool->new;
     $j = Apache2::Cookie::Jar->new($r);
     $j->cookies->{foo} = Apache2::Cookie->new($r, name => "foo", value => "1");
     $j->cookies->add( Apache2::Cookie->new($r, name => "bar", value => "2") );
@@ -131,26 +135,17 @@ Apache2::Cookie, Apache2::Cookie::Jar - HTTP Cookies Class
 =head1 SYNOPSIS
 
 
-=for example begin
-
     use Apache2::Cookie;
 
     $j = Apache2::Cookie::Jar->new($r);
     $c_in = $j->cookies("foo");         # get cookie from request headers
 
-    $c_out = Apache2::Cookie->new($r, 
+    $c_out = Apache2::Cookie->new($r,
                                   -name  => "mycookie",
                                   -value => $c_in->name );
 
     $c_out->path("/bar");               # set path to "/bar"
     $c_out->bake;                       # send cookie in response headers
-
-=for example end
-
-=for example_testing
-    ok "foo bar" eq join " ", keys %{$j->cookies};
-    ok $c_out->as_string eq "mycookie=foo; path=/bar";
-    ok $c_in->value == 1;
 
 
 
@@ -158,10 +153,10 @@ Apache2::Cookie, Apache2::Cookie::Jar - HTTP Cookies Class
 =head1 DESCRIPTION
 
 
-The Apache2::Cookie module is based on the original 1.X versions, which mimic 
-the CGI::Cookie API.  The current version of this module includes several packages 
-and methods which are patterned after Apache2::Request, yet remain largely 
-backwards-compatible with the original 1.X API (see the L<PORTING from 1.X> section 
+The Apache2::Cookie module is based on the original 1.X versions, which mimic
+the CGI::Cookie API.  The current version of this module includes several packages
+and methods which are patterned after Apache2::Request, yet remain largely
+backwards-compatible with the original 1.X API (see the L<PORTING from 1.X> section
 below for known issues).
 
 This manpage documents the Apache2::Cookie and Apache2::Cookie::Jar packages.
@@ -182,7 +177,7 @@ accessing the incoming params and file uploads.
 
     Apache2::Cookie::Jar->new($env)
 
-Class method that retrieves the parsed cookie jar from the current 
+Class method that retrieves the parsed cookie jar from the current
 environment.
 
 =head2 cookies
@@ -194,14 +189,14 @@ Retrieve cookies named $key with from the jar object.  In scalar
 context the first such cookie is returned, and in list context the
 full list of such cookies are returned.
 
-If the $key argument is omitted, C<< scalar $jar->cookies() >> will 
-return an APR::Request::Cookie::Table object containing all the cookies in 
-the jar.  Modifications to the this object will affect the jar's 
-internal I<cookies> table in C<apreq_jar_t>, so their impact will 
+If the $key argument is omitted, C<< scalar $jar->cookies() >> will
+return an APR::Request::Cookie::Table object containing all the cookies in
+the jar.  Modifications to the this object will affect the jar's
+internal I<cookies> table in C<apreq_jar_t>, so their impact will
 be noticed by all libapreq2 applications during this request.
 
-In list context C<< $jar->cookies() >> returns the list of names 
-for all the cookies in the jar.  The order corresponds to the 
+In list context C<< $jar->cookies() >> returns the list of names
+for all the cookies in the jar.  The order corresponds to the
 order in which the cookies appeared in the incoming "Cookie" header.
 
 This method will throw an C<< APR::Request::Error >> object into $@ if
@@ -213,24 +208,12 @@ as they appeared in the "Cookie" header). In all other circumstances
 C<cookies> will croak if the parser failed to successfully parse the
 "Cookie" header.
 
-=for example begin
-
     $c = Apache2::Cookie->new($r, name => "foo", value => 3);
     $j->cookies->add($c);
 
     $cookie = $j->cookies("foo");  # first foo cookie
     @cookies = $j->cookies("foo"); # all foo cookies
     @names = $j->cookies();        # all cookie names
-
-=for example end
-
-=for example_testing
-    ok @cookies == 2;
-    is $_ -> name, "foo" for $cookie, @cookies;
-    ok $cookies[0]->value eq $cookie->value;
-    ok $cookies[0]->value == 1;
-    ok $cookies[1]->value == 3;
-    is "@names", "foo bar";
 
 
 
@@ -256,28 +239,17 @@ APR_SUCCESS on success, error otherwise.
 
 Just like CGI::Cookie::new, but requires an additional environment argument:
 
-=for example begin
-
     $cookie = Apache2::Cookie->new($r,
-                             -name    =>  'foo', 
-                             -value   =>  'bar', 
-                             -expires =>  '+3M', 
-                             -domain  =>  '.capricorn.com', 
+                             -name    =>  'foo',
+                             -value   =>  'bar',
+                             -expires =>  '+3M',
+                             -domain  =>  '.capricorn.com',
                              -path    =>  '/cgi-bin/database',
-                             -secure  =>  1 
-                            ); 
-
-=for example end
-
-=for example_testing
-    ok $cookie->name eq "foo",              'name eq "foo"';
-    ok $cookie->value eq "bar",             'value eq "bar"';
-    ok $cookie->domain eq ".capricorn.com", 'domain eq ".capricorn.com"';
-    ok $cookie->path eq "/cgi-bin/database",'path eq "/cgi-bin/database"';
-    ok $cookie->secure == 1,                '$cookie->secure == 1';
+                             -secure  =>  1
+                            );
 
 The C<-value> argument may be either an arrayref, a hashref, or
-a string.  C<Apache2::Cookie::freeze> encodes this argument into the 
+a string.  C<Apache2::Cookie::freeze> encodes this argument into the
 cookie's raw value.
 
 
@@ -291,14 +263,7 @@ Helper function (for C<new>) that serializes a new cookie's value in a
 manner compatible with CGI::Cookie (and Apache2::Cookie 1.X).  This class
 method accepts an arrayref, hashref, or normal perl string in $value.
 
-=for example begin
-
     $value = Apache2::Cookie->freeze(["2+2", "=4"]);
-
-=for example end
-
-=for example_testing
-    ok $value eq "2%2b2&%3d4", '$value eq "2%2b2&%3d4"';
 
 
 
@@ -309,23 +274,13 @@ method accepts an arrayref, hashref, or normal perl string in $value.
     $cookie->thaw()
 
 
-This is the helper method (for C<value>) responsible for decoding the 
+This is the helper method (for C<value>) responsible for decoding the
 raw value of a cookie.  An optional argument $value may be used in
-place of the cookie's raw value.  This method can also decode cookie 
+place of the cookie's raw value.  This method can also decode cookie
 values created using CGI::Cookie or Apache2::Cookie 1.X.
-
-=for example begin
 
     print $cookie->thaw;                    # prints "bar"
     @values = Apache2::Cookie->thaw($value); # ( "2+2", "=4" )
-
-=for example end
-
-=for example_testing
-    ok $_STDOUT_ eq "bar",  '$_STDOUT_ eq "bar"';
-    ok @values == 2,        '@values == 2';
-    ok $values[0] eq "2+2", '$values[0] eq "2+2"';
-    ok $values[1] eq "=4",  '$values[1] eq "=4"';
 
 
 
@@ -334,18 +289,10 @@ values created using CGI::Cookie or Apache2::Cookie 1.X.
 
     $cookie->as_string()
 
-Format the cookie object as a string.  The quote-operator for Apache2::Cookie 
+Format the cookie object as a string.  The quote-operator for Apache2::Cookie
 is overloaded to run this method whenever a cookie appears in quotes.
 
-
-=for example begin
-
     ok "$cookie" eq $cookie->as_string;
-
-=for example end
-
-=for example_testing
-    ok substr("$cookie", 0, 8) eq "foo=bar;";
 
 
 
@@ -356,9 +303,6 @@ is overloaded to run this method whenever a cookie appears in quotes.
 
 Get the name of the cookie.
 
-=for example_testing
-    ok $cookie->name eq "foo";
-
 
 
 
@@ -368,35 +312,22 @@ Get the name of the cookie.
 
 Get the (unswizzled) value of the cookie:
 
-=for example begin
-
     my $value = $cookie->value;
     my @values = $cookie->value;
 
-=for example end
-
-=for example_testing
-    ok @values == 1, '@values == 1';
-    ok $value eq "bar", '$value eq "bar"';
-    ok $values[0] eq "bar", '$values[0] eq "bar"';
-
-Note: if the cookie's value was created using a  C<freeze> method, 
-one way to reconstitute the object is by subclassing 
+Note: if the cookie's value was created using a  C<freeze> method,
+one way to reconstitute the object is by subclassing
 Apache2::Cookie with a package that provides the associated C<thaw> sub:
-
-=for example begin
 
     {
         package My::COOKIE;
-        @ISA = 'Apache2::Cookie'; 
+        @ISA = 'Apache2::Cookie';
         sub thaw { my $val = shift->raw_value; $val =~ tr/a-z/A-Z/; $val }
     }
 
     bless $cookie, "My::COOKIE";
 
     ok $cookie->value eq "BAR";
-
-=for example end
 
 
 
@@ -406,16 +337,9 @@ Apache2::Cookie with a package that provides the associated C<thaw> sub:
     $cookie->raw_value()
 
 Gets the raw (opaque) value string as it appears in the incoming
-"Cookie" header.  
-
-=for example begin
+"Cookie" header.
 
     ok $cookie->raw_value eq "bar";
-
-=for example end
-
-=for example_testing
-   # run the example, don't just compile it
 
 
 
@@ -438,8 +362,6 @@ Adds a I<Set-Cookie2> header to the outgoing headers table.
 
 
 
-
-
 =head2 domain
 
     $cookie->domain()
@@ -447,16 +369,8 @@ Adds a I<Set-Cookie2> header to the outgoing headers table.
 
 Get or set the domain for the cookie:
 
-=for example begin
-
     $domain = $cookie->domain;
     $cookie->domain(".cp.net");
-
-=for example end
-
-=for example_testing
-    ok $domain eq ".capricorn.com";
-    ok $cookie->domain eq ".cp.net";
 
 
 
@@ -468,16 +382,8 @@ Get or set the domain for the cookie:
 
 Get or set the path for the cookie:
 
-=for example begin
-
     $path = $cookie->path;
     $cookie->path("/");
-
-=for example end
-
-=for example_testing
-    ok $path eq "/cgi-bin/database";
-    ok $cookie->path eq "/";
 
 
 
@@ -488,19 +394,12 @@ Get or set the path for the cookie:
     $cookie->version($set)
 
 Get or set the cookie version for this cookie.
-Netscape spec cookies have version = 0; 
+Netscape spec cookies have version = 0;
 RFC-compliant cookies have version = 1.
-
-=for example begin
 
     ok $cookie->version == 0;
     $cookie->version(1);
     ok $cookie->version == 1;
-
-=for example end
-
-=for example_testing
-   # run the example tests
 
 
 
@@ -517,16 +416,8 @@ $2 qualifies the number in $1 as representing "Y"ears, "M"onths,
 omitted, the number is interpreted as representing seconds).
 As a special case, $set = "now" is equivalent to $set = "0".
 
-=for example begin
-
     my $expires = $cookie->expires;
     $cookie->expires("+3h"); # cookie is set to expire in 3 hours
-
-=for example end
-
-=for example_testing
-     ok $expires == 3 * 30 * 24 * 3600; # 3 months
-     ok $cookie->expires == 3 * 3600;
 
 
 
@@ -538,17 +429,9 @@ As a special case, $set = "now" is equivalent to $set = "0".
 
 Get or set the secure flag for the cookie:
 
-=for example begin
-
     $cookie->secure(1);
     $is_secure = $cookie->secure;
     $cookie->secure(0);
-
-=for example end
-
-=for example_testing
-    ok $is_secure;
-    ok (not $cookie->secure);
 
 
 
@@ -560,15 +443,8 @@ Get or set the secure flag for the cookie:
 
 Get or set the comment field of an RFC (Version > 0) cookie.
 
-=for example begin
-
     $cookie->comment("Never eat yellow snow");
     print $cookie->comment;
-
-=for example end
-
-=for example_testing
-    ok $_STDOUT_ eq "Never eat yellow snow";
 
 
 
@@ -580,15 +456,8 @@ Get or set the comment field of an RFC (Version > 0) cookie.
 
 Get or set the commentURL field of an RFC (Version > 0) cookie.
 
-=for example begin
-
     $cookie->commentURL("http://localhost/cookie.policy");
     print $cookie->commentURL;
-
-=for example end
-
-=for example_testing
-    ok $_STDOUT_ eq "http://localhost/cookie.policy";
 
 
 
@@ -599,19 +468,13 @@ Get or set the commentURL field of an RFC (Version > 0) cookie.
 
 Fetch and parse the incoming I<Cookie> header:
 
-=for example begin
-
     my $cookies = Apache2::Cookie->fetch($r); # APR::Request::Cookie::Table ref
+
+    It should be noted, that with perl 5.8+ Iterator magic, table is able
+    to handle multiple cookies of the same name.
 
     my %cookies = Apache2::Cookie->fetch($r);
 
-=for example end
-
-=for example_testing
-    ok "foobarfoo" eq join "", keys %$cookies;
-    ok 123 == join "", map $_->value, values %$cookies;
-    ok "barfoo" eq join "", sort keys %cookies; # %cookies lost original foo cookie
-    ok 23 == join "", sort map $_->value, values %cookies;
 
 
 
@@ -622,9 +485,10 @@ Changes to the 1.X API:
 
 =over 4
 
-=item * C<Apache2::Cookie::fetch> now expects an C<$r> object as (second) 
+=item * C<Apache2::Cookie::fetch> now expects an C<$r> object as (second)
         argument, although this isn't necessary in mod_perl 2 if
-        C<Apache2::RequestUtil> is loaded.
+        C<Apache2::RequestUtil> is loaded and 'PerlOptions +GlobalRequest'
+        is in effect.
 
 =item * C<Apache2::Cookie::parse> is gone.
 
@@ -649,7 +513,7 @@ L<APR::Request::Error>, CGI::Cookie(3)
 
 =head1 COPYRIGHT
 
-  Copyright 2003-2005  The Apache Software Foundation
+  Copyright 2003-2006  The Apache Software Foundation
 
   Licensed under the Apache License, Version 2.0 (the "License");
   you may not use this file except in compliance with the License.

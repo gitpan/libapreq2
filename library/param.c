@@ -1,5 +1,5 @@
 /*
-**  Copyright 2003-2005  The Apache Software Foundation
+**  Copyright 2003-2006  The Apache Software Foundation
 **
 **  Licensed under the Apache License, Version 2.0 (the "License");
 **  you may not use this file except in compliance with the License.
@@ -25,9 +25,9 @@
 #define MAX_READ_AHEAD  (1024 * 64)
 
 
-APREQ_DECLARE(apreq_param_t *) apreq_param_make(apr_pool_t *p, 
+APREQ_DECLARE(apreq_param_t *) apreq_param_make(apr_pool_t *p,
                                                 const char *name,
-                                                const apr_size_t nlen, 
+                                                const apr_size_t nlen,
                                                 const char *val,
                                                 const apr_size_t vlen)
 {
@@ -41,7 +41,7 @@ APREQ_DECLARE(apreq_param_t *) apreq_param_make(apr_pool_t *p,
 
     param->info = NULL;
     param->upload = NULL;
-    param->flags = 0; 
+    param->flags = 0;
 
     *(const apreq_value_t **)&v = &param->v;
 
@@ -83,11 +83,11 @@ APREQ_DECLARE(apr_status_t) apreq_param_decode(apreq_param_t **param,
 
     if (vlen > 0) {
         status = apreq_decode(v->data, &v->dlen, word + nlen + 1, vlen);
-        if (status > APR_SUCCESS + APREQ_CHARSET_UTF8) {
+        if (status != APR_SUCCESS) {
             *param = NULL;
             return status;
         }
-        charset = status;
+        charset = apreq_charset_divine(v->data, v->dlen);
     }
     else {
         v->data[0] = 0;
@@ -97,12 +97,12 @@ APREQ_DECLARE(apr_status_t) apreq_param_decode(apreq_param_t **param,
     v->name = v->data + vlen + 1;
 
     status = apreq_decode(v->name, &v->nlen, word, nlen);
-    if (status > APR_SUCCESS + APREQ_CHARSET_UTF8) {
+    if (status != APR_SUCCESS) {
         *param = NULL;
         return status;
     }
 
-    switch (status) {
+    switch (apreq_charset_divine(v->name, v->nlen)) {
     case APREQ_CHARSET_UTF8:
         if (charset == APREQ_CHARSET_ASCII)
             charset = APREQ_CHARSET_UTF8;
@@ -154,7 +154,7 @@ APREQ_DECLARE(apr_status_t) apreq_parse_query_string(apr_pool_t *pool,
             break;
 
         case '&':
-        case ';': 
+        case ';':
         case 0:
             if (qs > start) {
                 apr_size_t vlen = 0;
@@ -190,7 +190,7 @@ APREQ_DECLARE(apr_status_t) apreq_parse_query_string(apr_pool_t *pool,
 static int param_push(void *data, const char *key, const char *val)
 {
     apr_array_header_t *arr = data;
-    *(apreq_param_t **)apr_array_push(arr) = 
+    *(apreq_param_t **)apr_array_push(arr) =
         apreq_value_to_param(val);
     return 1;   /* keep going */
 }

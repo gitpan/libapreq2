@@ -8,12 +8,11 @@ use Cwd;
 require Win32;
 use ExtUtils::MakeMaker;
 use File::Basename;
-use Archive::Tar;
 use File::Path;
-use LWP::Simple;
-my ($apache, $debug, $help, $no_perl, $perl, $with_perl);
-my $VERSION = '2.03-dev';
+my ($apache, $apxs, $debug, $help, $no_perl, $perl, $with_perl);
+my $VERSION = "2.08";
 my $result = GetOptions( 'with-apache2=s' => \$apache,
+			 'with-apache2-apxs=s' => \$apxs,
 			 'debug' => \$debug,
 			 'help' => \$help,
                          'with-perl=s' => \$perl,
@@ -40,16 +39,20 @@ generate_tests($apreq_home, \@tests);
 my %apr_libs;
 my %map = (apr => 'libapr.lib', apu => 'libaprutil.lib');
 my $devnull = devnull();
-foreach (qw(apr apu)) {
-    my $cfg = catfile $apache, 'bin', "$_.bat";
-    $cfg =~ s!\\!/!g;
+
+my $prog = apache_prog_name($apache);
+foreach my $what (qw(apr apu)) {
+    my $ap = ($prog eq 'httpd.exe') ?
+        "$what-1-config.bat" : "$what-config.bat";
+    my $cfg = catfile $apache, 'bin', $ap;
     my $lib;
-    eval {$lib = qx{"$cfg" --$_-lib-file 2>$devnull;}};
+    eval {$lib = qx{"$cfg" --$what-lib-file 2>$devnull;}};
     if ($@ or not $lib or $lib =~ /usage/i) {
-        $apr_libs{$_} = catfile $apache, 'lib', $map{$_};
+        $apr_libs{$what} = catfile $apache, 'lib', $map{$what};
     }
     else {
-        $apr_libs{$_} = chomp $lib;
+        chomp $lib;
+        $apr_libs{$what} = $lib;
     }
 }
 
@@ -81,10 +84,12 @@ END
 
 print $make $_ while (<DATA>);
 
-my $apxs_trial = catfile $apache, 'bin', 'apxs.bat';
-my $apxs = (-e $apxs_trial) ? $apxs_trial : which('apxs');
-unless ($apxs) {
-    $apxs = fetch_apxs() ? which('apxs') : '';
+unless (-x $apxs) {
+    my $apxs_trial = catfile $apache, 'bin', 'apxs.bat';
+    $apxs = (-e $apxs_trial) ? $apxs_trial : which('apxs');
+    unless ($apxs) {
+        $apxs = fetch_apxs() ? which('apxs') : '';
+    }
 }
 
 my $test = << 'END';
@@ -257,7 +262,8 @@ sub check {
         unless -e qq{$apache/lib/libhttpd.lib};
     die qq{No httpd header found under $apache/include}
         unless -e qq{$apache/include/httpd.h};
-    my $vers = qx{"$apache/bin/Apache.exe" -v};
+    my $prog = apache_prog_name($apache);
+    my $vers = qx{$prog -v};
     die qq{"$apache" does not appear to be version 2.x}
         unless $vers =~ m!Apache/2.\d!;
     return 1;
@@ -342,6 +348,15 @@ EOT
 }
 
 sub fetch_apxs {
+    eval {require Archive::Tar;};
+    if ($@) {
+        die "Need Archive::Tar installed in order to install apxs.";
+    }
+    eval {require LWP::Simple; import LWP::Simple qw(getstore is_success)};
+    if ($@) {
+        die "Need LWP::Simple installed in order to install apxs.";
+    }
+
     print << 'END';
 
 I could not find an apxs utility on your system, which is
@@ -362,7 +377,7 @@ END
         return;
     }
     print " done!\n";
-    
+
     my $arc = Archive::Tar->new($file, 1);
     $arc->extract($arc->list_files());
     my $dir = 'apxs';
@@ -375,7 +390,11 @@ END
         warn "chdir to $dir failed: $!";
         return;
     };
-    my @args = ($^X, 'Configure.pl', "-with-apache2=$apache");
+
+    my $prog = apache_prog_name($apache);
+    my @args = ($^X, 'Configure.pl',
+                "-with-apache2=$apache",
+                "--with-apache-prog=$prog");
     print "@args\n\n";
     system(@args) == 0 or do {
          warn "system @args failed: $?";
@@ -386,6 +405,18 @@ END
     print "unlink $file\n";
     unlink $file or warn "unlink of $file failed: $!";
     return 1;
+}
+
+sub apache_prog_name {
+    my $apache = shift;
+    my $prog;
+    for my $trial(qw(Apache.exe httpd.exe)) {
+        next unless -e catfile($apache, 'bin', $trial);
+        $prog = $trial;
+        last;
+    }
+    die "Could not determine the Apache2 binary name" unless $prog;
+    return $prog;
 }
 
 __DATA__

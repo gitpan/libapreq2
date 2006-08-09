@@ -1,9 +1,42 @@
-.TH "apreq_changes" 3 "11 Feb 2006" "Version 2.07" "libapreq2" \" -*- nroff -*-
+.TH "apreq_changes" 3 "8 Aug 2006" "Version 2.08" "libapreq2" \" -*- nroff -*-
 .ad l
 .nh
 .SH NAME
 apreq_changes \- CHANGES
 ! brief List of major changes.
+.SH "Changes with libapreq2-2.08 (released August 8, 2006)"
+.PP
+.IP "\(bu" 2
+Perl API [Randy Kobes] add APR_FILE_NOCLEANUP | APR_SHARELOCK to flags passed to \fBapreq_file_mktemp()\fP on Win32 in library/util.c, in order to clean up occasional stray temp files left behind in the Perl upload test (reported by Steve Hay)
+.PP
+.PP
+.IP "\(bu" 2
+Build [Philip M. Gollucci, Bojan Smojver, joes] add -fno-strict-aliasing to all compiles on all systems https://bugzilla.redhat.com/bugzilla/show_bug.cgi?id=193740 This fixes an infinite look split_on_bdry() of library/parser_multipart.c particularly on linux/gcc 4.x platforms.
+.PP
+.PP
+.IP "\(bu" 2
+Perl Glue Fix 'value computed not used' gcc 4.1.x compile errors
+.PP
+.PP
+.IP "\(bu" 2
+Build [Randy Kobes] Fix the location of apxs and the names of the apr and aprutil libraries on Win32 to enable building against Apache/2.2.
+.PP
+.PP
+.IP "\(bu" 2
+Perl Glue docs [Philip M. Gollucci] Fix the 'docs_install' make target to actually install the docs for the perl glue.
+.PP
+.PP
+.IP "\(bu" 2
+Perl Glue Build [Philip M. Gollucci] Regenerate glue/perl/xsbuilder/ppport.h to fix perl 5.8.8+ on some plaforms.
+.PP
+.PP
+.IP "\(bu" 2
+C API [joes] Add code for \fBapreq_cookies()\fP.
+.PP
+.PP
+.IP "\(bu" 2
+Perl API [joes] Expose the constants in \fBapreq_error.h\fP via the APR::Request::Error package.
+.PP
 .SH "Changes with libapreq2-2.07 (released February 12, 2006)"
 .PP
 .IP "\(bu" 2

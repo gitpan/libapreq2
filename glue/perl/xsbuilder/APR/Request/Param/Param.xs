@@ -201,7 +201,7 @@ upload_slurp(param, buffer)
         Perl_croak(aTHX_ "$param->upload_slurp($data): can't get upload length");
 
     RETVAL = len;
-    SvUPGRADE(buffer, SVt_PV);
+    (void)SvUPGRADE(buffer, SVt_PV);
     data = SvGROW(buffer, RETVAL + 1);
     data[RETVAL] = 0;
     SvCUR_set(buffer, RETVAL);
@@ -276,22 +276,30 @@ upload_tempname(param, req=apreq_xs_sv2handle(aTHX_ ST(0)))
 
   CODE:
     if (param->upload == NULL)
-        Perl_croak(aTHX_ "$param->upload_tempname($req): param has no upload brigade");
+      Perl_croak(aTHX_
+                 "$param->upload_tempname($req): param has no upload brigade"
+                 );
     f = apreq_brigade_spoolfile(param->upload);
     if (f == NULL) {
         const char *path;
         s = apreq_temp_dir_get(req, &path);
         if (s != APR_SUCCESS)
-            Perl_croak(aTHX_ "$param->upload_tempname($req): can't get temp_dir");
+            Perl_croak(aTHX_ 
+                       "$param->upload_tempname($req): can't get temp_dir"
+                       );
         s = apreq_brigade_concat(param->upload->p, path, 0,
                                  param->upload, param->upload);
         if (s != APR_SUCCESS)
-            Perl_croak(aTHX_ "$param->upload_tempname($req): can't make spool bucket");
+            Perl_croak(aTHX_ 
+                       "$param->upload_tempname($req): can't make spool bucket"
+                       );
         f = apreq_brigade_spoolfile(param->upload);
     }
     s = apr_file_name_get(&RETVAL, f);
     if (s != APR_SUCCESS)
-        Perl_croak(aTHX_ "$param->upload_link($file): can't get spool file name");
+        Perl_croak(aTHX_ 
+                   "$param->upload_link($file): can't get spool file name"
+                   );
 
   OUTPUT:
     RETVAL

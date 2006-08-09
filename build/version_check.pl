@@ -48,7 +48,7 @@ sub mp2_version {
 my %svn = (
                 libtool => { version => "1.4.3",   test => \&gnu_version },
                autoconf => { version => "2.53",    test => \&gnu_version },
-               automake => { version => "1.6.0",   test => \&gnu_version },
+               automake => { version => "1.6.1",   test => \&gnu_version },
                 doxygen => { version => "1.2",     test => \&gnu_version, broken_version => '1.4.5' },
                    perl => { version => "5.6.1",   test => \&gnu_version },
   "ExtUtils::XSBuilder" => { version => "0.23",    test => \&xsb_version },
@@ -69,11 +69,11 @@ my %perl_glue = (
          "Apache::Test" => { version => "1.04",    test => \&a_t_version,
                              comment => "Win32 requires version 1.06"    },
                  # mp2 does not contain "_" in its reported version number
-              mod_perl  => { version => "1.999022",test => \&mp2_version },
+             mod_perl2  => { version => "1.999022",test => \&mp2_version },
   "ExtUtils::MakeMaker" => { version => "6.15",    test => \&mm_version },
            "Test::More" => { version => "0.47",    test => \&tm_version },
                 );
-
+                
 my %test = (
             "Test::Inline" => { version => "0.16", test => \&ti_version },
            );
@@ -183,7 +183,7 @@ no_index:
 generated_by: $0
 EOT
         my %runtime_prereqs =  (
-                                mod_perl => $perl_glue{mod_perl},
+                               mod_perl2 => $perl_glue{mod_perl},
                                     perl => $perl_glue{perl},
                                );
         print_prereqs "requires:", \%runtime_prereqs;
@@ -197,7 +197,7 @@ EOT
             "Build system (core C API) prerequisites\n", \%build;
         print "\n", "=" x 50, "\n";
         print_prereqs
-            "Perl glue (Apache::Request) prerequisites\n", \%perl_glue;
+            "Perl glue (Apache2::Request) prerequisites\n", \%perl_glue;
         print "\n", "=" x 50, "\n";
         print_prereqs
             "Additional prerequisites for apreq subversion builds\n", \%svn;

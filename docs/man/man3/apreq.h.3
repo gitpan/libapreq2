@@ -1,4 +1,4 @@
-.TH "include/apreq.h" 3 "11 Feb 2006" "Version 2.07" "libapreq2" \" -*- nroff -*-
+.TH "include/apreq.h" 3 "8 Aug 2006" "Version 2.08" "libapreq2" \" -*- nroff -*-
 .ad l
 .nh
 .SH NAME
@@ -240,7 +240,7 @@ Cookie Version Mask
 .PP
 \fBExamples: \fP
 .in +1c
-\fB/home/joe/src/apache/httpd/apreq/trunk/include/apreq.h\fP.
+\fB/usr/home/pgollucci/dev/compile/freebsd-6.1-stable/3.4.4/apreq/429956/r428290/5.8.8-2.2.3-prefork/include/apreq.h\fP.
 .SS "#define APREQ_DECLARE_DATA"
 .PP
 extern APREQ_DECLARE_DATA type apr_variable;
@@ -399,7 +399,7 @@ after you detroy the pool, you have to call this function again with a new pool 
 .PP
 \fBExamples: \fP
 .in +1c
-\fB/home/joe/src/apache/httpd/apreq/trunk/include/apreq.h\fP.
+\fB/usr/home/pgollucci/dev/compile/freebsd-6.1-stable/3.4.4/apreq/429956/r428290/5.8.8-2.2.3-prefork/include/apreq.h\fP.
 .SS "\fBapr_status_t\fP apreq_post_initialize (\fBapr_pool_t\fP * pool)"
 .PP
 Post-initialize libapreq2. Applications (except apache modules using mod_apreq2) should this exactly once before they use any libapreq2 modules for parsing.
@@ -413,7 +413,7 @@ Post-initialize libapreq2. Applications (except apache modules using mod_apreq2)
 .PP
 \fBExamples: \fP
 .in +1c
-\fB/home/joe/src/apache/httpd/apreq/trunk/include/apreq.h\fP.
+\fB/usr/home/pgollucci/dev/compile/freebsd-6.1-stable/3.4.4/apreq/429956/r428290/5.8.8-2.2.3-prefork/include/apreq.h\fP.
 .SS "\fBapr_status_t\fP apreq_pre_initialize (\fBapr_pool_t\fP * pool)"
 .PP
 Pre-initialize libapreq2. Applications (except apache modules using mod_apreq2) should call this exactly once before they register custom parsers with libapreq2. mod_apreq2 does this automatically during the post-config phase, so modules that need call apreq_register_parser should create a post-config hook using APR_HOOK_MIDDLE.
@@ -432,7 +432,7 @@ after you detroyed the pool, you have to call this function again with a new poo
 .PP
 \fBExamples: \fP
 .in +1c
-\fB/home/joe/src/apache/httpd/apreq/trunk/include/apreq.h\fP.
+\fB/usr/home/pgollucci/dev/compile/freebsd-6.1-stable/3.4.4/apreq/429956/r428290/5.8.8-2.2.3-prefork/include/apreq.h\fP.
 .SS "static \fBAPR_INLINE\fP void apreq_value_table_add (const \fBapreq_value_t\fP * v, \fBapr_table_t\fP * t)\fC [static]\fP"
 .PP
 Adds the specified \fBapreq_value_t\fP to the apr_table_t.
@@ -460,7 +460,7 @@ apr_value_t
 .PP
 \fBExamples: \fP
 .in +1c
-\fB/home/joe/src/apache/httpd/apreq/trunk/include/apreq.h\fP.
+\fB/usr/home/pgollucci/dev/compile/freebsd-6.1-stable/3.4.4/apreq/429956/r428290/5.8.8-2.2.3-prefork/include/apreq.h\fP.
 .SH "Author"
 .PP 
 Generated automatically by Doxygen for libapreq2 from the source code.

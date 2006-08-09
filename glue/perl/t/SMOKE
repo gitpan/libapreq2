@@ -1,8 +1,11 @@
-#!/home/joe/perl/5.8.x/bin/perl
+#!/usr/local/software/freebsd-6.1-stable/3.4.4/perl/5.8.8/bin/perl5.8.8
+    eval 'exec /usr/local/software/freebsd-6.1-stable/3.4.4/perl/5.8.8/bin/perl5.8.8 -S $0 ${1+"$@"}'
+        if $running_under_some_shell;
 # WARNING: this file is generated, do not edit
-# 01: /home/joe/perl/5.8.x/lib/site_perl/5.8.6/x86_64-linux-thread-multi/Apache/TestConfig.pm:940
-# 02: /home/joe/perl/5.8.x/lib/site_perl/5.8.6/x86_64-linux-thread-multi/Apache/TestConfig.pm:1030
-# 03: /home/joe/perl/5.8.x/lib/site_perl/5.8.6/x86_64-linux-thread-multi/Apache/TestSmoke.pm:779
+# generated on Tue Aug  8 21:28:27 2006
+# 01: /usr/local/software/freebsd-6.1-stable/3.4.4/mod_perl/r428290/5.8.8-2.2.3-prefork/lib/i386-freebsd/Apache/TestConfig.pm:953
+# 02: /usr/local/software/freebsd-6.1-stable/3.4.4/mod_perl/r428290/5.8.8-2.2.3-prefork/lib/i386-freebsd/Apache/TestConfig.pm:1043
+# 03: /usr/local/software/freebsd-6.1-stable/3.4.4/mod_perl/r428290/5.8.8-2.2.3-prefork/lib/i386-freebsd/Apache/TestSmoke.pm:779
 # 04: Makefile.PL:159
 
 BEGIN { eval { require blib && blib->import; } }

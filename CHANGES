@@ -2,6 +2,42 @@
 //! brief List of major changes.
 
 
+@section v2_08 Changes with libapreq2-2.08 (released August 8, 2006)
+
+- Perl API [Randy Kobes]
+  add APR_FILE_NOCLEANUP | APR_SHARELOCK to flags passed to
+  apreq_file_mktemp() on Win32 in library/util.c, in order to 
+  clean up occasional stray temp files left behind in the 
+  Perl upload test (reported by Steve Hay)
+
+- Build [Philip M. Gollucci, Bojan Smojver, joes]
+  add -fno-strict-aliasing to all compiles on all systems
+  https://bugzilla.redhat.com/bugzilla/show_bug.cgi?id=193740
+  This fixes an infinite look split_on_bdry() of library/parser_multipart.c
+  particularly on linux/gcc 4.x platforms.
+
+- Perl Glue
+  Fix "value computed not used" gcc 4.1.x compile errors
+  
+- Build [Randy Kobes]
+  Fix the location of apxs and the names of the apr and aprutil
+  libraries on Win32 to enable building against Apache/2.2.
+
+- Perl Glue docs [Philip M. Gollucci]
+  Fix the 'docs_install' make target to actually install
+  the docs for the perl glue.
+
+- Perl Glue Build [Philip M. Gollucci]
+  Regenerate glue/perl/xsbuilder/ppport.h to fix perl 5.8.8+ on some
+  plaforms.  
+
+- C API [joes]
+  Add code for apreq_cookies().
+
+- Perl API [joes]
+  Expose the constants in apreq_error.h via the APR::Request::Error package.
+
+
 @section v2_07 Changes with libapreq2-2.07 (released February 12, 2006)
 
 

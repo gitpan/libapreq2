@@ -13,7 +13,7 @@ APR::Request::Error - wrapper for libapreq2's error API.
 
 =head1 DESCRIPTION
 
-This manpage documents version 2.07
+This manpage documents version 2.08
 of the APR::Request::Error package.
 
 
@@ -31,6 +31,116 @@ APR::Request::Error - derived from C<< APR::Request >> and C<< APR::Error >>.
     strerror($status)
 
 Returns the apreq error string associated with a numeric C<$status> code.
+
+
+
+
+=head1 ERROR CONSTANTS
+
+
+
+
+=head2 GENERAL
+
+Internal apreq error
+
+
+
+
+=head2 TAINTED
+
+Attempt to perform unsafe action with tainted data
+
+
+
+
+=head2 BADDATA
+
+Malformed input data
+
+
+
+
+=head2 BADCHAR
+
+Invalid character
+
+
+
+
+=head2 BADSEQ
+
+Invalid byte sequence
+
+
+
+
+=head2 BADATTR
+
+Unrecognized attribute
+
+
+
+
+=head2 BADHEADER
+
+Malformed header string
+
+
+
+
+=head2 NODATA
+
+Missing input data
+
+
+
+
+=head2 NOTOKEN
+
+Expected token not present
+
+
+
+
+=head2 NOATTR
+
+Missing attribute
+
+
+
+
+=head2 NOHEADER
+
+Missing header
+
+
+
+
+=head2 NOPARSER
+
+Missing parser
+
+
+
+
+=head2 MISMATCH
+
+Conflicting information
+
+
+
+
+=head2 OVERLIMIT
+
+Exceeds configured maximum limit
+
+
+
+
+=head2 NOTEMPTY
+
+Setting already configured
 
 
 

@@ -1,7 +1,7 @@
 <html>
 <head>
   <link rel="stylesheet" type="text/css" href="dox.css" />
-  <title>libapreq2-2.07: libapreq2: include/apreq_version.h File Reference</title> 
+  <title>libapreq2-2.08: libapreq2: include/apreq_version.h File Reference</title> 
 </head>
 <body>
 <div id="page-header">
@@ -35,20 +35,20 @@ There are several different mechanisms for accessing the version. There is a str
 <a href="apreq__version_8h-source.html">Go to the source code of this file.</a><table border="0" cellpadding="0" cellspacing="0">
 <tr><td></td></tr>
 <tr><td colspan="2"><br><h2>Defines</h2></td></tr>
-<tr><td class="memItemLeft" nowrap align="right" valign="top">#define&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="apreq__version_8h.html#7a40049b3aa9b2fbf7ff0808952eb1bf">APREQ_MAJOR_VERSION</a>&nbsp;&nbsp;&nbsp;2</td></tr>
+<tr><td class="memItemLeft" nowrap align="right" valign="top">#define&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="apreq__version_8h.html#7fb04b0c2a9da6237e235b845ee89f9a">APREQ_MAJOR_VERSION</a>&nbsp;&nbsp;&nbsp;2</td></tr>
 
-<tr><td class="memItemLeft" nowrap align="right" valign="top">#define&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="apreq__version_8h.html#6134073d61c1af512b3e3317d422b4da">APREQ_MINOR_VERSION</a>&nbsp;&nbsp;&nbsp;5</td></tr>
+<tr><td class="memItemLeft" nowrap align="right" valign="top">#define&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="apreq__version_8h.html#44bf530fbecff4ee7bcc0158784da0ff">APREQ_MINOR_VERSION</a>&nbsp;&nbsp;&nbsp;6</td></tr>
 
-<tr><td class="memItemLeft" nowrap align="right" valign="top">#define&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="apreq__version_8h.html#5955552a28011b51674fb3843af52ece">APREQ_PATCH_VERSION</a>&nbsp;&nbsp;&nbsp;7</td></tr>
+<tr><td class="memItemLeft" nowrap align="right" valign="top">#define&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="apreq__version_8h.html#365b89d742846921cb3619341e5eb266">APREQ_PATCH_VERSION</a>&nbsp;&nbsp;&nbsp;0</td></tr>
 
-<tr><td class="memItemLeft" nowrap align="right" valign="top">#define&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="apreq__version_8h.html#f300520c1fa54c480b11ae517c912649">APREQ_VERSION_STRING</a></td></tr>
+<tr><td class="memItemLeft" nowrap align="right" valign="top">#define&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="apreq__version_8h.html#dd82c8ea79b8cc142eeec45772d24fdb">APREQ_VERSION_STRING</a></td></tr>
 
-<tr><td class="memItemLeft" nowrap align="right" valign="top">#define&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="apreq__version_8h.html#2ff1ad65c4869e646d00212eb99ac9ad">APREQ_IS_DEV_STRING</a>&nbsp;&nbsp;&nbsp;&quot;&quot;</td></tr>
+<tr><td class="memItemLeft" nowrap align="right" valign="top">#define&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="apreq__version_8h.html#c9445f3e18e852cae2a91bd2a63394be">APREQ_IS_DEV_STRING</a>&nbsp;&nbsp;&nbsp;&quot;&quot;</td></tr>
 
 <tr><td colspan="2"><br><h2>Functions</h2></td></tr>
-<tr><td class="memItemLeft" nowrap align="right" valign="top">void&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="apreq__version_8h.html#800136414e80f1c8cc29670dbd201fa6">apreq_version</a> (<a class="elRef" doxygen="apr.tag:http://apr.apache.org/docs/apr/" href="http://apr.apache.org/docs/apr/structapr__version__t.html">apr_version_t</a> *pvsn)</td></tr>
+<tr><td class="memItemLeft" nowrap align="right" valign="top">void&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="apreq__version_8h.html#8d20db97717fa1bad4f31c7f9a29594f">apreq_version</a> (<a class="elRef" doxygen="apr.tag:http://apr.apache.org/docs/apr/" href="http://apr.apache.org/docs/apr/structapr__version__t.html">apr_version_t</a> *pvsn)</td></tr>
 
-<tr><td class="memItemLeft" nowrap align="right" valign="top">const char *&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="apreq__version_8h.html#e477ebf18b05b8eeb43b3bf9d83dc970">apreq_version_string</a> (void)</td></tr>
+<tr><td class="memItemLeft" nowrap align="right" valign="top">const char *&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="apreq__version_8h.html#663ea74082d9bbe18a0c15b66b8fddaa">apreq_version_string</a> (void)</td></tr>
 
 </table>
 <hr><a name="_details"></a><h2>Detailed Description</h2>
@@ -58,7 +58,7 @@ There are several different mechanisms for accessing the version. There is a str
 Note that it is possible for an application to detect that it has been compiled against a different version of libapreq by use of the compile-time constants and the use of the run-time query function.<p>
 libapreq version numbering follows the guidelines specified in:<p>
 <a href="http://apr.apache.org/versioning.html">http://apr.apache.org/versioning.html</a> <hr><h2>Define Documentation</h2>
-<a class="anchor" name="2ff1ad65c4869e646d00212eb99ac9ad"></a><!-- doxytag: member="apreq_version.h::APREQ_IS_DEV_STRING" ref="2ff1ad65c4869e646d00212eb99ac9ad" args="" --><p>
+<a class="anchor" name="c9445f3e18e852cae2a91bd2a63394be"></a><!-- doxytag: member="apreq_version.h::APREQ_IS_DEV_STRING" ref="c9445f3e18e852cae2a91bd2a63394be" args="" --><p>
 <table class="mdTable" cellpadding="2" cellspacing="0">
   <tr>
     <td class="mdRow">
@@ -81,7 +81,7 @@ libapreq version numbering follows the guidelines specified in:<p>
 Internal: string form of the "is dev" flag     </td>
   </tr>
 </table>
-<a class="anchor" name="7a40049b3aa9b2fbf7ff0808952eb1bf"></a><!-- doxytag: member="apreq_version.h::APREQ_MAJOR_VERSION" ref="7a40049b3aa9b2fbf7ff0808952eb1bf" args="" --><p>
+<a class="anchor" name="7fb04b0c2a9da6237e235b845ee89f9a"></a><!-- doxytag: member="apreq_version.h::APREQ_MAJOR_VERSION" ref="7fb04b0c2a9da6237e235b845ee89f9a" args="" --><p>
 <table class="mdTable" cellpadding="2" cellspacing="0">
   <tr>
     <td class="mdRow">
@@ -104,13 +104,13 @@ Internal: string form of the "is dev" flag     </td>
 major version Major API changes that could cause compatibility problems for older programs such as structure size changes. No binary compatibility is possible across a change in the major version.     </td>
   </tr>
 </table>
-<a class="anchor" name="6134073d61c1af512b3e3317d422b4da"></a><!-- doxytag: member="apreq_version.h::APREQ_MINOR_VERSION" ref="6134073d61c1af512b3e3317d422b4da" args="" --><p>
+<a class="anchor" name="44bf530fbecff4ee7bcc0158784da0ff"></a><!-- doxytag: member="apreq_version.h::APREQ_MINOR_VERSION" ref="44bf530fbecff4ee7bcc0158784da0ff" args="" --><p>
 <table class="mdTable" cellpadding="2" cellspacing="0">
   <tr>
     <td class="mdRow">
       <table cellpadding="0" cellspacing="0" border="0">
         <tr>
-          <td class="md" nowrap valign="top">#define APREQ_MINOR_VERSION&nbsp;&nbsp;&nbsp;5          </td>
+          <td class="md" nowrap valign="top">#define APREQ_MINOR_VERSION&nbsp;&nbsp;&nbsp;6          </td>
         </tr>
       </table>
     </td>
@@ -127,13 +127,13 @@ major version Major API changes that could cause compatibility problems for olde
 Minor API changes that do not cause binary compatibility problems. Should be reset to 0 when upgrading APREQ_MAJOR_VERSION     </td>
   </tr>
 </table>
-<a class="anchor" name="5955552a28011b51674fb3843af52ece"></a><!-- doxytag: member="apreq_version.h::APREQ_PATCH_VERSION" ref="5955552a28011b51674fb3843af52ece" args="" --><p>
+<a class="anchor" name="365b89d742846921cb3619341e5eb266"></a><!-- doxytag: member="apreq_version.h::APREQ_PATCH_VERSION" ref="365b89d742846921cb3619341e5eb266" args="" --><p>
 <table class="mdTable" cellpadding="2" cellspacing="0">
   <tr>
     <td class="mdRow">
       <table cellpadding="0" cellspacing="0" border="0">
         <tr>
-          <td class="md" nowrap valign="top">#define APREQ_PATCH_VERSION&nbsp;&nbsp;&nbsp;7          </td>
+          <td class="md" nowrap valign="top">#define APREQ_PATCH_VERSION&nbsp;&nbsp;&nbsp;0          </td>
         </tr>
       </table>
     </td>
@@ -150,7 +150,7 @@ Minor API changes that do not cause binary compatibility problems. Should be res
 patch level     </td>
   </tr>
 </table>
-<a class="anchor" name="f300520c1fa54c480b11ae517c912649"></a><!-- doxytag: member="apreq_version.h::APREQ_VERSION_STRING" ref="f300520c1fa54c480b11ae517c912649" args="" --><p>
+<a class="anchor" name="dd82c8ea79b8cc142eeec45772d24fdb"></a><!-- doxytag: member="apreq_version.h::APREQ_VERSION_STRING" ref="dd82c8ea79b8cc142eeec45772d24fdb" args="" --><p>
 <table class="mdTable" cellpadding="2" cellspacing="0">
   <tr>
     <td class="mdRow">
@@ -170,15 +170,15 @@ patch level     </td>
     <td>
 
 <p>
-<b>Value:</b><div class="fragment"><pre class="fragment"><a class="codeRef" doxygen="apr.tag:http://apr.apache.org/docs/apr/" href="http://apr.apache.org/docs/apr/group__apr__general.html#633793ac745e0a17d132978162c81e8d">APR_STRINGIFY</a>(<a class="code" href="apreq__version_8h.html#7a40049b3aa9b2fbf7ff0808952eb1bf">APREQ_MAJOR_VERSION</a>) <span class="stringliteral">"."</span> \
-     <a class="codeRef" doxygen="apr.tag:http://apr.apache.org/docs/apr/" href="http://apr.apache.org/docs/apr/group__apr__general.html#633793ac745e0a17d132978162c81e8d">APR_STRINGIFY</a>(<a class="code" href="apreq__version_8h.html#6134073d61c1af512b3e3317d422b4da">APREQ_MINOR_VERSION</a>) <span class="stringliteral">"."</span> \
-     <a class="codeRef" doxygen="apr.tag:http://apr.apache.org/docs/apr/" href="http://apr.apache.org/docs/apr/group__apr__general.html#633793ac745e0a17d132978162c81e8d">APR_STRINGIFY</a>(<a class="code" href="apreq__version_8h.html#5955552a28011b51674fb3843af52ece">APREQ_PATCH_VERSION</a>) \
-     <a class="code" href="apreq__version_8h.html#2ff1ad65c4869e646d00212eb99ac9ad">APREQ_IS_DEV_STRING</a>
+<b>Value:</b><div class="fragment"><pre class="fragment"><a class="codeRef" doxygen="apr.tag:http://apr.apache.org/docs/apr/" href="http://apr.apache.org/docs/apr/group__apr__general.html#da513fc41890845ddb5572b81936ab76">APR_STRINGIFY</a>(<a class="code" href="apreq__version_8h.html#7fb04b0c2a9da6237e235b845ee89f9a">APREQ_MAJOR_VERSION</a>) <span class="stringliteral">"."</span> \
+     <a class="codeRef" doxygen="apr.tag:http://apr.apache.org/docs/apr/" href="http://apr.apache.org/docs/apr/group__apr__general.html#da513fc41890845ddb5572b81936ab76">APR_STRINGIFY</a>(<a class="code" href="apreq__version_8h.html#44bf530fbecff4ee7bcc0158784da0ff">APREQ_MINOR_VERSION</a>) <span class="stringliteral">"."</span> \
+     <a class="codeRef" doxygen="apr.tag:http://apr.apache.org/docs/apr/" href="http://apr.apache.org/docs/apr/group__apr__general.html#da513fc41890845ddb5572b81936ab76">APR_STRINGIFY</a>(<a class="code" href="apreq__version_8h.html#365b89d742846921cb3619341e5eb266">APREQ_PATCH_VERSION</a>) \
+     <a class="code" href="apreq__version_8h.html#c9445f3e18e852cae2a91bd2a63394be">APREQ_IS_DEV_STRING</a>
 </pre></div>The formatted string of libapreq's version     </td>
   </tr>
 </table>
 <hr><h2>Function Documentation</h2>
-<a class="anchor" name="800136414e80f1c8cc29670dbd201fa6"></a><!-- doxytag: member="apreq_version.h::apreq_version" ref="800136414e80f1c8cc29670dbd201fa6" args="(apr_version_t *pvsn)" --><p>
+<a class="anchor" name="8d20db97717fa1bad4f31c7f9a29594f"></a><!-- doxytag: member="apreq_version.h::apreq_version" ref="8d20db97717fa1bad4f31c7f9a29594f" args="(apr_version_t *pvsn)" --><p>
 <table class="mdTable" cellpadding="2" cellspacing="0">
   <tr>
     <td class="mdRow">
@@ -212,7 +212,7 @@ Return libapreq's version information information in a numeric form.<p>
     </td>
   </tr>
 </table>
-<a class="anchor" name="e477ebf18b05b8eeb43b3bf9d83dc970"></a><!-- doxytag: member="apreq_version.h::apreq_version_string" ref="e477ebf18b05b8eeb43b3bf9d83dc970" args="(void)" --><p>
+<a class="anchor" name="663ea74082d9bbe18a0c15b66b8fddaa"></a><!-- doxytag: member="apreq_version.h::apreq_version_string" ref="663ea74082d9bbe18a0c15b66b8fddaa" args="(void)" --><p>
 <table class="mdTable" cellpadding="2" cellspacing="0">
   <tr>
     <td class="mdRow">
@@ -246,7 +246,7 @@ Copyright &copy; 2003-2006 <a href="http://www.apache.org">The Apache Software F
 See <a href="apreq_license.html">LICENSE</a>.</p>
 <p class="menu">
 <span style="color:#aaa">page generated by <a href="http://www.doxygen.org/"><code>doxygen</code></a>
-version 1.4.6 on 11 Feb 2006</span>
+version 1.4.6 on 8 Aug 2006</span>
 </p>
 </div>
 </body>

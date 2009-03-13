@@ -1,9 +1,10 @@
 /*
-**  Copyright 2003-2006  The Apache Software Foundation
-**
-**  Licensed under the Apache License, Version 2.0 (the "License");
-**  you may not use this file except in compliance with the License.
-**  You may obtain a copy of the License at
+**  Licensed to the Apache Software Foundation (ASF) under one or more
+** contributor license agreements.  See the NOTICE file distributed with
+** this work for additional information regarding copyright ownership.
+** The ASF licenses this file to You under the Apache License, Version 2.0
+** (the "License"); you may not use this file except in compliance with
+** the License.  You may obtain a copy of the License at
 **
 **      http://www.apache.org/licenses/LICENSE-2.0
 **
@@ -68,10 +69,18 @@
  * APREQ_DECLARE_DATA type apr_variable = value;
  */
 #define APREQ_DECLARE_DATA
-#else
+#elif defined (APREQ_DECLARE_STATIC)
+#define APREQ_DECLARE(type)             type __stdcall
+#define APREQ_DECLARE_NONSTD(type)      type
+#define APREQ_DECLARE_DATA
+#elif defined (APREQ_DECLARE_EXPORT)
 #define APREQ_DECLARE(type)             __declspec(dllexport) type __stdcall
 #define APREQ_DECLARE_NONSTD(type)      __declspec(dllexport) type
 #define APREQ_DECLARE_DATA              __declspec(dllexport)
+#else
+#define APREQ_DECLARE(type)             __declspec(dllimport) type __stdcall
+#define APREQ_DECLARE_NONSTD(type)      __declspec(dllimport) type
+#define APREQ_DECLARE_DATA              __declspec(dllimport)
 #endif
 
 /**
@@ -104,19 +113,19 @@
 
 
 /**
- * Check to see if specified bit f is off in bitfiled name
+ * Check to see if specified bit f is off in bitfield name
  */
 #define APREQ_FLAGS_OFF(f, name) ((f) &= ~(name##_MASK << name##_BIT))
 /**
- * Check to see if specified bit f is on in bitfiled name
+ * Check to see if specified bit f is on in bitfield name
  */
 #define APREQ_FLAGS_ON(f, name)  ((f) |=  (name##_MASK << name##_BIT))
 /**
- *  Get specified bit f in bitfiled name
+ *  Get specified bit f in bitfield name
  */
 #define APREQ_FLAGS_GET(f, name) (((f) >> name##_BIT) & name##_MASK)
 /**
- * Set specified bit f in bitfiled name to value 
+ * Set specified bit f in bitfield name to value 
  * Note the below BIT/Mask defines are used sans the
  * _BIT, _MASK because of the this define's \#\#_MASK, \#\#_BIT usage.
  * Each come in a pair

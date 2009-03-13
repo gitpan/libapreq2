@@ -6,23 +6,44 @@ use Apache::TestUtil;
 use Apache::TestRequest qw(UPLOAD_BODY GET_BODY_ASSERT);
 use Cwd;
 require File::Basename;
+use Apache::TestConfig;
+use constant WIN32 => Apache::TestConfig::WIN32;
 
 my $cwd = getcwd();
 
 my $module = 'TestApReq::upload';
 my $location = Apache::TestRequest::module2url($module);
 
-my %types = (perl => 'application/octet-stream',
-             httpd => 'application/octet-stream',
-             'perltoc.pod' => 'text/x-pod',
-             'perlport.pod' => 'text/x-pod');
+my %types = (httpd => 'application/octet-stream');
+
+# for some reason, using the perl binary for uploads
+# on Win32 appears to cause seemingly random stray
+# temp files to be left.
+unless (WIN32) {
+    $types{perl} = 'application/octet-stream';
+}
+
+my $vars = Apache::Test::vars;
+my $perlpod = $vars->{perlpod};
+if (-d $perlpod) {
+    opendir(my $dh, $perlpod);
+    my @files = grep { /\.(pod|pm)$/ } readdir $dh;
+    closedir $dh;
+    if (scalar @files > 1) {
+        for my $i (0 .. 1) {
+            my $file = $files[$i];
+            $types{$file} = ($file =~ /\.pod$/) ? 'text/x-pod' : 'text/plain';
+        }
+    }      
+}
+
 my @names = sort keys %types;
 my @methods = sort qw/slurp fh tempname link io/;
 
-plan tests => @names * @methods, have_lwp;
+plan tests => 4 * @names * @methods, need_lwp;
 
 foreach my $name (@names) {
-    my $url = ( ($name =~ /\.pod$/) ?
+    my $url = ( ($name =~ /\.(pod|pm)$/) ?
         "getfiles-perl-pod/" : "/getfiles-binary-" ) . $name;
     my $content = GET_BODY_ASSERT($url);
     my $path = File::Spec->catfile($cwd, 't', $name);
@@ -39,18 +60,18 @@ foreach my $file( map {File::Spec->catfile($cwd, 't', $_)} @names) {
     my $size = -s $file;
     my $cs = $has_md5 ? cs($file) : 0;
     my $basename = File::Basename::basename($file);
-
     for my $method ( @methods) {
         my $result = UPLOAD_BODY("$location?method=$method;has_md5=$has_md5",
                                  filename => $file);
-        my $expected = <<END;
-
-type: $types{$basename}
-size: $size
-filename: $basename
-md5: $cs
-END
-        ok t_cmp($result, $expected, "$method test for $basename");
+        my %h = map {$_;} split /[=&;]/, $result, -1;
+        ok t_cmp($h{type}, $types{$basename},
+	    "'type' test for $method on $basename");
+        ok t_cmp($h{filename}, $basename,
+	    "'filename' test for $method on $basename");
+        ok t_cmp($h{size}, $size,
+	    "'size' test for $method on $basename");
+        ok t_cmp($h{md5}, $cs,
+	    "'checksum' test for $method on $basename");
     }
     unlink $file if -f $file;
 }

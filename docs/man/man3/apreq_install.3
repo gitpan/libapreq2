@@ -1,4 +1,4 @@
-.TH "apreq_install" 3 "8 Aug 2006" "Version 2.08" "libapreq2" \" -*- nroff -*-
+.TH "apreq_install" 3 "6 Mar 2009" "Version 2.12" "libapreq2" \" -*- nroff -*-
 .ad l
 .nh
 .SH NAME
@@ -15,7 +15,7 @@ directly from svn, you can generate the list of prerequisites:
 
 INSTRUCTIONS:
 
-FreeBSD users must substitute "gmake" for "make" below.
+FreeBSD/Solaris users must substitute "gmake" for "make" below.
 
 Unix build, where libtool/automake/autoconf works:
 
@@ -23,7 +23,7 @@ Unix build, where libtool/automake/autoconf works:
             % make
   (optional)% make test
             % make install
-
+  (optional)% make docs_install
 
 Or using the CPAN/perlish way (which includes the Apache2::Request and
 Apache2::Cookie modules):
@@ -32,6 +32,7 @@ Apache2::Cookie modules):
             % make
   (optional)% make test
             % make install
+  (optional)% make docs_install
 
 Developers and other folks using httpd-apreq-2 directly from svn need to
 execute "./buildconf" prior to running "./configure".

@@ -37,6 +37,51 @@ sub slurp($$)
     read $file, $_[0], -s $file;
 }
 
+sub cmp_tuples {
+    my ($num_a, $num_b) = @_;
+
+    while (@$num_a && @$num_b) {
+        my $cmp = shift @$num_a <=> shift @$num_b;
+        return $cmp if $cmp;
+    }  
+
+    return @$num_a <=> @$num_b;
+}
+
+sub autoconf_foo {
+    my ($config, $re_start, $re_end, $re_match) = @_;
+
+    $$config =~ /^${re_start}APACHE2_INCLUDES${re_end}($re_match)/m or
+        die "Can't find apache include directory";
+    my $apache_includes = $1;
+    $$config =~ /^${re_start}APR_INCLUDES${re_end}($re_match)/m or
+        die "Can't find apache include directory";
+    $apache_includes .= " $1";
+
+    my $apr_libs ="";
+
+    $$config =~ m/^${re_start}APREQ_LIBNAME${re_end}($re_match)/m or
+        die "Can't find apreq libname";
+
+    ## XXX: 2.60 bug/hack
+    my $apreq_libname = $1;
+
+    $$config =~ m/^${re_start}PACKAGE_VERSION${re_end}($re_match)/m or
+        die "Can't find package version";
+    my $version = $1;
+
+	## Code around an autoconf 2.60 bug
+	## http://lists.gnu.org/archive/html/bug-autoconf/2006-06/msg00127.html
+	## $ grep @PACKAGE_VERSION config.status-2.59 config.status-2.60 
+	## config.status-2.59:s,@PACKAGE_VERSION@,2.09,;t t
+	## config.status-2.60:s,@PACKAGE_VERSION@,|#_!!_#|2.09,g
+	foreach ($apache_includes, $apreq_libname, $version) {
+	    s/\|#_!!_#\|//g;
+	}
+
+    return ($apache_includes, $apr_libs, $apreq_libname, $version);
+}
+
 my ($apache_includes, $apache_dir, $apr_libs, $apreq_libname, $perl_lib);
 
 if (WIN32) {
@@ -63,36 +108,38 @@ if (WIN32) {
 }
 else {
     slurp my $config => "$base_dir/config.status";
-    $config =~ /^s,\@APACHE2_INCLUDES\@,([^,]+)/m or
-        die "Can't find apache include directory";
-    $apache_includes = $1;
-    $config =~ /^s,\@APR_INCLUDES\@,([^,]+)/m or
-        die "Can't find apache include directory";
-    $apache_includes .= " $1";
 
-#    $config =~ m/^s,\@APR_LDFLAGS\@,([^,]+)/m or
-#        die "Can't find apr ldflags";
-#    $apr_libs = $1;
+    $config =~ /GNU Autoconf (\d+\.\d+)/;
+    my $autoconf_ver = $1;
 
-#    $config =~ m/^s,\@APR_LIBS\@,([^,]+)/m or
-#        die "Can't find apr libraries";
-#    $apr_libs .= " $1";
-
-    $apr_libs ="";
-
-    $config =~ m/^s,\@APREQ_LIBNAME\@,([^,]+)/m or
-        die "Can't find apreq libname";
-    $apreq_libname = $1;
-
-    $config =~ m/^s,\@PACKAGE_VERSION\@,([^,]+)/m or
-        die "Can't find package version";
-    $version = $1;
+    ### XXX: Lord have mercy on us.....
+    if (cmp_tuples([split /\./, $autoconf_ver], [qw(2 61)]) > 0) {
+        ### Autoconf >=2.62 changed the format of the file
+        ### I.E.: S["APACHE2_INCLUDES"]="-I/usr/local/include/apache2"
+        ($apache_includes, $apr_libs, $apreq_libname, $version) = 
+           autoconf_foo(\$config, qr/S\[\"/, qr/\"\]=\"/, qr/[^\"]+/);
+    }
+    else {
+       ### I.E.: s,@APACHE2_INCLUDES@,-I/usr/local/include/apache22,;t t
+       ($apache_includes, $apr_libs, $apreq_libname, $version) = 
+          autoconf_foo(\$config, qr/s,\@/, qr/\@,/, qr/[^,]+/);
+    }
 
 }
 
-my $apreq_libs = WIN32 ?
-    qq{-L$base_dir/win32/libs -llib$apreq_libname -lmod_apreq2 -L$perl_lib -llibaprext -L$apache_dir/lib -lmod_perl} :
-    qx{$base_dir/apreq2-config --link-ld --ldflags --libs};
+
+my $apreq_libs;
+
+if (WIN32) {
+ $apreq_libs = qq{-L$base_dir/win32/libs -llib$apreq_libname -lmod_apreq2 -L$perl_lib -llibaprext -L$apache_dir/lib -lmod_perl};
+} else {
+    my $apreq2_config = "$base_dir/apreq2-config";
+    my $bindir = qx{$apreq2_config --bindir};
+    chomp $bindir;
+    $apreq2_config = "$bindir/apreq2-config" if $ENV{INSTALL};
+    $apreq_libs = qx{$apreq2_config --link-ld --ldflags --libs};
+    chomp $apreq_libs;
+}
 
 my $mp2_typemaps = Apache2::Build->new->typemaps;
 
@@ -179,14 +226,11 @@ sub get_functions {
 
 sub test_docs {
     my ($pods, $tests) = @_;
-
-    my $pod2test = Apache::TestConfig::which('pod2test');
-    unless ($pod2test) {
-        # try under the perl's bin
-        require Config;
-        my $bin = $Config::Config{bin};
-        $pod2test = catfile $bin, "pod2test";
-    }
+    require Config;
+    my $bin = $Config::Config{bin};
+    my $pod2test = catfile $bin, "pod2test";
+    $pod2test = Apache::TestConfig::which('pod2test')
+        unless -e $pod2test;
 
     return "" unless $pod2test and -e $pod2test;
 
@@ -198,9 +242,10 @@ EOT
 }
 
 sub MY::postamble {
-    my @docs = <docs/*.pod>;
+    my @docs = (<xsbuilder/APR/Request/*/*.pod>, <xsbuilder/APR/Request/*.pod>);
     my @tests = @docs;
     s/pod$/t/ for @tests;
+    s/^xsbuilder/xs/ for @tests;
 
     my $string = "";
     my $test_docs = test_docs(\@docs, \@tests);
@@ -211,7 +256,7 @@ sub MY::postamble {
 doc_test : @tests
 	\$(FULLPERLRUN) "-Mblib" "-MTest::Harness" "-e" "runtests(\@ARGV)" @tests
 
-#test :: doc_test
+test :: doc_test
 
 EOT
     } else {

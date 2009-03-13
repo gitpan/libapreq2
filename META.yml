@@ -1,29 +1,29 @@
 --- #YAML:1.0
 name: libapreq2
-version: 2.08
+version: 2.12
 license: open_source
 installdirs: site
 distribution_type: module
 dynamic_config: 1
 provides:
   Apache2::Request:
-    version: 2.08
+    version: 2.12
   Apache2::Cookie:
-    version: 2.08
+    version: 2.12
   Apache2::Upload:
-    version: 2.08
+    version: 2.12
   APR::Request:
-    version: 2.08
+    version: 2.12
   APR::Request::Apache2:
-    version: 2.08
+    version: 2.12
   APR::Request::CGI:
-    version: 2.08
+    version: 2.12
   APR::Request::Error:
-    version: 2.08
+    version: 2.12
   APR::Request::Cookie:
-    version: 2.08
+    version: 2.12
   APR::Request::Param:
-    version: 2.08
+    version: 2.12
 no_index:
   directory:
     - glue/perl/xsbuilder/tables/APR/Request

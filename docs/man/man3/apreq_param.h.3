@@ -1,4 +1,4 @@
-.TH "include/apreq_param.h" 3 "8 Aug 2006" "Version 2.08" "libapreq2" \" -*- nroff -*-
+.TH "include/apreq_param.h" 3 "6 Mar 2009" "Version 2.12" "libapreq2" \" -*- nroff -*-
 .ad l
 .nh
 .SH NAME
@@ -22,25 +22,25 @@ include/apreq_param.h \- Request parsing and parameter API.
 
 .in +1c
 .ti -1c
-.RI "static \fBAPR_INLINE\fP unsigned \fBapreq_param_is_tainted\fP (const \fBapreq_param_t\fP *p)"
+.RI "static APR_INLINE unsigned \fBapreq_param_is_tainted\fP (const \fBapreq_param_t\fP *\fBp\fP)"
 .br
 .ti -1c
-.RI "static \fBAPR_INLINE\fP void \fBapreq_param_tainted_on\fP (\fBapreq_param_t\fP *p)"
+.RI "static APR_INLINE void \fBapreq_param_tainted_on\fP (\fBapreq_param_t\fP *\fBp\fP)"
 .br
 .ti -1c
-.RI "static \fBAPR_INLINE\fP void \fBapreq_param_tainted_off\fP (\fBapreq_param_t\fP *p)"
+.RI "static APR_INLINE void \fBapreq_param_tainted_off\fP (\fBapreq_param_t\fP *\fBp\fP)"
 .br
 .ti -1c
-.RI "static \fBAPR_INLINE\fP \fBapreq_charset_t\fP \fBapreq_param_charset_set\fP (\fBapreq_param_t\fP *p, \fBapreq_charset_t\fP c)"
+.RI "static APR_INLINE \fBapreq_charset_t\fP \fBapreq_param_charset_set\fP (\fBapreq_param_t\fP *\fBp\fP, \fBapreq_charset_t\fP c)"
 .br
 .ti -1c
-.RI "static \fBAPR_INLINE\fP \fBapreq_charset_t\fP \fBapreq_param_charset_get\fP (\fBapreq_param_t\fP *p)"
+.RI "static APR_INLINE \fBapreq_charset_t\fP \fBapreq_param_charset_get\fP (\fBapreq_param_t\fP *\fBp\fP)"
 .br
 .ti -1c
-.RI "static \fBAPR_INLINE\fP \fBapreq_param_t\fP * \fBapreq_value_to_param\fP (const char *\fBval\fP)"
+.RI "static APR_INLINE \fBapreq_param_t\fP * \fBapreq_value_to_param\fP (const char *val)"
 .br
 .ti -1c
-.RI "\fBapreq_param_t\fP * \fBapreq_param_make\fP (\fBapr_pool_t\fP *p, const char *name, const \fBapr_size_t\fP nlen, const char *\fBval\fP, const \fBapr_size_t\fP vlen)"
+.RI "\fBapreq_param_t\fP * \fBapreq_param_make\fP (\fBapr_pool_t\fP *\fBp\fP, const char *name, const \fBapr_size_t\fP nlen, const char *val, const \fBapr_size_t\fP vlen)"
 .br
 .ti -1c
 .RI "\fBapr_status_t\fP \fBapreq_param_decode\fP (\fBapreq_param_t\fP **param, \fBapr_pool_t\fP *pool, const char *word, \fBapr_size_t\fP nlen, \fBapr_size_t\fP vlen)"
@@ -52,10 +52,10 @@ include/apreq_param.h \- Request parsing and parameter API.
 .RI "\fBapr_status_t\fP \fBapreq_parse_query_string\fP (\fBapr_pool_t\fP *pool, \fBapr_table_t\fP *t, const char *qs)"
 .br
 .ti -1c
-.RI "\fBapr_array_header_t\fP * \fBapreq_params_as_array\fP (\fBapr_pool_t\fP *p, const \fBapr_table_t\fP *t, const char *key)"
+.RI "\fBapr_array_header_t\fP * \fBapreq_params_as_array\fP (\fBapr_pool_t\fP *\fBp\fP, const \fBapr_table_t\fP *t, const char *\fBkey\fP)"
 .br
 .ti -1c
-.RI "const char * \fBapreq_params_as_string\fP (\fBapr_pool_t\fP *p, const \fBapr_table_t\fP *t, const char *key, \fBapreq_join_t\fP mode)"
+.RI "const char * \fBapreq_params_as_string\fP (\fBapr_pool_t\fP *\fBp\fP, const \fBapr_table_t\fP *t, const char *\fBkey\fP, \fBapreq_join_t\fP mode)"
 .br
 .ti -1c
 .RI "const \fBapr_table_t\fP * \fBapreq_uploads\fP (const \fBapr_table_t\fP *body, \fBapr_pool_t\fP *pool)"
@@ -71,10 +71,10 @@ Request parsing and parameter API.
 
 .SH "Function Documentation"
 .PP 
-.SS "static \fBAPR_INLINE\fP \fBapreq_charset_t\fP apreq_param_charset_get (\fBapreq_param_t\fP * p)\fC [static]\fP"
+.SS "static APR_INLINE \fBapreq_charset_t\fP apreq_param_charset_get (\fBapreq_param_t\fP * p)\fC [static]\fP"
 .PP
 Gets the character encoding for this parameter. 
-.SS "static \fBAPR_INLINE\fP \fBapreq_charset_t\fP apreq_param_charset_set (\fBapreq_param_t\fP * p, \fBapreq_charset_t\fP c)\fC [static]\fP"
+.SS "static APR_INLINE \fBapreq_charset_t\fP apreq_param_charset_set (\fBapreq_param_t\fP * p, \fBapreq_charset_t\fP c)\fC [static]\fP"
 .PP
 Sets the character encoding for this parameter. 
 .SS "\fBapr_status_t\fP apreq_param_decode (\fBapreq_param_t\fP ** param, \fBapr_pool_t\fP * pool, const char * word, \fBapr_size_t\fP nlen, \fBapr_size_t\fP vlen)"
@@ -124,7 +124,7 @@ name-value pair representing the param.
 .RE
 .PP
 
-.SS "static \fBAPR_INLINE\fP unsigned apreq_param_is_tainted (const \fBapreq_param_t\fP * p)\fC [static]\fP"
+.SS "static APR_INLINE unsigned apreq_param_is_tainted (const \fBapreq_param_t\fP * p)\fC [static]\fP"
 .PP
 \fBReturns:\fP
 .RS 4
@@ -135,10 +135,10 @@ name-value pair representing the param.
 .SS "\fBapreq_param_t\fP* apreq_param_make (\fBapr_pool_t\fP * p, const char * name, const \fBapr_size_t\fP nlen, const char * val, const \fBapr_size_t\fP vlen)"
 .PP
 creates a param from name/value information 
-.SS "static \fBAPR_INLINE\fP void apreq_param_tainted_off (\fBapreq_param_t\fP * p)\fC [static]\fP"
+.SS "static APR_INLINE void apreq_param_tainted_off (\fBapreq_param_t\fP * p)\fC [static]\fP"
 .PP
 Turns off the taint flag. 
-.SS "static \fBAPR_INLINE\fP void apreq_param_tainted_on (\fBapreq_param_t\fP * p)\fC [static]\fP"
+.SS "static APR_INLINE void apreq_param_tainted_on (\fBapreq_param_t\fP * p)\fC [static]\fP"
 .PP
 Sets the tainted flag. 
 .SS "\fBapr_array_header_t\fP* apreq_params_as_array (\fBapr_pool_t\fP * p, const \fBapr_table_t\fP * t, const char * key)"
@@ -259,7 +259,7 @@ Will parse the request if necessary.
 .RE
 .PP
 
-.SS "static \fBAPR_INLINE\fP \fBapreq_param_t\fP* apreq_value_to_param (const char * val)\fC [static]\fP"
+.SS "static APR_INLINE \fBapreq_param_t\fP* apreq_value_to_param (const char * val)\fC [static]\fP"
 .PP
 Upgrades args and body table values to \fBapreq_param_t\fP structs. 
 .SH "Author"

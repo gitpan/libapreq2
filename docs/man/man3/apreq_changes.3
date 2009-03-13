@@ -1,9 +1,85 @@
-.TH "apreq_changes" 3 "8 Aug 2006" "Version 2.08" "libapreq2" \" -*- nroff -*-
+.TH "apreq_changes" 3 "6 Mar 2009" "Version 2.12" "libapreq2" \" -*- nroff -*-
 .ad l
 .nh
 .SH NAME
 apreq_changes \- CHANGES
 ! brief List of major changes.
+.SH "Changes with libapreq2-2.12 (released March 13, 2009)"
+.PP
+.IP "\(bu" 2
+C API [joes] Make the cookie parser a little more flexible.
+.PP
+.SH "Changes with libapreq2-2.11 (not released)"
+.PP
+.IP "\(bu" 2
+Interactive CGI module [issac] Allow cgi module to interactively prompt for parameters and cookies when running a script from the command line and not from a CGI interface
+.PP
+.SH "Changes with libapreq2-2.10 (not released)"
+.PP
+.IP "\(bu" 2
+Perl Glue [joes] Fix the linking of the perl modules to libapreq2 and libapr on Solaris.
+.PP
+.PP
+.IP "\(bu" 2
+Perl Glue [joes] Fix install-time linking issue of the .so modules. Previously they would remain linked against the src library path, not the install path.
+.PP
+.PP
+.IP "\(bu" 2
+C API [joes] Add optional interface for \fBapreq_handle_apache2()\fP.
+.PP
+.PP
+.IP "\(bu" 2
+C API [joes] Clean up buggy apreq_hook_find_param().
+.PP
+.PP
+.IP "\(bu" 2
+Perl Glue Build [Philip M. Gollucci] config.status format changed format yet again in autoconf 2.62+.
+.PP
+.PP
+.IP "\(bu" 2
+License [Mladen Turk] Add libapreq.rc and generate libapreq.res
+.PP
+.PP
+.IP "\(bu" 2
+Build [Mladen Turk] Add APREQ_DECLARE_EXPORT/APREQ_DECLARE_STATIC in the same way as APR declares so that dllexport/dllimport get correctly handled.
+.PP
+.PP
+.IP "\(bu" 2
+Build [Randy Kobes] Add appropriate manifest command to embed manifest files on Win32 when using VC8
+.PP
+.PP
+.IP "\(bu" 2
+C API [Andy Grundman, joes] Add missing bytes_read initializer to \fBapreq_handle_custom()\fP.
+.PP
+.PP
+.IP "\(bu" 2
+C API [suggested by Vinay Y S, tested by Steve Hay and Peter Walsham] For Win32, remove the flag |= APR_FILE_NOCLEANUP | APR_SHARELOCK; in apreq_file_cleanup, to avoid problems with file uploads.
+.PP
+.SH "Changes with libapreq2-2.09 ( not released)"
+.PP
+.IP "\(bu" 2
+C API [joes] Fix leak associated to calling \fBapreq_brigade_fwrite()\fP on an upload brigade.
+.PP
+.PP
+.IP "\(bu" 2
+Build [Philip M. Gollucci] SunOS (Solaris) Users must use gmake not make for building.
+.PP
+.PP
+.IP "\(bu" 2
+Build [Philip M. Gollucci] SunOS (Solaris) Code around bug in libtool (at least in 1.5.18, 1.5.20, 1.5.22) causing mod_apreq2 to be built instead of mod_apreq2.so
+.PP
+.PP
+.IP "\(bu" 2
+C API [Philip M. Gollucci] Fix comparison signed vs unsigned comparison in apreq_fwritev() on SunOS/gcc where iovec.iov_len is a long.
+.PP
+.PP
+.IP "\(bu" 2
+Build [Philip M. Gollucci] SunOS (Solaris) fix duplicate link error to libexpat.so -- by using the one from httpd exclusively now.
+.PP
+.PP
+.IP "\(bu" 2
+Build [Philip M. Gollucci] code around |_!!_#| autoconf 2.60 bug.
+.PP
 .SH "Changes with libapreq2-2.08 (released August 8, 2006)"
 .PP
 .IP "\(bu" 2
@@ -11,7 +87,7 @@ Perl API [Randy Kobes] add APR_FILE_NOCLEANUP | APR_SHARELOCK to flags passed to
 .PP
 .PP
 .IP "\(bu" 2
-Build [Philip M. Gollucci, Bojan Smojver, joes] add -fno-strict-aliasing to all compiles on all systems https://bugzilla.redhat.com/bugzilla/show_bug.cgi?id=193740 This fixes an infinite look split_on_bdry() of library/parser_multipart.c particularly on linux/gcc 4.x platforms.
+Build [Philip M. Gollucci, Bojan Smojver, joes] make input brigade volatile in order to give hints to GCC https://bugzilla.redhat.com/bugzilla/show_bug.cgi?id=193740 This fixes an infinite look split_on_bdry() of library/parser_multipart.c particularly on linux/gcc 4.x platforms.
 .PP
 .PP
 .IP "\(bu" 2
@@ -125,7 +201,7 @@ Perl API [joes] Support for table set/add/delete methods is formally withdrawn. 
 .PP
 .PP
 .IP "\(bu" 2
-C API [max] Right-hand limit of \fBapreq_brigade_move()\fP is declared as 'excluding', but \fBAPR_RING_UNSPLICE()\fP wants an 'including' right-hand limit. Fixed this by passing the previous bucket.
+C API [max] Right-hand limit of \fBapreq_brigade_move()\fP is declared as 'excluding', but APR_RING_UNSPLICE() wants an 'including' right-hand limit. Fixed this by passing the previous bucket.
 .PP
 .PP
 .IP "\(bu" 2

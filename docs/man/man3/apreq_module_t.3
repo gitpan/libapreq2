@@ -1,4 +1,4 @@
-.TH "apreq_module_t" 3 "8 Aug 2006" "Version 2.08" "libapreq2" \" -*- nroff -*-
+.TH "apreq_module_t" 3 "6 Mar 2009" "Version 2.12" "libapreq2" \" -*- nroff -*-
 .ad l
 .nh
 .SH NAME
@@ -71,45 +71,45 @@ Vtable describing the necessary environment functions.
 .PP
 .SH "Field Documentation"
 .PP 
-.SS "\fBapr_status_t\fP(* \fBapreq_module_t::args\fP)(\fBapreq_handle_t\fP *, const \fBapr_table_t\fP **)"
-.PP
-get a table with all query string parameters 
-.SS "\fBapreq_param_t\fP*(* \fBapreq_module_t::args_get\fP)(\fBapreq_handle_t\fP *, const char *)"
-.PP
-get a query string parameter by its name 
-.SS "\fBapr_status_t\fP(* \fBapreq_module_t::body\fP)(\fBapreq_handle_t\fP *, const \fBapr_table_t\fP **)"
-.PP
-get a table with all body parameters 
-.SS "\fBapreq_param_t\fP*(* \fBapreq_module_t::body_get\fP)(\fBapreq_handle_t\fP *, const char *)"
-.PP
-get a body parameter by its name 
-.SS "\fBapr_status_t\fP(* \fBapreq_module_t::brigade_limit_get\fP)(\fBapreq_handle_t\fP *, \fBapr_size_t\fP *)"
-.PP
-determine the maximum in-memory bytes a brigade may use 
-.SS "\fBapr_status_t\fP(* \fBapreq_module_t::brigade_limit_set\fP)(\fBapreq_handle_t\fP *, \fBapr_size_t\fP)"
-.PP
-set the maximum in-memory bytes a brigade may use 
-.SS "\fBapr_status_t\fP(* \fBapreq_module_t::hook_add\fP)(\fBapreq_handle_t\fP *, \fBapreq_hook_t\fP *)"
-.PP
-add a hook function 
-.SS "\fBapr_status_t\fP(* \fBapreq_module_t::jar\fP)(\fBapreq_handle_t\fP *, const \fBapr_table_t\fP **)"
-.PP
-get a table with all cookies 
-.SS "\fBapreq_cookie_t\fP*(* \fBapreq_module_t::jar_get\fP)(\fBapreq_handle_t\fP *, const char *)"
-.PP
-get a cookie by its name 
-.SS "\fBapr_uint32_t\fP \fBapreq_module_t::magic_number\fP"
-.PP
-magic number identifying the module and version 
 .SS "const char* \fBapreq_module_t::name\fP"
 .PP
 name of this apreq module 
+.SS "\fBapr_uint32_t\fP \fBapreq_module_t::magic_number\fP"
+.PP
+magic number identifying the module and version 
+.SS "\fBapr_status_t\fP(* \fBapreq_module_t::jar\fP)(\fBapreq_handle_t\fP *, const \fBapr_table_t\fP **)"
+.PP
+get a table with all cookies 
+.SS "\fBapr_status_t\fP(* \fBapreq_module_t::args\fP)(\fBapreq_handle_t\fP *, const \fBapr_table_t\fP **)"
+.PP
+get a table with all query string parameters 
+.SS "\fBapr_status_t\fP(* \fBapreq_module_t::body\fP)(\fBapreq_handle_t\fP *, const \fBapr_table_t\fP **)"
+.PP
+get a table with all body parameters 
+.SS "\fBapreq_cookie_t\fP*(* \fBapreq_module_t::jar_get\fP)(\fBapreq_handle_t\fP *, const char *)"
+.PP
+get a cookie by its name 
+.SS "\fBapreq_param_t\fP*(* \fBapreq_module_t::args_get\fP)(\fBapreq_handle_t\fP *, const char *)"
+.PP
+get a query string parameter by its name 
+.SS "\fBapreq_param_t\fP*(* \fBapreq_module_t::body_get\fP)(\fBapreq_handle_t\fP *, const char *)"
+.PP
+get a body parameter by its name 
 .SS "\fBapr_status_t\fP(* \fBapreq_module_t::parser_get\fP)(\fBapreq_handle_t\fP *, const \fBapreq_parser_t\fP **)"
 .PP
 gets the parser associated with the request body 
 .SS "\fBapr_status_t\fP(* \fBapreq_module_t::parser_set\fP)(\fBapreq_handle_t\fP *, \fBapreq_parser_t\fP *)"
 .PP
 manually set a parser for the request body 
+.SS "\fBapr_status_t\fP(* \fBapreq_module_t::hook_add\fP)(\fBapreq_handle_t\fP *, \fBapreq_hook_t\fP *)"
+.PP
+add a hook function 
+.SS "\fBapr_status_t\fP(* \fBapreq_module_t::brigade_limit_get\fP)(\fBapreq_handle_t\fP *, \fBapr_size_t\fP *)"
+.PP
+determine the maximum in-memory bytes a brigade may use 
+.SS "\fBapr_status_t\fP(* \fBapreq_module_t::brigade_limit_set\fP)(\fBapreq_handle_t\fP *, \fBapr_size_t\fP)"
+.PP
+set the maximum in-memory bytes a brigade may use 
 .SS "\fBapr_status_t\fP(* \fBapreq_module_t::read_limit_get\fP)(\fBapreq_handle_t\fP *, \fBapr_uint64_t\fP *)"
 .PP
 determine the maximum amount of data that will be fed into a parser 

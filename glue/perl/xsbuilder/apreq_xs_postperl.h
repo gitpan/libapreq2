@@ -1,9 +1,10 @@
 /*
-**  Copyright 2003-2006  The Apache Software Foundation
-**
-**  Licensed under the Apache License, Version 2.0 (the "License");
-**  you may not use this file except in compliance with the License.
-**  You may obtain a copy of the License at
+**  Licensed to the Apache Software Foundation (ASF) under one or more
+** contributor license agreements.  See the NOTICE file distributed with
+** this work for additional information regarding copyright ownership.
+** The ASF licenses this file to You under the Apache License, Version 2.0
+** (the "License"); you may not use this file except in compliance with
+** the License.  You may obtain a copy of the License at
 **
 **      http://www.apache.org/licenses/LICENSE-2.0
 **
@@ -241,10 +242,12 @@ void apreq_xs_croak(pTHX_ HV *data, SV *obj, apr_status_t rc,
 {
     HV *stash;
 
-    stash = gv_stashpv(ERROR_CLASS, FALSE);
+    stash = gv_stashpv(class, FALSE);
     if (stash == NULL) {
-        SV *pkg_name = newSVpv(class, 0);
-        Perl_load_module(aTHX_ PERL_LOADMOD_NOIMPORT, pkg_name, Nullsv);
+        ENTER;
+        Perl_load_module(aTHX_ PERL_LOADMOD_NOIMPORT,
+                         newSVpv(class, 0), Nullsv);
+        LEAVE;
         stash = gv_stashpv(class, TRUE);
     }
 

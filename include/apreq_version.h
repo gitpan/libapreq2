@@ -1,9 +1,10 @@
 /*
-**  Copyright 2003-2006  The Apache Software Foundation
-**
-**  Licensed under the Apache License, Version 2.0 (the "License");
-**  you may not use this file except in compliance with the License.
-**  You may obtain a copy of the License at
+**  Licensed to the Apache Software Foundation (ASF) under one or more
+** contributor license agreements.  See the NOTICE file distributed with
+** this work for additional information regarding copyright ownership.
+** The ASF licenses this file to You under the Apache License, Version 2.0
+** (the "License"); you may not use this file except in compliance with
+** the License.  You may obtain a copy of the License at
 **
 **      http://www.apache.org/licenses/LICENSE-2.0
 **
@@ -58,10 +59,10 @@ extern "C" {
  * Minor API changes that do not cause binary compatibility problems.
  * Should be reset to 0 when upgrading APREQ_MAJOR_VERSION
  */
-#define APREQ_MINOR_VERSION       6
+#define APREQ_MINOR_VERSION       7
 
 /** patch level */
-#define APREQ_PATCH_VERSION       0
+#define APREQ_PATCH_VERSION       1
 
 /**
  *  This symbol is defined for internal, "development" copies of libapreq.

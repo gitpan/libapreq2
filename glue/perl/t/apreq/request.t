@@ -6,7 +6,7 @@ use Apache::Test;
 use Apache::TestUtil;
 use Apache::TestRequest qw(GET_BODY UPLOAD_BODY);
 
-plan tests => 18, have_lwp;
+plan tests => 18, need_lwp;
 
 my $module = 'TestApReq::request';
 my $location = Apache::TestRequest::module2url($module);
@@ -46,7 +46,7 @@ for my $test (qw/slurp bb tempname link fh io bad;query=string%%/) {
 {
     my $value = 'DataUpload' x 100;
     my $result = UPLOAD_BODY("$location?test=hook", content => $value);
-    ok t_cmp($result, $value, "type");
+    ok t_cmp($result, $value, "hook");
 }
 
 {

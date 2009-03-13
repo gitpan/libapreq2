@@ -8,7 +8,7 @@
 
 AUTOMAKE_OPTIONS = foreign
 SUBDIRS = . include library module glue
-EXTRA_DIST = LICENSE NOTICE README INSTALL CHANGES STATUS FAQ.pod MANIFEST.SKIP Makefile.PL buildconf build win32 docs
+EXTRA_DIST = LICENSE NOTICE README INSTALL CHANGES STATUS FAQ.pod MANIFEST.SKIP Makefile.PL buildconf build win32 docs libapreq.rc
 APU_SRCDIR=`@APU_CONFIG@ --srcdir`
 APR_SRCDIR=`@APR_CONFIG@ --srcdir`
 APU_DOX = (cd $(APU_SRCDIR); cat docs/doxygen.conf - | doxygen -)
@@ -18,8 +18,8 @@ SED_BODY_TAG= s(^[\S\s]+<body.+|</body>[\S\s]+$$)()gi, \
 	s(href="/APR/Request/Param/(?:Table|Cookie).html")(href="group__apreq__xs__apr__request.html")g, \
 	s(href="/APR/Request.html")(href="group__apreq__xs__apr__request.html")g, \
 	s(href="/APR/Request/([^/]+).html")(href="group__apreq__xs__apr__request__\L$$1.html")g, \
-	s(href="/APR/Brigade.html")(href="http://apr.apache.org/docs/apr-util/apr__buckets_8h.html")g, \
-	s(href="/APR/([^/]+).html")(href="http://apr.apache.org/docs/apr/apr__\L$$1s_8h.html")g
+	s(href="/APR/Brigade.html")(href="http://apr.apache.org/docs/apr-util/$(APU_DOC_VERSION)/apr__buckets_8h.html")g, \
+	s(href="/APR/([^/]+).html")(href="http://apr.apache.org/docs/apr/$(APR_DOC_VERSION)/apr__\L$$1s_8h.html")g
 
 EUM=ExtUtils::Manifest
 PM_DIR=glue/perl/lib/Apache2
@@ -37,12 +37,11 @@ endif
 
 TAR=@TAR@
 
-release: reconfig docs_clean docs distdir
+release: distclean docs_clean reconfig distdir
 	@PERL@ build/version_check.pl > $(distdir)/PREREQUISITES
 	@PERL@ build/version_check.pl -version=@PACKAGE_VERSION@ > $(distdir)/META.yml
 	echo MANIFEST > $(distdir)/MANIFEST
 	@cd $(distdir); @PERL@ -M$(EUM) -e "$(EUM)::mkmanifest"
-	if [ ! -x $(TAR) ]; then echo "$(TAR) is not executable."; fi
 	@PERL@ -ple '$$_="$(distdir)/$$_"' $(distdir)/MANIFEST | $(TAR) -czf $(distdir).tar.gz -T -
 	rm -rf $(distdir)
 	@echo "Made $(distdir).tar.gz"

@@ -1,9 +1,10 @@
 /*
-**  Copyright 2003-2006  The Apache Software Foundation
-**
-**  Licensed under the Apache License, Version 2.0 (the "License");
-**  you may not use this file except in compliance with the License.
-**  You may obtain a copy of the License at
+**  Licensed to the Apache Software Foundation (ASF) under one or more
+** contributor license agreements.  See the NOTICE file distributed with
+** this work for additional information regarding copyright ownership.
+** The ASF licenses this file to You under the Apache License, Version 2.0
+** (the "License"); you may not use this file except in compliance with
+** the License.  You may obtain a copy of the License at
 **
 **      http://www.apache.org/licenses/LICENSE-2.0
 **
@@ -692,6 +693,10 @@ APREQ_DECLARE(char *) apreq_join(apr_pool_t *p,
     return rv;
 }
 
+/*
+ * This is intentionally not apr_file_writev()
+ * note, this is iterative and not recursive
+ */
 APR_INLINE
 static apr_status_t apreq_fwritev(apr_file_t *f, struct iovec *v,
                                   int *nelts, apr_size_t *bytes_written)
@@ -713,7 +718,30 @@ static apr_status_t apreq_fwritev(apr_file_t *f, struct iovec *v,
 
         /* see how far we've come */
         n = 0;
+
+#ifdef SOLARIS2
+# ifdef __GNUC__
+        /*
+         * iovec.iov_len is a long here
+         * which causes a comparison between 
+         * signed(long) and unsigned(apr_size_t)
+         *
+         */
+        while (n < *nelts && len >= (apr_size_t)v[n].iov_len)
+# else
+          /*
+           * Sun C however defines this as size_t which is unsigned
+           * 
+           */
         while (n < *nelts && len >= v[n].iov_len)
+# endif /* !__GNUC__ */
+#else
+          /*
+           * Hopefully everything else does this
+           * (this was the default for years)
+           */
+        while (n < *nelts && len >= v[n].iov_len)
+#endif
             len -= v[n++].iov_len;
 
         if (n == *nelts) {
@@ -743,43 +771,6 @@ static apr_status_t apreq_fwritev(apr_file_t *f, struct iovec *v,
 }
 
 
-APREQ_DECLARE(apr_status_t) apreq_brigade_fwrite(apr_file_t *f,
-                                                 apr_off_t *wlen,
-                                                 apr_bucket_brigade *bb)
-{
-    struct iovec v[APREQ_DEFAULT_NELTS];
-    apr_status_t s;
-    apr_bucket *e;
-    int n = 0;
-    *wlen = 0;
-
-    for (e = APR_BRIGADE_FIRST(bb); e != APR_BRIGADE_SENTINEL(bb);
-         e = APR_BUCKET_NEXT(e))
-    {
-        apr_size_t len;
-        if (n == APREQ_DEFAULT_NELTS) {
-            s = apreq_fwritev(f, v, &n, &len);
-            if (s != APR_SUCCESS)
-                return s;
-            *wlen += len;
-        }
-        s = apr_bucket_read(e, (const char **)&(v[n].iov_base),
-                            &len, APR_BLOCK_READ);
-        if (s != APR_SUCCESS)
-            return s;
-
-        v[n++].iov_len = len;
-    }
-
-    while (n > 0) {
-        apr_size_t len;
-        s = apreq_fwritev(f, v, &n, &len);
-        if (s != APR_SUCCESS)
-            return s;
-        *wlen += len;
-    }
-    return APR_SUCCESS;
-}
 
 
 struct cleanup_data {
@@ -832,14 +823,7 @@ APREQ_DECLARE(apr_status_t) apreq_file_mktemp(apr_file_t **fp,
 
     /* NO APR_DELONCLOSE! see comment above */
     flag = APR_CREATE | APR_READ | APR_WRITE | APR_EXCL | APR_BINARY;
-    /* Win32 needs the following to remove temp files.
-     * XXX: figure out why the APR_SHARELOCK flag works;
-     * a grep through the httpd sources seems to indicate
-     * it's only used in sdbm files??
-    */
-#ifdef WIN32
-    flag |= APR_FILE_NOCLEANUP | APR_SHARELOCK;
-#endif
+
     rc = apr_file_mktemp(fp, tmpl, flag, pool);
 
     if (rc == APR_SUCCESS) {
@@ -1125,3 +1109,60 @@ APREQ_DECLARE(apr_status_t) apreq_brigade_concat(apr_pool_t *pool,
     return s;
 }
 
+APREQ_DECLARE(apr_status_t) apreq_brigade_fwrite(apr_file_t *f,
+                                                 apr_off_t *wlen,
+                                                 apr_bucket_brigade *bb)
+{
+    struct iovec v[APREQ_DEFAULT_NELTS];
+    apr_status_t s;
+    apr_bucket *e, *first;
+    int n = 0;
+    apr_bucket_brigade *tmp = bb;
+    *wlen = 0;
+
+    if (BUCKET_IS_SPOOL(APR_BRIGADE_LAST(bb))) {
+        tmp = apr_brigade_create(bb->p, bb->bucket_alloc);
+
+        s = apreq_brigade_copy(tmp, bb);
+        if (s != APR_SUCCESS)
+            return s;
+    }
+
+    for (e = APR_BRIGADE_FIRST(tmp); e != APR_BRIGADE_SENTINEL(tmp);
+         e = APR_BUCKET_NEXT(e))
+    {
+        apr_size_t len;
+        if (n == APREQ_DEFAULT_NELTS) {
+            s = apreq_fwritev(f, v, &n, &len);
+            if (s != APR_SUCCESS)
+                return s;
+
+            if (tmp != bb) {
+                while ((first = APR_BRIGADE_FIRST(tmp)) != e)
+                    apr_bucket_delete(first);
+            }
+
+            *wlen += len;
+        }
+        s = apr_bucket_read(e, (const char **)&(v[n].iov_base),
+                            &len, APR_BLOCK_READ);
+        if (s != APR_SUCCESS)
+            return s;
+
+        v[n++].iov_len = len;
+    }
+
+    while (n > 0) {
+        apr_size_t len;
+        s = apreq_fwritev(f, v, &n, &len);
+        if (s != APR_SUCCESS)
+            return s;
+        *wlen += len;
+
+        if (tmp != bb) {
+            while ((first = APR_BRIGADE_FIRST(tmp)) != e)
+                apr_bucket_delete(first);
+        }
+    }
+    return APR_SUCCESS;
+}

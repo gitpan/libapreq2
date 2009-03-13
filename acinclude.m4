@@ -92,6 +92,17 @@ AC_DEFUN([AC_APREQ], [
                 if test -z "`$prereq_check apache2 $APACHE2_HTTPD`"; then
                     AC_MSG_ERROR([Bad apache2 binary ($APACHE2_HTTPD)])
                 fi
+
+                APR_DOC_VERSION=`$APACHE2_APXS -q APR_VERSION 2>/dev/null | cut -d. -f -2`
+                APU_DOC_VERSION=`$APACHE2_APXS -q APU_VERSION 2>/dev/null | cut -d. -f -2`
+        fi
+
+dnl Fallback to oldest version available
+        if test "x$APR_DOC_VERSION" = 'x'; then
+                APR_DOC_VERSION=0.9
+        fi
+        if test "x$APU_DOC_VERSION" = 'x'; then
+                APU_DOC_VERSION=0.9
         fi
 
         AC_CHECK_FILE([$APR_CONFIG],,
@@ -158,9 +169,30 @@ AC_DEFUN([AC_APREQ], [
         APU_LA="`$APU_CONFIG --apu-la-file`"
         APR_ADDTO([APR_LTFLAGS], "`$APR_CONFIG --link-libtool`")
         APR_ADDTO([APR_LTFLAGS], "`$APU_CONFIG --link-libtool`")
+
         dnl perl glue/tests do not use libtool: need ld linker flags
-        APR_ADDTO([APR_LIBS], "`$APU_CONFIG --libs`")
         APR_ADDTO([APR_LIBS], "`$APR_CONFIG --libs`")
+
+        dnl ld: fatal: recording name conflict: 
+        dnl file `/usr/sfw/lib/gcc/i386-pc-solaris2.10/3.4.3/../../../libexpat.so' and
+        dnl file `httpd/lib/libexpat.so' 
+        dnl provide identical dependency names: libexpat.so.0  
+        dnl (possible multiple inclusion of the same file)
+        if test "x$OS" = "xsolaris"; then
+            if $APU_CONFIG --avoid-ldap >/dev/null 2>&1; then
+                APU_LIBS=`$APU_CONFIG --avoid-ldap --libs | $PERL -pe 's,-lexpat,,'`
+            else
+                APU_LIBS=`$APU_CONFIG --libs | $PERL -pe 's,-lexpat,,'`
+            fi
+            APR_ADDTO([APR_LIBS], "$APU_LIBS")
+        else
+            if $APU_CONFIG --avoid-ldap >/dev/null 2>&1; then
+                APR_ADDTO([APR_LIBS], "`$APU_CONFIG --avoid-ldap --libs`")
+            else
+                APR_ADDTO([APR_LIBS], "`$APU_CONFIG --libs`")
+            fi
+        fi
+
         APR_ADDTO([APR_LDFLAGS], "`$APU_CONFIG --link-ld --ldflags`")
         APR_ADDTO([APR_LDFLAGS], "`$APR_CONFIG --link-ld --ldflags`")
 
@@ -180,7 +212,8 @@ AC_DEFUN([AC_APREQ], [
 
         if test "x$USE_MAINTAINER_MODE" != "xno"; then
             APR_ADDTO([CFLAGS],[
-                      -Werror -Wall -Wmissing-prototypes -Wstrict-prototypes
+                      -fno-strict-aliasing
+                      -Wall -Wmissing-prototypes -Wstrict-prototypes
                       -Wmissing-declarations -Wwrite-strings -Wcast-qual
                       -Wfloat-equal -Wshadow -Wpointer-arith
                       -Wbad-function-cast -Wsign-compare -Waggregate-return
@@ -190,7 +223,6 @@ AC_DEFUN([AC_APREQ], [
                       ])
                 # -Wdeclaration-after-statement is only supported on gcc 3.4+
         fi
-        APR_ADDTO([CFLAGS], "-fno-strict-aliasing")
 
         APR_ADDTO([CPPFLAGS], "`$APR_CONFIG --cppflags`")
 
@@ -252,6 +284,13 @@ AC_DEFUN([AC_APREQ], [
         AC_SUBST(PERL_OPTS)
         AC_SUBST(MM_OPTS)
         AC_SUBST(TAR)
+
+        AC_SUBST(APR_DOC_VERSION)
+        AC_SUBST(APU_DOC_VERSION)
+
+        if test "x$OS" = "xsolaris"; then
+          $PERL -pi -e 's,^shrext=,shrext_cmds=,' libtool
+        fi
 ])
 
 dnl APR_CONFIG_NICE(filename)

@@ -1,6 +1,84 @@
 /** @page apreq_changes CHANGES
 //! brief List of major changes.
 
+@section v2_12 Changes with libapreq2-2.12 (released March 13, 2009)
+
+- C API [joes]
+  Make the cookie parser a little more flexible.
+
+@section v2_11 Changes with libapreq2-2.11 (not released)
+
+- Interactive CGI module [issac]
+  Allow cgi module to interactively prompt for parameters and cookies when
+  running a script from the command line and not from a CGI interface
+
+@section v2_10 Changes with libapreq2-2.10 (not released)
+
+- Perl Glue [joes]
+  Fix the linking of the perl modules to libapreq2 and libapr
+  on Solaris.
+
+- Perl Glue [joes]
+  Fix install-time linking issue of the .so modules.
+  Previously they would remain linked against the src
+  library path, not the install path.
+
+- C API [joes]
+  Add optional interface for apreq_handle_apache2().
+
+- C API [joes]
+  Clean up buggy apreq_hook_find_param().
+
+- Perl Glue Build [Philip M. Gollucci]
+  config.status format changed format yet again in autoconf 2.62+.
+
+- License [Mladen Turk]
+  Add libapreq.rc and generate libapreq.res
+
+- Build [Mladen Turk]
+  Add APREQ_DECLARE_EXPORT/APREQ_DECLARE_STATIC
+  in the same way as APR declares so that dllexport/dllimport
+  get correctly handled.   
+
+- Build [Randy Kobes]
+  Add appropriate manifest command to embed manifest files on Win32 
+  when using VC8
+
+- C API [Andy Grundman, joes]
+  Add missing bytes_read initializer to apreq_handle_custom().
+
+- C API [suggested by Vinay Y S, tested by Steve Hay and Peter Walsham]
+  For Win32, remove the
+     flag |= APR_FILE_NOCLEANUP | APR_SHARELOCK;
+  in apreq_file_cleanup, to avoid problems with file uploads.
+
+@section v2_09 Changes with libapreq2-2.09 ( not released)
+
+- C API [joes]
+  Fix leak associated to calling apreq_brigade_fwrite() on an upload
+  brigade.
+
+- Build [Philip M. Gollucci]
+  SunOS (Solaris) 
+  Users must use gmake not make for building.
+
+- Build [Philip M. Gollucci]
+  SunOS (Solaris)
+  Code around bug in libtool (at least in 1.5.18, 1.5.20, 1.5.22)
+  causing mod_apreq2 to be built instead of mod_apreq2.so
+
+- C API [Philip M. Gollucci]
+  Fix comparison signed vs unsigned comparison
+  in apreq_fwritev() on SunOS/gcc where iovec.iov_len is a long.
+
+- Build [Philip M. Gollucci]
+  SunOS (Solaris)
+  fix duplicate link error to libexpat.so -- by using the one from httpd
+  exclusively now.
+
+- Build [Philip M. Gollucci]
+  code around |#_!!_#| autoconf 2.60 bug.
+
 
 @section v2_08 Changes with libapreq2-2.08 (released August 8, 2006)
 
@@ -11,7 +89,7 @@
   Perl upload test (reported by Steve Hay)
 
 - Build [Philip M. Gollucci, Bojan Smojver, joes]
-  add -fno-strict-aliasing to all compiles on all systems
+  make input brigade volatile in order to give hints to GCC
   https://bugzilla.redhat.com/bugzilla/show_bug.cgi?id=193740
   This fixes an infinite look split_on_bdry() of library/parser_multipart.c
   particularly on linux/gcc 4.x platforms.

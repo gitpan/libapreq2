@@ -1,9 +1,10 @@
 /*
-**  Copyright 2003-2006  The Apache Software Foundation
-**
-**  Licensed under the Apache License, Version 2.0 (the "License");
-**  you may not use this file except in compliance with the License.
-**  You may obtain a copy of the License at
+**  Licensed to the Apache Software Foundation (ASF) under one or more
+** contributor license agreements.  See the NOTICE file distributed with
+** this work for additional information regarding copyright ownership.
+** The ASF licenses this file to You under the Apache License, Version 2.0
+** (the "License"); you may not use this file except in compliance with
+** the License.  You may obtain a copy of the License at
 **
 **      http://www.apache.org/licenses/LICENSE-2.0
 **
@@ -338,15 +339,18 @@ APREQ_DECLARE_HOOK(apreq_hook_apr_xml_parser)
     return APR_SUCCESS;
 }
 
+
 APREQ_DECLARE_HOOK(apreq_hook_find_param)
 {
-    const char *key = hook->ctx;
+    apreq_hook_find_param_ctx_t *ctx = hook->ctx;
     int is_final = (bb == NULL) || APR_BUCKET_IS_EOS(APR_BRIGADE_LAST(bb));
     apr_status_t s = (hook->next == NULL)
         ? APR_SUCCESS : apreq_hook_run(hook->next, param, bb);
 
-    if (is_final && strcasecmp(key, param->v.name) == 0)
-        hook->ctx = param;
-
+    if (is_final && s == APR_SUCCESS
+        && strcasecmp(ctx->name, param->v.name) == 0) {
+        ctx->param = param;
+        ctx->prev->next = hook->next;
+    }
     return s;
 }

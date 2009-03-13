@@ -1,4 +1,4 @@
-.TH "Apache 2.X Filter Module" 3 "8 Aug 2006" "Version 2.08" "libapreq2" \" -*- nroff -*-
+.TH "Apache 2.X Filter Module" 3 "6 Mar 2009" "Version 2.12" "libapreq2" \" -*- nroff -*-
 .ad l
 .nh
 .SH NAME
@@ -12,7 +12,7 @@ Apache 2.X Filter Module \- mod_apreq2 - DSO that ties libapreq2 to \fBApache\fP
 .RI "#define \fBAPREQ_FILTER_NAME\fP   'apreq2'"
 .br
 .ti -1c
-.RI "#define \fBAPREQ_APACHE2_MMN\fP   20051231"
+.RI "#define \fBAPREQ_APACHE2_MMN\fP   20090110"
 .br
 .in -1c
 .SS "Functions"
@@ -20,6 +20,9 @@ Apache 2.X Filter Module \- mod_apreq2 - DSO that ties libapreq2 to \fBApache\fP
 .in +1c
 .ti -1c
 .RI "\fBapreq_handle_t\fP * \fBapreq_handle_apache2\fP (request_rec *r)"
+.br
+.ti -1c
+.RI "\fBAPR_DECLARE_OPTIONAL_FN\fP (\fBapreq_handle_t\fP *, apreq_handle_apache2,(request_rec *r))"
 .br
 .in -1c
 .SH "Detailed Description"
@@ -74,7 +77,7 @@ Directive Context DefaultDescription  APREQ2_ReadLimit directory \fBAPREQ_DEFAUL
  
 .SH "Define Documentation"
 .PP 
-.SS "#define APREQ_APACHE2_MMN   20051231"
+.SS "#define APREQ_APACHE2_MMN   20090110"
 .PP
 The Apache2 Module Magic Number for use in the \fBApache\fP 2.x module structures This gets bumped if changes in th4e API will break third party applications using this apache2 module 
 .PP

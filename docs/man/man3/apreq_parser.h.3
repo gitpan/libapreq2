@@ -1,4 +1,4 @@
-.TH "include/apreq_parser.h" 3 "8 Aug 2006" "Version 2.08" "libapreq2" \" -*- nroff -*-
+.TH "include/apreq_parser.h" 3 "6 Mar 2009" "Version 2.12" "libapreq2" \" -*- nroff -*-
 .ad l
 .nh
 .SH NAME
@@ -17,6 +17,9 @@ include/apreq_parser.h \- Request body parser API.
 .br
 .ti -1c
 .RI "struct \fBapreq_parser_t\fP"
+.br
+.ti -1c
+.RI "struct \fBapreq_hook_find_param_ctx_t\fP"
 .br
 .in -1c
 .SS "Defines"
@@ -45,20 +48,20 @@ include/apreq_parser.h \- Request body parser API.
 .RI "typedef \fBapreq_parser_t\fP \fBapreq_parser_t\fP"
 .br
 .ti -1c
-.RI "typedef \fBapr_status_t\fP(* \fBapreq_parser_function_t\fP )(APREQ_PARSER_ARGS)"
+.RI "typedef \fBapr_status_t\fP(*) \fBapreq_parser_function_t\fP (APREQ_PARSER_ARGS)"
 .br
 .ti -1c
-.RI "typedef \fBapr_status_t\fP(* \fBapreq_hook_function_t\fP )(APREQ_HOOK_ARGS)"
+.RI "typedef \fBapr_status_t\fP(*) \fBapreq_hook_function_t\fP (APREQ_HOOK_ARGS)"
 .br
 .in -1c
 .SS "Functions"
 
 .in +1c
 .ti -1c
-.RI "static \fBAPR_INLINE\fP \fBapr_status_t\fP \fBapreq_parser_run\fP (struct \fBapreq_parser_t\fP *psr, \fBapr_table_t\fP *t, \fBapr_bucket_brigade\fP *bb)"
+.RI "static APR_INLINE \fBapr_status_t\fP \fBapreq_parser_run\fP (struct \fBapreq_parser_t\fP *psr, \fBapr_table_t\fP *t, \fBapr_bucket_brigade\fP *bb)"
 .br
 .ti -1c
-.RI "static \fBAPR_INLINE\fP \fBapr_status_t\fP \fBapreq_hook_run\fP (struct \fBapreq_hook_t\fP *h, \fBapreq_param_t\fP *param, \fBapr_bucket_brigade\fP *bb)"
+.RI "static APR_INLINE \fBapr_status_t\fP \fBapreq_hook_run\fP (struct \fBapreq_hook_t\fP *h, \fBapreq_param_t\fP *param, \fBapr_bucket_brigade\fP *bb)"
 .br
 .ti -1c
 .RI "\fBAPREQ_DECLARE_PARSER\fP (apreq_parse_headers)"
@@ -82,7 +85,7 @@ include/apreq_parser.h \- Request body parser API.
 .RI "\fBapreq_hook_t\fP * \fBapreq_hook_make\fP (\fBapr_pool_t\fP *pool, \fBapreq_hook_function_t\fP hook, \fBapreq_hook_t\fP *next, void *ctx)"
 .br
 .ti -1c
-.RI "\fBapr_status_t\fP \fBapreq_parser_add_hook\fP (\fBapreq_parser_t\fP *p, \fBapreq_hook_t\fP *h)"
+.RI "\fBapr_status_t\fP \fBapreq_parser_add_hook\fP (\fBapreq_parser_t\fP *\fBp\fP, \fBapreq_hook_t\fP *h)"
 .br
 .ti -1c
 .RI "\fBapreq_parser_function_t\fP \fBapreq_parser\fP (const char *enctype)"
@@ -147,13 +150,13 @@ apreq_parser_t *parser,     \
 Parser arguments. 
 .SH "Typedef Documentation"
 .PP 
-.SS "typedef \fBapr_status_t\fP(* \fBapreq_hook_function_t\fP)(APREQ_HOOK_ARGS)"
+.SS "typedef \fBapr_status_t\fP(*) \fBapreq_hook_function_t\fP(APREQ_HOOK_ARGS)"
 .PP
 The callback function of a hook. See \fBapreq_hook_t\fP. 
 .SS "typedef struct \fBapreq_hook_t\fP \fBapreq_hook_t\fP"
 .PP
 A hook is called by the parser whenever data arrives in a file upload parameter of the request body. You may associate any number of hooks with a parser instance with \fBapreq_parser_add_hook()\fP. 
-.SS "typedef \fBapr_status_t\fP(* \fBapreq_parser_function_t\fP)(APREQ_PARSER_ARGS)"
+.SS "typedef \fBapr_status_t\fP(*) \fBapreq_parser_function_t\fP(APREQ_PARSER_ARGS)"
 .PP
 The callback function implementing a request body parser. 
 .SS "typedef struct \fBapreq_parser_t\fP \fBapreq_parser_t\fP"
@@ -163,11 +166,11 @@ A request body parser instance.
 .PP 
 .SS "APREQ_DECLARE_HOOK (apreq_hook_find_param)"
 .PP
-Special purpose utility for locating a parameter during parsing. The hook's ctx shoud be initialized to a const char *, which is a pointer to the desired param name. The hook's ctx will be reassigned to the first param found.
+Special purpose utility for locating a parameter during parsing. The hook's ctx shoud be initialized to an \fBapreq_hook_find_param_ctx_t\fP *, with the name attribute set to the sought parameter name, the param attribute set to NULL, and the prev attribute set to the address of the previous hook. The param attribute will be reassigned to the first param found, and once that happens this hook is immediately removed from the chain.
 .PP
 \fBRemarks:\fP
 .RS 4
-When used, this should always be the first hook invoked, so add it manually as parser->hook instead of using apreq_parser_add_hook. 
+When used, this should always be the first hook invoked, so add it manually with ctx->prev = &parser->hook instead of using apreq_parser_add_hook. 
 .RE
 .PP
 
@@ -213,7 +216,7 @@ New hook.
 .RE
 .PP
 
-.SS "static \fBAPR_INLINE\fP \fBapr_status_t\fP apreq_hook_run (struct \fBapreq_hook_t\fP * h, \fBapreq_param_t\fP * param, \fBapr_bucket_brigade\fP * bb)\fC [static]\fP"
+.SS "static APR_INLINE \fBapr_status_t\fP apreq_hook_run (struct \fBapreq_hook_t\fP * h, \fBapreq_param_t\fP * param, \fBapr_bucket_brigade\fP * bb)\fC [static]\fP"
 .PP
 Run the hook with the current parameter and the incoming bucket brigade. The hook may modify the brigade if necessary. Once all hooks have completed, the contents of the brigade will be added to the parameter's bb attribute. 
 .PP
@@ -279,7 +282,7 @@ New parser.
 .RE
 .PP
 
-.SS "static \fBAPR_INLINE\fP \fBapr_status_t\fP apreq_parser_run (struct \fBapreq_parser_t\fP * psr, \fBapr_table_t\fP * t, \fBapr_bucket_brigade\fP * bb)\fC [static]\fP"
+.SS "static APR_INLINE \fBapr_status_t\fP apreq_parser_run (struct \fBapreq_parser_t\fP * psr, \fBapr_table_t\fP * t, \fBapr_bucket_brigade\fP * bb)\fC [static]\fP"
 .PP
 Parse the incoming brigade into a table. Parsers normally consume all the buckets of the brigade during parsing. However parsers may leave 'rejected' data in the brigade, even during a successful parse, so callers may need to clean up the brigade themselves (in particular, rejected buckets should not be passed back to the parser again). 
 .PP

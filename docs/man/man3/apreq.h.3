@@ -1,10 +1,8 @@
-.TH "include/apreq.h" 3 "8 Aug 2006" "Version 2.08" "libapreq2" \" -*- nroff -*-
+.TH "include/apreq.h" 3 "6 Mar 2009" "Version 2.12" "libapreq2" \" -*- nroff -*-
 .ad l
 .nh
 .SH NAME
-include/apreq.h \- Main header file...
-.PP
-Define the generic APREQ_ macros and common data structures. 
+include/apreq.h \- Main header file... 
 .SH SYNOPSIS
 .br
 .PP
@@ -28,7 +26,7 @@ Define the generic APREQ_ macros and common data structures.
 .RI "#define \fBAPREQ_DECLARE\fP(d)   \fBAPR_DECLARE\fP(d)"
 .br
 .ti -1c
-.RI "#define \fBAPREQ_DECLARE_NONSTD\fP(d)   \fBAPR_DECLARE_NONSTD\fP(d)"
+.RI "#define \fBAPREQ_DECLARE_NONSTD\fP(d)   APR_DECLARE_NONSTD(d)"
 .br
 .ti -1c
 .RI "#define \fBAPREQ_DECLARE_DATA\fP"
@@ -105,7 +103,7 @@ Define the generic APREQ_ macros and common data structures.
 
 .in +1c
 .ti -1c
-.RI "static \fBAPR_INLINE\fP void \fBapreq_value_table_add\fP (const \fBapreq_value_t\fP *v, \fBapr_table_t\fP *t)"
+.RI "static APR_INLINE void \fBapreq_value_table_add\fP (const \fBapreq_value_t\fP *v, \fBapr_table_t\fP *t)"
 .br
 .ti -1c
 .RI "\fBapr_status_t\fP \fBapreq_initialize\fP (\fBapr_pool_t\fP *pool)"
@@ -119,11 +117,9 @@ Define the generic APREQ_ macros and common data structures.
 .in -1c
 .SH "Detailed Description"
 .PP 
-Main header file...
-.PP
+Main header file... 
+
 Define the generic APREQ_ macros and common data structures. 
-
-
 .SH "Define Documentation"
 .PP 
 .SS "#define apreq_attr_to_type(T, A, P)   ( (T*) ((char*)(P)-offsetof(T,A)) )"
@@ -144,11 +140,11 @@ Charset Bit
 .PP
 \fBSee also:\fP
 .RS 4
-\fBAPREQ_FLAGS_OFF\fP
+\fBAPREQ_FLAGS_OFF\fP 
 .PP
 \fBAPREQ_FLAGS_ON\fP 
 .PP
-\fBAPREQ_FLAGS_GET\fP
+\fBAPREQ_FLAGS_GET\fP 
 .PP
 \fBAPREQ_FLAGS_SET\fP 
 .RE
@@ -160,11 +156,11 @@ Charset Mask
 .PP
 \fBSee also:\fP
 .RS 4
-\fBAPREQ_FLAGS_OFF\fP
+\fBAPREQ_FLAGS_OFF\fP 
 .PP
 \fBAPREQ_FLAGS_ON\fP 
 .PP
-\fBAPREQ_FLAGS_GET\fP
+\fBAPREQ_FLAGS_GET\fP 
 .PP
 \fBAPREQ_FLAGS_SET\fP 
 .RE
@@ -176,11 +172,11 @@ Cookie's Secure Bit
 .PP
 \fBSee also:\fP
 .RS 4
-\fBAPREQ_FLAGS_OFF\fP
+\fBAPREQ_FLAGS_OFF\fP 
 .PP
 \fBAPREQ_FLAGS_ON\fP 
 .PP
-\fBAPREQ_FLAGS_GET\fP
+\fBAPREQ_FLAGS_GET\fP 
 .PP
 \fBAPREQ_FLAGS_SET\fP 
 .RE
@@ -192,11 +188,11 @@ Cookie's Secure Mask
 .PP
 \fBSee also:\fP
 .RS 4
-\fBAPREQ_FLAGS_OFF\fP
+\fBAPREQ_FLAGS_OFF\fP 
 .PP
 \fBAPREQ_FLAGS_ON\fP 
 .PP
-\fBAPREQ_FLAGS_GET\fP
+\fBAPREQ_FLAGS_GET\fP 
 .PP
 \fBAPREQ_FLAGS_SET\fP 
 .RE
@@ -208,11 +204,11 @@ Cookier Version Bit
 .PP
 \fBSee also:\fP
 .RS 4
-\fBAPREQ_FLAGS_OFF\fP
+\fBAPREQ_FLAGS_OFF\fP 
 .PP
 \fBAPREQ_FLAGS_ON\fP 
 .PP
-\fBAPREQ_FLAGS_GET\fP
+\fBAPREQ_FLAGS_GET\fP 
 .PP
 \fBAPREQ_FLAGS_SET\fP 
 .RE
@@ -224,11 +220,11 @@ Cookie Version Mask
 .PP
 \fBSee also:\fP
 .RS 4
-\fBAPREQ_FLAGS_OFF\fP
+\fBAPREQ_FLAGS_OFF\fP 
 .PP
 \fBAPREQ_FLAGS_ON\fP 
 .PP
-\fBAPREQ_FLAGS_GET\fP
+\fBAPREQ_FLAGS_GET\fP 
 .PP
 \fBAPREQ_FLAGS_SET\fP 
 .RE
@@ -240,13 +236,13 @@ Cookie Version Mask
 .PP
 \fBExamples: \fP
 .in +1c
-\fB/usr/home/pgollucci/dev/compile/freebsd-6.1-stable/3.4.4/apreq/429956/r428290/5.8.8-2.2.3-prefork/include/apreq.h\fP.
+\fB/home/joe/src/apache/httpd/apreq/branches/v2_12/include/apreq.h\fP.
 .SS "#define APREQ_DECLARE_DATA"
 .PP
 extern APREQ_DECLARE_DATA type apr_variable;
 .br
  APREQ_DECLARE_DATA type apr_variable = value; 
-.SS "#define APREQ_DECLARE_NONSTD(d)   \fBAPR_DECLARE_NONSTD\fP(d)"
+.SS "#define APREQ_DECLARE_NONSTD(d)   APR_DECLARE_NONSTD(d)"
 .PP
 APEQ_DECLARE_NONSTD(rettype) apr_func(args, ...); 
 .SS "#define APREQ_DEFAULT_BRIGADE_LIMIT   (256 * 1024)"
@@ -284,13 +280,13 @@ ap_set_read_limit
 
 .SS "#define APREQ_FLAGS_GET(f, name)   (((f) >> name##_BIT) & name##_MASK)"
 .PP
-Get specified bit f in bitfiled name 
+Get specified bit f in bitfield name 
 .SS "#define APREQ_FLAGS_OFF(f, name)   ((f) &= ~(name##_MASK << name##_BIT))"
 .PP
-Check to see if specified bit f is off in bitfiled name 
+Check to see if specified bit f is off in bitfield name 
 .SS "#define APREQ_FLAGS_ON(f, name)   ((f) |=  (name##_MASK << name##_BIT))"
 .PP
-Check to see if specified bit f is on in bitfiled name 
+Check to see if specified bit f is on in bitfield name 
 .SS "#define APREQ_FLAGS_SET(f, name, value)"
 .PP
 \fBValue:\fP
@@ -299,18 +295,18 @@ Check to see if specified bit f is on in bitfiled name
 ((f) = (((f) & ~(name##_MASK << name##_BIT))        \
             | ((name##_MASK & (value)) << name##_BIT)))
 .fi
-Set specified bit f in bitfiled name to value Note the below BIT/Mask defines are used sans the _BIT, _MASK because of the this define's ##_MASK, ##_BIT usage. Each come in a pair 
+Set specified bit f in bitfield name to value Note the below BIT/Mask defines are used sans the _BIT, _MASK because of the this define's ##_MASK, ##_BIT usage. Each come in a pair 
 .SS "#define APREQ_TAINTED_BIT   8"
 .PP
 Tainted Bit 
 .PP
 \fBSee also:\fP
 .RS 4
-\fBAPREQ_FLAGS_OFF\fP
+\fBAPREQ_FLAGS_OFF\fP 
 .PP
 \fBAPREQ_FLAGS_ON\fP 
 .PP
-\fBAPREQ_FLAGS_GET\fP
+\fBAPREQ_FLAGS_GET\fP 
 .PP
 \fBAPREQ_FLAGS_SET\fP 
 .RE
@@ -322,11 +318,11 @@ Tainted Mask
 .PP
 \fBSee also:\fP
 .RS 4
-\fBAPREQ_FLAGS_OFF\fP
+\fBAPREQ_FLAGS_OFF\fP 
 .PP
 \fBAPREQ_FLAGS_ON\fP 
 .PP
-\fBAPREQ_FLAGS_GET\fP
+\fBAPREQ_FLAGS_GET\fP 
 .PP
 \fBAPREQ_FLAGS_SET\fP 
 .RE
@@ -399,7 +395,7 @@ after you detroy the pool, you have to call this function again with a new pool 
 .PP
 \fBExamples: \fP
 .in +1c
-\fB/usr/home/pgollucci/dev/compile/freebsd-6.1-stable/3.4.4/apreq/429956/r428290/5.8.8-2.2.3-prefork/include/apreq.h\fP.
+\fB/home/joe/src/apache/httpd/apreq/branches/v2_12/include/apreq.h\fP.
 .SS "\fBapr_status_t\fP apreq_post_initialize (\fBapr_pool_t\fP * pool)"
 .PP
 Post-initialize libapreq2. Applications (except apache modules using mod_apreq2) should this exactly once before they use any libapreq2 modules for parsing.
@@ -413,7 +409,7 @@ Post-initialize libapreq2. Applications (except apache modules using mod_apreq2)
 .PP
 \fBExamples: \fP
 .in +1c
-\fB/usr/home/pgollucci/dev/compile/freebsd-6.1-stable/3.4.4/apreq/429956/r428290/5.8.8-2.2.3-prefork/include/apreq.h\fP.
+\fB/home/joe/src/apache/httpd/apreq/branches/v2_12/include/apreq.h\fP.
 .SS "\fBapr_status_t\fP apreq_pre_initialize (\fBapr_pool_t\fP * pool)"
 .PP
 Pre-initialize libapreq2. Applications (except apache modules using mod_apreq2) should call this exactly once before they register custom parsers with libapreq2. mod_apreq2 does this automatically during the post-config phase, so modules that need call apreq_register_parser should create a post-config hook using APR_HOOK_MIDDLE.
@@ -432,8 +428,8 @@ after you detroyed the pool, you have to call this function again with a new poo
 .PP
 \fBExamples: \fP
 .in +1c
-\fB/usr/home/pgollucci/dev/compile/freebsd-6.1-stable/3.4.4/apreq/429956/r428290/5.8.8-2.2.3-prefork/include/apreq.h\fP.
-.SS "static \fBAPR_INLINE\fP void apreq_value_table_add (const \fBapreq_value_t\fP * v, \fBapr_table_t\fP * t)\fC [static]\fP"
+\fB/home/joe/src/apache/httpd/apreq/branches/v2_12/include/apreq.h\fP.
+.SS "static APR_INLINE void apreq_value_table_add (const \fBapreq_value_t\fP * v, \fBapr_table_t\fP * t)\fC [static]\fP"
 .PP
 Adds the specified \fBapreq_value_t\fP to the apr_table_t.
 .PP
@@ -449,7 +445,7 @@ Adds the specified \fBapreq_value_t\fP to the apr_table_t.
 void
 .RE
 .PP
-@ see apr_table_t
+@ see apr_table_t 
 .PP
 \fBSee also:\fP
 .RS 4
@@ -460,7 +456,7 @@ apr_value_t
 .PP
 \fBExamples: \fP
 .in +1c
-\fB/usr/home/pgollucci/dev/compile/freebsd-6.1-stable/3.4.4/apreq/429956/r428290/5.8.8-2.2.3-prefork/include/apreq.h\fP.
+\fB/home/joe/src/apache/httpd/apreq/branches/v2_12/include/apreq.h\fP.
 .SH "Author"
 .PP 
 Generated automatically by Doxygen for libapreq2 from the source code.

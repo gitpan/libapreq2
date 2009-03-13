@@ -6,13 +6,15 @@ use warnings FATAL => 'all';
 use Apache2::RequestIO ();
 use Apache2::RequestRec ();
 
+use Apache2::Const -compile => qw(OK);
+
 use Apache2::Cookie ();
 use Apache2::Request ();
 
 sub handler {
     my $r = shift;
     my $req = Apache2::Request->new($r);
-    my %cookies = Apache2::Cookie->fetch($r);
+    my %cookies = eval { Apache2::Cookie->fetch($r) };
 
     $r->content_type('text/plain');
     my $test = $req->APR::Request::args('test');
@@ -36,6 +38,9 @@ sub handler {
     }
     elsif ($test eq 'overload') {
         $r->print($cookies{one});
+    }
+    elsif ($test eq 'wordpress') {
+        $r->print("ok") if $@;
     }
     elsif ($key and $cookies{$key}) {
         if ($test eq "bake") {
@@ -67,7 +72,7 @@ sub handler {
     }
 
 
-    return 0;
+    return Apache2::Const::OK;
 }
 
 1;

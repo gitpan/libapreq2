@@ -16,14 +16,16 @@ AM_CFLAGS= -pg -fprofile-arcs -ftest-coverage
 
 clean-local:
 	-rm *.bb *.bbg *.da *.gcov
-
+	cd t; $(MAKE) clean
 else
 
 clean-local:
-
+	cd t; $(MAKE) clean
 endif
 
-
+distclean-am: clean-am distclean-compile distclean-generic \
+	distclean-tags
+	cd t; $(MAKE) distclean
 
 if BUILD_APR
 

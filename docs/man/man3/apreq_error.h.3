@@ -1,10 +1,8 @@
-.TH "include/apreq_error.h" 3 "8 Aug 2006" "Version 2.08" "libapreq2" \" -*- nroff -*-
+.TH "include/apreq_error.h" 3 "6 Mar 2009" "Version 2.12" "libapreq2" \" -*- nroff -*-
 .ad l
 .nh
 .SH NAME
-include/apreq_error.h \- Error status codes.
-.PP
-Define the APREQ_ error codes. 
+include/apreq_error.h \- Error status codes. 
 .SH SYNOPSIS
 .br
 .PP
@@ -17,10 +15,10 @@ Define the APREQ_ error codes.
 
 .in +1c
 .ti -1c
-.RI "#define \fBAPR_EBADARG\fP   \fBAPR_BADARG\fP"
+.RI "#define \fBAPR_EBADARG\fP   APR_BADARG"
 .br
 .ti -1c
-.RI "#define \fBAPREQ_ERROR_GENERAL\fP   \fBAPR_OS_START_USERERR\fP"
+.RI "#define \fBAPREQ_ERROR_GENERAL\fP   APR_OS_START_USERERR"
 .br
 .ti -1c
 .RI "#define \fBAPREQ_ERROR_TAINTED\fP   (APREQ_ERROR_GENERAL + 1)"
@@ -83,20 +81,18 @@ Define the APREQ_ error codes.
 .in -1c
 .SH "Detailed Description"
 .PP 
-Error status codes.
-.PP
+Error status codes. 
+
 Define the APREQ_ error codes. 
-
-
 .SH "Define Documentation"
 .PP 
-.SS "#define APR_EBADARG   \fBAPR_BADARG\fP"
+.SS "#define APR_EBADARG   APR_BADARG"
 .PP
 Bad Arguments return value 
 .PP
 \fBSee also:\fP
 .RS 4
-\fBAPR_BADARG\fP 
+APR_BADARG 
 .RE
 .PP
 
@@ -118,7 +114,7 @@ Invalid byte sequence.
 .SS "#define APREQ_ERROR_BADUTF8   (APREQ_ERROR_BADDATA  +  5)"
 .PP
 Invalid utf8 encoding. 
-.SS "#define APREQ_ERROR_GENERAL   \fBAPR_OS_START_USERERR\fP"
+.SS "#define APREQ_ERROR_GENERAL   APR_OS_START_USERERR"
 .PP
 Internal apreq error. 
 .SS "#define APREQ_ERROR_INTERRUPT   (APREQ_ERROR_GENERAL + 2)"

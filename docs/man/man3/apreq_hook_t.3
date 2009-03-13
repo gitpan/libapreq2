@@ -1,4 +1,4 @@
-.TH "apreq_hook_t" 3 "8 Aug 2006" "Version 2.08" "libapreq2" \" -*- nroff -*-
+.TH "apreq_hook_t" 3 "6 Mar 2009" "Version 2.12" "libapreq2" \" -*- nroff -*-
 .ad l
 .nh
 .SH NAME
@@ -30,9 +30,6 @@ A hook is called by the parser whenever data arrives in a file upload parameter 
 .PP
 .SH "Field Documentation"
 .PP 
-.SS "void* \fBapreq_hook_t::ctx\fP"
-.PP
-a user defined pointer passed to the hook function 
 .SS "\fBapreq_hook_function_t\fP \fBapreq_hook_t::hook\fP"
 .PP
 the hook function 
@@ -42,6 +39,9 @@ next item in the linked list
 .SS "\fBapr_pool_t\fP* \fBapreq_hook_t::pool\fP"
 .PP
 pool which allocated this hook 
+.SS "void* \fBapreq_hook_t::ctx\fP"
+.PP
+a user defined pointer passed to the hook function 
 
 .SH "Author"
 .PP 

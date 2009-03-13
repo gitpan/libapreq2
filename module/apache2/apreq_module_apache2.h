@@ -1,9 +1,10 @@
 /*
-**  Copyright 2003-2006  The Apache Software Foundation
-**
-**  Licensed under the Apache License, Version 2.0 (the "License");
-**  you may not use this file except in compliance with the License.
-**  You may obtain a copy of the License at
+**  Licensed to the Apache Software Foundation (ASF) under one or more
+** contributor license agreements.  See the NOTICE file distributed with
+** this work for additional information regarding copyright ownership.
+** The ASF licenses this file to You under the Apache License, Version 2.0
+** (the "License"); you may not use this file except in compliance with
+** the License.  You may obtain a copy of the License at
 **
 **      http://www.apache.org/licenses/LICENSE-2.0
 **
@@ -18,6 +19,7 @@
 #define APREQ_APACHE2_H
 
 #include "apreq_module.h"
+#include "apr_optional.h"
 #include <httpd.h>
 
 #ifdef  __cplusplus
@@ -140,6 +142,18 @@
 APREQ_DECLARE(apreq_handle_t *) apreq_handle_apache2(request_rec *r);
 
 /**
+ *
+ *      
+ */
+#ifdef WIN32
+typedef __declspec(dllexport) apreq_handle_t *
+(__stdcall apr_OFN_apreq_handle_apache2_t) (request_rec *r);
+#else
+APR_DECLARE_OPTIONAL_FN(APREQ_DECLARE(apreq_handle_t *),
+                        apreq_handle_apache2, (request_rec *r));
+#endif
+
+/**
  * The mod_apreq2 filter is named "apreq2", and may be used in Apache's
  * input filter directives, e.g.
  * @code
@@ -157,7 +171,7 @@ APREQ_DECLARE(apreq_handle_t *) apreq_handle_apache2(request_rec *r);
  * using this apache2 module
  * @see APREQ_MODULE
  */
-#define APREQ_APACHE2_MMN 20051231
+#define APREQ_APACHE2_MMN 20090110
 
 /** @} */
 

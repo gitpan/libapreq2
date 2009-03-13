@@ -1,4 +1,4 @@
-.TH "apreq_cookie_t" 3 "8 Aug 2006" "Version 2.08" "libapreq2" \" -*- nroff -*-
+.TH "apreq_cookie_t" 3 "6 Mar 2009" "Version 2.12" "libapreq2" \" -*- nroff -*-
 .ad l
 .nh
 .SH NAME
@@ -44,27 +44,27 @@ Cookie type, supporting both Netscape and RFC cookie specifications.
 .PP
 .SH "Field Documentation"
 .PP 
+.SS "char* \fBapreq_cookie_t::path\fP"
+.PP
+Restricts url path 
+.SS "char* \fBapreq_cookie_t::domain\fP"
+.PP
+Restricts server domain 
+.SS "char* \fBapreq_cookie_t::port\fP"
+.PP
+Restricts server port 
 .SS "char* \fBapreq_cookie_t::comment\fP"
 .PP
 RFC cookies may send a comment 
 .SS "char* \fBapreq_cookie_t::commentURL\fP"
 .PP
 RFC cookies may place an URL here 
-.SS "char* \fBapreq_cookie_t::domain\fP"
-.PP
-Restricts server domain 
-.SS "unsigned \fBapreq_cookie_t::flags\fP"
-.PP
-charsets, taint marks, app-specific bits 
 .SS "\fBapr_time_t\fP \fBapreq_cookie_t::max_age\fP"
 .PP
 total duration of cookie: -1 == session 
-.SS "char* \fBapreq_cookie_t::path\fP"
+.SS "unsigned \fBapreq_cookie_t::flags\fP"
 .PP
-Restricts url path 
-.SS "char* \fBapreq_cookie_t::port\fP"
-.PP
-Restricts server port 
+charsets, taint marks, app-specific bits 
 .SS "const \fBapreq_value_t\fP \fBapreq_cookie_t::v\fP"
 .PP
 'raw' cookie value 

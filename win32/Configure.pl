@@ -10,7 +10,7 @@ use ExtUtils::MakeMaker;
 use File::Basename;
 use File::Path;
 my ($apache, $apxs, $debug, $help, $no_perl, $perl, $with_perl);
-my $VERSION = "2.08";
+my $VERSION = "2.09";
 my $result = GetOptions( 'with-apache2=s' => \$apache,
 			 'with-apache2-apxs=s' => \$apxs,
 			 'debug' => \$debug,
@@ -37,12 +37,16 @@ my @test_files = map {catfile('library', 't', "$_.t")} @tests;
 generate_tests($apreq_home, \@tests);
 
 my %apr_libs;
-my %map = (apr => 'libapr.lib', apu => 'libaprutil.lib');
-my $devnull = devnull();
-
 my $prog = apache_prog_name($apache);
+my @httpd_ver = httpd_version($prog);
+my $devnull = devnull();
+my %map = (
+    apr => $httpd_ver[1] == 2 ? 'libapr-1.lib' : 'libapr.lib',
+    apu => $httpd_ver[1] == 2 ? 'libaprutil-1.lib' : 'libaprutil.lib'
+);
+
 foreach my $what (qw(apr apu)) {
-    my $ap = ($prog eq 'httpd.exe') ?
+    my $ap = ($httpd_ver[1] == 2) ?
         "$what-1-config.bat" : "$what-config.bat";
     my $cfg = catfile $apache, 'bin', $ap;
     my $lib;
@@ -107,9 +111,11 @@ END
 my $clean = << 'END';
 CLEAN:
         cd $(LIBDIR)
-        $(RM_F) *.pch *.exe *.exp *.lib *.pdb *.ilk *.idb *.so *.dll *.obj
+        $(RM_F) *.pch *.exe *.exp *.lib *.pdb *.ilk *.idb *.so *.dll *.obj *.manifest
         cd $(TDIR)
-        $(RM_F) *.pch *.exe *.exp *.lib *.pdb *.ilk *.idb *.so *.dll *.obj
+        $(RM_F) *.pch *.exe *.exp *.lib *.pdb *.ilk *.idb *.so *.dll *.obj *.manifest
+        cd $(APREQ_HOME)\module\t\c-modules
+        $(MAKE) clean
         cd $(APREQ_HOME)
 !IF EXIST("$(PERLGLUE)\Makefile")
         cd $(PERLGLUE)
@@ -308,6 +314,14 @@ sub which {
     return;
 }
 
+sub httpd_version {
+    my $prog = shift;
+    my $vers = qx{$prog -v};
+    die qq{Could not parse "$apache" version}
+        unless $vers =~ m!Apache/2.(\d).(\d)!;
+    return (2, $1, $2);
+}
+
 sub generate_defs {
     my $preamble =<<'END';
 LIBRARY
@@ -411,8 +425,9 @@ sub apache_prog_name {
     my $apache = shift;
     my $prog;
     for my $trial(qw(Apache.exe httpd.exe)) {
-        next unless -e catfile($apache, 'bin', $trial);
-        $prog = $trial;
+        my $path = catfile($apache, 'bin', $trial);
+        next unless -e $path;
+        $prog = $path;
         last;
     }
     die "Could not determine the Apache2 binary name" unless $prog;

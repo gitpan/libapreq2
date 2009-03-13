@@ -1,9 +1,10 @@
 /*
-**  Copyright 2003-2006  The Apache Software Foundation
-**
-**  Licensed under the Apache License, Version 2.0 (the "License");
-**  you may not use this file except in compliance with the License.
-**  You may obtain a copy of the License at
+**  Licensed to the Apache Software Foundation (ASF) under one or more
+** contributor license agreements.  See the NOTICE file distributed with
+** this work for additional information regarding copyright ownership.
+** The ASF licenses this file to You under the Apache License, Version 2.0
+** (the "License"); you may not use this file except in compliance with
+** the License.  You may obtain a copy of the License at
 **
 **      http://www.apache.org/licenses/LICENSE-2.0
 **
@@ -68,11 +69,13 @@ static int apreq_access_checker(request_rec *r)
     apreq_param_t *param;
     struct access_test_cfg *cfg = (struct access_test_cfg *)
         ap_get_module_config(r->per_dir_config, &apreq_access_test_module);
+    APR_OPTIONAL_FN_TYPE(apreq_handle_apache2) *fcn =
+        APR_RETRIEVE_OPTIONAL_FN(apreq_handle_apache2);
 
-    if (!cfg || !cfg->param)
+    if (!cfg || !cfg->param || !fcn)
         return DECLINED;
 
-    handle = apreq_handle_apache2(r);
+    handle = fcn(r);
     param = apreq_param(handle, cfg->param);
     if (param != NULL) {
         ap_log_rerror(APLOG_MARK, APLOG_DEBUG, APR_SUCCESS,

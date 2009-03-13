@@ -1,7 +1,7 @@
 package Apache2::Upload;
 use Apache2::Request;
 push our @ISA, qw/APR::Request::Param/;
-our $VERSION = "2.08";
+our $VERSION = "2.12";
 no strict 'refs';
 for (qw/slurp type size link tempname fh io filename/) {
     *{$_} = *{"APR::Request::Param::upload_$_"}{CODE};
@@ -309,11 +309,12 @@ APR::Table(3)
 
 =head1 COPYRIGHT
 
-  Copyright 2003-2006  The Apache Software Foundation
-
-  Licensed under the Apache License, Version 2.0 (the "License");
-  you may not use this file except in compliance with the License.
-  You may obtain a copy of the License at
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
 
       http://www.apache.org/licenses/LICENSE-2.0
 

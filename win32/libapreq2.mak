@@ -62,14 +62,13 @@ LINK32_OBJS= \
 	"$(INTDIR)\parser_header.obj" \
 	"$(INTDIR)\parser_multipart.obj" \
 	"$(INTDIR)\parser_urlencoded.obj" \
-        "$(INTDIR)\util.obj" \
-        "$(INTDIR)\version.obj" \
-        "$(INTDIR)\module.obj" \
-        "$(INTDIR)\module_custom.obj" \
-        "$(INTDIR)\module_cgi.obj" \
-        "$(INTDIR)\error.obj" \
-	"$(APR_LIB)" \
-	"$(APU_LIB)"
+	"$(INTDIR)\util.obj" \
+	"$(INTDIR)\version.obj" \
+	"$(INTDIR)\module.obj" \
+	"$(INTDIR)\module_custom.obj" \
+	"$(INTDIR)\module_cgi.obj" \
+	"$(INTDIR)\error.obj" \
+	"$(INTDIR)\libapreq.res"
 
 !IF  "$(CFG)" == "libapreq2 - Win32 Release"
 
@@ -78,17 +77,21 @@ ALL : "$(OUTDIR)\libapreq2.dll"
 "$(OUTDIR)" :
     if not exist "$(OUTDIR)/$(NULL)" mkdir "$(OUTDIR)"
 
-CPP_PROJ=/nologo /MD /W3 /O2 /D "WIN32" /D "NDEBUG" /D "_WINDOWS" /D "_MBCS" /D "_USRDLL" /I"$(APACHE)\include" /I"$(APREQ_HOME)\include" /YX /FD /c 
+CPP_PROJ=/nologo /MD /W3 /O2 /D "WIN32" /D "NDEBUG" /D "_WINDOWS" /D "_MBCS" /D "_USRDLL" /D "APREQ_DECLARE_EXPORT" /I"$(APACHE)\include" /I"$(APREQ_HOME)\include" /YX /FD /c 
 MTL_PROJ=/nologo /D "NDEBUG" /mktyplib203 /win32 
+RSC=rc.exe
+RSC_PROJ=/l 0x409 /i "$(APACHE)\include" /d "NDEBUG" /i "$(APREQ_HOME)\include"
 BSC32=bscmake.exe
 BSC32_FLAGS=/nologo /o"$(OUTDIR)\libapreq2.bsc" 
 LINK32=link.exe
-LINK32_FLAGS=kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib /nologo /dll /incremental:no /machine:I386 /out:"$(OUTDIR)\libapreq2.dll" /implib:"$(OUTDIR)\libapreq2.lib" 
+MANIFEST=$(OUTDIR)\libapreq2.dll.manifest
+LINK32_FLAGS="$(APR_LIB)" "$(APU_LIB)" kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib /nologo /dll /incremental:no /machine:I386 /out:"$(OUTDIR)\libapreq2.dll" /implib:"$(OUTDIR)\libapreq2.lib"
 
 "$(OUTDIR)\libapreq2.dll" : "$(OUTDIR)" $(DEF_FILE) $(LINK32_OBJS)
     $(LINK32) @<<
   $(LINK32_FLAGS) $(DEF_FLAGS) $(LINK32_OBJS)
 <<
+    if exist $(MANIFEST) mt /nologo /manifest $(MANIFEST) /outputresource:$(OUTDIR)\libapreq2.dll;2
 
 !ELSEIF  "$(CFG)" == "libapreq2 - Win32 Debug"
 
@@ -97,17 +100,21 @@ ALL : "$(OUTDIR)\libapreq2.dll"
 "$(OUTDIR)" :
     if not exist "$(OUTDIR)/$(NULL)" mkdir "$(OUTDIR)"
 
-CPP_PROJ=/nologo /MDd /W3 /Gm /GX /Zi /Od /D "WIN32" /D "_DEBUG" /D "_WINDOWS" /D "_MBCS" /D "_USRDLL" /I"$(APACHE)\include" /I"$(APREQ_HOME)\include" /YX /FD /GZ  /c 
+CPP_PROJ=/nologo /MDd /W3 /Gm /GX /Zi /Od /D "WIN32" /D "_DEBUG" /D "_WINDOWS" /D "_MBCS" /D "_USRDLL" /D "APREQ_DECLARE_EXPORT" /I"$(APACHE)\include" /I"$(APREQ_HOME)\include" /YX /FD /GZ  /c 
 MTL_PROJ=/nologo /D "_DEBUG" /mktyplib203 /win32 
+RSC=rc.exe
+RSC_PROJ=/l 0x409 /i "$(APACHE)\include" /d "_DEBUG /i "$(APREQ_HOME)\include"
 BSC32=bscmake.exe
 BSC32_FLAGS=/nologo /o"$(OUTDIR)\libapreq2.bsc" 
 LINK32=link.exe
+MANIFEST=$(OUTDIR)\libapreq2.dll.manifest
 LINK32_FLAGS=kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib /nologo /dll /incremental:yes /pdb:"$(OUTDIR)\libapreq2.pdb" /debug /machine:I386 /out:"$(OUTDIR)\libapreq2.dll" /implib:"$(OUTDIR)\libapreq2.lib" /pdbtype:sept 
 
 "$(OUTDIR)\libapreq2.dll" : "$(OUTDIR)" $(DEF_FILE) $(LINK32_OBJS)
     $(LINK32) @<<
   $(LINK32_FLAGS) $(DEF_FLAGS) $(LINK32_OBJS)
 <<
+    if exist $(MANIFEST) mt /nologo /manifest $(MANIFEST) /outputresource:$(OUTDIR)\libapreq2.dll;2
 
 !ENDIF 
 
@@ -203,6 +210,11 @@ SOURCE=$(LIBDIR)\error.c
 
 "$(INTDIR)\error.obj" : $(SOURCE) "$(INTDIR)"
         $(CPP) /Fo"$(INTDIR)\error.obj" $(CPP_PROJ) $(SOURCE)
+
+SOURCE=.\libapreq.rc
+
+"$(INTDIR)\libapreq.res" : $(SOURCE) "$(INTDIR)"
+	$(RSC) /fo"$(INTDIR)\libapreq.res" $(RSC_PROJ) $(SOURCE)
 
 !ENDIF 
 

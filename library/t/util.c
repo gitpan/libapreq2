@@ -1,9 +1,10 @@
 /*
-**  Copyright 2004-2006  The Apache Software Foundation
-**
-**  Licensed under the Apache License, Version 2.0 (the "License");
-**  you may not use this file except in compliance with the License.
-**  You may obtain a copy of the License at
+**  Licensed to the Apache Software Foundation (ASF) under one or more
+** contributor license agreements.  See the NOTICE file distributed with
+** this work for additional information regarding copyright ownership.
+** The ASF licenses this file to You under the Apache License, Version 2.0
+** (the "License"); you may not use this file except in compliance with
+** the License.  You may obtain a copy of the License at
 **
 **      http://www.apache.org/licenses/LICENSE-2.0
 **
@@ -92,7 +93,7 @@ static void test_charset_divine(dAT)
     char src1[] = "%C3%80%E3%82%a2"; /* A_GRAVE KATAKANA_A as utf8 */
     char src2[] = "pound%A3";/* latin-1 */
     char src3[] = "euro%80";/* cp-1252 */
-    char expect[6];
+    char expect[7];
 
     AT_int_eq(apreq_decode(expect, &elen, src1, sizeof(src1) -1),
               APR_SUCCESS);

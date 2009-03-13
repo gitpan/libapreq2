@@ -1,4 +1,4 @@
-#!/usr/local/software/freebsd-6.1-stable/3.4.4/perl/5.8.8/bin/perl
+#!/home/joe/perl/5.8.x/bin/perl
 
 %subst = ( "apr.tag", "", "apu.tag", "");
 $quiet   = 0;

@@ -3,7 +3,7 @@ use APR::Request::Param;
 use APR::Request::Apache2;
 use Apache2::RequestRec;
 push our @ISA, qw/Apache2::RequestRec APR::Request::Apache2/;
-our $VERSION = "2.08";
+our $VERSION = "2.12";
 
 my %old_limits = (
     post_max => "read_limit",
@@ -417,6 +417,10 @@ addressed when porting 1.X apps to the new 2.X API.
 =item * C<param> includes the functionality of C<parms()> and C<params()>, so
         they are now deprecated and may be removed from a future 2.X release.
 
+=item * C<param> called in a list context no longer returns a unique list of
+        paramaters.  The returned list contains multiple instances of the 
+        parameter name for multivalued fields.
+
 =back
 
 
@@ -432,11 +436,12 @@ L<Apache2::Cookie>, APR::Table(3).
 
 =head1 COPYRIGHT
 
-  Copyright 2003-2006  The Apache Software Foundation
-
-  Licensed under the Apache License, Version 2.0 (the "License");
-  you may not use this file except in compliance with the License.
-  You may obtain a copy of the License at
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
 
       http://www.apache.org/licenses/LICENSE-2.0
 

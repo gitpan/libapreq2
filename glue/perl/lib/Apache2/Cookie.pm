@@ -9,7 +9,7 @@ use Apache2::RequestUtil;
 use overload '""' => sub { shift->as_string() }, fallback => 1;
 
 push our @ISA, "APR::Request::Cookie";
-our $VERSION = "2.08";
+our $VERSION = "2.12";
 
 sub new {
     my ($class, $r, %attrs) = @_;
@@ -483,7 +483,7 @@ Fetch and parse the incoming I<Cookie> header:
 
 Changes to the 1.X API:
 
-=over 4
+=over 5
 
 =item * C<Apache2::Cookie::fetch> now expects an C<$r> object as (second)
         argument, although this isn't necessary in mod_perl 2 if
@@ -493,6 +493,9 @@ Changes to the 1.X API:
 =item * C<Apache2::Cookie::parse> is gone.
 
 =item * C<Apache2::Cookie::new> no longer encodes the supplied cookie name.
+
+=item * C<Apache2::Cookie::new()> returns undef if -value is not specified
+        or -value => undef.
 
 =item * C<name()> and C<value()> no longer accept a "set" argument. In other words,
         neither a cookie's name, nor its value, may be modified.  A new cookie
@@ -513,11 +516,12 @@ L<APR::Request::Error>, CGI::Cookie(3)
 
 =head1 COPYRIGHT
 
-  Copyright 2003-2006  The Apache Software Foundation
-
-  Licensed under the Apache License, Version 2.0 (the "License");
-  you may not use this file except in compliance with the License.
-  You may obtain a copy of the License at
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
 
       http://www.apache.org/licenses/LICENSE-2.0
 

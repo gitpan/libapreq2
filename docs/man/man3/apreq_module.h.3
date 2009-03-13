@@ -1,4 +1,4 @@
-.TH "include/apreq_module.h" 3 "8 Aug 2006" "Version 2.08" "libapreq2" \" -*- nroff -*-
+.TH "include/apreq_module.h" 3 "6 Mar 2009" "Version 2.12" "libapreq2" \" -*- nroff -*-
 .ad l
 .nh
 .SH NAME
@@ -38,52 +38,52 @@ include/apreq_module.h \- Module API.
 
 .in +1c
 .ti -1c
-.RI "static \fBAPR_INLINE\fP unsigned \fBapreq_module_status_is_error\fP (\fBapr_status_t\fP s)"
+.RI "static APR_INLINE unsigned \fBapreq_module_status_is_error\fP (\fBapr_status_t\fP s)"
 .br
 .ti -1c
-.RI "static \fBAPR_INLINE\fP \fBapr_status_t\fP \fBapreq_jar\fP (\fBapreq_handle_t\fP *req, const \fBapr_table_t\fP **t)"
+.RI "static APR_INLINE \fBapr_status_t\fP \fBapreq_jar\fP (\fBapreq_handle_t\fP *req, const \fBapr_table_t\fP **t)"
 .br
 .ti -1c
-.RI "static \fBAPR_INLINE\fP \fBapr_status_t\fP \fBapreq_args\fP (\fBapreq_handle_t\fP *req, const \fBapr_table_t\fP **t)"
+.RI "static APR_INLINE \fBapr_status_t\fP \fBapreq_args\fP (\fBapreq_handle_t\fP *req, const \fBapr_table_t\fP **t)"
 .br
 .ti -1c
-.RI "static \fBAPR_INLINE\fP \fBapr_status_t\fP \fBapreq_body\fP (\fBapreq_handle_t\fP *req, const \fBapr_table_t\fP **t)"
+.RI "static APR_INLINE \fBapr_status_t\fP \fBapreq_body\fP (\fBapreq_handle_t\fP *req, const \fBapr_table_t\fP **t)"
 .br
 .ti -1c
-.RI "static \fBAPR_INLINE\fP \fBapreq_cookie_t\fP * \fBapreq_jar_get\fP (\fBapreq_handle_t\fP *req, const char *name)"
+.RI "static APR_INLINE \fBapreq_cookie_t\fP * \fBapreq_jar_get\fP (\fBapreq_handle_t\fP *req, const char *name)"
 .br
 .ti -1c
-.RI "static \fBAPR_INLINE\fP \fBapreq_param_t\fP * \fBapreq_args_get\fP (\fBapreq_handle_t\fP *req, const char *name)"
+.RI "static APR_INLINE \fBapreq_param_t\fP * \fBapreq_args_get\fP (\fBapreq_handle_t\fP *req, const char *name)"
 .br
 .ti -1c
-.RI "static \fBAPR_INLINE\fP \fBapreq_param_t\fP * \fBapreq_body_get\fP (\fBapreq_handle_t\fP *req, const char *name)"
+.RI "static APR_INLINE \fBapreq_param_t\fP * \fBapreq_body_get\fP (\fBapreq_handle_t\fP *req, const char *name)"
 .br
 .ti -1c
-.RI "static \fBAPR_INLINE\fP \fBapr_status_t\fP \fBapreq_parser_get\fP (\fBapreq_handle_t\fP *req, const \fBapreq_parser_t\fP **parser)"
+.RI "static APR_INLINE \fBapr_status_t\fP \fBapreq_parser_get\fP (\fBapreq_handle_t\fP *req, const \fBapreq_parser_t\fP **parser)"
 .br
 .ti -1c
-.RI "static \fBAPR_INLINE\fP \fBapr_status_t\fP \fBapreq_parser_set\fP (\fBapreq_handle_t\fP *req, \fBapreq_parser_t\fP *parser)"
+.RI "static APR_INLINE \fBapr_status_t\fP \fBapreq_parser_set\fP (\fBapreq_handle_t\fP *req, \fBapreq_parser_t\fP *parser)"
 .br
 .ti -1c
-.RI "static \fBAPR_INLINE\fP \fBapr_status_t\fP \fBapreq_hook_add\fP (\fBapreq_handle_t\fP *req, \fBapreq_hook_t\fP *hook)"
+.RI "static APR_INLINE \fBapr_status_t\fP \fBapreq_hook_add\fP (\fBapreq_handle_t\fP *req, \fBapreq_hook_t\fP *hook)"
 .br
 .ti -1c
-.RI "static \fBAPR_INLINE\fP \fBapr_status_t\fP \fBapreq_brigade_limit_set\fP (\fBapreq_handle_t\fP *req, \fBapr_size_t\fP bytes)"
+.RI "static APR_INLINE \fBapr_status_t\fP \fBapreq_brigade_limit_set\fP (\fBapreq_handle_t\fP *req, \fBapr_size_t\fP bytes)"
 .br
 .ti -1c
-.RI "static \fBAPR_INLINE\fP \fBapr_status_t\fP \fBapreq_brigade_limit_get\fP (\fBapreq_handle_t\fP *req, \fBapr_size_t\fP *bytes)"
+.RI "static APR_INLINE \fBapr_status_t\fP \fBapreq_brigade_limit_get\fP (\fBapreq_handle_t\fP *req, \fBapr_size_t\fP *bytes)"
 .br
 .ti -1c
-.RI "static \fBAPR_INLINE\fP \fBapr_status_t\fP \fBapreq_read_limit_set\fP (\fBapreq_handle_t\fP *req, \fBapr_uint64_t\fP bytes)"
+.RI "static APR_INLINE \fBapr_status_t\fP \fBapreq_read_limit_set\fP (\fBapreq_handle_t\fP *req, \fBapr_uint64_t\fP bytes)"
 .br
 .ti -1c
-.RI "static \fBAPR_INLINE\fP \fBapr_status_t\fP \fBapreq_read_limit_get\fP (\fBapreq_handle_t\fP *req, \fBapr_uint64_t\fP *bytes)"
+.RI "static APR_INLINE \fBapr_status_t\fP \fBapreq_read_limit_get\fP (\fBapreq_handle_t\fP *req, \fBapr_uint64_t\fP *bytes)"
 .br
 .ti -1c
-.RI "static \fBAPR_INLINE\fP \fBapr_status_t\fP \fBapreq_temp_dir_set\fP (\fBapreq_handle_t\fP *req, const char *path)"
+.RI "static APR_INLINE \fBapr_status_t\fP \fBapreq_temp_dir_set\fP (\fBapreq_handle_t\fP *req, const char *path)"
 .br
 .ti -1c
-.RI "static \fBAPR_INLINE\fP \fBapr_status_t\fP \fBapreq_temp_dir_get\fP (\fBapreq_handle_t\fP *req, const char **path)"
+.RI "static APR_INLINE \fBapr_status_t\fP \fBapreq_temp_dir_get\fP (\fBapreq_handle_t\fP *req, const char **path)"
 .br
 .ti -1c
 .RI "\fBapreq_handle_t\fP * \fBapreq_handle_cgi\fP (\fBapr_pool_t\fP *pool)"
@@ -92,13 +92,13 @@ include/apreq_module.h \- Module API.
 .RI "\fBapreq_handle_t\fP * \fBapreq_handle_custom\fP (\fBapr_pool_t\fP *pool, const char *query_string, const char *cookie, \fBapreq_parser_t\fP *parser, \fBapr_uint64_t\fP read_limit, \fBapr_bucket_brigade\fP *in)"
 .br
 .ti -1c
-.RI "\fBapreq_param_t\fP * \fBapreq_param\fP (\fBapreq_handle_t\fP *req, const char *key)"
+.RI "\fBapreq_param_t\fP * \fBapreq_param\fP (\fBapreq_handle_t\fP *req, const char *\fBkey\fP)"
 .br
 .ti -1c
-.RI "\fBapr_table_t\fP * \fBapreq_params\fP (\fBapreq_handle_t\fP *req, \fBapr_pool_t\fP *p)"
+.RI "\fBapr_table_t\fP * \fBapreq_params\fP (\fBapreq_handle_t\fP *req, \fBapr_pool_t\fP *\fBp\fP)"
 .br
 .ti -1c
-.RI "\fBapr_table_t\fP * \fBapreq_cookies\fP (\fBapreq_handle_t\fP *req, \fBapr_pool_t\fP *p)"
+.RI "\fBapr_table_t\fP * \fBapreq_cookies\fP (\fBapreq_handle_t\fP *req, \fBapr_pool_t\fP *\fBp\fP)"
 .br
 .in -1c
 .SH "Detailed Description"
@@ -152,7 +152,7 @@ Convenience macro for defining a module by mapping a function prefix to an assoc
 
 .SH "Function Documentation"
 .PP 
-.SS "static \fBAPR_INLINE\fP \fBapr_status_t\fP apreq_args (\fBapreq_handle_t\fP * req, const \fBapr_table_t\fP ** t)\fC [static]\fP"
+.SS "static APR_INLINE \fBapr_status_t\fP apreq_args (\fBapreq_handle_t\fP * req, const \fBapr_table_t\fP ** t)\fC [static]\fP"
 .PP
 Expose the parsed 'query string' associated to this handle.
 .PP
@@ -169,7 +169,7 @@ APR_SUCCESS or a module-specific error status code.
 .RE
 .PP
 
-.SS "static \fBAPR_INLINE\fP \fBapreq_param_t\fP* apreq_args_get (\fBapreq_handle_t\fP * req, const char * name)\fC [static]\fP"
+.SS "static APR_INLINE \fBapreq_param_t\fP* apreq_args_get (\fBapreq_handle_t\fP * req, const char * name)\fC [static]\fP"
 .PP
 Fetch the first query string param with the given name.
 .PP
@@ -186,7 +186,7 @@ First matching param, or NULL if none match.
 .RE
 .PP
 
-.SS "static \fBAPR_INLINE\fP \fBapr_status_t\fP apreq_body (\fBapreq_handle_t\fP * req, const \fBapr_table_t\fP ** t)\fC [static]\fP"
+.SS "static APR_INLINE \fBapr_status_t\fP apreq_body (\fBapreq_handle_t\fP * req, const \fBapr_table_t\fP ** t)\fC [static]\fP"
 .PP
 Expose the parsed 'request body' associated to this handle.
 .PP
@@ -203,7 +203,7 @@ APR_SUCCESS or a module-specific error status code.
 .RE
 .PP
 
-.SS "static \fBAPR_INLINE\fP \fBapreq_param_t\fP* apreq_body_get (\fBapreq_handle_t\fP * req, const char * name)\fC [static]\fP"
+.SS "static APR_INLINE \fBapreq_param_t\fP* apreq_body_get (\fBapreq_handle_t\fP * req, const char * name)\fC [static]\fP"
 .PP
 Fetch the first body param with the given name.
 .PP
@@ -220,7 +220,7 @@ First matching param, or NULL if none match.
 .RE
 .PP
 
-.SS "static \fBAPR_INLINE\fP \fBapr_status_t\fP apreq_brigade_limit_get (\fBapreq_handle_t\fP * req, \fBapr_size_t\fP * bytes)\fC [static]\fP"
+.SS "static APR_INLINE \fBapr_status_t\fP apreq_brigade_limit_get (\fBapreq_handle_t\fP * req, \fBapr_size_t\fP * bytes)\fC [static]\fP"
 .PP
 Get the active brigade limit.
 .PP
@@ -237,7 +237,7 @@ APR_SUCCESS or a module-specific error, which may leave bytes undefined.
 .RE
 .PP
 
-.SS "static \fBAPR_INLINE\fP \fBapr_status_t\fP apreq_brigade_limit_set (\fBapreq_handle_t\fP * req, \fBapr_size_t\fP bytes)\fC [static]\fP"
+.SS "static APR_INLINE \fBapr_status_t\fP apreq_brigade_limit_set (\fBapreq_handle_t\fP * req, \fBapr_size_t\fP bytes)\fC [static]\fP"
 .PP
 Set the active brigade limit.
 .PP
@@ -311,7 +311,7 @@ new handle; can only be NULL if the pool allocation failed.
 .RE
 .PP
 
-.SS "static \fBAPR_INLINE\fP \fBapr_status_t\fP apreq_hook_add (\fBapreq_handle_t\fP * req, \fBapreq_hook_t\fP * hook)\fC [static]\fP"
+.SS "static APR_INLINE \fBapr_status_t\fP apreq_hook_add (\fBapreq_handle_t\fP * req, \fBapreq_hook_t\fP * hook)\fC [static]\fP"
 .PP
 Add a parser hook for this request.
 .PP
@@ -328,7 +328,7 @@ APR_SUCCESS or module-specific error.
 .RE
 .PP
 
-.SS "static \fBAPR_INLINE\fP \fBapr_status_t\fP apreq_jar (\fBapreq_handle_t\fP * req, const \fBapr_table_t\fP ** t)\fC [static]\fP"
+.SS "static APR_INLINE \fBapr_status_t\fP apreq_jar (\fBapreq_handle_t\fP * req, const \fBapr_table_t\fP ** t)\fC [static]\fP"
 .PP
 Expose the parsed 'cookie' header associated to this handle.
 .PP
@@ -345,7 +345,7 @@ APR_SUCCESS or a module-specific error status code.
 .RE
 .PP
 
-.SS "static \fBAPR_INLINE\fP \fBapreq_cookie_t\fP* apreq_jar_get (\fBapreq_handle_t\fP * req, const char * name)\fC [static]\fP"
+.SS "static APR_INLINE \fBapreq_cookie_t\fP* apreq_jar_get (\fBapreq_handle_t\fP * req, const char * name)\fC [static]\fP"
 .PP
 Fetch the first cookie with the given name.
 .PP
@@ -362,7 +362,7 @@ First matching cookie, or NULL if none match.
 .RE
 .PP
 
-.SS "static \fBAPR_INLINE\fP unsigned apreq_module_status_is_error (\fBapr_status_t\fP s)\fC [static]\fP"
+.SS "static APR_INLINE unsigned apreq_module_status_is_error (\fBapr_status_t\fP s)\fC [static]\fP"
 .PP
 Defines the module-specific status codes which are commonly considered to be non-fatal.
 .PP
@@ -411,7 +411,7 @@ table representing all available params; is never NULL.
 .RE
 .PP
 
-.SS "static \fBAPR_INLINE\fP \fBapr_status_t\fP apreq_parser_get (\fBapreq_handle_t\fP * req, const \fBapreq_parser_t\fP ** parser)\fC [static]\fP"
+.SS "static APR_INLINE \fBapr_status_t\fP apreq_parser_get (\fBapreq_handle_t\fP * req, const \fBapreq_parser_t\fP ** parser)\fC [static]\fP"
 .PP
 Fetch the active body parser.
 .PP
@@ -428,7 +428,7 @@ APR_SUCCESS or module-specific error.
 .RE
 .PP
 
-.SS "static \fBAPR_INLINE\fP \fBapr_status_t\fP apreq_parser_set (\fBapreq_handle_t\fP * req, \fBapreq_parser_t\fP * parser)\fC [static]\fP"
+.SS "static APR_INLINE \fBapr_status_t\fP apreq_parser_set (\fBapreq_handle_t\fP * req, \fBapreq_parser_t\fP * parser)\fC [static]\fP"
 .PP
 Set the body parser for this request.
 .PP
@@ -445,7 +445,7 @@ APR_SUCCESS or module-specific error.
 .RE
 .PP
 
-.SS "static \fBAPR_INLINE\fP \fBapr_status_t\fP apreq_read_limit_get (\fBapreq_handle_t\fP * req, \fBapr_uint64_t\fP * bytes)\fC [static]\fP"
+.SS "static APR_INLINE \fBapr_status_t\fP apreq_read_limit_get (\fBapreq_handle_t\fP * req, \fBapr_uint64_t\fP * bytes)\fC [static]\fP"
 .PP
 Get the active read limit.
 .PP
@@ -462,7 +462,7 @@ APR_SUCCESS or a module-specific error, which may leave bytes undefined.
 .RE
 .PP
 
-.SS "static \fBAPR_INLINE\fP \fBapr_status_t\fP apreq_read_limit_set (\fBapreq_handle_t\fP * req, \fBapr_uint64_t\fP bytes)\fC [static]\fP"
+.SS "static APR_INLINE \fBapr_status_t\fP apreq_read_limit_set (\fBapreq_handle_t\fP * req, \fBapr_uint64_t\fP bytes)\fC [static]\fP"
 .PP
 Set the active read limit.
 .PP
@@ -479,7 +479,7 @@ APR_SUCCESS or a module-specific error.
 .RE
 .PP
 
-.SS "static \fBAPR_INLINE\fP \fBapr_status_t\fP apreq_temp_dir_get (\fBapreq_handle_t\fP * req, const char ** path)\fC [static]\fP"
+.SS "static APR_INLINE \fBapr_status_t\fP apreq_temp_dir_get (\fBapreq_handle_t\fP * req, const char ** path)\fC [static]\fP"
 .PP
 Get the active temp directory.
 .PP
@@ -496,7 +496,7 @@ APR_SUCCESS implies path is valid, but may also be NULL. Any other return value 
 .RE
 .PP
 
-.SS "static \fBAPR_INLINE\fP \fBapr_status_t\fP apreq_temp_dir_set (\fBapreq_handle_t\fP * req, const char * path)\fC [static]\fP"
+.SS "static APR_INLINE \fBapr_status_t\fP apreq_temp_dir_set (\fBapreq_handle_t\fP * req, const char * path)\fC [static]\fP"
 .PP
 Set the active temp directory.
 .PP

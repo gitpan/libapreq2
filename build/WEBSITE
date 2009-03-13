@@ -42,16 +42,13 @@ UPDATING THE WEBSITE:
 
         % make docs
 
-     FreeBSD note: use gmake!
+     FreeBSD/Solaris note: use gmake!
 
      This will generate the C documentation in the docs/ directory
      using build/doxygen.conf as the config file for doxygen.
      
-  5) copy docs/html/* to http/site/trunk/xdocs/apreq/docs/libapreq2
 
-     tags files / man pages ????
-
-  6) Check out httpd/site/ from svn.apache.org and run
+  5) Check out httpd/site/ from svn.apache.org and run
      svn co https://svn.apache.org/repos/asf/httpd/site/trunk
 
     $ cd httpd/site/trunk
@@ -61,7 +58,21 @@ UPDATING THE WEBSITE:
 
     [do this before you make your RELEASE annoucement and deal with any issues first]
 
-  7) Login (via ssh) to httpd.apache.org and do
+  6) copy docs/html/* to http/site/trunk/xdocs/apreq/docs/libapreq2
+
+     tags files / man pages ????
+
+  7) Login (via ssh) to people.apache.org and do
+
+    MAKE SURE your umask is 2
+    $ umask
+    22
+    $ umask 2
+    $ umask
+    2
 
     $ cd /www/httpd.apache.org
     $ svn update index.html apreq/
+
+    Wait for ajax to sync every 1-2 hours or so....
+

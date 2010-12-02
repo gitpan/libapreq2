@@ -1,4 +1,4 @@
-.TH "include/apreq_parser.h" 3 "6 Mar 2009" "Version 2.12" "libapreq2" \" -*- nroff -*-
+.TH "include/apreq_parser.h" 3 "25 Nov 2010" "Version 2.13" "libapreq2" \" -*- nroff -*-
 .ad l
 .nh
 .SH NAME
@@ -42,16 +42,16 @@ include/apreq_parser.h \- Request body parser API.
 
 .in +1c
 .ti -1c
-.RI "typedef \fBapreq_hook_t\fP \fBapreq_hook_t\fP"
+.RI "typedef struct \fBapreq_hook_t\fP \fBapreq_hook_t\fP"
 .br
 .ti -1c
-.RI "typedef \fBapreq_parser_t\fP \fBapreq_parser_t\fP"
+.RI "typedef struct \fBapreq_parser_t\fP \fBapreq_parser_t\fP"
 .br
 .ti -1c
-.RI "typedef \fBapr_status_t\fP(*) \fBapreq_parser_function_t\fP (APREQ_PARSER_ARGS)"
+.RI "typedef \fBapr_status_t\fP(* \fBapreq_parser_function_t\fP )(APREQ_PARSER_ARGS)"
 .br
 .ti -1c
-.RI "typedef \fBapr_status_t\fP(*) \fBapreq_hook_function_t\fP (APREQ_HOOK_ARGS)"
+.RI "typedef \fBapr_status_t\fP(* \fBapreq_hook_function_t\fP )(APREQ_HOOK_ARGS)"
 .br
 .in -1c
 .SS "Functions"
@@ -85,7 +85,7 @@ include/apreq_parser.h \- Request body parser API.
 .RI "\fBapreq_hook_t\fP * \fBapreq_hook_make\fP (\fBapr_pool_t\fP *pool, \fBapreq_hook_function_t\fP hook, \fBapreq_hook_t\fP *next, void *ctx)"
 .br
 .ti -1c
-.RI "\fBapr_status_t\fP \fBapreq_parser_add_hook\fP (\fBapreq_parser_t\fP *\fBp\fP, \fBapreq_hook_t\fP *h)"
+.RI "\fBapr_status_t\fP \fBapreq_parser_add_hook\fP (\fBapreq_parser_t\fP *p, \fBapreq_hook_t\fP *h)"
 .br
 .ti -1c
 .RI "\fBapreq_parser_function_t\fP \fBapreq_parser\fP (const char *enctype)"
@@ -150,13 +150,13 @@ apreq_parser_t *parser,     \
 Parser arguments. 
 .SH "Typedef Documentation"
 .PP 
-.SS "typedef \fBapr_status_t\fP(*) \fBapreq_hook_function_t\fP(APREQ_HOOK_ARGS)"
+.SS "typedef \fBapr_status_t\fP(* \fBapreq_hook_function_t\fP)(APREQ_HOOK_ARGS)"
 .PP
 The callback function of a hook. See \fBapreq_hook_t\fP. 
 .SS "typedef struct \fBapreq_hook_t\fP \fBapreq_hook_t\fP"
 .PP
 A hook is called by the parser whenever data arrives in a file upload parameter of the request body. You may associate any number of hooks with a parser instance with \fBapreq_parser_add_hook()\fP. 
-.SS "typedef \fBapr_status_t\fP(*) \fBapreq_parser_function_t\fP(APREQ_PARSER_ARGS)"
+.SS "typedef \fBapr_status_t\fP(* \fBapreq_parser_function_t\fP)(APREQ_PARSER_ARGS)"
 .PP
 The callback function implementing a request body parser. 
 .SS "typedef struct \fBapreq_parser_t\fP \fBapreq_parser_t\fP"

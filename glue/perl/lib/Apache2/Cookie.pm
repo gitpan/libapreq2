@@ -9,7 +9,7 @@ use Apache2::RequestUtil;
 use overload '""' => sub { shift->as_string() }, fallback => 1;
 
 push our @ISA, "APR::Request::Cookie";
-our $VERSION = "2.12";
+our $VERSION = "2.13";
 
 sub new {
     my ($class, $r, %attrs) = @_;
@@ -432,6 +432,34 @@ Get or set the secure flag for the cookie:
     $cookie->secure(1);
     $is_secure = $cookie->secure;
     $cookie->secure(0);
+
+
+
+
+=head2 httponly
+
+    $cookie->httponly()
+    $cookie->httponly($set)
+
+Get or set the HttpOnly flag for the cookie:
+
+    $cookie->httponly(1);
+    $is_HttpOnly = $cookie->httponly;
+    $cookie->httponly(0);
+
+
+
+
+=head2 httponly
+
+    $cookie->httponly()
+    $cookie->httponly($set)
+
+Get or set the HttpOnly flag for the cookie:
+
+    $cookie->httponly(1);
+    $is_HttpOnly = $cookie->httponly;
+    $cookie->httponly(0);
 
 
 

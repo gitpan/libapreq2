@@ -1,8 +1,10 @@
-.TH "include/apreq.h" 3 "6 Mar 2009" "Version 2.12" "libapreq2" \" -*- nroff -*-
+.TH "include/apreq.h" 3 "25 Nov 2010" "Version 2.13" "libapreq2" \" -*- nroff -*-
 .ad l
 .nh
 .SH NAME
-include/apreq.h \- Main header file... 
+include/apreq.h \- Main header file...
+.PP
+Define the generic APREQ_ macros and common data structures. 
 .SH SYNOPSIS
 .br
 .PP
@@ -23,7 +25,7 @@ include/apreq.h \- Main header file...
 
 .in +1c
 .ti -1c
-.RI "#define \fBAPREQ_DECLARE\fP(d)   \fBAPR_DECLARE\fP(d)"
+.RI "#define \fBAPREQ_DECLARE\fP(d)   APR_DECLARE(d)"
 .br
 .ti -1c
 .RI "#define \fBAPREQ_DECLARE_NONSTD\fP(d)   APR_DECLARE_NONSTD(d)"
@@ -80,6 +82,12 @@ include/apreq.h \- Main header file...
 .RI "#define \fBAPREQ_COOKIE_SECURE_MASK\fP   1"
 .br
 .ti -1c
+.RI "#define \fBAPREQ_COOKIE_HTTPONLY_BIT\fP   14"
+.br
+.ti -1c
+.RI "#define \fBAPREQ_COOKIE_HTTPONLY_MASK\fP   1"
+.br
+.ti -1c
 .RI "#define \fBapreq_attr_to_type\fP(T, A, P)   ( (T*) ((char*)(P)-offsetof(T,A)) )"
 .br
 .in -1c
@@ -117,9 +125,11 @@ include/apreq.h \- Main header file...
 .in -1c
 .SH "Detailed Description"
 .PP 
-Main header file... 
-
+Main header file...
+.PP
 Define the generic APREQ_ macros and common data structures. 
+
+
 .SH "Define Documentation"
 .PP 
 .SS "#define apreq_attr_to_type(T, A, P)   ( (T*) ((char*)(P)-offsetof(T,A)) )"
@@ -153,6 +163,38 @@ Charset Bit
 .SS "#define APREQ_CHARSET_MASK   255"
 .PP
 Charset Mask 
+.PP
+\fBSee also:\fP
+.RS 4
+\fBAPREQ_FLAGS_OFF\fP 
+.PP
+\fBAPREQ_FLAGS_ON\fP 
+.PP
+\fBAPREQ_FLAGS_GET\fP 
+.PP
+\fBAPREQ_FLAGS_SET\fP 
+.RE
+.PP
+
+.SS "#define APREQ_COOKIE_HTTPONLY_BIT   14"
+.PP
+Cookie's HttpOnly Bit 
+.PP
+\fBSee also:\fP
+.RS 4
+\fBAPREQ_FLAGS_OFF\fP 
+.PP
+\fBAPREQ_FLAGS_ON\fP 
+.PP
+\fBAPREQ_FLAGS_GET\fP 
+.PP
+\fBAPREQ_FLAGS_SET\fP 
+.RE
+.PP
+
+.SS "#define APREQ_COOKIE_HTTPONLY_MASK   1"
+.PP
+Cookie's HttpOnly Mask 
 .PP
 \fBSee also:\fP
 .RS 4
@@ -230,18 +272,39 @@ Cookie Version Mask
 .RE
 .PP
 
-.SS "#define APREQ_DECLARE(d)   \fBAPR_DECLARE\fP(d)"
+.SS "#define APREQ_DECLARE(d)   APR_DECLARE(d)"
 .PP
-\fBAPREQ_DECLARE(rettype)\fP apeq_func(args) 
+The public APREQ functions are declared with \fBAPREQ_DECLARE()\fP, so they may use the most appropriate calling convention. Public APR functions with variable arguments must use APR_DECLARE_NONSTD().
+.PP
+\fBRemarks:\fP
+.RS 4
+Both the declaration and implementations must use the same macro. \fBAPREQ_DECLARE(rettype)\fP apeq_func(args) 
+.RE
+.PP
+
 .PP
 \fBExamples: \fP
 .in +1c
-\fB/home/joe/src/apache/httpd/apreq/branches/v2_12/include/apreq.h\fP.
+\fB/home/issac/asf/svn/v2_13/include/apreq.h\fP.
 .SS "#define APREQ_DECLARE_DATA"
 .PP
-extern APREQ_DECLARE_DATA type apr_variable;
+The public APREQ variables are declared with APREQ_DECLARE_DATA. This assures the appropriate indirection is invoked at compile time. 
+.PP
+\fBSee also:\fP
+.RS 4
+\fBAPREQ_DECLARE\fP 
+.PP
+\fBAPREQ_DECLARE_NONSTD\fP 
+.RE
+.PP
+\fBRemarks:\fP
+.RS 4
+Note that the declaration and implementations use different forms, but both must include the macro. extern APREQ_DECLARE_DATA type apr_variable;
 .br
  APREQ_DECLARE_DATA type apr_variable = value; 
+.RE
+.PP
+
 .SS "#define APREQ_DECLARE_NONSTD(d)   APR_DECLARE_NONSTD(d)"
 .PP
 APEQ_DECLARE_NONSTD(rettype) apr_func(args, ...); 
@@ -395,7 +458,7 @@ after you detroy the pool, you have to call this function again with a new pool 
 .PP
 \fBExamples: \fP
 .in +1c
-\fB/home/joe/src/apache/httpd/apreq/branches/v2_12/include/apreq.h\fP.
+\fB/home/issac/asf/svn/v2_13/include/apreq.h\fP.
 .SS "\fBapr_status_t\fP apreq_post_initialize (\fBapr_pool_t\fP * pool)"
 .PP
 Post-initialize libapreq2. Applications (except apache modules using mod_apreq2) should this exactly once before they use any libapreq2 modules for parsing.
@@ -409,7 +472,7 @@ Post-initialize libapreq2. Applications (except apache modules using mod_apreq2)
 .PP
 \fBExamples: \fP
 .in +1c
-\fB/home/joe/src/apache/httpd/apreq/branches/v2_12/include/apreq.h\fP.
+\fB/home/issac/asf/svn/v2_13/include/apreq.h\fP.
 .SS "\fBapr_status_t\fP apreq_pre_initialize (\fBapr_pool_t\fP * pool)"
 .PP
 Pre-initialize libapreq2. Applications (except apache modules using mod_apreq2) should call this exactly once before they register custom parsers with libapreq2. mod_apreq2 does this automatically during the post-config phase, so modules that need call apreq_register_parser should create a post-config hook using APR_HOOK_MIDDLE.
@@ -428,7 +491,7 @@ after you detroyed the pool, you have to call this function again with a new poo
 .PP
 \fBExamples: \fP
 .in +1c
-\fB/home/joe/src/apache/httpd/apreq/branches/v2_12/include/apreq.h\fP.
+\fB/home/issac/asf/svn/v2_13/include/apreq.h\fP.
 .SS "static APR_INLINE void apreq_value_table_add (const \fBapreq_value_t\fP * v, \fBapr_table_t\fP * t)\fC [static]\fP"
 .PP
 Adds the specified \fBapreq_value_t\fP to the apr_table_t.
@@ -456,7 +519,7 @@ apr_value_t
 .PP
 \fBExamples: \fP
 .in +1c
-\fB/home/joe/src/apache/httpd/apreq/branches/v2_12/include/apreq.h\fP.
+\fB/home/issac/asf/svn/v2_13/include/apreq.h\fP.
 .SH "Author"
 .PP 
 Generated automatically by Doxygen for libapreq2 from the source code.

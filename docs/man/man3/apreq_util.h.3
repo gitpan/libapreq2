@@ -1,4 +1,4 @@
-.TH "include/apreq_util.h" 3 "6 Mar 2009" "Version 2.12" "libapreq2" \" -*- nroff -*-
+.TH "include/apreq_util.h" 3 "25 Nov 2010" "Version 2.13" "libapreq2" \" -*- nroff -*-
 .ad l
 .nh
 .SH NAME
@@ -17,7 +17,7 @@ include/apreq_util.h \- Utility functions for apreq.
 
 .in +1c
 .ti -1c
-.RI "char * \fBapreq_join\fP (\fBapr_pool_t\fP *\fBp\fP, const char *sep, const \fBapr_array_header_t\fP *arr, \fBapreq_join_t\fP mode)"
+.RI "char * \fBapreq_join\fP (\fBapr_pool_t\fP *p, const char *sep, const \fBapr_array_header_t\fP *arr, \fBapreq_join_t\fP mode)"
 .br
 .ti -1c
 .RI "\fBapr_ssize_t\fP \fBapreq_index\fP (const char *hay, \fBapr_size_t\fP hlen, const char *ndl, \fBapr_size_t\fP nlen, const \fBapreq_match_t\fP type)"
@@ -44,7 +44,7 @@ include/apreq_util.h \- Utility functions for apreq.
 .RI "\fBapr_status_t\fP \fBapreq_decodev\fP (char *dest, \fBapr_size_t\fP *dlen, struct iovec *v, int nelts)"
 .br
 .ti -1c
-.RI "static APR_INLINE char * \fBapreq_escape\fP (\fBapr_pool_t\fP *\fBp\fP, const char *src, const \fBapr_size_t\fP slen)"
+.RI "static APR_INLINE char * \fBapreq_escape\fP (\fBapr_pool_t\fP *p, const char *src, const \fBapr_size_t\fP slen)"
 .br
 .ti -1c
 .RI "static APR_INLINE \fBapr_ssize_t\fP \fBapreq_unescape\fP (char *str)"
@@ -62,7 +62,7 @@ include/apreq_util.h \- Utility functions for apreq.
 .RI "\fBapr_status_t\fP \fBapreq_file_mktemp\fP (\fBapr_file_t\fP **fp, \fBapr_pool_t\fP *pool, const char *path)"
 .br
 .ti -1c
-.RI "static APR_INLINE \fBapr_status_t\fP \fBapreq_brigade_setaside\fP (\fBapr_bucket_brigade\fP *bb, \fBapr_pool_t\fP *\fBp\fP)"
+.RI "static APR_INLINE \fBapr_status_t\fP \fBapreq_brigade_setaside\fP (\fBapr_bucket_brigade\fP *bb, \fBapr_pool_t\fP *p)"
 .br
 .ti -1c
 .RI "static APR_INLINE \fBapr_status_t\fP \fBapreq_brigade_copy\fP (\fBapr_bucket_brigade\fP *d, \fBapr_bucket_brigade\fP *s)"

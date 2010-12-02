@@ -41,9 +41,9 @@ extern "C" {
  *
  */
 
-/** @todo convert this macro to an apreq_module_t method.
+/** This macro is deprecated.
  *
- * Maximum length of a single Set-Cookie(2) header.
+ * Maximum length of a single Set-Cookie(2) header. 
  */
 #define APREQ_COOKIE_MAX_LENGTH            4096
 
@@ -105,6 +105,27 @@ void apreq_cookie_secure_on(apreq_cookie_t *c) {
 static APR_INLINE
 void apreq_cookie_secure_off(apreq_cookie_t *c) {
     APREQ_FLAGS_OFF(c->flags, APREQ_COOKIE_SECURE);
+}
+
+/** @return 1 if the HttpOnly flag is set, 0 otherwise. */
+static APR_INLINE
+unsigned apreq_cookie_is_httponly(const apreq_cookie_t *c) {
+    return APREQ_FLAGS_GET(c->flags, APREQ_COOKIE_HTTPONLY);
+}
+
+/** Sets the cookie's HttpOnly flag, meaning it is not
+ *  accessible through client-side script in supported
+ *  browsers.
+ */
+static APR_INLINE
+void apreq_cookie_httponly_on(apreq_cookie_t *c) {
+    APREQ_FLAGS_ON(c->flags, APREQ_COOKIE_HTTPONLY);
+}
+
+/** Turns off the cookie's HttpOnly flag. */
+static APR_INLINE
+void apreq_cookie_httponly_off(apreq_cookie_t *c) {
+    APREQ_FLAGS_OFF(c->flags, APREQ_COOKIE_HTTPONLY);
 }
 
 

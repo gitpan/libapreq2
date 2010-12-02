@@ -63,7 +63,7 @@ The APR::Request::Cookie module provides base methods
 for interfacing with libapreq2's cookie API.  It also provides
 a few utility functions and constants.
 
-This manpage documents version 2.12
+This manpage documents version 2.13
 of the APR::Request::Cookie package.
 
 
@@ -116,6 +116,8 @@ The remaining arguments are optional:
 =over 4
 
 =item -secure
+
+=item -httponly
 
 =item -version
 
@@ -231,6 +233,28 @@ Get/set the cookie's secure flag.
 =for example_testing
     $cookie->secure(0);
     is $cookie->secure, 0, "secure";
+
+
+
+
+=head2 httponly
+
+    $cookie->httponly()
+    $cookie->httponly($set)
+
+
+Get/set the cookie's HttpOnly flag.
+
+=for example begin
+
+    $cookie->httponly(1);
+    ok $cookie->httponly == 1;
+
+=for example end
+
+=for example_testing
+    $cookie->httponly(0);
+    is $cookie->httponly, 0, "HttpOnly";
 
 
 

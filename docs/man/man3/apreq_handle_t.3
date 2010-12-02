@@ -1,4 +1,4 @@
-.TH "apreq_handle_t" 3 "6 Mar 2009" "Version 2.12" "libapreq2" \" -*- nroff -*-
+.TH "apreq_handle_t" 3 "25 Nov 2010" "Version 2.13" "libapreq2" \" -*- nroff -*-
 .ad l
 .nh
 .SH NAME
@@ -12,7 +12,7 @@ apreq_handle_t \-
 
 .in +1c
 .ti -1c
-.RI "\fBapreq_module_t\fP * \fBmodule\fP"
+.RI "struct \fBapreq_module_t\fP * \fBmodule\fP"
 .br
 .ti -1c
 .RI "\fBapr_pool_t\fP * \fBpool\fP"
@@ -24,7 +24,6 @@ apreq_handle_t \-
 .SH "Detailed Description"
 .PP 
 An apreq handle associated with a module. The structure may have variable size, because the module may append its own data structures after it. 
-.PP
 .SH "Field Documentation"
 .PP 
 .SS "struct \fBapreq_module_t\fP* \fBapreq_handle_t::module\fP\fC [read]\fP"

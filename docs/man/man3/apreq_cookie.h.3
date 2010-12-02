@@ -1,8 +1,10 @@
-.TH "include/apreq_cookie.h" 3 "6 Mar 2009" "Version 2.12" "libapreq2" \" -*- nroff -*-
+.TH "include/apreq_cookie.h" 3 "25 Nov 2010" "Version 2.13" "libapreq2" \" -*- nroff -*-
 .ad l
 .nh
 .SH NAME
-include/apreq_cookie.h \- Cookies and Jars. 
+include/apreq_cookie.h \- Cookies and Jars.
+.PP
+\fBapreq_cookie.h\fP describes a common server-side API for request (incoming) and response (outgoing) cookies. It aims towards compliance with the standard cookie specifications listed below. 
 .SH SYNOPSIS
 .br
 .PP
@@ -48,6 +50,15 @@ include/apreq_cookie.h \- Cookies and Jars.
 .RI "static APR_INLINE void \fBapreq_cookie_secure_off\fP (\fBapreq_cookie_t\fP *c)"
 .br
 .ti -1c
+.RI "static APR_INLINE unsigned \fBapreq_cookie_is_httponly\fP (const \fBapreq_cookie_t\fP *c)"
+.br
+.ti -1c
+.RI "static APR_INLINE void \fBapreq_cookie_httponly_on\fP (\fBapreq_cookie_t\fP *c)"
+.br
+.ti -1c
+.RI "static APR_INLINE void \fBapreq_cookie_httponly_off\fP (\fBapreq_cookie_t\fP *c)"
+.br
+.ti -1c
 .RI "static APR_INLINE unsigned \fBapreq_cookie_is_tainted\fP (const \fBapreq_cookie_t\fP *c)"
 .br
 .ti -1c
@@ -63,10 +74,10 @@ include/apreq_cookie.h \- Cookies and Jars.
 .RI "\fBapreq_cookie_t\fP * \fBapreq_cookie_make\fP (\fBapr_pool_t\fP *pool, const char *name, const \fBapr_size_t\fP nlen, const char *value, const \fBapr_size_t\fP vlen)"
 .br
 .ti -1c
-.RI "char * \fBapreq_cookie_as_string\fP (const \fBapreq_cookie_t\fP *c, \fBapr_pool_t\fP *\fBp\fP)"
+.RI "char * \fBapreq_cookie_as_string\fP (const \fBapreq_cookie_t\fP *c, \fBapr_pool_t\fP *p)"
 .br
 .ti -1c
-.RI "int \fBapreq_cookie_serialize\fP (const \fBapreq_cookie_t\fP *c, char *buf, \fBapr_size_t\fP \fBlen\fP)"
+.RI "int \fBapreq_cookie_serialize\fP (const \fBapreq_cookie_t\fP *c, char *buf, \fBapr_size_t\fP len)"
 .br
 .ti -1c
 .RI "void \fBapreq_cookie_expires\fP (\fBapreq_cookie_t\fP *c, const char *time_str)"
@@ -74,10 +85,10 @@ include/apreq_cookie.h \- Cookies and Jars.
 .in -1c
 .SH "Detailed Description"
 .PP 
-Cookies and Jars. 
-
-\fBapreq_cookie.h\fP describes a common server-side API for request (incoming) and response (outgoing) cookies. It aims towards compliance with the standard cookie specifications listed below.
+Cookies and Jars.
 .PP
+\fBapreq_cookie.h\fP describes a common server-side API for request (incoming) and response (outgoing) cookies. It aims towards compliance with the standard cookie specifications listed below. 
+
 \fBSee also:\fP
 .RS 4
 http://wp.netscape.com/newsref/std/cookie_spec.html 
@@ -94,10 +105,7 @@ http://www.ietf.org/rfc/rfc2965.txt
 .PP 
 .SS "#define APREQ_COOKIE_MAX_LENGTH   4096"
 .PP
-\fBTodo\fP
-.RS 4
-convert this macro to an \fBapreq_module_t\fP method.
-.RE
+This macro is deprecated.
 .PP
 Maximum length of a single Set-Cookie(2) header. 
 .SH "Function Documentation"
@@ -133,6 +141,20 @@ Set the Cookie's expiration date.
 \fBRemarks:\fP
 .RS 4
 Now time_str may also be a fixed date; see \fBapr_date_parse_rfc()\fP for admissible formats. 
+.RE
+.PP
+
+.SS "static APR_INLINE void apreq_cookie_httponly_off (\fBapreq_cookie_t\fP * c)\fC [static]\fP"
+.PP
+Turns off the cookie's HttpOnly flag. 
+.SS "static APR_INLINE void apreq_cookie_httponly_on (\fBapreq_cookie_t\fP * c)\fC [static]\fP"
+.PP
+Sets the cookie's HttpOnly flag, meaning it is not accessible through client-side script in supported browsers. 
+.SS "static APR_INLINE unsigned apreq_cookie_is_httponly (const \fBapreq_cookie_t\fP * c)\fC [static]\fP"
+.PP
+\fBReturns:\fP
+.RS 4
+1 if the HttpOnly flag is set, 0 otherwise. 
 .RE
 .PP
 

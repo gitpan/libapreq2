@@ -1,4 +1,4 @@
-.TH "include/apreq_module.h" 3 "6 Mar 2009" "Version 2.12" "libapreq2" \" -*- nroff -*-
+.TH "include/apreq_module.h" 3 "25 Nov 2010" "Version 2.13" "libapreq2" \" -*- nroff -*-
 .ad l
 .nh
 .SH NAME
@@ -22,7 +22,7 @@ include/apreq_module.h \- Module API.
 .ti -1c
 .RI "struct \fBapreq_module_t\fP"
 .br
-.RI "\fIVtable describing the necessary environment functions. \fP"
+.RI "\fIVtable describing the necessary module functions. \fP"
 .in -1c
 .SS "Defines"
 
@@ -92,13 +92,13 @@ include/apreq_module.h \- Module API.
 .RI "\fBapreq_handle_t\fP * \fBapreq_handle_custom\fP (\fBapr_pool_t\fP *pool, const char *query_string, const char *cookie, \fBapreq_parser_t\fP *parser, \fBapr_uint64_t\fP read_limit, \fBapr_bucket_brigade\fP *in)"
 .br
 .ti -1c
-.RI "\fBapreq_param_t\fP * \fBapreq_param\fP (\fBapreq_handle_t\fP *req, const char *\fBkey\fP)"
+.RI "\fBapreq_param_t\fP * \fBapreq_param\fP (\fBapreq_handle_t\fP *req, const char *key)"
 .br
 .ti -1c
-.RI "\fBapr_table_t\fP * \fBapreq_params\fP (\fBapreq_handle_t\fP *req, \fBapr_pool_t\fP *\fBp\fP)"
+.RI "\fBapr_table_t\fP * \fBapreq_params\fP (\fBapreq_handle_t\fP *req, \fBapr_pool_t\fP *p)"
 .br
 .ti -1c
-.RI "\fBapr_table_t\fP * \fBapreq_cookies\fP (\fBapreq_handle_t\fP *req, \fBapr_pool_t\fP *\fBp\fP)"
+.RI "\fBapr_table_t\fP * \fBapreq_cookies\fP (\fBapreq_handle_t\fP *req, \fBapr_pool_t\fP *p)"
 .br
 .in -1c
 .SH "Detailed Description"
@@ -121,7 +121,7 @@ Find the first cookie with the specified name. The match is case-insensitive.
 .PP
 \fBReturns:\fP
 .RS 4
-The first matching parameter (with args searched first) or NULL. 
+The first matching cookie or NULL. 
 .RE
 .PP
 
@@ -144,9 +144,9 @@ Convenience macro for defining a module by mapping a function prefix to an assoc
 .PP
 \fBParameters:\fP
 .RS 4
-\fIpre\fP Prefix to define new environment. All attributes of the apreq_env_module_t struct are defined with this as their prefix. The generated struct is named by appending '_module' to the prefix. 
+\fIpre\fP Prefix to define new module. All attributes of the \fBapreq_module_t\fP struct are defined with this as their prefix. The generated struct is named by appending '_module' to the prefix. 
 .br
-\fImmn\fP Magic number (i.e. version number) of this environment. 
+\fImmn\fP Magic number (i.e. version number) of this module. 
 .RE
 .PP
 

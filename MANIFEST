@@ -56,6 +56,8 @@ docs/html/files.html
 docs/html/functions.html
 docs/html/functions_vars.html
 docs/html/globals.html
+docs/html/globals_defs.html
+docs/html/globals_enum.html
 docs/html/globals_eval.html
 docs/html/globals_func.html
 docs/html/globals_type.html
@@ -133,7 +135,6 @@ glue/Makefile.in
 glue/perl/lib/Apache2/Cookie.pm
 glue/perl/lib/Apache2/Request.pm
 glue/perl/lib/Apache2/Upload.pm
-glue/perl/lib/APR/DummyVersions.pm
 glue/perl/Makefile.PL
 glue/perl/README
 glue/perl/t/apreq/big_input.t
@@ -242,7 +243,6 @@ Makefile.PL
 MANIFEST
 META.yml
 missing
-mkinstalldirs
 module/apache2/apreq_module_apache2.h
 module/apache2/apreq_private_apache2.h
 module/apache2/filter.c

@@ -1,4 +1,4 @@
-.TH "include/apreq_param.h" 3 "6 Mar 2009" "Version 2.12" "libapreq2" \" -*- nroff -*-
+.TH "include/apreq_param.h" 3 "25 Nov 2010" "Version 2.13" "libapreq2" \" -*- nroff -*-
 .ad l
 .nh
 .SH NAME
@@ -22,25 +22,25 @@ include/apreq_param.h \- Request parsing and parameter API.
 
 .in +1c
 .ti -1c
-.RI "static APR_INLINE unsigned \fBapreq_param_is_tainted\fP (const \fBapreq_param_t\fP *\fBp\fP)"
+.RI "static APR_INLINE unsigned \fBapreq_param_is_tainted\fP (const \fBapreq_param_t\fP *p)"
 .br
 .ti -1c
-.RI "static APR_INLINE void \fBapreq_param_tainted_on\fP (\fBapreq_param_t\fP *\fBp\fP)"
+.RI "static APR_INLINE void \fBapreq_param_tainted_on\fP (\fBapreq_param_t\fP *p)"
 .br
 .ti -1c
-.RI "static APR_INLINE void \fBapreq_param_tainted_off\fP (\fBapreq_param_t\fP *\fBp\fP)"
+.RI "static APR_INLINE void \fBapreq_param_tainted_off\fP (\fBapreq_param_t\fP *p)"
 .br
 .ti -1c
-.RI "static APR_INLINE \fBapreq_charset_t\fP \fBapreq_param_charset_set\fP (\fBapreq_param_t\fP *\fBp\fP, \fBapreq_charset_t\fP c)"
+.RI "static APR_INLINE \fBapreq_charset_t\fP \fBapreq_param_charset_set\fP (\fBapreq_param_t\fP *p, \fBapreq_charset_t\fP c)"
 .br
 .ti -1c
-.RI "static APR_INLINE \fBapreq_charset_t\fP \fBapreq_param_charset_get\fP (\fBapreq_param_t\fP *\fBp\fP)"
+.RI "static APR_INLINE \fBapreq_charset_t\fP \fBapreq_param_charset_get\fP (\fBapreq_param_t\fP *p)"
 .br
 .ti -1c
 .RI "static APR_INLINE \fBapreq_param_t\fP * \fBapreq_value_to_param\fP (const char *val)"
 .br
 .ti -1c
-.RI "\fBapreq_param_t\fP * \fBapreq_param_make\fP (\fBapr_pool_t\fP *\fBp\fP, const char *name, const \fBapr_size_t\fP nlen, const char *val, const \fBapr_size_t\fP vlen)"
+.RI "\fBapreq_param_t\fP * \fBapreq_param_make\fP (\fBapr_pool_t\fP *p, const char *name, const \fBapr_size_t\fP nlen, const char *val, const \fBapr_size_t\fP vlen)"
 .br
 .ti -1c
 .RI "\fBapr_status_t\fP \fBapreq_param_decode\fP (\fBapreq_param_t\fP **param, \fBapr_pool_t\fP *pool, const char *word, \fBapr_size_t\fP nlen, \fBapr_size_t\fP vlen)"
@@ -52,10 +52,10 @@ include/apreq_param.h \- Request parsing and parameter API.
 .RI "\fBapr_status_t\fP \fBapreq_parse_query_string\fP (\fBapr_pool_t\fP *pool, \fBapr_table_t\fP *t, const char *qs)"
 .br
 .ti -1c
-.RI "\fBapr_array_header_t\fP * \fBapreq_params_as_array\fP (\fBapr_pool_t\fP *\fBp\fP, const \fBapr_table_t\fP *t, const char *\fBkey\fP)"
+.RI "\fBapr_array_header_t\fP * \fBapreq_params_as_array\fP (\fBapr_pool_t\fP *p, const \fBapr_table_t\fP *t, const char *key)"
 .br
 .ti -1c
-.RI "const char * \fBapreq_params_as_string\fP (\fBapr_pool_t\fP *\fBp\fP, const \fBapr_table_t\fP *t, const char *\fBkey\fP, \fBapreq_join_t\fP mode)"
+.RI "const char * \fBapreq_params_as_string\fP (\fBapr_pool_t\fP *p, const \fBapr_table_t\fP *t, const char *key, \fBapreq_join_t\fP mode)"
 .br
 .ti -1c
 .RI "const \fBapr_table_t\fP * \fBapreq_uploads\fP (const \fBapr_table_t\fP *body, \fBapr_pool_t\fP *pool)"
